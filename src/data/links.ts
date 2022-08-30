@@ -1,6 +1,6 @@
 import { youthLinks } from '@/data/teams'
 
-export const publicLinks = [
+export const headerLinks = [
   {
     name: 'Kern',
     href: '/kern',
