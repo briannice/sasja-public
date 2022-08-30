@@ -7,6 +7,10 @@
     @apply font-lato text-black;
   }
 
+  main {
+    @apply flex-1;
+  }
+
   h1,
   h2,
   h3,
