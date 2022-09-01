@@ -1,4 +1,6 @@
 import HeadlessLink from '@/components/HeadlessLink'
+import FacebookIcon from '@/components/icons/FacebookIcon'
+import InstagramIcon from '@/components/icons/InstagramIcon'
 import Link from '@/components/Link'
 import { headerLinks } from '@/data/links'
 import { Menu } from '@headlessui/react'
@@ -9,9 +11,9 @@ import { RiArrowDownSLine } from 'react-icons/ri'
 
 export default function Header() {
   return (
-    <header className="fixed inset-x-0 top-0 h-20 shadow-sm laptop:h-24">
+    <header className="fixed inset-x-0 top-0 h-20 bg-white shadow-sm laptop:h-24">
       <nav className="container flex h-full items-center">
-        <Link href="/" className="relative block aspect-square h-4/5">
+        <Link href="/" className="relative block aspect-square h-3/4">
           <Image src="/logo.png" alt="Logo Sasja HC" layout="fill" objectFit="contain" />
         </Link>
         <ul className="ml-auto flex h-full">
@@ -61,6 +63,14 @@ export default function Header() {
             </li>
           ))}
         </ul>
+        <div className="ml-8 flex flex-col justify-center space-y-2">
+          <a href="https://www.facebook.com/SasjaHC">
+            <FacebookIcon className="h-4 w-4 text-primary" />
+          </a>
+          <a href="https://www.instagram.com/sasjahc">
+            <InstagramIcon className="h-4 w-4 text-primary" />
+          </a>
+        </div>
       </nav>
     </header>
   )
