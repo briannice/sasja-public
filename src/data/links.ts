@@ -7,11 +7,46 @@ export const headerLinks = [
   },
   {
     name: 'Club',
-    href: '/club',
+    sublinks: [
+      {
+        name: 'Contact',
+        href: '/club/contact',
+      },
+      {
+        name: 'Werking',
+        href: '/club/werking',
+      },
+      {
+        name: 'Inschrijven',
+        href: '/club/inschrijven',
+      },
+      {
+        name: 'Visie',
+        href: '/club/visie',
+      },
+      {
+        name: 'Historiek',
+        href: '/club/historiek',
+      },
+      {
+        name: 'Galerij',
+        href: '/club/galerij',
+      },
+    ],
   },
   {
     name: 'Jeugd',
-    sublinks: youthLinks,
+    sublinks: [
+      {
+        name: 'Algemeen',
+        href: '/jeugd',
+      },
+      ...youthLinks,
+    ],
+  },
+  {
+    name: 'Nieuws',
+    href: '/nieuws',
   },
   {
     name: 'Tickets',
