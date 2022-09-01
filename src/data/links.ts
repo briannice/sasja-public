@@ -57,3 +57,18 @@ export const headerLinks = [
     href: '/fanshop',
   },
 ]
+
+const createFooterLinks = () => {
+  const links = headerLinks.filter((link) => link.href)
+  const result = [{ name: 'Links', links: links }]
+
+  headerLinks.forEach((link) => {
+    if (link.sublinks) {
+      result.push({ name: link.name, links: link.sublinks })
+    }
+  })
+
+  return result
+}
+
+export const footerLinks = createFooterLinks()
