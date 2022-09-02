@@ -12,3 +12,12 @@ export type EventModel = BaseModel & {
   address: string
   public: boolean
 }
+
+export type NewsModel = BaseModel & {
+  title: string
+  time: string
+  content: string
+  tag: string
+  public: boolean
+  pinned: boolean
+}

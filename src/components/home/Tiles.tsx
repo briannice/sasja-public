@@ -1,12 +1,14 @@
 import EventCard from '@/components/cards/EventCard'
-import { EventModel } from '@/types/models'
+import NewsCard from '@/components/cards/NewsCard'
+import { EventModel, NewsModel } from '@/types/models'
 import React from 'react'
 
 type Props = {
   events: EventModel[]
+  news: NewsModel[]
 }
 
-export default function Tiles({ events }: Props) {
+export default function Tiles({ events, news }: Props) {
   return (
     <section className="bg-pattern py-8">
       <div className="container grid grid-cols-1 gap-8 tablet:grid-cols-2 laptop:grid-cols-3 ">
@@ -14,6 +16,10 @@ export default function Tiles({ events }: Props) {
 
         {events.map((event) => (
           <EventCard key={event.id} event={event} />
+        ))}
+
+        {news.map((newsItem) => (
+          <NewsCard key={newsItem.id} news={newsItem} />
         ))}
       </div>
     </section>

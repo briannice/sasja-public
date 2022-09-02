@@ -43,11 +43,11 @@
   }
 
   .card ul {
-    @apply pl-4;
+    @apply space-x-4 pl-4;
   }
 
   .card li {
-    @apply inline rounded-full bg-primary px-2 py-1 font-kanit text-xs text-white;
+    @apply inline rounded-full bg-primary px-2 py-1 font-kanit text-xs capitalize text-white;
   }
 
   .card-click {
