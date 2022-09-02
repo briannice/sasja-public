@@ -30,5 +30,6 @@ export const getStaticProps: GetStaticProps = async () => {
       events,
       news,
     },
+    revalidate: 2 * 60,
   }
 }
