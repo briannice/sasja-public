@@ -22,8 +22,32 @@
 }
 
 @layer components {
+  /* ----- */
+  /* CARDS */
+  /* ----- */
+
   .card {
-    @apply bg-white shadow;
+    @apply flex flex-col bg-white shadow;
+  }
+
+  .card h3 {
+    @apply m-4 mb-0 flex-1 border-b border-primary text-xl;
+  }
+
+  .card div {
+    @apply m-4 mt-4 flex items-center divide-x divide-primary;
+  }
+
+  .card time {
+    @apply pr-4 font-kanit;
+  }
+
+  .card ul {
+    @apply pl-4;
+  }
+
+  .card li {
+    @apply inline rounded-full bg-primary px-2 py-1 font-kanit text-xs text-white;
   }
 
   .card-click {
