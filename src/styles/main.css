@@ -20,3 +20,17 @@
     @apply font-kanit;
   }
 }
+
+@layer components {
+  .card {
+    @apply bg-white shadow;
+  }
+
+  .card-click {
+    @apply cursor-pointer transition-shadow hover:shadow-lg;
+  }
+
+  .card-col-1 {
+    @apply aspect-square;
+  }
+}

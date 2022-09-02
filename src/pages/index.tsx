@@ -1,3 +1,4 @@
+import Tiles from '@/components/home/Tiles'
 import { db } from '@/services/firebase'
 import { collectionToModels } from '@/services/firebase/firestore'
 import { EventModel } from '@/types/models'
@@ -12,7 +13,9 @@ type Props = {
 export default function Home({ events }: Props) {
   return (
     <main>
-      <h1>Sajsa public</h1>
+      <h1 className="sr-only">Sajsa HC</h1>
+
+      <Tiles events={events} />
     </main>
   )
 }
