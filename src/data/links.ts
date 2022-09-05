@@ -1,5 +1,40 @@
 import { youthLinks } from '@/data/teams'
 
+const clubSublinks = [
+  {
+    name: 'Contact',
+    href: '/club/contact',
+  },
+  {
+    name: 'Werking',
+    href: '/club/werking',
+  },
+  {
+    name: 'Inschrijven',
+    href: '/club/inschrijven',
+  },
+  {
+    name: 'Visie',
+    href: '/club/visie',
+  },
+  {
+    name: 'Historiek',
+    href: '/club/historiek',
+  },
+  {
+    name: 'Galerij',
+    href: '/club/galerij',
+  },
+]
+
+const youthSublinks = [
+  {
+    name: 'Algemeen',
+    href: '/jeugd',
+  },
+  ...youthLinks,
+]
+
 export const headerLinks = [
   {
     name: 'Kern',
@@ -7,42 +42,11 @@ export const headerLinks = [
   },
   {
     name: 'Club',
-    sublinks: [
-      {
-        name: 'Contact',
-        href: '/club/contact',
-      },
-      {
-        name: 'Werking',
-        href: '/club/werking',
-      },
-      {
-        name: 'Inschrijven',
-        href: '/club/inschrijven',
-      },
-      {
-        name: 'Visie',
-        href: '/club/visie',
-      },
-      {
-        name: 'Historiek',
-        href: '/club/historiek',
-      },
-      {
-        name: 'Galerij',
-        href: '/club/galerij',
-      },
-    ],
+    sublinks: clubSublinks,
   },
   {
     name: 'Jeugd',
-    sublinks: [
-      {
-        name: 'Algemeen',
-        href: '/jeugd',
-      },
-      ...youthLinks,
-    ],
+    sublinks: youthSublinks,
   },
   {
     name: 'Nieuws',
