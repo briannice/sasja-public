@@ -49,3 +49,7 @@ export const teams = [
 export const youthLinks = teams
   .filter((team) => team.youth)
   .map((team) => ({ name: team.name, href: `/team/${team.uid}` }))
+
+export const teamLinks = teams
+  .filter((team) => !team.youth)
+  .map((team) => ({ name: team.name, href: `/team/${team.uid}` }))

@@ -1,4 +1,4 @@
-import { youthLinks } from '@/data/teams'
+import { teamLinks, youthLinks } from '@/data/teams'
 
 const clubSublinks = [
   {
@@ -27,6 +27,14 @@ const clubSublinks = [
   },
 ]
 
+const teamSublinks = [
+  {
+    name: 'Algemeen',
+    href: '/jeugd',
+  },
+  ...teamLinks,
+]
+
 const youthSublinks = [
   {
     name: 'Algemeen',
@@ -38,15 +46,15 @@ const youthSublinks = [
 export const headerLinks = [
   {
     name: 'Kern',
-    href: '/kern',
-  },
-  {
-    name: 'Club',
-    sublinks: clubSublinks,
+    sublinks: teamSublinks,
   },
   {
     name: 'Jeugd',
     sublinks: youthSublinks,
+  },
+  {
+    name: 'Club',
+    sublinks: clubSublinks,
   },
   {
     name: 'Nieuws',

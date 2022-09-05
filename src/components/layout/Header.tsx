@@ -45,7 +45,7 @@ export default function Header() {
                                 <HeadlessLink
                                   href={sublink.href}
                                   className={clsx(
-                                    'py-2 px-8 text-right font-kanit text-dark',
+                                    'whitespace-nowrap py-2 px-8 text-right font-kanit text-dark',
                                     active && 'bg-light'
                                   )}
                                 >
