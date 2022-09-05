@@ -27,6 +27,22 @@ module.exports = {
         DEFAULT: '#B6A255',
         dark: '#978541',
       },
+      info: {
+        DEFAULT: colors.blue[500],
+        dark: colors.blue[600],
+      },
+      success: {
+        DEFAULT: colors.green[500],
+        dark: colors.green[600],
+      },
+      error: {
+        DEFAULT: colors.red[500],
+        dark: colors.red[600],
+      },
+      warning: {
+        DEFAULT: colors.orange[500],
+        dark: colors.orange[600],
+      },
     },
     container: {
       center: true,

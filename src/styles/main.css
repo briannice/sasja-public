@@ -8,7 +8,7 @@
   }
 
   main {
-    @apply flex-1;
+    @apply flex-1 bg-pattern;
   }
 
   h1,
@@ -19,9 +19,49 @@
   h6 {
     @apply font-kanit;
   }
+
+  table {
+    @apply min-w-full table-auto shadow;
+  }
+
+  th {
+    @apply bg-primary px-4 py-2 text-left font-kanit font-medium text-white;
+  }
+
+  tbody {
+    @apply divide-y divide-light;
+  }
+
+  td {
+    @apply bg-white px-4 py-2;
+  }
 }
 
 @layer components {
+  /* ------- */
+  /* BUTTONS */
+  /* ------- */
+
+  .btn {
+    @apply shadow-sm ring-offset-2 focus:outline-none focus:ring-2;
+  }
+
+  .btn-text-icon {
+    @apply inline-flex items-center justify-between space-x-3 rounded-sm px-5 py-2;
+  }
+
+  .btn-text-icon > span {
+    @apply font-kanit;
+  }
+
+  .btn-text-icon > svg {
+    @apply h-5 w-5;
+  }
+
+  .btn-primary {
+    @apply border-primary bg-primary text-white ring-primary hover:bg-primary-dark focus:border-primary;
+  }
+
   /* ----- */
   /* CARDS */
   /* ----- */

@@ -1,3 +1,4 @@
+import Competition from '@/components/Competition'
 import { db } from '@/services/firebase'
 import { collectionToModels } from '@/services/firebase/firestore'
 import { getHandballBelgiumRanking } from '@/services/hb/ranking'
@@ -9,6 +10,7 @@ import React from 'react'
 type Competition = {
   name: string
   ranking: RankModel[]
+  serieId: number
 }
 
 type Props = {
@@ -19,17 +21,10 @@ type Props = {
 export default function TeamPage({ competitions, team }: Props) {
   return (
     <main>
-      <h1>{team.name}</h1>
-      <section>
-        {competitions.map(({ name, ranking }) => (
-          <div key={name}>
-            <p>{name}</p>
-            {ranking.map((rank) => (
-              <p key={rank.id}>{rank.club_id}</p>
-            ))}
-          </div>
-        ))}
-      </section>
+      <h1 className="sr-only">{team.name}</h1>
+      {competitions.map(({ name, ranking, serieId }) => (
+        <Competition key={name} name={name} ranking={ranking} serieId={serieId} />
+      ))}
     </main>
   )
 }
@@ -64,6 +59,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     competitions.push({
       name: competition.name,
       ranking,
+      serieId: competition.serieId,
     })
   }
 
