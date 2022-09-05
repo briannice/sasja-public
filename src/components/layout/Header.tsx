@@ -64,10 +64,10 @@ export default function Header() {
           ))}
         </ul>
         <div className="ml-8 flex flex-col justify-center space-y-2">
-          <a href="https://www.facebook.com/SasjaHC">
+          <a href="https://www.facebook.com/SasjaHC" target="_blank" rel="noreferrer">
             <FacebookIcon className="h-4 w-4 text-primary" />
           </a>
-          <a href="https://www.instagram.com/sasjahc">
+          <a href="https://www.instagram.com/sasjahc" target="_blank" rel="noreferrer">
             <InstagramIcon className="h-4 w-4 text-primary" />
           </a>
         </div>
