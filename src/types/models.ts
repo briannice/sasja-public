@@ -21,3 +21,13 @@ export type NewsModel = BaseModel & {
   public: boolean
   pinned: boolean
 }
+
+export type TeamModel = BaseModel & {
+  name: string
+  uid: string
+  youth: boolean
+  competitions: {
+    name: string
+    serieId: number
+  }[]
+}

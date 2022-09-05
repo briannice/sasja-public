@@ -1,46 +1,46 @@
 export const teams = [
   {
-    id: 'eerste-ploeg',
+    uid: 'eerste-ploeg',
     name: 'Eerste Ploeg',
     youth: false,
   },
   {
-    id: 'beloften',
+    uid: 'beloften',
     name: 'Beloften',
     youth: false,
   },
   {
-    id: 'u18',
-    name: 'U18',
-    youth: true,
+    uid: 'sasja3',
+    name: 'Sasja 3',
+    youth: false,
   },
   {
-    id: 'jm16',
+    uid: 'jm16',
     name: 'JM16',
     youth: true,
   },
   {
-    id: 'jm14',
+    uid: 'jm14',
     name: 'JM14',
     youth: true,
   },
   {
-    id: 'm13',
-    name: 'M13',
+    uid: 'jm12-midden',
+    name: 'JM12 Midden',
     youth: true,
   },
   {
-    id: 'jm12',
-    name: 'JM12',
+    uid: 'jm12-noord',
+    name: 'JM12 Noord',
     youth: true,
   },
   {
-    id: 'jm10',
+    uid: 'jm10',
     name: 'JM10',
     youth: true,
   },
   {
-    id: 'jm8',
+    uid: 'jm8',
     name: 'JM8',
     youth: true,
   },
@@ -48,4 +48,4 @@ export const teams = [
 
 export const youthLinks = teams
   .filter((team) => team.youth)
-  .map((team) => ({ name: team.name, href: `/teams/${team.id}` }))
+  .map((team) => ({ name: team.name, href: `/team/${team.uid}` }))
