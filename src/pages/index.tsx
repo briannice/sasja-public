@@ -1,4 +1,3 @@
-import Tiles from '@/components/home/Tiles'
 import { db } from '@/services/firebase'
 import { collectionToModels } from '@/services/firebase/firestore'
 import { EventModel, NewsModel } from '@/types/models'
@@ -11,12 +10,10 @@ type Props = {
   news: NewsModel[]
 }
 
-export default function Home({ events, news }: Props) {
+export default function Home({}: Props) {
   return (
     <main>
       <h1 className="sr-only">Sajsa HC</h1>
-
-      <Tiles events={events} news={news} />
     </main>
   )
 }

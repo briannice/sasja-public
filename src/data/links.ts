@@ -1,48 +1,60 @@
-import { youthLinks } from '@/data/teams'
+import { teamLinks, youthLinks } from '@/data/teams'
+
+const clubSublinks = [
+  {
+    name: 'Contact',
+    href: '/club/contact',
+  },
+  {
+    name: 'Werking',
+    href: '/club/werking',
+  },
+  {
+    name: 'Inschrijven',
+    href: '/club/inschrijven',
+  },
+  {
+    name: 'Visie',
+    href: '/club/visie',
+  },
+  {
+    name: 'Historiek',
+    href: '/club/historiek',
+  },
+  {
+    name: 'Galerij',
+    href: '/club/galerij',
+  },
+]
+
+const teamSublinks = [
+  {
+    name: 'Algemeen',
+    href: '/jeugd',
+  },
+  ...teamLinks,
+]
+
+const youthSublinks = [
+  {
+    name: 'Algemeen',
+    href: '/jeugd',
+  },
+  ...youthLinks,
+]
 
 export const headerLinks = [
   {
     name: 'Kern',
-    href: '/kern',
-  },
-  {
-    name: 'Club',
-    sublinks: [
-      {
-        name: 'Contact',
-        href: '/club/contact',
-      },
-      {
-        name: 'Werking',
-        href: '/club/werking',
-      },
-      {
-        name: 'Inschrijven',
-        href: '/club/inschrijven',
-      },
-      {
-        name: 'Visie',
-        href: '/club/visie',
-      },
-      {
-        name: 'Historiek',
-        href: '/club/historiek',
-      },
-      {
-        name: 'Galerij',
-        href: '/club/galerij',
-      },
-    ],
+    sublinks: teamSublinks,
   },
   {
     name: 'Jeugd',
-    sublinks: [
-      {
-        name: 'Algemeen',
-        href: '/jeugd',
-      },
-      ...youthLinks,
-    ],
+    sublinks: youthSublinks,
+  },
+  {
+    name: 'Club',
+    sublinks: clubSublinks,
   },
   {
     name: 'Nieuws',
