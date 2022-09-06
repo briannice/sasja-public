@@ -1,3 +1,4 @@
+import ClubLogo from '@/components/teams/ClubLogo'
 import { db } from '@/services/firebase'
 import { collectionToModels } from '@/services/firebase/firestore'
 import { getHandballBelgiumRanking } from '@/services/hb/ranking'
@@ -21,6 +22,7 @@ export default function RankingPage({ ranking }: Props) {
             <tr>
               <th className="text-center">#</th>
               <th className="text-right">Team</th>
+              <th></th>
               <th className="text-center">P</th>
               <th className="text-center">G</th>
               <th className="text-center">W</th>
@@ -37,6 +39,9 @@ export default function RankingPage({ ranking }: Props) {
               <tr key={rank.id}>
                 <td>{rank.position}</td>
                 <td className="text-right">{rank.name}</td>
+                <td>
+                  <ClubLogo path={rank.logo} size={20} />
+                </td>
                 <td className="font-bold">{rank.points}</td>
                 <td>{rank.played}</td>
                 <td>{rank.wins}</td>
