@@ -4,9 +4,6 @@ const colors = require('tailwindcss/colors')
 module.exports = {
   content: ['./src/pages/**/*.tsx', './src/components/**/*.tsx'],
   theme: {
-    backgroundImage: {
-      pattern: "url('/pattern.png')",
-    },
     colors: {
       transparent: colors.transparent,
       white: colors.white,
@@ -65,7 +62,11 @@ module.exports = {
       laptop: '1024px',
       desktop: '1280px',
     },
-    extend: {},
+    extend: {
+      backgroundImage: {
+        pattern: "url('/pattern.png')",
+      },
+    },
   },
   plugins: [],
 }

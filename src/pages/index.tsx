@@ -1,3 +1,4 @@
+import TicketsAndAbos from '@/components/home/TicketsAndAbos'
 import { db } from '@/services/firebase'
 import { collectionToModels } from '@/services/firebase/firestore'
 import { EventModel, NewsModel } from '@/types/models'
@@ -14,6 +15,7 @@ export default function Home({}: Props) {
   return (
     <main>
       <h1 className="sr-only">Sajsa HC</h1>
+      <TicketsAndAbos />
     </main>
   )
 }
