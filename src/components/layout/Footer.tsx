@@ -1,13 +1,17 @@
 import FacebookIcon from '@/components/icons/FacebookIcon'
 import InstagramIcon from '@/components/icons/InstagramIcon'
 import Link from '@/components/Link'
+import Sponsors from '@/components/Sponsors'
 import { footerLinks } from '@/data/links'
 import React from 'react'
 import { RiMailFill, RiMapPinFill } from 'react-icons/ri'
 
 export default function Footer() {
   return (
-    <footer className="bg-light py-16">
+    <footer className="space-y-32 bg-white pb-16 pt-32">
+      <div className="container flex flex-col items-center space-y-16">
+        <Sponsors />
+      </div>
       <div className="container flex justify-between">
         <div className="flex space-x-16">
           {footerLinks.map((link) => (
@@ -26,7 +30,7 @@ export default function Footer() {
           ))}
         </div>
         <div>
-          <div className="mt-8 flex flex-col items-end">
+          <div className="flex flex-col items-end">
             <p className="border-b border-primary pb-2 font-kanit">Social Media</p>
             <ul className="mt-4 flex space-x-4">
               <li>
