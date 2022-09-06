@@ -1,9 +1,8 @@
-import ClubLogo from '@/components/teams/ClubLogo'
+import RankingTable from '@/components/teams/RankingTable'
 import { db } from '@/services/firebase'
 import { collectionToModels } from '@/services/firebase/firestore'
 import { getHandballBelgiumRanking } from '@/services/hb/ranking'
 import { RankModel, TeamModel } from '@/types/models'
-import clsx from 'clsx'
 import { collection, getDocs, query } from 'firebase/firestore'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import React from 'react'
@@ -17,61 +16,7 @@ export default function RankingPage({ ranking }: Props) {
     <main>
       <h1 className="sr-only">Klassement</h1>
       <div className="container py-16">
-        <table className="text-center">
-          <thead>
-            <tr>
-              <th className="text-center">#</th>
-              <th className="text-right">Team</th>
-              <th></th>
-              <th className="text-center">P</th>
-              <th className="text-center">G</th>
-              <th className="text-center">W</th>
-              <th className="text-center">D</th>
-              <th className="text-center">L</th>
-              <th className="text-center">+/-</th>
-              <th className="text-center">+</th>
-              <th className="text-center">-</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {ranking.map((rank) => (
-              <tr key={rank.id}>
-                <td>{rank.position}</td>
-                <td className="text-right">{rank.name}</td>
-                <td>
-                  <ClubLogo path={rank.logo} size={20} />
-                </td>
-                <td className="font-bold">{rank.points}</td>
-                <td>{rank.played}</td>
-                <td>{rank.wins}</td>
-                <td>{rank.draws}</td>
-                <td>{rank.losses}</td>
-                <td>{rank.difference}</td>
-                <td>{rank.scored}</td>
-                <td>{rank.conceded}</td>
-                <td>
-                  <ul className="flex items-center">
-                    {rank.results.map((type, i) => (
-                      <li key={i}>
-                        <p
-                          className={clsx(
-                            'flex h-6 w-6 items-center justify-center rounded-full text-xs font-bold text-white',
-                            type === 'W' && 'bg-success',
-                            type === 'D' && 'bg-warning',
-                            type === 'L' && 'bg-error'
-                          )}
-                        >
-                          {type}
-                        </p>
-                      </li>
-                    ))}
-                  </ul>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <RankingTable ranking={ranking} />
       </div>
     </main>
   )
