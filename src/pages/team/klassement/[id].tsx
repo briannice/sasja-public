@@ -15,7 +15,7 @@ export default function RankingPage({ ranking }: Props) {
   return (
     <main>
       <h1 className="sr-only">Klassement</h1>
-      <div className="container mt-16">
+      <div className="container py-16">
         <table className="text-center">
           <thead>
             <tr>
