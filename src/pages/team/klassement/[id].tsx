@@ -36,34 +36,31 @@ export default function RankingPage({ ranking }: Props) {
             {ranking.map((rank) => (
               <tr key={rank.id}>
                 <td>{rank.position}</td>
-                <td className="text-right">{rank.team_name}</td>
+                <td className="text-right">{rank.name}</td>
                 <td className="font-bold">{rank.points}</td>
                 <td>{rank.played}</td>
                 <td>{rank.wins}</td>
                 <td>{rank.draws}</td>
                 <td>{rank.losses}</td>
-                <td>{rank.score_for - rank.score_against}</td>
-                <td>{rank.score_for}</td>
-                <td>{rank.score_against}</td>
+                <td>{rank.difference}</td>
+                <td>{rank.scored}</td>
+                <td>{rank.conceded}</td>
                 <td>
                   <ul className="flex items-center">
-                    {rank.result_sequence
-                      .replaceAll(/\"|\[|\]/g, '')
-                      .split(',')
-                      .map((type, i) => (
-                        <li key={i}>
-                          <p
-                            className={clsx(
-                              'flex h-6 w-6 items-center justify-center rounded-full text-xs font-bold text-white',
-                              type === 'W' && 'bg-success',
-                              type === 'D' && 'bg-warning',
-                              type === 'L' && 'bg-error'
-                            )}
-                          >
-                            {type}
-                          </p>
-                        </li>
-                      ))}
+                    {rank.results.map((type, i) => (
+                      <li key={i}>
+                        <p
+                          className={clsx(
+                            'flex h-6 w-6 items-center justify-center rounded-full text-xs font-bold text-white',
+                            type === 'W' && 'bg-success',
+                            type === 'D' && 'bg-warning',
+                            type === 'L' && 'bg-error'
+                          )}
+                        >
+                          {type}
+                        </p>
+                      </li>
+                    ))}
                   </ul>
                 </td>
               </tr>

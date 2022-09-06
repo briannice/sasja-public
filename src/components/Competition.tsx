@@ -29,9 +29,9 @@ export default function Competition({ calendar, name, ranking, serieId }: Props)
             </thead>
             <tbody>
               {ranking.map((rank) => (
-                <tr key={rank.id} className={clsx(rank.team_name === 'Sasja HC' && 'font-bold')}>
+                <tr key={rank.id} className={clsx(rank.name === 'Sasja HC' && 'font-bold')}>
                   <td>{rank.position}</td>
-                  <td>{rank.team_name}</td>
+                  <td>{rank.short}</td>
                   <td className="text-right">{rank.points}</td>
                 </tr>
               ))}
