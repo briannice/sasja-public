@@ -11,7 +11,7 @@ import { RiArrowDownSLine } from 'react-icons/ri'
 
 export default function Header() {
   return (
-    <header className="fixed inset-x-0 top-0 h-20 bg-white shadow-sm laptop:h-24">
+    <header className="fixed inset-x-0 top-0 z-40 h-20 bg-white shadow-sm laptop:h-24">
       <nav className="container flex h-full items-center">
         <Link href="/" className="relative block aspect-square h-3/4">
           <Image src="/logo.png" alt="Logo Sasja HC" layout="fill" objectFit="contain" />
@@ -38,7 +38,7 @@ export default function Header() {
                             )}
                           />
                         </Menu.Button>
-                        <Menu.Items className="absolute right-8 -mt-2 flex flex-col rounded-lg border border-light bg-white shadow-lg">
+                        <Menu.Items className="absolute right-8 z-50 -mt-2 flex flex-col rounded-lg border border-light bg-white shadow-lg">
                           {link.sublinks.map((sublink) => (
                             <Menu.Item key={sublink.name}>
                               {({ active }) => (
