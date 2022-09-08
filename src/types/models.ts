@@ -13,6 +13,28 @@ export type EventModel = BaseModel & {
   public: boolean
 }
 
+export type TeamModel = BaseModel & {
+  name: string
+  uid: string
+  youth: boolean
+  competitions: {
+    name: string
+    serieId: number
+  }[]
+}
+
+export type PlayerModel = BaseModel & {
+  firstname: string
+  lastname: string
+  position: string
+  description: string
+  backNumber: number
+  birthday: string
+  registration: string
+  public: boolean
+  teamId: string
+}
+
 export type NewsModel = BaseModel & {
   title: string
   time: string
@@ -22,14 +44,22 @@ export type NewsModel = BaseModel & {
   pinned: boolean
 }
 
-export type TeamModel = BaseModel & {
+export type OpponentModel = BaseModel & {
   name: string
-  uid: string
-  youth: boolean
-  competitions: {
-    name: string
-    serieId: number
-  }[]
+  short: string
+  logo: string
+}
+
+export type MatchReportModel = BaseModel & {
+  time: string
+  tag: string
+  writer: string
+  home: boolean
+  score: { sasja: number; opponent: number }[]
+  content: string
+  opponentId: string
+  teamId: string
+  public: boolean
 }
 
 export type RankModel = {

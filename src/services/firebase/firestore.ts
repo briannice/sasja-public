@@ -12,7 +12,16 @@ export const documentToModel = <M>(document: Document) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const result: any = { id: document.id, ...document.data() }
 
-  const timeKeys = ['created', 'updated', 'date', 'dateTime', 'time', 'moment']
+  const timeKeys = [
+    'created',
+    'updated',
+    'date',
+    'dateTime',
+    'time',
+    'moment',
+    'registration',
+    'birthday',
+  ]
 
   Object.entries(result).forEach(([key, value]) => {
     if (timeKeys.includes(key)) {
