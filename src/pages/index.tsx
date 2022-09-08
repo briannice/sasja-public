@@ -4,6 +4,7 @@ import { queryToModels } from '@/services/firebase/firestore'
 import { EventModel, MatchReportModel, NewsModel, OpponentModel, TeamModel } from '@/types/models'
 import { collection, query } from 'firebase/firestore'
 import { GetStaticProps } from 'next'
+import Head from 'next/head'
 import React from 'react'
 
 type Props = {
@@ -16,19 +17,24 @@ type Props = {
 
 export default function Home({}: Props) {
   return (
-    <main>
-      <h1 className="sr-only">Sajsa HC</h1>
-      <TicketsAndAbos />
-    </main>
+    <>
+      <Head>
+        <title>Sasja HC | Home</title>
+      </Head>
+      <main>
+        <h1 className="sr-only">Sasja HC | Home</h1>
+        <TicketsAndAbos />
+      </main>
+    </>
   )
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const events = queryToModels<EventModel>(query(collection(db, 'events')))
-  const news = queryToModels<NewsModel>(query(collection(db, 'news')))
-  const teams = queryToModels<TeamModel>(query(collection(db, 'teams')))
-  const opponents = queryToModels<OpponentModel>(query(collection(db, 'opponents')))
-  const matchReports = queryToModels<MatchReportModel>(query(collection(db, 'matchreport')))
+  const events = await queryToModels<EventModel>(query(collection(db, 'events')))
+  const news = await queryToModels<NewsModel>(query(collection(db, 'news')))
+  const teams = await queryToModels<TeamModel>(query(collection(db, 'teams')))
+  const opponents = await queryToModels<OpponentModel>(query(collection(db, 'opponents')))
+  const matchReports = await queryToModels<MatchReportModel>(query(collection(db, 'matchreport')))
 
   return {
     props: {
