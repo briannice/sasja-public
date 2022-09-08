@@ -1,3 +1,5 @@
+import Hero from '@/components/home/Hero'
+import News from '@/components/home/News'
 import TicketsAndAbos from '@/components/home/TicketsAndAbos'
 import { db } from '@/services/firebase'
 import { queryToModels } from '@/services/firebase/firestore'
@@ -15,7 +17,7 @@ type Props = {
   matchReports: MatchReportModel[]
 }
 
-export default function Home({}: Props) {
+export default function Home({ events, teams, matchReports, news, opponents }: Props) {
   return (
     <>
       <Head>
@@ -23,6 +25,14 @@ export default function Home({}: Props) {
       </Head>
       <main>
         <h1 className="sr-only">Sasja HC | Home</h1>
+        <Hero events={events} />
+        <News
+          events={events}
+          matchReports={matchReports}
+          news={news}
+          opponents={opponents}
+          teams={teams}
+        />
         <TicketsAndAbos />
       </main>
     </>
