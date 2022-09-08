@@ -1,6 +1,8 @@
 import {
   DocumentData,
   DocumentSnapshot,
+  getDocs,
+  Query,
   QueryDocumentSnapshot,
   QuerySnapshot,
   Timestamp,
@@ -37,3 +39,5 @@ type Collection = QuerySnapshot<DocumentData>
 
 export const collectionToModels = <M>(collection: Collection) =>
   collection.docs.map((doc) => documentToModel<M>(doc))
+
+export const queryToModels = async <M>(query: Query) => collectionToModels<M>(await getDocs(query))
