@@ -1,33 +1,58 @@
+import Hero from '@/components/home/Hero'
+import News from '@/components/home/News'
 import TicketsAndAbos from '@/components/home/TicketsAndAbos'
 import { db } from '@/services/firebase'
-import { collectionToModels } from '@/services/firebase/firestore'
-import { EventModel, NewsModel } from '@/types/models'
-import { collection, getDocs, query } from 'firebase/firestore'
+import { queryToModels } from '@/services/firebase/firestore'
+import { EventModel, MatchReportModel, NewsModel, OpponentModel, TeamModel } from '@/types/models'
+import { collection, query } from 'firebase/firestore'
 import { GetStaticProps } from 'next'
+import Head from 'next/head'
 import React from 'react'
 
 type Props = {
   events: EventModel[]
   news: NewsModel[]
+  teams: TeamModel[]
+  opponents: OpponentModel[]
+  matchReports: MatchReportModel[]
 }
 
-export default function Home({}: Props) {
+export default function Home({ events, teams, matchReports, news, opponents }: Props) {
   return (
-    <main>
-      <h1 className="sr-only">Sajsa HC</h1>
-      <TicketsAndAbos />
-    </main>
+    <>
+      <Head>
+        <title>Sasja HC | Home</title>
+      </Head>
+      <main>
+        <h1 className="sr-only">Sasja HC | Home</h1>
+        <Hero events={events} />
+        <News
+          events={events}
+          matchReports={matchReports}
+          news={news}
+          opponents={opponents}
+          teams={teams}
+        />
+        <TicketsAndAbos />
+      </main>
+    </>
   )
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const events = collectionToModels<EventModel>(await getDocs(query(collection(db, 'events'))))
-  const news = collectionToModels<NewsModel>(await getDocs(query(collection(db, 'news'))))
+  const events = await queryToModels<EventModel>(query(collection(db, 'events')))
+  const news = await queryToModels<NewsModel>(query(collection(db, 'news')))
+  const teams = await queryToModels<TeamModel>(query(collection(db, 'teams')))
+  const opponents = await queryToModels<OpponentModel>(query(collection(db, 'opponents')))
+  const matchReports = await queryToModels<MatchReportModel>(query(collection(db, 'matchreport')))
 
   return {
     props: {
       events,
       news,
+      teams,
+      opponents,
+      matchReports,
     },
     revalidate: 2 * 60,
   }

@@ -1,3 +1,4 @@
+import Container from '@/components/Container'
 import React from 'react'
 
 const tickets = [
@@ -37,7 +38,7 @@ const tickets = [
 
 export default function TicketsAndAbos() {
   return (
-    <section className="container mt-16 grid grid-cols-2 gap-8">
+    <Container className="grid grid-cols-2 gap-8">
       <h2 className="sr-only">Tickets en abonnementen</h2>
       <section className="card px-8 py-16">
         <h3 className="text-center text-5xl">Tickets</h3>
@@ -65,6 +66,6 @@ export default function TicketsAndAbos() {
           over te maken en in de mededeling uw naam te vermelden.
         </p>
       </section>
-    </section>
+    </Container>
   )
 }

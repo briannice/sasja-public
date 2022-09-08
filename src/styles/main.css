@@ -8,7 +8,7 @@
   }
 
   main {
-    @apply flex-1 bg-pattern pb-16;
+    @apply flex-1 bg-pattern;
   }
 
   h1,

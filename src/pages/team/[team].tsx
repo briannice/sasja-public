@@ -1,4 +1,4 @@
-import Competition from '@/components/Competition'
+import Competition from '@/components/teams/Competition'
 import { db } from '@/services/firebase'
 import { collectionToModels } from '@/services/firebase/firestore'
 import { getHandballBelgiumCalendar } from '@/services/hb/calendar'
