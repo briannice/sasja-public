@@ -1,7 +1,6 @@
 import Competition from '@/components/teams/Competition'
 import { db } from '@/services/firebase'
 import { collectionToModels, docRefToModel } from '@/services/firebase/firestore'
-import { getHandballBelgiumCalendar } from '@/services/hb/calendar'
 import { getHandballBelgiumRanking } from '@/services/hb/ranking'
 import { GameModel, RankModel, TeamModel } from '@/types/models'
 import { collection, doc, getDocs, query } from 'firebase/firestore'
@@ -12,7 +11,6 @@ type Competition = {
   calendar: GameModel[]
   name: string
   ranking: RankModel[]
-  serieId: number
 }
 
 type Props = {
@@ -24,13 +22,13 @@ export default function TeamPage({ competitions, team }: Props) {
   return (
     <main>
       <h1 className="sr-only">{team.name}</h1>
-      {competitions.map(({ calendar, name, ranking, serieId }) => (
+      {competitions.map(({ calendar, name, ranking }) => (
         <Competition
           key={name}
           calendar={calendar}
           name={name}
           ranking={ranking}
-          serieId={serieId}
+          teamId={team.id}
         />
       ))}
     </main>
@@ -59,13 +57,13 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   for (const competition of team.competitions) {
     const ranking = await getHandballBelgiumRanking(competition.serieId)
-    const calendar = await getHandballBelgiumCalendar(competition.serieId)
+    const calendar: GameModel[] = []
+    // const calendar = await getHandballBelgiumCalendar(competition.serieId)
 
     competitions.push({
       calendar: calendar,
       name: competition.name,
       ranking: ranking,
-      serieId: competition.serieId,
     })
   }
 

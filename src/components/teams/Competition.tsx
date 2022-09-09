@@ -11,13 +11,13 @@ type Props = {
   calendar: GameModel[]
   name: string
   ranking: RankModel[]
-  serieId: number
+  teamId: string
 }
 
-export default function Competition({ calendar, name, ranking, serieId }: Props) {
+export default function Competition({ calendar, name, ranking, teamId }: Props) {
   return (
     <Container className="grid grid-cols-2 gap-8">
-      <h2 className="col-span-2 text-3xl">{name}</h2>
+      <h2 className="title1 col-span-2">{name}</h2>
       <div className="flex flex-col items-center space-y-8">
         <table>
           <thead>
@@ -37,7 +37,10 @@ export default function Competition({ calendar, name, ranking, serieId }: Props)
             ))}
           </tbody>
         </table>
-        <Link href={`/team/klassement/${serieId}`} className="btn btn-primary btn-text-icon">
+        <Link
+          href={`/team/${teamId}/klassement/${name.toLocaleLowerCase().replaceAll(/\ /g, '-')}`}
+          className="btn btn-primary btn-text-icon"
+        >
           <span>Volledig klassement</span>
           <RiArrowRightSLine />
         </Link>
@@ -122,7 +125,10 @@ export default function Competition({ calendar, name, ranking, serieId }: Props)
             })}
           </tbody>
         </table>
-        <Link href={`/team/kalender/${serieId}`} className="btn btn-primary btn-text-icon">
+        <Link
+          href={`/team/${teamId}/kalender/${name.toLocaleLowerCase().replaceAll(/\ /g, '-')}`}
+          className="btn btn-primary btn-text-icon"
+        >
           <span>Volledige kalender</span>
           <RiArrowRightSLine />
         </Link>

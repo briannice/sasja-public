@@ -38,6 +38,13 @@
 }
 
 @layer components {
+  /* ------ */
+  /* TITLES */
+  /* ------ */
+  .title1 {
+    @apply text-center font-kanit text-3xl font-bold;
+  }
+
   /* ------- */
   /* BUTTONS */
   /* ------- */
