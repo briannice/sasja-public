@@ -1,9 +1,12 @@
 import { HandballBelgiumApi } from '@/services/hb'
 import { GameModel } from '@/types/models'
 
-export const getHandballBelgiumCalendar = async (serieId: number) => {
-  const { data, status } = await HandballBelgiumApi(
-    `ng/game/byMyLeague?season_id=2&serie_id=${serieId}&club_id=24&with_referees=false&without_in_preparation=true&sort=game_date_time`
+export const getHabdballBelgiumGames = async () => {
+  const start_date = '2022-09-12'
+  const end_date = '2022-09-18'
+
+  const { data, status } = await HandballBelgiumApi.get(
+    `ng/game/byMyLeague?with_referees=false&no_forfeit=true&season_id=2&without_in_preparation=true&sort=date&sort=time&club_id=24&start_date=${start_date}&end_date=${end_date}`
   )
 
   if (status !== 200) return []

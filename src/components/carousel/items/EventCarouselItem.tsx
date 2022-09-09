@@ -24,7 +24,7 @@ export default function EventCarouselItem({ event, goNextItem, goPreviousItem, s
           <RiArrowLeftSLine className="h-14 w-14 text-white transition-colors hover:text-primary" />
         </button>
         <div className="flex-1">
-          <h3 className="mt-4 text-6xl font-bold text-white">{event.name}</h3>
+          <h3 className="text-6xl font-bold text-white">{event.name}</h3>
           <ul className="mt-8 flex divide-x divide-primary">
             <li className="pr-8">
               <p className="font-kanit text-xl text-white">{event.location}</p>

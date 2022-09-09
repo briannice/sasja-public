@@ -56,8 +56,8 @@ export default function Competition({ calendar, name, ranking, serieId }: Props)
           </thead>
           <tbody>
             {calendar.map((game) => {
-              const homeLogoUrl = getHandballBelgiumLogo(game.home_club_logo_img_url)
-              const awayLogoUrl = getHandballBelgiumLogo(game.away_club_logo_img_url)
+              const homeLogoUrl = getHandballBelgiumLogo(game.home_logo)
+              const awayLogoUrl = getHandballBelgiumLogo(game.away_logo)
               return (
                 <tr key={game.id}>
                   <td>
@@ -70,7 +70,7 @@ export default function Competition({ calendar, name, ranking, serieId }: Props)
                           objectFit="contain"
                         />
                       </figure>
-                      <span>{game.home_team_short_name}</span>
+                      <span>{game.home_short}</span>
                     </div>
                   </td>
                   <td className="px-0">
@@ -82,7 +82,7 @@ export default function Competition({ calendar, name, ranking, serieId }: Props)
                   </td>
                   <td>
                     <div className="flex items-center justify-end space-x-4">
-                      <p>{game.away_team_short_name}</p>
+                      <p>{game.away_short}</p>
                       <figure className="relative ml-auto aspect-square h-6">
                         <Image
                           src={awayLogoUrl}
@@ -100,20 +100,18 @@ export default function Competition({ calendar, name, ranking, serieId }: Props)
                           'flex h-6 w-6 items-center justify-center rounded-full text-sm font-bold text-white',
                           game.home_score === game.away_score
                             ? 'bg-warning'
-                            : game.home_score > game.away_score &&
-                              game.home_team_name === 'Sasja HC'
+                            : game.home_score > game.away_score && game.home_name === 'Sasja HC'
                             ? 'bg-success'
-                            : game.home_score < game.away_score &&
-                              game.away_team_name === 'Sasja HC'
+                            : game.home_score < game.away_score && game.away_name === 'Sasja HC'
                             ? 'bg-success'
                             : 'bg-error'
                         )}
                       >
                         {game.home_score === game.away_score
                           ? 'D'
-                          : game.home_score > game.away_score && game.home_team_name === 'Sasja HC'
+                          : game.home_score > game.away_score && game.home_name === 'Sasja HC'
                           ? 'W'
-                          : game.home_score < game.away_score && game.away_team_name === 'Sasja HC'
+                          : game.home_score < game.away_score && game.away_name === 'Sasja HC'
                           ? 'W'
                           : 'L'}
                       </p>

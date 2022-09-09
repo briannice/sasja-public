@@ -1,10 +1,10 @@
 import Competition from '@/components/teams/Competition'
 import { db } from '@/services/firebase'
-import { collectionToModels } from '@/services/firebase/firestore'
+import { collectionToModels, docRefToModel } from '@/services/firebase/firestore'
 import { getHandballBelgiumCalendar } from '@/services/hb/calendar'
 import { getHandballBelgiumRanking } from '@/services/hb/ranking'
 import { GameModel, RankModel, TeamModel } from '@/types/models'
-import { collection, getDocs, query, where } from 'firebase/firestore'
+import { collection, doc, getDocs, query } from 'firebase/firestore'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import React from 'react'
 
@@ -39,7 +39,7 @@ export default function TeamPage({ competitions, team }: Props) {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const teams = collectionToModels<TeamModel>(await getDocs(query(collection(db, 'teams'))))
-  const paths = teams.map((team) => ({ params: { team: team.uid } }))
+  const paths = teams.map((team) => ({ params: { team: team.id } }))
 
   return {
     paths: paths,
@@ -51,10 +51,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   if (!params) return { notFound: true }
 
   // Team information
-  const uid = params.team as string
-  const team = collectionToModels<TeamModel>(
-    await getDocs(query(collection(db, 'teams'), where('uid', '==', uid)))
-  )[0]
+  const id = params.team as string
+  const team = await docRefToModel<TeamModel>(doc(db, 'teams', id))
 
   // Ranking information
   const competitions: Competition[] = []
