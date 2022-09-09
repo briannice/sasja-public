@@ -8,7 +8,7 @@
   }
 
   main {
-    @apply flex-1 bg-pattern;
+    @apply flex-1 bg-pattern pb-8;
   }
 
   h1,
@@ -74,7 +74,7 @@
   /* ----- */
 
   .card {
-    @apply flex flex-col bg-white shadow;
+    @apply bg-white shadow;
   }
 
   .card-click {

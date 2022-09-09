@@ -8,7 +8,7 @@ type Props = {
 }
 
 export default function Container({ bg, children, className }: Props) {
-  const classes = 'py-16'
+  const classes = 'mt-8'
   if (bg) {
     return (
       <section className={clsx(classes, bg)}>
