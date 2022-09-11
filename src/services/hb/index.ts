@@ -11,6 +11,3 @@ export const HandballBelgiumApi = axios.create({
   timeout: 10000,
   headers: { authorization: apiToken },
 })
-
-export const getHandballBelgiumLogo = (path: string) =>
-  `https://admin.handballbelgium.be/lms_league_ws/public/img/${path}`

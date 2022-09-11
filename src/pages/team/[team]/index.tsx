@@ -1,6 +1,7 @@
 import Competition from '@/components/teams/Competition'
 import { db } from '@/services/firebase'
 import { collectionToModels, docRefToModel } from '@/services/firebase/firestore'
+import { getHandballBelgiumCalendar } from '@/services/hb/calendar'
 import { getHandballBelgiumRanking } from '@/services/hb/ranking'
 import { GameModel, RankModel, TeamModel } from '@/types/models'
 import { collection, doc, getDocs, query } from 'firebase/firestore'
@@ -57,8 +58,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   for (const competition of team.competitions) {
     const ranking = await getHandballBelgiumRanking(competition.serieId)
-    const calendar: GameModel[] = []
-    // const calendar = await getHandballBelgiumCalendar(competition.serieId)
+    const calendar = await getHandballBelgiumCalendar(competition.serieId)
 
     competitions.push({
       calendar: calendar,

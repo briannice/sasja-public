@@ -1,7 +1,8 @@
 import CalendarTable from '@/components/teams/CalendarTable'
 import { db } from '@/services/firebase'
 import { docRefToModel, queryToModels } from '@/services/firebase/firestore'
-import { GameModel, RankModel, TeamModel } from '@/types/models'
+import { getHandballBelgiumCalendar } from '@/services/hb/calendar'
+import { GameModel, TeamModel } from '@/types/models'
 import { collection, doc, query } from 'firebase/firestore'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import React from 'react'
@@ -57,8 +58,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   if (!competition) return { notFound: true }
 
-  // const serieId = competition.serieId
-  const calendar: RankModel[] = []
+  const serieId = competition.serieId
+  const calendar = await getHandballBelgiumCalendar(serieId)
+
   return {
     props: {
       name: competition.name,

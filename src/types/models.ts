@@ -97,4 +97,5 @@ export type GameModel = {
   venue_name: string
   venue_short: string
   venue_city: string
+  game_number: string
 }

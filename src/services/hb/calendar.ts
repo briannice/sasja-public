@@ -26,6 +26,7 @@ export const getHandballBelgiumCalendar = async (serieId: number) => {
     venue_name: e.venue_name,
     venue_short: e.venue_short_name,
     venue_city: e.venue_city,
+    game_number: e.reference.replace('URBH-KBHB', '').replace('VHV', '').replace('AVBP', ''),
   }))
 
   return games
