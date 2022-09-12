@@ -12,7 +12,7 @@ export default function ClubLogo({ path, size }: Props) {
   )
   return (
     <figure className="relative aspect-square" style={{ width: size }}>
-      {url && (
+      {url ? (
         <Image
           src={url}
           alt="Club logo"
@@ -20,6 +20,8 @@ export default function ClubLogo({ path, size }: Props) {
           objectFit="contain"
           onError={() => setUrl(null)}
         />
+      ) : (
+        <p className="aspect-square rounded-full bg-light" style={{ width: size }} />
       )}
     </figure>
   )
