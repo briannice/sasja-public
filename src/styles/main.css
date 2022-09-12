@@ -69,6 +69,14 @@
     @apply border-primary bg-primary text-white ring-primary hover:bg-primary-dark focus:border-primary;
   }
 
+  .btn-secondary {
+    @apply border-secondary bg-secondary text-white ring-secondary hover:bg-secondary-dark focus:border-secondary;
+  }
+
+  .btn-tertiary {
+    @apply border-tertiary bg-tertiary text-white ring-tertiary hover:bg-tertiary-dark focus:border-tertiary;
+  }
+
   /* ----- */
   /* CARDS */
   /* ----- */

@@ -5,9 +5,10 @@ type Props = HTMLAttributes<HTMLDivElement> & {
   bg?: string | undefined
   children?: ReactNode | undefined
   className?: string | undefined
+  card?: boolean | undefined
 }
 
-export default function Container({ bg, children, className, ...props }: Props) {
+export default function Container({ bg, children, className, card, ...props }: Props) {
   const classes = 'mt-8'
   if (bg) {
     return (
@@ -16,6 +17,15 @@ export default function Container({ bg, children, className, ...props }: Props) 
       </section>
     )
   }
+
+  if (card) {
+    return (
+      <section className={clsx(classes, 'container')} {...props}>
+        <div className={clsx(className, 'card')}>{children}</div>
+      </section>
+    )
+  }
+
   return (
     <section className={clsx(classes, className, 'container')} {...props}>
       {children}

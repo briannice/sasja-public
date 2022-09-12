@@ -29,15 +29,15 @@ const clubSublinks = [
 
 const teamSublinks = [
   {
-    name: 'Algemeen',
-    href: '/jeugd',
+    name: 'Info',
+    href: '/kern',
   },
   ...teamLinks,
 ]
 
 const youthSublinks = [
   {
-    name: 'Algemeen',
+    name: 'Info',
     href: '/jeugd',
   },
   ...youthLinks,
