@@ -25,7 +25,7 @@ export default function Home({ events, teams, matchReports, news, opponents }: P
       </Head>
       <main>
         <h1 className="sr-only">Sasja HC | Home</h1>
-        <Hero events={events} />
+        <Hero events={events} news={news} />
         <News
           events={events}
           matchReports={matchReports}
