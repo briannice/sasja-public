@@ -38,7 +38,7 @@ const tickets = [
 
 export default function TicketsAndAbos() {
   return (
-    <Container className="grid grid-cols-2 gap-8">
+    <Container id="tickets-abbonementen" className="grid grid-cols-2 gap-8">
       <h2 className="sr-only">Tickets en abonnementen</h2>
       <section className="card px-8 py-16">
         <h3 className="text-center text-5xl">Tickets</h3>
