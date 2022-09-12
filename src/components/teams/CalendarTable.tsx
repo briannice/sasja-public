@@ -4,17 +4,13 @@ import { formatDate } from '@/utils/date'
 import clsx from 'clsx'
 import React from 'react'
 
-const months = ['jan', 'feb', 'mrt', 'apr', 'mei', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec']
-
 type Props = {
   calendar: GameModel[]
 }
 
 export default function CalendarTable({ calendar }: Props) {
   const createDate = (date: string) => {
-    const day = formatDate(date, 'D')
-    const month = months[+formatDate(date, 'M') - 1]
-    return `${day} ${month}`
+    return formatDate(date, 'DD/MM')
   }
 
   const createTime = (time: string) => {
