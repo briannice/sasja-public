@@ -1,4 +1,3 @@
-import useImage from '@/hooks/useImage'
 import { Transition } from '@headlessui/react'
 import clsx from 'clsx'
 import React, { ReactNode } from 'react'

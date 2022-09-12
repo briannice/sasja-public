@@ -18,13 +18,7 @@ export default function GameWeekCarouselItem({
   goPreviousItem,
   goNextItem,
   show,
-  teams,
 }: Props) {
-  const formatTeamName = (name: string) => {
-    if (name.includes('Sasja HC')) return 'Sasja HC'
-    else return name
-  }
-
   const formatTime = (time: string) => {
     const times = time.split(':')
     return `${times[0]}:${times[1]}`
