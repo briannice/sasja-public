@@ -3,7 +3,7 @@ import News from '@/components/home/News'
 import TicketsAndAbos from '@/components/home/TicketsAndAbos'
 import { db } from '@/services/firebase'
 import { queryToModels } from '@/services/firebase/firestore'
-import { getHabdballBelgiumGames } from '@/services/hb/games'
+import { getHandballBelgiumGames } from '@/services/hb/games'
 import {
   EventModel,
   GameDay,
@@ -26,9 +26,7 @@ type Props = {
   gameDays: GameDay[][]
 }
 
-export default function Home({ events, teams, matchReports, news, opponents, gameDays }: Props) {
-  console.log(gameDays)
-
+export default function Home({ events, teams, matchReports, news, opponents }: Props) {
   return (
     <>
       <Head>
@@ -57,7 +55,7 @@ export const getStaticProps: GetStaticProps = async () => {
   const opponents = await queryToModels<OpponentModel>(query(collection(db, 'opponents')))
   const matchReports = await queryToModels<MatchReportModel>(query(collection(db, 'matchreport')))
 
-  const gameDays = await getHabdballBelgiumGames(5)
+  const gameDays = await getHandballBelgiumGames(5)
 
   return {
     props: {

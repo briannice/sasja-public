@@ -1,4 +1,4 @@
-import CarouselItem from '@/components/carousel/CarouselItem'
+import CarouselHeroItem from '@/components/carousel/CarouselHeroItem'
 import Link from '@/components/Link'
 import { EventModel } from '@/types/models'
 import { formatDate } from '@/utils/date'
@@ -14,7 +14,7 @@ type Props = {
 
 export default function EventCarouselItem({ event, goNextItem, goPreviousItem, show }: Props) {
   return (
-    <CarouselItem
+    <CarouselHeroItem
       show={show}
       col="events"
       id={event.id}
@@ -37,6 +37,6 @@ export default function EventCarouselItem({ event, goNextItem, goPreviousItem, s
         <span>Lees meer</span>
         <RiArrowRightSLine />
       </Link>
-    </CarouselItem>
+    </CarouselHeroItem>
   )
 }

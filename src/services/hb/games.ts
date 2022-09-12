@@ -2,7 +2,7 @@ import { HandballBelgiumApi } from '@/services/hb'
 import { GameDay, GameModel } from '@/types/models'
 import { getDateRangeForGamesOverview, getWeekNumberForGamesOverview } from '@/utils/date'
 
-export const getHabdballBelgiumGames = async (weeks: number) => {
+export const getHandballBelgiumGames = async (weeks: number) => {
   const [start_date, end_date] = getDateRangeForGamesOverview(weeks)
 
   const { data, status } = await HandballBelgiumApi.get(

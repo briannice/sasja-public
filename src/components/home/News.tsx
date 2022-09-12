@@ -14,8 +14,9 @@ type Props = {
 
 export default function News({ news, events }: Props) {
   return (
-    <Container className="grid grid-cols-3 gap-8">
+    <Container className="grid grid-cols-12 gap-8">
       <h2 className="sr-only">News</h2>
+
       {news.map((news) => (
         <NewsCard key={news.id} news={news} />
       ))}
