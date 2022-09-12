@@ -82,7 +82,7 @@ export default function RankingTable({ ranking }: Props) {
               <p>{rank.conceded}</p>
             </td>
             <td>
-              <ul className="flex items-center">
+              <ul className="flex items-center space-x-2">
                 {rank.results.map((type, i) => (
                   <li key={i}>
                     <p

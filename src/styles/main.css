@@ -8,7 +8,7 @@
   }
 
   main {
-    @apply flex-1 bg-pattern;
+    @apply flex-1 bg-pattern pb-8;
   }
 
   h1,
@@ -38,6 +38,13 @@
 }
 
 @layer components {
+  /* ------ */
+  /* TITLES */
+  /* ------ */
+  .title1 {
+    @apply text-center font-kanit text-3xl font-bold;
+  }
+
   /* ------- */
   /* BUTTONS */
   /* ------- */
@@ -62,12 +69,20 @@
     @apply border-primary bg-primary text-white ring-primary hover:bg-primary-dark focus:border-primary;
   }
 
+  .btn-secondary {
+    @apply border-secondary bg-secondary text-white ring-secondary hover:bg-secondary-dark focus:border-secondary;
+  }
+
+  .btn-tertiary {
+    @apply border-tertiary bg-tertiary text-white ring-tertiary hover:bg-tertiary-dark focus:border-tertiary;
+  }
+
   /* ----- */
   /* CARDS */
   /* ----- */
 
   .card {
-    @apply flex flex-col bg-white shadow;
+    @apply bg-white shadow;
   }
 
   .card-click {
@@ -75,6 +90,6 @@
   }
 
   .card-col-1 {
-    @apply aspect-square;
+    @apply col-span-4 aspect-square;
   }
 }

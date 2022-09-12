@@ -1,6 +1,8 @@
 import {
   DocumentData,
+  DocumentReference,
   DocumentSnapshot,
+  getDoc,
   getDocs,
   Query,
   QueryDocumentSnapshot,
@@ -10,8 +12,9 @@ import {
 
 type Document = QueryDocumentSnapshot<DocumentData> | DocumentSnapshot<DocumentData>
 
+type Collection = QuerySnapshot<DocumentData>
+
 export const documentToModel = <M>(document: Document) => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const result: any = { id: document.id, ...document.data() }
 
   const timeKeys = [
@@ -35,9 +38,10 @@ export const documentToModel = <M>(document: Document) => {
   return result as unknown as M
 }
 
-type Collection = QuerySnapshot<DocumentData>
-
 export const collectionToModels = <M>(collection: Collection) =>
   collection.docs.map((doc) => documentToModel<M>(doc))
 
 export const queryToModels = async <M>(query: Query) => collectionToModels<M>(await getDocs(query))
+
+export const docRefToModel = async <M>(docRef: DocumentReference<DocumentData>) =>
+  documentToModel<M>(await getDoc(docRef))
