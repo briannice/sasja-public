@@ -1,7 +1,6 @@
 import Carousel from '@/components/carousel/Carousel'
 import EventCarouselItem from '@/components/carousel/items/EventCarouselItem'
 import NewsCarouselItem from '@/components/carousel/items/NewsCarouselItem'
-import News from '@/components/home/News'
 import { EventModel, NewsModel } from '@/types/models'
 import Image from 'next/image'
 import React from 'react'

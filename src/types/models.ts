@@ -99,3 +99,8 @@ export type GameModel = {
   venue_city: string
   game_number: string
 }
+
+export type GameDay = {
+  date: string
+  games: GameModel[]
+}

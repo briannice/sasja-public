@@ -1,12 +1,12 @@
 import { HandballBelgiumApi } from '@/services/hb'
-import { GameModel } from '@/types/models'
+import { GameDay, GameModel } from '@/types/models'
+import { getDateRangeForGamesOverview, getWeekNumberForGamesOverview } from '@/utils/date'
 
-export const getHabdballBelgiumGames = async () => {
-  const start_date = '2022-09-12'
-  const end_date = '2022-09-18'
+export const getHabdballBelgiumGames = async (weeks: number) => {
+  const [start_date, end_date] = getDateRangeForGamesOverview(weeks)
 
   const { data, status } = await HandballBelgiumApi.get(
-    `ng/game/byMyLeague?with_referees=false&no_forfeit=true&season_id=2&without_in_preparation=true&sort=date&sort=time&club_id=24&start_date=${start_date}&end_date=${end_date}`
+    `ng/game/byMyLeague?with_referees=false&no_forfeit=true&season_id=2&without_in_preparation=true&sort%5B0%5D=date&sort%5B1%5D=time&club_id=24&start_date=${start_date}&end_date=${end_date}`
   )
 
   if (status !== 200) return []
@@ -32,5 +32,24 @@ export const getHabdballBelgiumGames = async () => {
     game_number: e.reference.replace('URBH-KBHB', '').replace('VHV', '').replace('AVBP', ''),
   }))
 
-  return games
+  if (games.length === 0) return []
+
+  const gameDays: GameDay[][] = []
+
+  for (let i = 0; i < weeks; i++) {
+    gameDays.push([])
+  }
+
+  let last_date = ''
+  games.forEach((game) => {
+    const week = getWeekNumberForGamesOverview(start_date, game.date)
+    if (game.date === last_date) {
+      gameDays[week][gameDays[week].length - 1].games.push(game)
+    } else {
+      gameDays[week].push({ date: game.date, games: [game] })
+      last_date = game.date
+    }
+  })
+
+  return gameDays
 }
