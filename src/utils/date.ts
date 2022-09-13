@@ -4,6 +4,31 @@ export const formatDate = (date: string, format: string) => {
   return moment(date).tz('Europe/Brussels').format(format)
 }
 
+export const getWeekDayFromDate = (date: string) => {
+  const weekdays = ['Zondag', 'Maandag', 'Dinsdag', 'Woensdag', 'Donderdag', 'Vrijdag', 'Zaterdag']
+  const d = new Date(date)
+  return weekdays[d.getDay()]
+}
+
+export const getMonthFromDate = (date: string) => {
+  const months = [
+    'Januari',
+    'Februari',
+    'Maart',
+    'April',
+    'Mei',
+    'Juni',
+    'Juli',
+    'August',
+    'September',
+    'Oktober',
+    'November',
+    'December',
+  ]
+  const d = new Date(date)
+  return months[d.getMonth()]
+}
+
 export const getDateRangeForGamesOverview = (weeks: number) => {
   const current_date = new Date()
   const week_day = current_date.getDay()
