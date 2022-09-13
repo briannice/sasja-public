@@ -66,5 +66,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       name: competition.name,
       calendar: calendar,
     },
+    revalidate: 60 * 60,
   }
 }
