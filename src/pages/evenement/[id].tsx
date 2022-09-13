@@ -33,11 +33,11 @@ export default function EventDetailPage({ event }: Props) {
       <h1>{event.name}</h1>
       <div className="mt-8 flex space-x-8">
         <div className="flex items-center rounded-sm bg-primary px-5 py-2 shadow">
-          <p className="font-kanit text-xl text-white">Evenement</p>
+          <p className="font-kanit text-sm text-white">Evenement</p>
         </div>
         {tags.map((tag, i) => (
           <div key={i} className="rounded-sm border-2 border-primary px-5 py-2">
-            <time className="box-border font-kanit text-xl">{tag}</time>
+            <p className="box-border font-kanit text-sm">{tag}</p>
           </div>
         ))}
       </div>
