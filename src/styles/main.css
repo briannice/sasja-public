@@ -82,7 +82,7 @@
   /* ----- */
 
   .card {
-    @apply bg-white shadow;
+    @apply relative overflow-hidden bg-white shadow;
   }
 
   .card-click {
