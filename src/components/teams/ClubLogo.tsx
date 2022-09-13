@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import React, { useState } from 'react'
+import { RiShieldFill } from 'react-icons/ri'
 
 type Props = {
   path: string
@@ -21,7 +22,7 @@ export default function ClubLogo({ path, size }: Props) {
           onError={() => setUrl(null)}
         />
       ) : (
-        <p className="aspect-square rounded-full bg-light" style={{ width: size }} />
+        <RiShieldFill className="text-medium" style={{ width: size, height: size }} />
       )}
     </figure>
   )
