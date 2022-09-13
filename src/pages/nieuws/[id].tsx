@@ -6,6 +6,7 @@ import { formatDate } from '@/utils/date'
 import { collection, doc, query } from 'firebase/firestore'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 import React from 'react'
 
 type Props = {
@@ -13,7 +14,10 @@ type Props = {
 }
 
 export default function NewsDatailPage({ news }: Props) {
-  const image = useImage('news', news.id, 'lg')
+  const router = useRouter()
+  const image = useImage('news', news ? news.id : '', 'lg')
+
+  if (router.isFallback) return <></>
 
   const tags = ['NIEUWS', news.tag]
 

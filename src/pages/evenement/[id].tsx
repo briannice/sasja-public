@@ -6,6 +6,7 @@ import { formatDate, getMonthFromDate, getWeekDayFromDate } from '@/utils/date'
 import { collection, doc, query } from 'firebase/firestore'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 import React from 'react'
 
 type Props = {
@@ -13,7 +14,10 @@ type Props = {
 }
 
 export default function EventDetailPage({ event }: Props) {
-  const image = useImage('events', event.id, 'lg')
+  const router = useRouter()
+  const image = useImage('events', event ? event.id : '', 'lg')
+
+  if (router.isFallback) return <></>
 
   const formatTime = (time: string) => {
     const weekday = getWeekDayFromDate(time)
