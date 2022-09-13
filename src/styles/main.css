@@ -4,11 +4,11 @@
 
 @layer base {
   body {
-    @apply font-lato text-black;
+    @apply bg-pattern font-lato text-black;
   }
 
   main {
-    @apply flex-1 bg-pattern pb-8;
+    @apply flex-1 pb-8;
   }
 
   h1,
@@ -91,5 +91,76 @@
 
   .card-col-1 {
     @apply col-span-4 aspect-square;
+  }
+
+  /* ----------- */
+  /* CMS CONTENT */
+  /* ----------- */
+
+  /* Wrapper */
+  .cms-content-wrapper {
+    @apply container bg-white py-8;
+  }
+
+  .cms-content-wrapper h1 {
+    @apply text-6xl font-bold;
+  }
+
+  /* Info */
+  .cms-content-wrapper > .cms-content-info {
+    @apply mt-8 flex items-center space-x-8;
+  }
+
+  .cms-content-wrapper > .cms-content-info time {
+    @apply font-kanit text-xl;
+  }
+
+  .cms-content-wrapper > .cms-content-info ul {
+    @apply flex space-x-8;
+  }
+
+  .cms-content-wrapper > .cms-content-info li {
+    @apply rounded-sm bg-primary px-4 py-1 shadow-sm;
+  }
+
+  .cms-content-wrapper > .cms-content-info li p {
+    @apply font-kanit text-sm text-white;
+  }
+
+  /* Content */
+  .cms-content-wrapper > .cms-content h2 {
+    @apply mt-8 text-3xl;
+  }
+
+  .cms-content-wrapper > .cms-content h3 {
+    @apply mt-8 text-2xl;
+  }
+
+  .cms-content-wrapper > .cms-content h4 {
+    @apply mt-8 text-xl;
+  }
+
+  .cms-content-wrapper > .cms-content p {
+    @apply mt-4 leading-relaxed text-dark;
+  }
+
+  .cms-content-wrapper > .cms-content ul {
+    @apply mt-4 list-inside list-disc space-y-1;
+  }
+
+  .cms-content-wrapper > .cms-content ol {
+    @apply mt-4 list-inside list-decimal space-y-1;
+  }
+
+  .cms-content-wrapper > .cms-content ul p {
+    @apply mt-0 inline-block;
+  }
+
+  .cms-content-wrapper > .cms-content ol p {
+    @apply mt-0 inline-block;
+  }
+
+  .cms-content-wrapper > .cms-content table {
+    @apply mt-4;
   }
 }
