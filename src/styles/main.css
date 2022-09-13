@@ -107,6 +107,10 @@
   }
 
   /* Content */
+  .cms-content-wrapper > .cms-content {
+    @apply mt-16;
+  }
+
   .cms-content-wrapper > .cms-content h2 {
     @apply mt-8 text-3xl;
   }

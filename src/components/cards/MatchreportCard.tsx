@@ -1,6 +1,5 @@
 import Link from '@/components/Link'
 import ClubLogo from '@/components/teams/ClubLogo'
-import { teams } from '@/data/teams'
 import { MatchReportModel, OpponentModel, TeamModel } from '@/types/models'
 import { formatDate } from '@/utils/date'
 import clsx from 'clsx'
