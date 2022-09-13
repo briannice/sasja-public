@@ -106,27 +106,6 @@
     @apply text-6xl font-bold;
   }
 
-  /* Info */
-  .cms-content-wrapper > .cms-content-info {
-    @apply mt-8 flex items-center space-x-8;
-  }
-
-  .cms-content-wrapper > .cms-content-info time {
-    @apply font-kanit text-xl;
-  }
-
-  .cms-content-wrapper > .cms-content-info ul {
-    @apply flex space-x-8;
-  }
-
-  .cms-content-wrapper > .cms-content-info li {
-    @apply rounded-sm bg-primary px-4 py-1 shadow-sm;
-  }
-
-  .cms-content-wrapper > .cms-content-info li p {
-    @apply font-kanit text-sm text-white;
-  }
-
   /* Content */
   .cms-content-wrapper > .cms-content h2 {
     @apply mt-8 text-3xl;

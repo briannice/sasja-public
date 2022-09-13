@@ -15,18 +15,19 @@ type Props = {
 export default function NewsDatailPage({ news }: Props) {
   const image = useImage('news', news.id, 'lg')
 
+  const tags = ['NIEUWS', news.tag]
+
   return (
     <main className="cms-content-wrapper">
       <h1>{news.title}</h1>
-      <div className="cms-content-info">
-        <time>{formatDate(news.time, 'DD/MM/YYYY')}</time>
-        <ul>
-          <li>
-            <p>NIEUWS</p>
-          </li>
-          <li>
-            <p>{news.tag}</p>
-          </li>
+      <div className="mt-8 flex items-center space-x-8">
+        <time className="font-kanit text-xl">{formatDate(news.time, 'DD/MM/YYYY')}</time>
+        <ul className="flex space-x-8">
+          {tags.map((tag, i) => (
+            <li key={i} className="rounded-sm bg-primary px-4 py-1 shadow-sm">
+              <p className="font-kanit text-sm text-white">{tag}</p>
+            </li>
+          ))}
         </ul>
       </div>
       <figure className="relative mt-8 h-80 overflow-hidden">
@@ -39,7 +40,7 @@ export default function NewsDatailPage({ news }: Props) {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const news = await queryToModels<NewsModel>(query(collection(db, 'news')))
-  const pahts = news.map((news) => ({ params: { id: news.title } }))
+  const pahts = news.map((news) => ({ params: { id: news.id } }))
   return {
     paths: pahts,
     fallback: true,
@@ -49,7 +50,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   if (!params) return { notFound: true }
   const id = params.id as string
-  const news = await docRefToModel(doc(db, 'news', id))
+  const news = await docRefToModel<NewsModel>(doc(db, 'news', id))
   return {
     props: {
       news: news,
