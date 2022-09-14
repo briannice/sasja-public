@@ -12,10 +12,11 @@ export default function Footer() {
       <div className="container flex flex-col items-center space-y-16">
         <Sponsors />
       </div>
-      <div className="container flex justify-between">
-        <div className="flex space-x-16">
+
+      <div className="container flex flex-col justify-between space-y-8 laptop:flex-row laptop:space-y-0">
+        <div className="grid grid-cols-2 gap-8 tablet:grid-cols-4">
           {footerLinks.map((link) => (
-            <div key={link.name} className="flex flex-col items-start">
+            <div key={link.name} className="inline-flex flex-col items-start">
               <p className="border-b border-primary pb-2 font-kanit">{link.name}</p>
               <ul className="mt-2 space-y-1">
                 {link.links.map((link) => (
@@ -29,8 +30,9 @@ export default function Footer() {
             </div>
           ))}
         </div>
-        <div>
-          <div className="flex flex-col items-end">
+
+        <div className="grid grid-cols-1 gap-8 tablet:grid-cols-4 laptop:grid-cols-1">
+          <div className="flex flex-col items-start laptop:items-end">
             <p className="border-b border-primary pb-2 font-kanit">Social Media</p>
             <ul className="mt-4 flex space-x-4">
               <li>
@@ -45,20 +47,21 @@ export default function Footer() {
               </li>
             </ul>
           </div>
-          <div className="mt-8 flex flex-col items-end">
+
+          <div className="flex flex-col items-start tablet:col-span-3 laptop:col-span-1 laptop:items-end">
             <p className="border-b border-primary pb-2 font-kanit">Contact</p>
             <ul className="mt-4 space-y-4">
-              <li className="flex items-center space-x-4">
+              <li className="flex flex-row-reverse items-center laptop:flex-row">
                 <p className="text-dark">info@sasja-antwerpen.be</p>
-                <RiMailFill className="h-5 w-5 text-primary" />
+                <RiMailFill className="mr-4 h-5 w-5 text-primary laptop:ml-4 laptop:mr-0" />
               </li>
-              <li className="flex items-center justify-end space-x-4">
-                <div className="flex flex-col items-end text-dark">
+              <li className="flex flex-row-reverse items-center justify-end laptop:flex-row">
+                <div className="flex flex-col items-start text-dark laptop:items-end">
                   <p>Sporthal Sorghvliedt</p>
                   <p>Krijgsbaan 20</p>
                   <p>2660 Hoboken</p>
                 </div>
-                <RiMapPinFill className="h-5 w-5 text-primary" />
+                <RiMapPinFill className="mr-4 h-5 w-5 text-primary laptop:ml-4 laptop:mr-0" />
               </li>
             </ul>
           </div>
