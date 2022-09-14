@@ -25,28 +25,27 @@ export default function MatchReportDetailPage({ matchReport, team, opponent }: P
 
   const tags = ['MATCHVERSLAG', matchReport.tag]
 
+  const createHeader = () => {
+    if (matchReport.home) {
+      return `${team.name} - ${opponent.name}`
+    } else {
+      return `${opponent.name} - ${team.name}`
+    }
+  }
+
   return (
     <main className="cms-content-wrapper">
-      <h1
-        className={clsx(
-          'flex items-center',
-          matchReport.home ? 'flex-row justify-start' : 'flex-row-reverse justify-end'
-        )}
-      >
-        <p>{team.name}</p>
-        <p className="mx-8 text-lg">vs</p>
-        <p>{opponent.name}</p>
-      </h1>
-      <div className="mt-8 flex items-center space-x-8">
-        <time className="font-kanit text-xl">{formatDate(matchReport.time, 'DD/MM/YYYY')}</time>
-        <ul className="flex space-x-8">
-          {tags.map((tag, i) => (
-            <li key={i} className="rounded-sm bg-primary px-4 py-1 shadow-sm">
-              <p className="font-kanit text-sm text-white">{tag}</p>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <h1>{createHeader()}</h1>
+      <ul className="tag-wrapper">
+        <li className="tag-time">
+          <time>{formatDate(matchReport.time, 'DD/MM/YYYY')}</time>
+        </li>
+        {tags.map((tag, i) => (
+          <li key={i} className="tag-fill">
+            <p>{tag}</p>
+          </li>
+        ))}
+      </ul>
       <div
         className={clsx(
           'mt-16 flex items-center justify-center',
