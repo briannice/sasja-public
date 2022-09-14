@@ -21,16 +21,16 @@ export default function NewsCarouselItem({ news, goNextItem, goPreviousItem, sho
       goNextItem={goNextItem}
       goPreviousItem={goPreviousItem}
     >
-      <h3 className="text-6xl font-bold text-white">{news.title}</h3>
-      <ul className="mt-8 flex divide-x divide-primary">
-        <li className="pr-8">
-          <p className="font-kanit text-xl text-white">{news.tag}</p>
+      <h3>{news.title}</h3>
+      <ul>
+        <li>
+          <p>{news.tag}</p>
         </li>
-        <li className="px-8">
-          <time className="font-kanit text-xl text-white">{formatDate(news.time, 'DD/MM')}</time>
+        <li>
+          <time>{formatDate(news.time, 'DD/MM')}</time>
         </li>
       </ul>
-      <Link href={`/nieuws/${news.id}`} className="btn btn-primary btn-text-icon mt-8">
+      <Link href={`/nieuws/${news.id}`}>
         <span>Lees meer</span>
         <RiArrowRightSLine />
       </Link>

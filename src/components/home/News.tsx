@@ -23,7 +23,7 @@ export default function News({ news, events, matchReports, teams, opponents }: P
   }
 
   return (
-    <Container className="grid grid-cols-12 gap-8">
+    <Container className="grid grid-cols-4 gap-8 tablet:grid-cols-8 laptop:grid-cols-12">
       <h2 className="sr-only">News</h2>
 
       {news.map((news) => (

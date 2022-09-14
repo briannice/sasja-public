@@ -31,19 +31,21 @@ export default function EventDetailPage({ event }: Props) {
   return (
     <main className="cms-content-wrapper">
       <h1>{event.name}</h1>
-      <div className="mt-8 flex space-x-8">
-        <div className="flex items-center rounded-sm bg-primary px-5 py-2 shadow">
-          <p className="font-kanit text-sm text-white">Evenement</p>
-        </div>
+      <ul className="tag-wrapper">
+        <li className="tag-fill">
+          <p>Evenement</p>
+        </li>
         {tags.map((tag, i) => (
-          <div key={i} className="rounded-sm border-2 border-primary px-5 py-2">
-            <p className="box-border font-kanit text-sm">{tag}</p>
-          </div>
+          <li key={i} className="tag-outline">
+            <p>{tag}</p>
+          </li>
         ))}
-      </div>
-      <figure className="relative mt-8 h-80 overflow-hidden">
-        {image && <Image src={image} alt="News image." layout="fill" objectFit="contain" />}
-      </figure>
+      </ul>
+      {image && (
+        <figure>
+          <Image src={image} alt="News image." layout="fill" objectFit="cover" />
+        </figure>
+      )}
       <div className="cms-content" dangerouslySetInnerHTML={{ __html: event.content }} />
     </main>
   )

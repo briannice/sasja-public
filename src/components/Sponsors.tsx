@@ -7,25 +7,43 @@ export const sponsors = [
     name: 'dca',
     path: '/sponsors/dca.png',
     href: 'https://www.dca.be/nl',
-    aspect: 'aspect-[2/1]',
+    aspect: 'aspect-[834/400]',
   },
   {
     name: 'umicore',
     path: '/sponsors/umicore.png',
     href: 'https://www.umicore.be/',
-    aspect: 'aspect-[3/1]',
+    aspect: 'aspect-[1920/651]',
   },
   {
     name: 'kempa',
     path: '/sponsors/kempa.png',
     href: 'https://en.kempa-sports.com/en/start',
-    aspect: 'aspect-[4/5]',
+    aspect: 'aspect-[1772/648]',
   },
   {
-    name: 'atv',
-    path: '/sponsors/atv.png',
-    href: 'https://atv.be/',
-    aspect: 'aspect-[10/8]',
+    name: 'filter technics',
+    path: '/sponsors/filter-technics.svg',
+    href: 'https://www.filter-technics.be/nl',
+    aspect: 'aspect-[335/88]',
+  },
+  {
+    name: 'de lindekes',
+    path: '/sponsors/lindekes.png',
+    href: 'https://www.delindekes.be/',
+    aspect: 'aspect-[183/79]',
+  },
+  {
+    name: 'team fashion',
+    path: '/sponsors/team-fashion.png',
+    href: 'https://teamfashion.be/nl/',
+    aspect: 'aspect-[2619/1023]',
+  },
+  {
+    name: 'jespo',
+    path: '/sponsors/jespo.png',
+    href: 'https://www.jespo.be/',
+    aspect: 'aspect-[156/156]',
   },
   {
     name: 'sporting a',
@@ -37,10 +55,16 @@ export const sponsors = [
 
 export default function Sponsors() {
   return (
-    <div className="flex flex-wrap justify-center space-x-16">
+    <div className="flex flex-wrap justify-center">
       {sponsors.map((sponsor) => (
-        <a key={sponsor.name} href={sponsor.href} target="_blank" rel="noreferrer">
-          <figure className={clsx('relative h-12', sponsor.aspect)}>
+        <a
+          key={sponsor.name}
+          href={sponsor.href}
+          target="_blank"
+          rel="noreferrer"
+          className="mx-8 my-4 laptop:mx-12 laptop:my-6"
+        >
+          <figure className={clsx('relative h-8 tablet:h-10 laptop:h-12', sponsor.aspect)}>
             <Image src={sponsor.path} alt="Sponsor image" layout="fill" objectFit="cover" />
           </figure>
         </a>

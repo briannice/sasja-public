@@ -24,19 +24,21 @@ export default function NewsDatailPage({ news }: Props) {
   return (
     <main className="cms-content-wrapper">
       <h1>{news.title}</h1>
-      <div className="mt-8 flex items-center space-x-8">
-        <time className="font-kanit text-xl">{formatDate(news.time, 'DD/MM/YYYY')}</time>
-        <ul className="flex space-x-8">
-          {tags.map((tag, i) => (
-            <li key={i} className="rounded-sm bg-primary px-4 py-1 shadow-sm">
-              <p className="font-kanit text-sm text-white">{tag}</p>
-            </li>
-          ))}
-        </ul>
-      </div>
-      <figure className="relative mt-8 h-80 overflow-hidden">
-        {image && <Image src={image} alt="News image." layout="fill" objectFit="contain" />}
-      </figure>
+      <ul className="tag-wrapper">
+        <li className="tag-time">
+          <time>{formatDate(news.time, 'DD/MM/YYYY')}</time>
+        </li>
+        {tags.map((tag, i) => (
+          <li key={i} className="tag-fill">
+            <p>{tag}</p>
+          </li>
+        ))}
+      </ul>
+      {image && (
+        <figure>
+          <Image src={image} alt="News image." layout="fill" objectFit="cover" />
+        </figure>
+      )}
       <div className="cms-content" dangerouslySetInnerHTML={{ __html: news.content }} />
     </main>
   )
