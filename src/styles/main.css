@@ -21,7 +21,7 @@
   }
 
   table {
-    @apply min-w-full table-auto shadow;
+    @apply min-w-full table-auto whitespace-nowrap shadow;
   }
 
   th {
