@@ -85,10 +85,12 @@ export default function MatchReportDetailPage({ matchReport, team, opponent }: P
         </div>
         <ClubLogo path={opponent.logo} size={120} />
       </div>
-      <figure className="relative mt-16 h-80 overflow-hidden">
-        {image && <Image src={image} alt="News image." layout="fill" objectFit="contain" />}
-      </figure>
       <div className="cms-content" dangerouslySetInnerHTML={{ __html: matchReport.content }} />
+      {image && (
+        <figure className="relative mt-16 h-80 overflow-hidden">
+          <Image src={image} alt="News image." layout="fill" objectFit="contain" />
+        </figure>
+      )}
     </main>
   )
 }
