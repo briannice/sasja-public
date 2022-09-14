@@ -8,7 +8,7 @@ import { RiMailFill, RiMapPinFill } from 'react-icons/ri'
 
 export default function Footer() {
   return (
-    <footer className="space-y-32 bg-white pb-16 pt-32">
+    <footer className="space-y-16 bg-white pb-16 pt-16">
       <div className="container flex flex-col items-center space-y-16">
         <Sponsors />
       </div>
