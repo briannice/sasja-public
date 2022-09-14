@@ -46,6 +46,11 @@ export default function MatchReportDetailPage({ matchReport, team, opponent }: P
           </li>
         ))}
       </ul>
+      {image && (
+        <figure>
+          <Image src={image} alt="News image." layout="fill" objectFit="cover" />
+        </figure>
+      )}
       <div
         className={clsx(
           'mt-16 flex items-center justify-center',
@@ -85,11 +90,6 @@ export default function MatchReportDetailPage({ matchReport, team, opponent }: P
         <ClubLogo path={opponent.logo} size={120} />
       </div>
       <div className="cms-content" dangerouslySetInnerHTML={{ __html: matchReport.content }} />
-      {image && (
-        <figure className="relative mt-16 h-80 overflow-hidden">
-          <Image src={image} alt="News image." layout="fill" objectFit="contain" />
-        </figure>
-      )}
     </main>
   )
 }

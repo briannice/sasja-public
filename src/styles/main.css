@@ -135,21 +135,26 @@
     @apply font-kanit;
   }
 
+  /* Figure */
+  .cms-content-wrapper > figure {
+    @apply relative mt-8 block aspect-video;
+  }
+
   /* Content */
   .cms-content-wrapper > .cms-content {
-    @apply mt-16;
+    @apply mt-8;
   }
 
   .cms-content-wrapper > .cms-content h2 {
-    @apply mt-8 text-3xl;
+    @apply mt-8 text-2xl laptop:text-3xl;
   }
 
   .cms-content-wrapper > .cms-content h3 {
-    @apply mt-8 text-2xl;
+    @apply mt-8 text-xl laptop:text-2xl;
   }
 
   .cms-content-wrapper > .cms-content h4 {
-    @apply mt-8 text-xl;
+    @apply mt-8 text-lg laptop:text-xl;
   }
 
   .cms-content-wrapper > .cms-content p {

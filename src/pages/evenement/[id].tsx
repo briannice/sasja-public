@@ -41,9 +41,11 @@ export default function EventDetailPage({ event }: Props) {
           </li>
         ))}
       </ul>
-      <figure className="relative mt-8 h-80 overflow-hidden">
-        {image && <Image src={image} alt="News image." layout="fill" objectFit="contain" />}
-      </figure>
+      {image && (
+        <figure>
+          <Image src={image} alt="News image." layout="fill" objectFit="cover" />
+        </figure>
+      )}
       <div className="cms-content" dangerouslySetInnerHTML={{ __html: event.content }} />
     </main>
   )
