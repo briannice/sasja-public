@@ -38,10 +38,10 @@ const tickets = [
 
 export default function TicketsAndAbos() {
   return (
-    <Container id="tickets-abbonementen" className="grid grid-cols-2 gap-8">
+    <Container id="tickets-abbonementen" className="grid grid-cols-1 gap-8 laptop:grid-cols-2">
       <h2 className="sr-only">Tickets en abonnementen</h2>
-      <section className="card px-8 py-16">
-        <h3 className="text-center text-5xl">Tickets</h3>
+      <section className="card px-8 py-8 laptop:py-16">
+        <h3 className="text-center text-3xl laptop:text-5xl">Tickets</h3>
         <ul className="mt-8 divide-y divide-light">
           {tickets.map((ticket, i) => (
             <li key={i}>
@@ -53,8 +53,8 @@ export default function TicketsAndAbos() {
           ))}
         </ul>
       </section>
-      <section className="card px-8 py-16">
-        <h3 className="text-center text-5xl">Abonnementen</h3>
+      <section className="card px-8 py-8 laptop:py-16">
+        <h3 className="text-center text-3xl laptop:text-5xl">Abonnementen</h3>
         <p className="mt-8 text-center font-kanit text-2xl">Heren en Beloften</p>
         <p className="mt-5 leading-relaxed text-dark">
           Alle wedstrijden van zowel de Heren als Beloften en Play offs, uitgezonderd de

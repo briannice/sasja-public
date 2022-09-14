@@ -12,12 +12,15 @@ type Props = {
 
 export default function Hero({ events, news }: Props) {
   return (
-    <section className="grid grid-cols-3">
+    <section className="grid grid-cols-1 laptop:grid-cols-3">
       <h2 className="sr-only">Hero</h2>
 
-      <section className="col-span-2">
-        <h3 className="sr-only">Evenementen</h3>
-        <Carousel length={events.length + news.length} className="h-full">
+      <section className="laptop:col-span-2">
+        <h3 className="sr-only">Evenementen en nieuws</h3>
+        <Carousel
+          length={events.length + news.length}
+          className="aspect-video laptop:aspect-auto laptop:h-full"
+        >
           {({ index, goNextItem, goPreviousItem }) => (
             <>
               {events.map((event, i) => (
@@ -43,7 +46,7 @@ export default function Hero({ events, news }: Props) {
         </Carousel>
       </section>
 
-      <section className="relative aspect-square">
+      <section className="relative hidden laptop:block laptop:aspect-square">
         <figure className="relative aspect-square">
           <Image src="/handball-field.jpg" alt="Handball veld." layout="fill" objectFit="cover" />
         </figure>
