@@ -180,4 +180,29 @@
   .cms-content-wrapper > .cms-content table {
     @apply mt-4;
   }
+
+  /* -------- */
+  /* CAROUSEL */
+  /* -------- */
+
+  .carousel-hero-item > h3 {
+    @apply text-4xl font-bold text-white laptop:text-5xl desktop:text-6xl;
+  }
+
+  .carousel-hero-item > ul {
+    @apply mt-8 flex divide-x-2 divide-primary;
+  }
+
+  .carousel-hero-item > ul > li {
+    @apply px-8 first:pl-0 last:pr-0;
+  }
+
+  .carousel-hero-item > ul > li > time,
+  .carousel-hero-item > ul > li > p {
+    @apply font-kanit text-lg text-white laptop:text-xl desktop:text-2xl;
+  }
+
+  .carousel-hero-item > a {
+    @apply btn btn-primary btn-text-icon mt-8;
+  }
 }

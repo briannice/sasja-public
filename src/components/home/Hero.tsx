@@ -15,7 +15,7 @@ export default function Hero({ events, news }: Props) {
     <section className="grid grid-cols-1 laptop:grid-cols-3">
       <h2 className="sr-only">Hero</h2>
 
-      <section className="laptop:col-span-2">
+      <section className="hidden tablet:block laptop:col-span-2">
         <h3 className="sr-only">Evenementen en nieuws</h3>
         <Carousel
           length={events.length + news.length}
