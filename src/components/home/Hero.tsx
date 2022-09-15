@@ -1,9 +1,11 @@
 import Carousel from '@/components/carousel/Carousel'
 import EventCarouselItem from '@/components/carousel/items/EventCarouselItem'
 import NewsCarouselItem from '@/components/carousel/items/NewsCarouselItem'
+import Link from '@/components/Link'
 import { EventModel, NewsModel } from '@/types/models'
 import Image from 'next/image'
 import React from 'react'
+import { RiArrowRightSLine } from 'react-icons/ri'
 
 type Props = {
   events: EventModel[]
@@ -50,8 +52,14 @@ export default function Hero({ events, news }: Props) {
         <figure className="relative aspect-square">
           <Image src="/handball-field.jpg" alt="Handball veld." layout="fill" objectFit="cover" />
         </figure>
-        <div className="absolute inset-0 bg-black bg-opacity-75 p-8">
-          <h2 className="text-center text-4xl font-bold text-white">Volgende wedstrijden</h2>
+        <div className="absolute inset-0 flex flex-col bg-black bg-opacity-75 p-16">
+          <h2 className="flex-1 text-center text-4xl font-bold text-white">First Men Division</h2>
+          <div className="flex justify-center">
+            <Link href="/team/games" className="btn btn-primary btn-text-icon">
+              <span>Alle wedstrijden</span>
+              <RiArrowRightSLine />
+            </Link>
+          </div>
         </div>
       </section>
     </section>
