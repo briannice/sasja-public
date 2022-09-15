@@ -15,7 +15,7 @@ export default function Hero({ events, news }: Props) {
     <section className="grid grid-cols-1 laptop:grid-cols-3">
       <h2 className="sr-only">Hero</h2>
 
-      <section className="hidden tablet:block laptop:col-span-2">
+      <section className="hidden shadow-md tablet:block laptop:col-span-2">
         <h3 className="sr-only">Evenementen en nieuws</h3>
         <Carousel
           length={events.length + news.length}
@@ -46,13 +46,11 @@ export default function Hero({ events, news }: Props) {
         </Carousel>
       </section>
 
-      <section className="relative hidden laptop:block laptop:aspect-square">
-        <figure className="relative aspect-square">
-          <Image src="/handball-field.jpg" alt="Handball veld." layout="fill" objectFit="cover" />
+      <section className="relative hidden laptop:flex laptop:aspect-square">
+        <figure className="relative h-full w-full">
+          <Image src="/handball-field.jpg" alt="Handball field" layout="fill" objectFit="cover" />
         </figure>
-        <div className="absolute inset-0 bg-black bg-opacity-75 p-8">
-          <h2 className="text-center text-4xl font-bold text-white">Volgende wedstrijden</h2>
-        </div>
+        <div className="absolute inset-0 bg-black bg-opacity-40"></div>
       </section>
     </section>
   )

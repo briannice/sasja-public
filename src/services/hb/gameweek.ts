@@ -1,8 +1,8 @@
 import { HandballBelgiumApi } from '@/services/hb'
-import { GameDay, GameModel } from '@/types/models'
-import { getDateRangeForGamesOverview } from '@/utils/date'
+import { GameModel, GameWeek } from '@/types/models'
+import { getDateRangeForGamesOverview, getWeekNumberForGamesOverview } from '@/utils/date'
 
-export const getHandballBelgiumGames = async (weeks: number) => {
+export const getHandballBelgiumGameweeks = async (weeks: number) => {
   const [start_date, end_date] = getDateRangeForGamesOverview(weeks)
 
   const { data, status } = await HandballBelgiumApi.get(
@@ -37,17 +37,16 @@ export const getHandballBelgiumGames = async (weeks: number) => {
 
   if (games.length === 0) return []
 
-  const gameDays: GameDay[] = []
+  const gameweeks: GameWeek[] = []
 
-  let last_date = ''
+  for (let i = 0; i < weeks; i++) {
+    gameweeks.push([])
+  }
+
   games.forEach((game) => {
-    if (game.date === last_date) {
-      gameDays[gameDays.length - 1].games.push(game)
-    } else {
-      gameDays.push({ date: game.date, games: [game] })
-      last_date = game.date
-    }
+    const weekNumber = getWeekNumberForGamesOverview(start_date, game.date)
+    gameweeks[weekNumber].push(game)
   })
 
-  return gameDays
+  return gameweeks
 }

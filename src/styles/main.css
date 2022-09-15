@@ -42,7 +42,7 @@
   /* TITLES */
   /* ------ */
   .title1 {
-    @apply text-center font-kanit text-3xl font-bold;
+    @apply text-center font-kanit text-2xl font-bold laptop:text-3xl;
   }
 
   /* ------- */

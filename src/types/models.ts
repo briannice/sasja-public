@@ -98,9 +98,14 @@ export type GameModel = {
   venue_short: string
   venue_city: string
   game_number: string
+  serie_id: number
+  serie_name: string
+  serie_short: string
 }
 
 export type GameDay = {
   date: string
   games: GameModel[]
 }
+
+export type GameWeek = GameModel[]
