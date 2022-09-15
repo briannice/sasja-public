@@ -18,13 +18,7 @@ export default function ClubLogo({ size, path = '', sasja = false }: Props) {
       {sasja ? (
         <Image src="/logo.png" alt="Sajsa logo" layout="fill" objectFit="contain" />
       ) : url ? (
-        <Image
-          src={url}
-          alt="Club logo"
-          layout="fill"
-          objectFit="contain"
-          onError={() => setUrl(null)}
-        />
+        <Image src={url} alt="" layout="fill" objectFit="contain" onError={() => setUrl(null)} />
       ) : (
         <RiShieldFill className="text-medium" style={{ width: size, height: size }} />
       )}

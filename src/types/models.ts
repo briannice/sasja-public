@@ -107,3 +107,5 @@ export type GameDay = {
   date: string
   games: GameModel[]
 }
+
+export type GameWeek = GameModel[]

@@ -28,7 +28,7 @@ export default function CarouselHeroItem({
   return (
     <CarouselItem show={show} className={className}>
       {image && <Image src={image} alt="Carousel image." layout="fill" objectFit="cover" />}
-      <section className="absolute inset-0 flex items-end space-x-16 overflow-hidden bg-black bg-opacity-50 p-16">
+      <section className="absolute inset-0 flex items-end space-x-16 overflow-hidden bg-black bg-opacity-50 p-8">
         <button onClick={() => goPreviousItem()}>
           <RiArrowLeftSLine className="h-14 w-14 text-white transition-colors hover:text-primary" />
         </button>
