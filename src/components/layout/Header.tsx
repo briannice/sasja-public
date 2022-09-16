@@ -151,6 +151,14 @@ export default function Header() {
                         )}
                       </li>
                     ))}
+                    <li className="flex space-x-4 pt-5">
+                      <a href="https://www.facebook.com/SasjaHC" target="_blank" rel="noreferrer">
+                        <FacebookIcon className="h-5 w-5 text-primary" />
+                      </a>
+                      <a href="https://www.instagram.com/sasjahc" target="_blank" rel="noreferrer">
+                        <InstagramIcon className="h-5 w-5 text-primary" />
+                      </a>
+                    </li>
                   </ul>
                 </Menu.Items>
               </Transition>
