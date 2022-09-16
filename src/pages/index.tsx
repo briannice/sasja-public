@@ -23,10 +23,10 @@ type Props = {
   teams: TeamModel[]
   opponents: OpponentModel[]
   matchReports: MatchReportModel[]
-  gameWeeks: GameWeek[]
+  gameWeek: GameWeek
 }
 
-export default function Home({ events, teams, matchReports, news, opponents, gameWeeks }: Props) {
+export default function Home({ events, teams, matchReports, news, opponents, gameWeek }: Props) {
   return (
     <>
       <Head>
@@ -34,14 +34,13 @@ export default function Home({ events, teams, matchReports, news, opponents, gam
       </Head>
       <main>
         <h1 className="sr-only">Sasja HC | Home</h1>
-        <Hero events={events} news={news} />
+        <Hero events={events} news={news} teams={teams} gameWeek={gameWeek} />
         <News
           events={events}
           matchReports={matchReports}
           news={news}
           opponents={opponents}
           teams={teams}
-          gameWeeks={gameWeeks}
         />
         <TicketsAndAbos />
       </main>
@@ -64,7 +63,7 @@ export const getStaticProps: GetStaticProps = async () => {
       teams,
       opponents,
       matchReports,
-      gameWeeks,
+      gameWeek: gameWeeks[0],
     },
     revalidate: 2 * 60,
   }
