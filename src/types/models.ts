@@ -109,3 +109,19 @@ export type GameDay = {
 }
 
 export type GameWeek = GameModel[]
+
+export type TimeLineItem =
+  | {
+      name: 'event'
+      data: EventModel
+    }
+  | {
+      name: 'news'
+      data: NewsModel
+    }
+  | {
+      name: 'matchreport'
+      data: MatchReportModel
+    }
+
+export type TimeLine = TimeLineItem[]

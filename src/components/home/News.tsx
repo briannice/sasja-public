@@ -2,18 +2,16 @@ import EventCard from '@/components/cards/EventCard'
 import MatchreportCard from '@/components/cards/MatchreportCard'
 import NewsCard from '@/components/cards/NewsCard'
 import Container from '@/components/Container'
-import { EventModel, MatchReportModel, NewsModel, OpponentModel, TeamModel } from '@/types/models'
+import { OpponentModel, TeamModel, TimeLine } from '@/types/models'
 import React from 'react'
 
 type Props = {
-  events: EventModel[]
-  news: NewsModel[]
   teams: TeamModel[]
   opponents: OpponentModel[]
-  matchReports: MatchReportModel[]
+  timeLine: TimeLine
 }
 
-export default function News({ news, events, matchReports, teams, opponents }: Props) {
+export default function News({ teams, opponents, timeLine }: Props) {
   const findTeamById = (teamId: string) => {
     return teams.find((t) => t.id === teamId)
   }
@@ -25,21 +23,22 @@ export default function News({ news, events, matchReports, teams, opponents }: P
   return (
     <Container className="grid grid-cols-4 gap-8 tablet:grid-cols-8 laptop:grid-cols-12">
       <h2 className="sr-only">News</h2>
-
-      {news.map((news) => (
-        <NewsCard key={news.id} news={news} />
-      ))}
-      {events.map((event) => (
-        <EventCard key={event.id} event={event} />
-      ))}
-      {matchReports.map((mr) => (
-        <MatchreportCard
-          key={mr.id}
-          matchReport={mr}
-          team={findTeamById(mr.teamId)}
-          opponent={findOpponentById(mr.opponentId)}
-        />
-      ))}
+      {timeLine.map(({ data, name }) =>
+        name === 'event' ? (
+          <EventCard key={data.id} event={data} />
+        ) : name === 'matchreport' ? (
+          <MatchreportCard
+            key={data.id}
+            matchReport={data}
+            team={findTeamById(data.teamId)}
+            opponent={findOpponentById(data.opponentId)}
+          />
+        ) : name === 'news' ? (
+          <NewsCard key={data.id} news={data} />
+        ) : (
+          <></>
+        )
+      )}
     </Container>
   )
 }

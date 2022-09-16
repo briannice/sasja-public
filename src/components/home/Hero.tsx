@@ -3,20 +3,19 @@ import EventCarouselItem from '@/components/carousel/items/EventCarouselItem'
 import NewsCarouselItem from '@/components/carousel/items/NewsCarouselItem'
 import Link from '@/components/Link'
 import ClubLogo from '@/components/teams/ClubLogo'
-import { EventModel, GameModel, GameWeek, NewsModel, TeamModel } from '@/types/models'
+import { GameModel, GameWeek, TeamModel, TimeLine } from '@/types/models'
 import { formatDate } from '@/utils/date'
 import Image from 'next/image'
 import React from 'react'
 import { RiArrowRightSLine } from 'react-icons/ri'
 
 type Props = {
-  events: EventModel[]
-  news: NewsModel[]
+  timeLine: TimeLine
   gameWeek: GameWeek
   teams: TeamModel[]
 }
 
-export default function Hero({ events, news, teams, gameWeek }: Props) {
+export default function Hero({ timeLine, teams, gameWeek }: Props) {
   return (
     <section className="grid grid-cols-1 laptop:grid-cols-3">
       <h2 className="sr-only">Hero</h2>
@@ -24,31 +23,32 @@ export default function Hero({ events, news, teams, gameWeek }: Props) {
       <section className="hidden shadow-md tablet:block laptop:col-span-2">
         <h3 className="sr-only">Evenementen en nieuws</h3>
         <Carousel
-          length={events.length + news.length}
+          length={timeLine.length}
           className="aspect-video laptop:aspect-auto laptop:h-full"
         >
-          {({ index, goNextItem, goPreviousItem }) => (
-            <>
-              {events.map((event, i) => (
+          {({ index, goNextItem, goPreviousItem }) =>
+            timeLine.map(({ data, name }, i) =>
+              name === 'event' ? (
                 <EventCarouselItem
-                  key={event.id}
-                  event={event}
+                  key={data.id}
+                  event={data}
                   goNextItem={goNextItem}
                   goPreviousItem={goPreviousItem}
                   show={index === i}
                 />
-              ))}
-              {news.map((news, i) => (
+              ) : name === 'news' ? (
                 <NewsCarouselItem
-                  key={news.id}
-                  news={news}
+                  key={data.id}
+                  news={data}
                   goNextItem={goNextItem}
                   goPreviousItem={goPreviousItem}
-                  show={index === i + events.length}
+                  show={index === i}
                 />
-              ))}
-            </>
-          )}
+              ) : (
+                <></>
+              )
+            )
+          }
         </Carousel>
       </section>
 
