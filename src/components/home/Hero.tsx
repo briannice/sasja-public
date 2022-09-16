@@ -3,7 +3,7 @@ import EventCarouselItem from '@/components/carousel/items/EventCarouselItem'
 import NewsCarouselItem from '@/components/carousel/items/NewsCarouselItem'
 import Link from '@/components/Link'
 import ClubLogo from '@/components/teams/ClubLogo'
-import { EventModel, GameWeek, NewsModel, TeamModel } from '@/types/models'
+import { EventModel, GameModel, GameWeek, NewsModel, TeamModel } from '@/types/models'
 import { formatDate } from '@/utils/date'
 import React from 'react'
 import { RiArrowRightSLine } from 'react-icons/ri'
@@ -16,24 +16,6 @@ type Props = {
 }
 
 export default function Hero({ events, news, teams, gameWeek }: Props) {
-  const formatTime = (time: string) => {
-    const times = time.split(':')
-    return `${times[0]}:${times[1]}`
-  }
-
-  const findTeamName = (name: string, serieId: number) => {
-    if (!name.includes('Sasja')) return name
-    let result = 'Eerste ploeg'
-    teams.forEach((team) => {
-      team.competitions.forEach((competition) => {
-        if (competition.serieId === serieId) {
-          result = team.name
-        }
-      })
-    })
-    return result
-  }
-
   return (
     <section className="grid grid-cols-1 laptop:grid-cols-3">
       <h2 className="sr-only">Hero</h2>
@@ -73,30 +55,7 @@ export default function Hero({ events, news, teams, gameWeek }: Props) {
         <h3 className="sr-only">Volgende wedstrijden!</h3>
         <div className="flex-1 divide-y divide-light">
           {gameWeek.map((game) => (
-            <div key={game.id} className="py-2">
-              <div className="flex divide-x divide-primary">
-                <p className="flex-1 pr-2 text-right text-xs text-dark desktop:text-sm">
-                  {formatTime(game.time)}
-                </p>
-                <p className="flex-1 pl-2 text-xs text-dark desktop:text-sm">
-                  {formatDate(game.date, 'DD/MM')}
-                </p>
-              </div>
-              <div className="mt-2 flex space-x-4">
-                <div className="flex flex-1 items-center justify-end space-x-2">
-                  <p className="mt-2 text-right font-kanit text-sm tablet:mt-0 desktop:text-base">
-                    {findTeamName(game.home_short, game.serie_id)}
-                  </p>
-                  <ClubLogo path={game.home_logo} size={20} />
-                </div>
-                <div className="flex flex-1 items-center space-x-2">
-                  <ClubLogo path={game.away_logo} size={20} />
-                  <p className="mt-2 font-kanit text-sm tablet:mt-0 desktop:text-base">
-                    {findTeamName(game.away_short, game.serie_id)}
-                  </p>
-                </div>
-              </div>
-            </div>
+            <Game key={game.id} game={game} teams={teams} />
           ))}
         </div>
         <div className="mt-4 flex justify-center">
@@ -112,30 +71,7 @@ export default function Hero({ events, news, teams, gameWeek }: Props) {
           <h3 className="sr-only">Volgende wedstrijden!</h3>
           <div className="flex-1 divide-y divide-light">
             {gameWeek.map((game) => (
-              <div key={game.id} className="py-2">
-                <div className="flex divide-x divide-primary">
-                  <p className="flex-1 pr-2 text-right text-xs text-dark desktop:text-sm">
-                    {formatTime(game.time)}
-                  </p>
-                  <p className="flex-1 pl-2 text-xs text-dark desktop:text-sm">
-                    {formatDate(game.date, 'DD/MM')}
-                  </p>
-                </div>
-                <div className="mt-2 flex space-x-4">
-                  <div className="flex flex-1 items-center justify-end space-x-2">
-                    <p className="mt-2 text-right font-kanit text-sm tablet:mt-0 desktop:text-base">
-                      {findTeamName(game.home_short, game.serie_id)}
-                    </p>
-                    <ClubLogo path={game.home_logo} size={20} />
-                  </div>
-                  <div className="flex flex-1 items-center space-x-2">
-                    <ClubLogo path={game.away_logo} size={20} />
-                    <p className="mt-2 font-kanit text-sm tablet:mt-0 desktop:text-base">
-                      {findTeamName(game.away_short, game.serie_id)}
-                    </p>
-                  </div>
-                </div>
-              </div>
+              <Game key={game.id} game={game} teams={teams} />
             ))}
           </div>
           <div className="mt-4 flex justify-center">
@@ -147,5 +83,51 @@ export default function Hero({ events, news, teams, gameWeek }: Props) {
         </section>
       </div>
     </section>
+  )
+}
+
+function Game({ game, teams }: { game: GameModel; teams: TeamModel[] }) {
+  const formatTime = (time: string) => {
+    const times = time.split(':')
+    return `${times[0]}:${times[1]}`
+  }
+
+  const findTeamName = (name: string, serieId: number) => {
+    if (!name.includes('Sasja')) return name
+    let result = 'Eerste ploeg'
+    teams.forEach((team) => {
+      team.competitions.forEach((competition) => {
+        if (competition.serieId === serieId) {
+          result = team.name
+        }
+      })
+    })
+    return result
+  }
+  return (
+    <div key={game.id} className="py-2">
+      <div className="flex divide-x divide-primary">
+        <p className="flex-1 pr-2 text-right text-xs text-dark desktop:text-sm">
+          {formatTime(game.time)}
+        </p>
+        <p className="flex-1 pl-2 text-xs text-dark desktop:text-sm">
+          {formatDate(game.date, 'DD/MM')}
+        </p>
+      </div>
+      <div className="mt-2 flex space-x-4">
+        <div className="flex flex-1 items-center justify-end space-x-2">
+          <p className="mt-2 text-right font-kanit text-sm tablet:mt-0 desktop:text-base">
+            {findTeamName(game.home_short, game.serie_id)}
+          </p>
+          <ClubLogo path={game.home_logo} size={20} />
+        </div>
+        <div className="flex flex-1 items-center space-x-2">
+          <ClubLogo path={game.away_logo} size={20} />
+          <p className="mt-2 font-kanit text-sm tablet:mt-0 desktop:text-base">
+            {findTeamName(game.away_short, game.serie_id)}
+          </p>
+        </div>
+      </div>
+    </div>
   )
 }
