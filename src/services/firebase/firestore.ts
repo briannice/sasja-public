@@ -1,3 +1,4 @@
+import { EventModel, MatchReportModel, NewsModel, TimeLine } from '@/types/models'
 import {
   DocumentData,
   DocumentReference,
@@ -45,3 +46,19 @@ export const queryToModels = async <M>(query: Query) => collectionToModels<M>(aw
 
 export const docRefToModel = async <M>(docRef: DocumentReference<DocumentData>) =>
   documentToModel<M>(await getDoc(docRef))
+
+export const createTimeLine = (
+  events: EventModel[],
+  news: NewsModel[],
+  matchReports: MatchReportModel[]
+) => {
+  const timeLine: TimeLine = []
+
+  events.forEach((event) => timeLine.push({ name: 'event', data: event }))
+  news.forEach((news) => timeLine.push({ name: 'news', data: news }))
+  matchReports.forEach((matchReport) => timeLine.push({ name: 'matchreport', data: matchReport }))
+
+  timeLine.sort((t1, t2) => new Date(t2.data.time).getTime() - new Date(t1.data.time).getTime())
+
+  return timeLine
+}

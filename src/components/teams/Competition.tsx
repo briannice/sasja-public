@@ -2,6 +2,7 @@ import Container from '@/components/Container'
 import Link from '@/components/Link'
 import ClubLogo from '@/components/teams/ClubLogo'
 import { GameModel, RankModel } from '@/types/models'
+import { formatDate } from '@/utils/date'
 import clsx from 'clsx'
 import React from 'react'
 import { RiArrowRightSLine } from 'react-icons/ri'
@@ -15,7 +16,6 @@ type Props = {
 
 export default function Competition({ calendar, name, ranking, teamId }: Props) {
   const createScore = (home: number, away: number) => {
-    if (home === 0 && away === 0) return ''
     return `${home} - ${away}`
   }
 
@@ -95,7 +95,11 @@ export default function Competition({ calendar, name, ranking, teamId }: Props) 
                     </div>
                   </td>
                   <td>
-                    <p className="text-center">{createScore(game.home_score, game.away_score)}</p>
+                    {game.score_status_id === 1 ? (
+                      <p className="text-center">{createScore(game.home_score, game.away_score)}</p>
+                    ) : (
+                      <p>{formatDate(game.date, 'DD/MM')}</p>
+                    )}
                   </td>
                   <td>
                     <div className="flex items-center space-x-4">
@@ -104,10 +108,10 @@ export default function Competition({ calendar, name, ranking, teamId }: Props) 
                     </div>
                   </td>
                   <td>
-                    {game.game_status_id === 2 && (
+                    {game.score_status_id === 1 && (
                       <p
                         className={clsx(
-                          'flex h-6 w-6 items-center justify-center rounded-full text-sm font-bold text-white',
+                          'flex h-5 w-5 items-center justify-center rounded-full text-xs font-bold text-white',
                           game.home_score === game.away_score
                             ? 'bg-warning'
                             : game.home_score > game.away_score && game.home_name === 'Sasja HC'

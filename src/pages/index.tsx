@@ -2,7 +2,7 @@ import Hero from '@/components/home/Hero'
 import News from '@/components/home/News'
 import TicketsAndAbos from '@/components/home/TicketsAndAbos'
 import { db } from '@/services/firebase'
-import { queryToModels } from '@/services/firebase/firestore'
+import { createTimeLine, queryToModels } from '@/services/firebase/firestore'
 import { getHandballBelgiumGameweeks } from '@/services/hb/gameweek'
 import {
   EventModel,
@@ -11,22 +11,22 @@ import {
   NewsModel,
   OpponentModel,
   TeamModel,
+  TimeLine,
 } from '@/types/models'
-import { collection, query } from 'firebase/firestore'
+import { collection, limit, orderBy, query, Timestamp, where } from 'firebase/firestore'
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import React from 'react'
 
 type Props = {
-  events: EventModel[]
-  news: NewsModel[]
+  newsTimeLine: TimeLine
+  heroTimeLine: TimeLine
   teams: TeamModel[]
   opponents: OpponentModel[]
-  matchReports: MatchReportModel[]
-  gameWeeks: GameWeek[]
+  gameWeek: GameWeek
 }
 
-export default function Home({ events, teams, matchReports, news, opponents, gameWeeks }: Props) {
+export default function Home({ newsTimeLine, heroTimeLine, teams, opponents, gameWeek }: Props) {
   return (
     <>
       <Head>
@@ -34,15 +34,8 @@ export default function Home({ events, teams, matchReports, news, opponents, gam
       </Head>
       <main>
         <h1 className="sr-only">Sasja HC | Home</h1>
-        <Hero events={events} news={news} />
-        <News
-          events={events}
-          matchReports={matchReports}
-          news={news}
-          opponents={opponents}
-          teams={teams}
-          gameWeeks={gameWeeks}
-        />
+        <Hero timeLine={heroTimeLine} teams={teams} gameWeek={gameWeek} />
+        <News timeLine={newsTimeLine} opponents={opponents} teams={teams} />
         <TicketsAndAbos />
       </main>
     </>
@@ -50,21 +43,48 @@ export default function Home({ events, teams, matchReports, news, opponents, gam
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const events = await queryToModels<EventModel>(query(collection(db, 'events')))
-  const news = await queryToModels<NewsModel>(query(collection(db, 'news')))
+  const events = await queryToModels<EventModel>(
+    query(
+      collection(db, 'events'),
+      where('public', '==', true),
+      where('time', '>=', Timestamp.now()),
+      orderBy('time', 'desc')
+    )
+  )
+
+  const news = await queryToModels<NewsModel>(
+    query(
+      collection(db, 'news'),
+      where('public', '==', true),
+      where('pinned', '==', true),
+      orderBy('time', 'desc')
+    )
+  )
+
+  const matchReports = await queryToModels<MatchReportModel>(
+    query(
+      collection(db, 'matchreport'),
+      where('public', '==', true),
+      orderBy('time', 'desc'),
+      limit(10)
+    )
+  )
+
+  const newsTimeLine = createTimeLine(events, news, matchReports)
+  const heroTimeLine = createTimeLine(events, news, [])
+
   const teams = await queryToModels<TeamModel>(query(collection(db, 'teams')))
   const opponents = await queryToModels<OpponentModel>(query(collection(db, 'opponents')))
-  const matchReports = await queryToModels<MatchReportModel>(query(collection(db, 'matchreport')))
+
   const gameWeeks = await getHandballBelgiumGameweeks(1)
 
   return {
     props: {
-      events,
-      news,
       teams,
       opponents,
-      matchReports,
-      gameWeeks,
+      newsTimeLine,
+      heroTimeLine,
+      gameWeek: gameWeeks[0],
     },
     revalidate: 2 * 60,
   }

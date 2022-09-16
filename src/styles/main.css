@@ -93,6 +93,22 @@
     @apply col-span-4 aspect-square;
   }
 
+  .card-text {
+    @apply space-y-4 p-8;
+  }
+
+  .card-text h2 {
+    @apply text-2xl underline decoration-primary decoration-2 underline-offset-4;
+  }
+
+  .card-text p {
+    @apply leading-relaxed text-dark;
+  }
+
+  .card-text a {
+    @apply font-bold text-info underline;
+  }
+
   /* ----------- */
   /* CMS CONTENT */
   /* ----------- */

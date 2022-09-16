@@ -1,4 +1,6 @@
+import Container from '@/components/Container'
 import Competition from '@/components/teams/Competition'
+import useImage from '@/hooks/useImage'
 import { db } from '@/services/firebase'
 import { collectionToModels, docRefToModel } from '@/services/firebase/firestore'
 import { getHandballBelgiumCalendar } from '@/services/hb/calendar'
@@ -6,6 +8,7 @@ import { getHandballBelgiumRanking } from '@/services/hb/ranking'
 import { GameModel, RankModel, TeamModel } from '@/types/models'
 import { collection, doc, getDocs, query } from 'firebase/firestore'
 import { GetStaticPaths, GetStaticProps } from 'next'
+import Image from 'next/image'
 import React from 'react'
 
 type Competition = {
@@ -20,9 +23,21 @@ type Props = {
 }
 
 export default function TeamPage({ competitions, team }: Props) {
+  const image = useImage('teams', team.id, 'lg')
+
   return (
     <main>
       <h1 className="sr-only">{team.name}</h1>
+      <Container card={true} className="grid grid-cols-2 gap-8 p-8">
+        <div className="divide-y divide-primary">
+          <h2 className="text-4xl font-bold">{team.name}</h2>
+        </div>
+        <div>
+          <figure className="relative aspect-video">
+            {image && <Image src={image} alt="Team Image" layout="fill" objectFit="cover" />}
+          </figure>
+        </div>
+      </Container>
       {competitions.map(({ calendar, name, ranking }) => (
         <Competition
           key={name}
