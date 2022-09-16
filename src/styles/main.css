@@ -62,7 +62,7 @@
   }
 
   .btn-text-icon > svg {
-    @apply h-5 w-5;
+    @apply mt-1 h-5 w-5;
   }
 
   .btn-primary {
