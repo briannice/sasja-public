@@ -5,6 +5,7 @@ import Link from '@/components/Link'
 import ClubLogo from '@/components/teams/ClubLogo'
 import { EventModel, GameModel, GameWeek, NewsModel, TeamModel } from '@/types/models'
 import { formatDate } from '@/utils/date'
+import Image from 'next/image'
 import React from 'react'
 import { RiArrowRightSLine } from 'react-icons/ri'
 
@@ -51,18 +52,21 @@ export default function Hero({ events, news, teams, gameWeek }: Props) {
         </Carousel>
       </section>
 
-      <section className="hidden bg-white p-4 shadow-md laptop:flex laptop:aspect-square laptop:flex-col">
-        <h3 className="sr-only">Volgende wedstrijden!</h3>
-        <div className="flex-1 divide-y divide-light">
-          {gameWeek.map((game) => (
-            <Game key={game.id} game={game} teams={teams} />
-          ))}
-        </div>
-        <div className="mt-4 flex justify-center">
-          <Link href="/team/games" className="btn btn-primary btn-text-icon tablet:text-sm">
-            <span>Alle wedstrijden</span>
-            <RiArrowRightSLine />
-          </Link>
+      <section className="relative hidden min-h-[500px] laptop:flex laptop:flex-col">
+        <Image src="/handball-field.jpg" alt="Handball field." layout="fill" objectFit="cover" />
+        <div className="relative h-full bg-black bg-opacity-50 p-8">
+          <h3 className="text-center text-2xl font-bold text-white">Volgende wedstrijden</h3>
+          <div className="rouned-sm relative mt-4 flex-1 divide-y divide-light bg-white py-2 shadow-lg">
+            {gameWeek.map((game) => (
+              <Game key={game.id} game={game} teams={teams} />
+            ))}
+          </div>
+          <div className="relative mt-4 flex justify-center">
+            <Link href="/team/games" className="btn btn-primary btn-text-icon tablet:text-sm">
+              <span>Alle wedstrijden</span>
+              <RiArrowRightSLine />
+            </Link>
+          </div>
         </div>
       </section>
 
