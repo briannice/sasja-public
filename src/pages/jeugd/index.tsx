@@ -32,7 +32,7 @@ const info = [
   {
     name: 'Inschrijven',
     text: 'Bekijk het jeugdbeleidsplan van Sasja',
-    link: '/jeugd/inschrijven',
+    link: '/club/inschrijven',
     color: 'btn-tertiary',
     icon: RiBallPenLine,
   },
