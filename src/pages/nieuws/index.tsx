@@ -1,7 +1,8 @@
+import MatchReportOverview from '@/components/MatchReportOverview'
 import NewsOverview from '@/components/NewsOverview'
 import { db } from '@/services/firebase'
 import { queryToModels } from '@/services/firebase/firestore'
-import { MatchReportModel, NewsModel } from '@/types/models'
+import { MatchReportModel, NewsModel, OpponentModel, TeamModel } from '@/types/models'
 import { collection, limit, orderBy, query, where } from 'firebase/firestore'
 import { GetStaticProps } from 'next'
 import React from 'react'
@@ -9,13 +10,20 @@ import React from 'react'
 type Props = {
   initialNews: NewsModel[]
   initialMatchReports: MatchReportModel[]
+  teams: TeamModel[]
+  opponents: OpponentModel[]
 }
 
-export default function index({ initialNews }: Props) {
+export default function index({ initialNews, initialMatchReports, teams, opponents }: Props) {
   return (
     <main>
       <h1 className="sr-only">Nieuws en matchverslagen</h1>
       <NewsOverview initialNews={[...initialNews]} />
+      <MatchReportOverview
+        initialMatchReports={[...initialMatchReports]}
+        teams={teams}
+        opponents={opponents}
+      />
     </main>
   )
 }
@@ -34,10 +42,15 @@ export const getStaticProps: GetStaticProps = async () => {
     )
   )
 
+  const teams = await queryToModels<TeamModel>(query(collection(db, 'teams')))
+  const opponents = await queryToModels<OpponentModel>(query(collection(db, 'opponents')))
+
   return {
     props: {
       initialNews,
       initialMatchReports,
+      teams,
+      opponents,
     },
   }
 }
