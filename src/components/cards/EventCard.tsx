@@ -9,7 +9,7 @@ type Props = {
   event: EventModel
 }
 
-export default function NewsCard({ event }: Props) {
+export default function EventCard({ event }: Props) {
   const image = useImage('events', event.id, 'sm')
 
   const formatTime = (time: string) => {
