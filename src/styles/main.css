@@ -98,7 +98,7 @@
   }
 
   .card-text h2 {
-    @apply text-2xl underline decoration-primary decoration-2 underline-offset-4;
+    @apply text-2xl;
   }
 
   .card-text p {
