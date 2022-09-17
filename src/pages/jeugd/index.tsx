@@ -1,13 +1,11 @@
 import Container from '@/components/Container'
 import Link from '@/components/Link'
-import useImage from '@/hooks/useImage'
 import { db } from '@/services/firebase'
 import { queryToModels } from '@/services/firebase/firestore'
 import { TeamModel } from '@/types/models'
 import clsx from 'clsx'
 import { collection, orderBy, query, where } from 'firebase/firestore'
 import { GetStaticProps } from 'next'
-import Image from 'next/image'
 import React from 'react'
 import {
   RiArrowRightSLine,
@@ -27,7 +25,7 @@ const info = [
   {
     name: 'Trainingen',
     text: 'Bekijk hier de trainingsmomenten van al onze jeugdploegen.',
-    link: '/jeugd/training',
+    link: '/team/trainingen',
     color: 'btn-secondary',
     icon: RiCalendar2Line,
   },
