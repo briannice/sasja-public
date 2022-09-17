@@ -79,7 +79,7 @@ export default function Hero({ timeLine, teams, gameWeek }: Props) {
             ))}
           </div>
           <div className="mt-4 flex justify-center">
-            <Link href="/team/games" className="btn btn-primary btn-text-icon tablet:text-sm">
+            <Link href="/team/wedstrijden" className="btn btn-primary btn-text-icon tablet:text-sm">
               <span>Alle wedstrijden</span>
               <RiArrowRightSLine />
             </Link>
