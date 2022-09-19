@@ -5,6 +5,7 @@ import { queryToModels } from '@/services/firebase/firestore'
 import { MatchReportModel, NewsModel, OpponentModel, TeamModel } from '@/types/models'
 import { collection, limit, orderBy, query, where } from 'firebase/firestore'
 import { GetStaticProps } from 'next'
+import Head from 'next/head'
 import React from 'react'
 
 type Props = {
@@ -16,15 +17,20 @@ type Props = {
 
 export default function index({ initialNews, initialMatchReports, teams, opponents }: Props) {
   return (
-    <main>
-      <h1 className="sr-only">Nieuws en matchverslagen</h1>
-      <NewsOverview initialNews={[...initialNews]} />
-      <MatchReportOverview
-        initialMatchReports={[...initialMatchReports]}
-        teams={teams}
-        opponents={opponents}
-      />
-    </main>
+    <>
+      <Head>
+        <title>Sasja HC | News</title>
+      </Head>
+      <main>
+        <h1 className="sr-only">Nieuws en matchverslagen</h1>
+        <NewsOverview initialNews={initialNews} />
+        <MatchReportOverview
+          initialMatchReports={initialMatchReports}
+          teams={teams}
+          opponents={opponents}
+        />
+      </main>
+    </>
   )
 }
 
