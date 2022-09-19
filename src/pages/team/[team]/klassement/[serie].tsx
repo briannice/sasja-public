@@ -5,6 +5,7 @@ import { getHandballBelgiumRanking } from '@/services/hb/ranking'
 import { RankModel, TeamModel } from '@/types/models'
 import { collection, doc, query } from 'firebase/firestore'
 import { GetStaticPaths, GetStaticProps } from 'next'
+import Head from 'next/head'
 import React from 'react'
 
 type Props = {
@@ -14,13 +15,19 @@ type Props = {
 
 export default function CalendarPage({ ranking, name }: Props) {
   return (
-    <main>
-      <h1 className="sr-only">Klassement | {name}</h1>
-      <section className="container space-y-8 py-16">
-        <h2 className="title1">{name}</h2>
-        <RankingTable ranking={ranking} />
-      </section>
-    </main>
+    <>
+      <Head>
+        <title>{`Sasja HC | ${name}`}</title>
+      </Head>
+
+      <main>
+        <h1 className="sr-only">Klassement | {name}</h1>
+        <section className="container space-y-8 py-16">
+          <h2 className="title1">{name}</h2>
+          <RankingTable ranking={ranking} />
+        </section>
+      </main>
+    </>
   )
 }
 

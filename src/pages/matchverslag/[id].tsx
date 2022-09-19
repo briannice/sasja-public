@@ -7,6 +7,7 @@ import { formatDate } from '@/utils/date'
 import clsx from 'clsx'
 import { collection, doc, query } from 'firebase/firestore'
 import { GetStaticPaths, GetStaticProps } from 'next'
+import Head from 'next/head'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import React from 'react'
@@ -34,63 +35,70 @@ export default function MatchReportDetailPage({ matchReport, team, opponent }: P
   }
 
   return (
-    <main className="cms-content-wrapper">
-      <h1>{createHeader()}</h1>
-      <ul className="tag-wrapper">
-        <li className="tag-time">
-          <time>{formatDate(matchReport.time, 'DD/MM/YYYY')}</time>
-        </li>
-        {tags.map((tag, i) => (
-          <li key={i} className="tag-fill">
-            <p>{tag}</p>
+    <>
+      <Head>
+        <title>{`Sasja HC | ${matchReport.home ? team.name : opponent.name} vs ${
+          matchReport.home ? opponent.name : team.name
+        }`}</title>
+      </Head>
+      <main className="cms-content-wrapper">
+        <h1>{createHeader()}</h1>
+        <ul className="tag-wrapper">
+          <li className="tag-time">
+            <time>{formatDate(matchReport.time, 'DD/MM/YYYY')}</time>
           </li>
-        ))}
-      </ul>
-      {image && (
-        <figure>
-          <Image src={image} alt="News image." layout="fill" objectFit="cover" />
-        </figure>
-      )}
-      <div
-        className={clsx(
-          'mt-16 flex items-center justify-center',
-          matchReport.home ? 'flex-row' : 'flex-row-reverse'
-        )}
-      >
-        <ClubLogo sasja={true} size={120} />
-        <div className="flex flex-col items-center space-y-2">
-          {matchReport.score.map((score, i) => (
-            <p
-              key={i}
-              className={clsx(
-                'mx-8 flex font-kanit',
-                matchReport.home ? 'flex-row' : 'flex-row-reverse'
-              )}
-            >
-              <span
-                className={clsx(
-                  'inline-block w-10 text-3xl',
-                  matchReport.home ? 'text-right' : 'text-left'
-                )}
-              >
-                {score.sasja}
-              </span>
-              <span className="mx-2 inline-block text-3xl">-</span>
-              <span
-                className={clsx(
-                  'inline-block w-10 text-3xl',
-                  matchReport.home ? 'text-left' : 'text-right'
-                )}
-              >
-                {score.opponent}
-              </span>
-            </p>
+          {tags.map((tag, i) => (
+            <li key={i} className="tag-fill">
+              <p>{tag}</p>
+            </li>
           ))}
+        </ul>
+        {image && (
+          <figure>
+            <Image src={image} alt="News image." layout="fill" objectFit="cover" />
+          </figure>
+        )}
+        <div
+          className={clsx(
+            'mt-16 flex items-center justify-center',
+            matchReport.home ? 'flex-row' : 'flex-row-reverse'
+          )}
+        >
+          <ClubLogo sasja={true} size={120} />
+          <div className="flex flex-col items-center space-y-2">
+            {matchReport.score.map((score, i) => (
+              <p
+                key={i}
+                className={clsx(
+                  'mx-8 flex font-kanit',
+                  matchReport.home ? 'flex-row' : 'flex-row-reverse'
+                )}
+              >
+                <span
+                  className={clsx(
+                    'inline-block w-10 text-3xl',
+                    matchReport.home ? 'text-right' : 'text-left'
+                  )}
+                >
+                  {score.sasja}
+                </span>
+                <span className="mx-2 inline-block text-3xl">-</span>
+                <span
+                  className={clsx(
+                    'inline-block w-10 text-3xl',
+                    matchReport.home ? 'text-left' : 'text-right'
+                  )}
+                >
+                  {score.opponent}
+                </span>
+              </p>
+            ))}
+          </div>
+          <ClubLogo path={opponent.logo} size={120} />
         </div>
-        <ClubLogo path={opponent.logo} size={120} />
-      </div>
-      <div className="cms-content" dangerouslySetInnerHTML={{ __html: matchReport.content }} />
-    </main>
+        <div className="cms-content" dangerouslySetInnerHTML={{ __html: matchReport.content }} />
+      </main>
+    </>
   )
 }
 

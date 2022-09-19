@@ -5,6 +5,7 @@ import { NewsModel } from '@/types/models'
 import { formatDate } from '@/utils/date'
 import { collection, doc, query } from 'firebase/firestore'
 import { GetStaticPaths, GetStaticProps } from 'next'
+import Head from 'next/head'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import React from 'react'
@@ -22,25 +23,30 @@ export default function NewsDatailPage({ news }: Props) {
   const tags = ['NIEUWS', news.tag]
 
   return (
-    <main className="cms-content-wrapper">
-      <h1>{news.title}</h1>
-      <ul className="tag-wrapper">
-        <li className="tag-time">
-          <time>{formatDate(news.time, 'DD/MM/YYYY')}</time>
-        </li>
-        {tags.map((tag, i) => (
-          <li key={i} className="tag-fill">
-            <p>{tag}</p>
+    <>
+      <Head>
+        <title>{`Sasja HC | ${news.title}`}</title>
+      </Head>
+      <main className="cms-content-wrapper">
+        <h1>{news.title}</h1>
+        <ul className="tag-wrapper">
+          <li className="tag-time">
+            <time>{formatDate(news.time, 'DD/MM/YYYY')}</time>
           </li>
-        ))}
-      </ul>
-      {image && (
-        <figure>
-          <Image src={image} alt="News image." layout="fill" objectFit="cover" />
-        </figure>
-      )}
-      <div className="cms-content" dangerouslySetInnerHTML={{ __html: news.content }} />
-    </main>
+          {tags.map((tag, i) => (
+            <li key={i} className="tag-fill">
+              <p>{tag}</p>
+            </li>
+          ))}
+        </ul>
+        {image && (
+          <figure>
+            <Image src={image} alt="News image." layout="fill" objectFit="cover" />
+          </figure>
+        )}
+        <div className="cms-content" dangerouslySetInnerHTML={{ __html: news.content }} />
+      </main>
+    </>
   )
 }
 

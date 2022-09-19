@@ -1,4 +1,5 @@
 import Container from '@/components/Container'
+import Head from 'next/head'
 import React from 'react'
 
 // Maandag
@@ -58,32 +59,37 @@ const trainings = [
 
 export default function TrainingsPage() {
   return (
-    <main>
-      <h1 className="title1 mt-8">Trainingen</h1>
-      <Container card={true} className="space-y-4 p-8">
-        {trainings.map(({ data, day }) => (
-          <section key={day}>
-            <h2 className="inline-block border-b border-primary pb-2 text-xl">{day}</h2>
-            <table className="mt-2 table-fixed shadow-none">
-              <tbody>
-                {data.map((t, i) => (
-                  <tr key={i}>
-                    <td className="pl-0">
-                      <p className="font-bold">{t.team}</p>
-                    </td>
-                    <td>
-                      <p className="text-dark">{`${t.start} tot ${t.end}`}</p>
-                    </td>
-                    <td className="text-dark">
-                      <p>{t.location}</p>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </section>
-        ))}
-      </Container>
-    </main>
+    <>
+      <Head>
+        <title>Sasja HC | Wedstrijden</title>
+      </Head>
+      <main>
+        <h1 className="title1 mt-8">Trainingen</h1>
+        <Container card={true} className="space-y-4 p-8">
+          {trainings.map(({ data, day }) => (
+            <section key={day}>
+              <h2 className="inline-block border-b border-primary pb-2 text-xl">{day}</h2>
+              <table className="mt-2 table-fixed shadow-none">
+                <tbody>
+                  {data.map((t, i) => (
+                    <tr key={i}>
+                      <td className="pl-0">
+                        <p className="font-bold">{t.team}</p>
+                      </td>
+                      <td>
+                        <p className="text-dark">{`${t.start} tot ${t.end}`}</p>
+                      </td>
+                      <td className="text-dark">
+                        <p>{t.location}</p>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </section>
+          ))}
+        </Container>
+      </main>
+    </>
   )
 }
