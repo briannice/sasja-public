@@ -1,4 +1,3 @@
-import Container from '@/components/Container'
 import MatchReportOverview from '@/components/MatchReportOverview'
 import Competition from '@/components/teams/Competition'
 import useImage from '@/hooks/useImage'
