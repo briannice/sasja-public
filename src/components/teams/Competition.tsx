@@ -95,10 +95,12 @@ export default function Competition({ calendar, name, ranking, teamId }: Props) 
                     </div>
                   </td>
                   <td>
-                    {game.score_status_id === 1 ? (
+                    {game.score_status_id !== 0 ? (
                       <p className="text-center">{createScore(game.home_score, game.away_score)}</p>
                     ) : (
-                      <p>{formatDate(game.date, 'DD/MM')}</p>
+                      <p className="text-center text-sm text-dark">
+                        {formatDate(game.date, 'DD/MM')}
+                      </p>
                     )}
                   </td>
                   <td>

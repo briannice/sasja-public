@@ -76,7 +76,7 @@ const trainings = [
         location: 'Sporthal Fort VIII',
       },
       {
-        teams: ['JM16 (2e jaars)', 'Sasja 3 (-18 jaar)'],
+        teams: ['JM16 (2e jaars)', 'Kern (-18 jaar)'],
         start: '18u00',
         end: '19u30',
         location: 'Sporthal Sorghvliedt',
