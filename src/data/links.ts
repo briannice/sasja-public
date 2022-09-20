@@ -28,11 +28,11 @@ const clubSublinks = [
 ]
 
 const teamSublinks = [
-  {
-    name: 'Info',
-    href: '/kern',
-  },
   ...teamLinks,
+  {
+    name: 'Spelers',
+    href: '/kern/spelers',
+  },
 ]
 
 const youthSublinks = [
