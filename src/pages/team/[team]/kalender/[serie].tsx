@@ -5,6 +5,7 @@ import { getHandballBelgiumCalendar } from '@/services/hb/calendar'
 import { GameModel, TeamModel } from '@/types/models'
 import { collection, doc, query } from 'firebase/firestore'
 import { GetStaticPaths, GetStaticProps } from 'next'
+import Head from 'next/head'
 import React from 'react'
 
 type Props = {
@@ -14,13 +15,18 @@ type Props = {
 
 export default function CalendarPage({ name, calendar }: Props) {
   return (
-    <main>
-      <h1 className="sr-only">Klassement | {name}</h1>
-      <section className="container space-y-8 py-16">
-        <h2 className="title1">{name}</h2>
-        <CalendarTable calendar={calendar} />
-      </section>
-    </main>
+    <>
+      <Head>
+        <title>{`Sasja HC | ${name}`}</title>
+      </Head>
+      <main>
+        <h1 className="sr-only">Klassement | {name}</h1>
+        <section className="container space-y-8 py-16">
+          <h2 className="title1">{name}</h2>
+          <CalendarTable calendar={calendar} />
+        </section>
+      </main>
+    </>
   )
 }
 

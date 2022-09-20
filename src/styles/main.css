@@ -45,6 +45,10 @@
     @apply text-center font-kanit text-2xl font-bold laptop:text-3xl;
   }
 
+  .title2 {
+    @apply text-center font-kanit text-xl underline decoration-primary decoration-2 underline-offset-8 laptop:text-2xl;
+  }
+
   /* ------- */
   /* BUTTONS */
   /* ------- */
@@ -177,24 +181,46 @@
     @apply mt-4 leading-relaxed text-dark;
   }
 
+  .cms-content-wrapper > .cms-content a {
+    @apply font-bold text-info underline decoration-info decoration-2 underline-offset-4;
+  }
+
+  .cms-content-wrapper > .cms-content b {
+    @apply font-bold;
+  }
+
+  .cms-content-wrapper > .cms-content i {
+    @apply italic;
+  }
+
+  .cms-content-wrapper > .cms-content s,
+  .cms-content-wrapper > .cms-content del,
+  .cms-content-wrapper > .cms-content strike {
+    @apply line-through decoration-primary decoration-2;
+  }
+
   .cms-content-wrapper > .cms-content ul {
-    @apply mt-4 list-inside list-disc space-y-1;
+    @apply mt-4 list-inside list-disc space-y-1 pl-4 laptop:pl-8;
   }
 
   .cms-content-wrapper > .cms-content ol {
-    @apply mt-4 list-inside list-decimal space-y-1;
+    @apply mt-4 list-inside list-decimal space-y-1 pl-4 laptop:pl-8;
   }
 
   .cms-content-wrapper > .cms-content ul p {
-    @apply mt-0 inline-block;
+    @apply mt-0 inline;
   }
 
   .cms-content-wrapper > .cms-content ol p {
-    @apply mt-0 inline-block;
+    @apply mt-0 inline;
   }
 
   .cms-content-wrapper > .cms-content table {
     @apply mt-4;
+  }
+
+  .cms-content-wrapper > .cms-content figure {
+    @apply relative mx-auto mt-4 aspect-video max-h-[250px];
   }
 
   /* -------- */
