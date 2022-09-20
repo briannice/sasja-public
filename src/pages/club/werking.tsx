@@ -35,6 +35,11 @@ const board = [
     function: 'Bestuurslid',
     email: ''
   },
+  {
+    name: 'Alex Jacobs',
+    function: 'Bestuurslid',
+    email: ''
+  },
 ]
 
 const api = [
