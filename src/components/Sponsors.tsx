@@ -28,6 +28,12 @@ export const sponsors = [
     aspect: 'aspect-[335/88]',
   },
   {
+    name: 'de waele',
+    path: '/sponsors/dewaele.svg',
+    href: 'https://www.dewaele.com/nl',
+    aspect: 'aspect-[1/1]',
+  },
+  {
     name: 'de lindekes',
     path: '/sponsors/lindekes.png',
     href: 'https://www.delindekes.be/',
