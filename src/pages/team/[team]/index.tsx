@@ -129,6 +129,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       teams,
       opponents,
     },
-    revalidate: 60 * 60,
+    revalidate: 5 * 60,
   }
 }
