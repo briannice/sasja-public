@@ -22,17 +22,17 @@ const topStaff = [
 const board = [
   {
     name: 'Carl Bakx',
-    function: 'Bestuurder',
+    function: 'Bestuurslid',
     email: ''
   },
   {
     name: 'Dirk Faes',
-    function: 'Bestuurder',
+    function: 'Bestuurslid',
     email: ''
   },
   {
     name: 'Michael Leeman',
-    function: 'Bestuurder',
+    function: 'Bestuurslid',
     email: ''
   },
 ]
@@ -47,18 +47,18 @@ const api = [
 
 const youth = [
   {
-    name: 'Inge Servaes',
-    function: '',
+    name: 'Michael Leeman',
+    function: 'Jeugdvoorzitter',
     email: 'jeugd@sasja-antwerpen.be'
   },
   {
-    name: 'Michael Leeman',
-    function: '',
+    name: 'Inge Servaes',
+    function: 'Kalenderverantwoordelijke',
     email: 'jeugd@sasja-antwerpen.be'
   },
   {
     name: 'Kenny Claes',
-    function: '',
+    function: 'Bestuurslid',
     email: 'jeugd@sasja-antwerpen.be'
   },
 ]
@@ -82,12 +82,12 @@ const other = [
   },
   {
     name: 'Kevin Jacobs',
-    function: 'Jeugdcoördinator',
+    function: 'Technisch Coördinator',
     email: 'kevin.jacobs@sasja-antwerpen.be',
   },
   {
     name: 'Jos Riské',
-    function: 'Jeugdcoördinator',
+    function: 'Technisch Coördinator',
     email: 'jos.riske@gmail.com',
   },
 ]
@@ -192,10 +192,10 @@ export default function werking() {
     <main className="space-y-16">
       <h1 className="sr-only">Werking</h1>
       <StaffOverview staff={topStaff} />
-      <StaffOverview name="Bestuur" staff={board} />
+      <StaffOverview name="Clubbestuur" staff={board} />
       <StaffOverview name="Aanspreekpunt Integriteit" staff={api} />
       <StaffOverview name="Coördinators" staff={other} />
-      <StaffOverview name="Jeugdcel" staff={youth} />
+      <StaffOverview name="Jeugdbestuur" staff={youth} />
       <StaffOverview name="Coaches" staff={coaches} />
       <StaffOverview name="Coaches (Jeugd)" staff={youthCoaches} />
       <StaffOverview name="Jeugdscheidsrechterbegeleiders" staff={youthReferees} />
