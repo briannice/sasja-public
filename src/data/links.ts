@@ -7,6 +7,11 @@ const clubSublinks = [
     blank: false,
   },
   {
+    name: 'Aanspreekpunt integriteit',
+    href: '/club/aanspreekpunt-integriteit',
+    blank: false,
+  },
+  {
     name: 'Ongeval',
     href: '/club/ongeval',
     blank: false,
