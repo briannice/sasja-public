@@ -7,8 +7,8 @@ const clubSublinks = [
     blank: false,
   },
   {
-    name: 'Contact',
-    href: '/club/contact',
+    name: 'Locatie',
+    href: '/club/locatie',
     blank: false,
   },
   {
