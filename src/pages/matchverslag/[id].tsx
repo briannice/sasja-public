@@ -1,5 +1,4 @@
 import ClubLogo from '@/components/teams/ClubLogo'
-import useImage from '@/hooks/useImage'
 import { db } from '@/services/firebase'
 import { docRefToModel, queryToModels } from '@/services/firebase/firestore'
 import { downloadImage } from '@/services/firebase/storage'
