@@ -34,10 +34,7 @@ export default function EventDetailPage({ event, image }: Props) {
       <Head>
         <title>{`Sasja HC | ${event.name}`}</title>
 
-        <meta
-          property="og:url"
-          content={`https://www.sasja-antwerpen.com/matchverslagen/${event.id}`}
-        />
+        <meta property="og:url" content={`https://www.sasja-antwerpen.com/evenement/${event.id}`} />
         <meta property="og:type" content="article" />
         <meta property="og:title" content={event.name} />
         <meta property="og:description" content="" />
