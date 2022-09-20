@@ -1,7 +1,7 @@
 import ClubLogo from '@/components/teams/ClubLogo'
-import useImage from '@/hooks/useImage'
 import { db } from '@/services/firebase'
 import { docRefToModel, queryToModels } from '@/services/firebase/firestore'
+import { downloadImage } from '@/services/firebase/storage'
 import { MatchReportModel, OpponentModel, TeamModel } from '@/types/models'
 import { formatDate } from '@/utils/date'
 import clsx from 'clsx'
@@ -16,11 +16,11 @@ type Props = {
   matchReport: MatchReportModel
   team: TeamModel
   opponent: OpponentModel
+  image: string
 }
 
-export default function MatchReportDetailPage({ matchReport, team, opponent }: Props) {
+export default function MatchReportDetailPage({ matchReport, team, opponent, image }: Props) {
   const router = useRouter()
-  const image = useImage('matchreport', matchReport ? matchReport.id : '', 'lg')
 
   if (router.isFallback) return <></>
 
@@ -37,9 +37,16 @@ export default function MatchReportDetailPage({ matchReport, team, opponent }: P
   return (
     <>
       <Head>
-        <title>{`Sasja HC | ${matchReport.home ? team.name : opponent.name} vs ${
-          matchReport.home ? opponent.name : team.name
-        }`}</title>
+        <title>{`Sasja HC | ${createHeader()}`}</title>
+
+        <meta
+          property="og:url"
+          content={`https://www.sasja-antwerpen.com/matchverslagen/${matchReport.id}`}
+        />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content={createHeader()} />
+        <meta property="og:description" content="" />
+        <meta property="og:image" content={image} />
       </Head>
       <main className="cms-content-wrapper">
         <h1>{createHeader()}</h1>
@@ -53,11 +60,9 @@ export default function MatchReportDetailPage({ matchReport, team, opponent }: P
             </li>
           ))}
         </ul>
-        {image && (
-          <figure>
-            <Image src={image} alt="News image." layout="fill" objectFit="cover" />
-          </figure>
-        )}
+        <figure>
+          <Image src={image} alt="News image." layout="fill" objectFit="cover" />
+        </figure>
         <div
           className={clsx(
             'mt-16 flex items-center justify-center',
@@ -114,15 +119,20 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   if (!params) return { notFound: true }
+
   const id = params.id as string
   const matchReport = await docRefToModel<MatchReportModel>(doc(db, 'matchreport', id))
   const team = await docRefToModel<TeamModel>(doc(db, 'teams', matchReport.teamId))
   const opponent = await docRefToModel<OpponentModel>(doc(db, 'opponents', matchReport.opponentId))
+
+  const image = await downloadImage(`/matchreport/${matchReport.id}`, 'lg')
+
   return {
     props: {
-      matchReport: matchReport,
-      team: team,
-      opponent: opponent,
+      matchReport,
+      team,
+      opponent,
+      image,
     },
     revalidate: 5 * 60,
   }
