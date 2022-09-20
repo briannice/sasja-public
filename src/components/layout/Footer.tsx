@@ -52,7 +52,7 @@ export default function Footer() {
             <p className="border-b border-primary pb-2 font-kanit">Contact</p>
             <ul className="mt-4 space-y-4">
               <li className="flex flex-row-reverse items-center laptop:flex-row">
-                <p className="text-dark">info@sasja-antwerpen.be</p>
+                <p className="text-right text-dark">secretariaat@sasja-antwerpen.be</p>
                 <RiMailFill className="mr-4 h-5 w-5 text-primary laptop:ml-4 laptop:mr-0" />
               </li>
               <li className="flex flex-row-reverse items-center justify-end laptop:flex-row">
