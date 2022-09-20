@@ -1,12 +1,13 @@
 import Container from '@/components/Container'
+import MatchReportOverview from '@/components/MatchReportOverview'
 import Competition from '@/components/teams/Competition'
 import useImage from '@/hooks/useImage'
 import { db } from '@/services/firebase'
-import { collectionToModels, docRefToModel } from '@/services/firebase/firestore'
+import { collectionToModels, docRefToModel, queryToModels } from '@/services/firebase/firestore'
 import { getHandballBelgiumCalendar } from '@/services/hb/calendar'
 import { getHandballBelgiumRanking } from '@/services/hb/ranking'
-import { GameModel, RankModel, TeamModel } from '@/types/models'
-import { collection, doc, getDocs, query } from 'firebase/firestore'
+import { GameModel, MatchReportModel, OpponentModel, RankModel, TeamModel } from '@/types/models'
+import { collection, doc, getDocs, limit, orderBy, query, where } from 'firebase/firestore'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
@@ -21,9 +22,18 @@ type Competition = {
 type Props = {
   competitions: Competition[]
   team: TeamModel
+  initialMatchReports: MatchReportModel[]
+  teams: TeamModel[]
+  opponents: OpponentModel[]
 }
 
-export default function TeamPage({ competitions, team }: Props) {
+export default function TeamPage({
+  competitions,
+  team,
+  initialMatchReports,
+  opponents,
+  teams,
+}: Props) {
   const image = useImage('teams', team.id, 'lg')
 
   return (
@@ -43,6 +53,14 @@ export default function TeamPage({ competitions, team }: Props) {
             </figure>
           </div>
         </Container>
+
+        <MatchReportOverview
+          initialMatchReports={initialMatchReports}
+          teams={teams}
+          opponents={opponents}
+          teamId={team.id}
+        />
+
         {competitions.map(({ calendar, name, ranking }) => (
           <Competition
             key={name}
@@ -88,11 +106,28 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     })
   }
 
+  // Matchreports
+  const initialMatchReports = await queryToModels<MatchReportModel>(
+    query(
+      collection(db, 'matchreport'),
+      where('public', '==', true),
+      where('teamId', '==', team.id),
+      orderBy('time', 'desc'),
+      limit(10)
+    )
+  )
+
+  const teams = await queryToModels<TeamModel>(query(collection(db, 'teams')))
+  const opponents = await queryToModels<OpponentModel>(query(collection(db, 'opponents')))
+
   // Props and ISR
   return {
     props: {
       competitions,
       team,
+      initialMatchReports,
+      teams,
+      opponents,
     },
     revalidate: 60 * 60,
   }
