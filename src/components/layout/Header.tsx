@@ -22,7 +22,11 @@ export default function Header() {
           {headerLinks.map((link) => (
             <li key={link.name} className="group relative h-full">
               {link.href ? (
-                <Link href={link.href} className="relative flex h-full items-center px-8">
+                <Link
+                  href={link.href}
+                  blank={link.blank}
+                  className="relative flex h-full items-center px-8"
+                >
                   <span className="font-kanit text-dark">{link.name}</span>
                   <span className="absolute inset-x-8 mt-6 block h-0.5 origin-left scale-x-0 transform bg-primary transition group-hover:scale-x-100" />
                 </Link>
@@ -46,6 +50,7 @@ export default function Header() {
                               {({ active }) => (
                                 <HeadlessLink
                                   href={sublink.href}
+                                  blank={sublink.blank}
                                   className={clsx(
                                     'whitespace-nowrap py-2 px-8 text-right font-kanit text-dark',
                                     active && 'bg-light'
@@ -98,7 +103,11 @@ export default function Header() {
                       <li key={link.name}>
                         {link.href ? (
                           <Menu.Item>
-                            <HeadlessLink href={link.href} className="block py-3 font-kanit">
+                            <HeadlessLink
+                              href={link.href}
+                              blank={link.blank}
+                              className="block py-3 font-kanit"
+                            >
                               {link.name}
                             </HeadlessLink>
                           </Menu.Item>
@@ -137,6 +146,7 @@ export default function Header() {
                                       <Menu.Item>
                                         <HeadlessLink
                                           href={sublink.href}
+                                          blank={sublink.blank}
                                           className="block py-3 font-kanit text-dark"
                                         >
                                           {sublink.name}

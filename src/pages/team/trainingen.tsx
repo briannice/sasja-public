@@ -1,6 +1,8 @@
 import Container from '@/components/Container'
+import Link from '@/components/Link'
 import Head from 'next/head'
 import React from 'react'
+import { RiExternalLinkLine } from 'react-icons/ri'
 
 const trainings = [
   {
@@ -76,7 +78,7 @@ const trainings = [
         location: 'Sporthal Fort VIII',
       },
       {
-        teams: ['JM16 (2e jaars)', 'Sasja 3 (-18 jaar)'],
+        teams: ['JM16 (2e jaars)', 'Kern (-18 jaar)'],
         start: '18u00',
         end: '19u30',
         location: 'Sporthal Sorghvliedt',
@@ -114,7 +116,13 @@ export default function TrainingsPage() {
                       <p className="text-dark">{`${training.start} tot ${training.end}`}</p>
                     </div>
                     <div className="flex items-center justify-center">
-                      <p className="text-dark">{training.location}</p>
+                      <Link
+                        href="/club/locatie"
+                        className="flex items-center space-x-2 text-info underline"
+                      >
+                        <span>{training.location}</span>
+                        <RiExternalLinkLine />
+                      </Link>
                     </div>
                   </div>
                 ))}

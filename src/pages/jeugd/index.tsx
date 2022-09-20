@@ -1,11 +1,6 @@
 import Container from '@/components/Container'
 import Link from '@/components/Link'
-import { db } from '@/services/firebase'
-import { queryToModels } from '@/services/firebase/firestore'
-import { TeamModel } from '@/types/models'
 import clsx from 'clsx'
-import { collection, orderBy, query, where } from 'firebase/firestore'
-import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import React from 'react'
 import {
@@ -32,71 +27,21 @@ const info = [
   },
   {
     name: 'Inschrijven',
-    text: 'Bekijk het jeugdbeleidsplan van Sasja',
+    text: 'Alle informatie over hoe je lid wordt van SASJA.',
     link: '/club/inschrijven',
     color: 'btn-tertiary',
     icon: RiBallPenLine,
   },
 ]
 
-type Props = {
-  teams: TeamModel[]
-}
-
-export default function YouthPage({ teams }: Props) {
+export default function YouthPage() {
   return (
     <>
       <Head>
         <title>Sasja HC | Jeugd</title>
       </Head>
       <main>
-        <h1 className="sr-only">Jeugd</h1>
-        <Container card={true} className="card-text">
-          <h2>Jeugdploegen</h2>
-          <p>
-            De jeugdwerking is een belangrijke pijler in het succes van Sasja. Op onze website kan u
-            alles vinden over de kalenders, klassementen, trainingen en trainers van onze
-            jeugdploegen.
-          </p>
-          <ul className="space-y-2">
-            {teams.map((team) => (
-              <li key={team.id}>
-                <div className="flex items-center space-x-4">
-                  <RiArrowRightSLine />
-                  <Link href={`/team/${team.id}`}>{team.name}</Link>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </Container>
-        <Container className="grid grid-cols-1 gap-8 laptop:grid-cols-3">
-          <h2 className="sr-only">Info</h2>
-          {info.map((info) => (
-            <section key={info.name} className="card flex flex-col p-8">
-              <h3 className="text-2xl">{info.name}</h3>
-              <p className="mt-4 flex-1 leading-relaxed text-dark">{info.text}</p>
-              <Link href={info.link} className={clsx(info.color, 'btn btn-text-icon mt-8')}>
-                <span>Lees meer</span>
-                <RiArrowRightSLine />
-              </Link>
-            </section>
-          ))}
-        </Container>
-        <Container card={true} className="card-text">
-          <h2>Jeugd handbal</h2>
-          <p>
-            Handbal is een heel complete en leuke sport voor kinderen die van balsporten houden en
-            graag in teamverband spelen. Het spel gaat heel snel en er wordt veel gescoord; dus ook
-            voor de toeschouwers is er genoeg te zien.
-          </p>
-          <p>
-            Hou jij van lopen, springen en gooien, maar vooral van samen werken ? Kom dan een
-            keertje meedoen op een van onze trainingen of stuur een berichtje naar{' '}
-            <a href="mailto:jeugd@sasja-antwerpen.be">jeugd@sasja-antwerpen.be</a>. We vinden het
-            altijd fijn als je – na een aantal trainingen – wil deelnemen aan wedstrijden. Maar als
-            je liever alleen komt trainen, dan kan dat ook.
-          </p>
-        </Container>
+        <h1 className="title1 mt-8">Jeugd</h1>
         <Container card={true} className="card-text">
           <h2>Jeugdwerking bij Sasja</h2>
           <p>
@@ -113,20 +58,20 @@ export default function YouthPage({ teams }: Props) {
             voor de nodige geschikte infrastructuur en aangepaste trainingsmaterialen.
           </p>
         </Container>
+        <Container className="grid grid-cols-1 gap-8 laptop:grid-cols-3">
+          <h2 className="sr-only">Info</h2>
+          {info.map((info) => (
+            <section key={info.name} className="card flex flex-col p-8">
+              <h3 className="text-2xl">{info.name}</h3>
+              <p className="mt-4 flex-1 leading-relaxed text-dark">{info.text}</p>
+              <Link href={info.link} className={clsx(info.color, 'btn btn-text-icon mt-8')}>
+                <span>Lees meer</span>
+                <RiArrowRightSLine />
+              </Link>
+            </section>
+          ))}
+        </Container>
       </main>
     </>
   )
-}
-
-export const getStaticProps: GetStaticProps = async () => {
-  const teams = await queryToModels<TeamModel>(
-    query(collection(db, 'teams'), where('youth', '==', true), orderBy('name', 'desc'))
-  )
-
-  return {
-    props: {
-      teams,
-    },
-    revalidate: 5 * 60,
-  }
 }

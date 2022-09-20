@@ -62,6 +62,12 @@ export type MatchReportModel = BaseModel & {
   public: boolean
 }
 
+export type StaffModel = {
+  name: string
+  function: string
+  email: string
+}
+
 export type RankModel = {
   id: number
   name: string

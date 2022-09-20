@@ -1,4 +1,3 @@
-import Container from '@/components/Container'
 import MatchReportOverview from '@/components/MatchReportOverview'
 import Competition from '@/components/teams/Competition'
 import useImage from '@/hooks/useImage'
@@ -42,17 +41,12 @@ export default function TeamPage({
         <title>{`Sasja HC | ${team.name}`}</title>
       </Head>
       <main>
-        <h1 className="sr-only">{team.name}</h1>
-        <Container card={true} className="grid grid-cols-2 gap-8 p-8">
-          <div className="divide-y divide-primary">
-            <h2 className="text-4xl font-bold">{team.name}</h2>
-          </div>
-          <div>
-            <figure className="relative aspect-video">
-              {image && <Image src={image} alt="Team Image" layout="fill" objectFit="cover" />}
-            </figure>
-          </div>
-        </Container>
+        <h1 className="title1 mt-8">{team.name}</h1>
+        <div className="mt-8 flex justify-center">
+          <figure className="relative aspect-video w-full tablet:h-80 tablet:w-auto">
+            {image && <Image src={image} alt="Team Image" layout="fill" objectFit="cover" />}
+          </figure>
+        </div>
 
         <MatchReportOverview
           initialMatchReports={initialMatchReports}

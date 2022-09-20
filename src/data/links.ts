@@ -2,43 +2,46 @@ import { teamLinks, youthLinks } from '@/data/teams'
 
 const clubSublinks = [
   {
-    name: 'Contact',
-    href: '/club/contact',
-  },
-  {
     name: 'Werking',
     href: '/club/werking',
+    blank: false,
+  },
+  {
+    name: 'Locatie',
+    href: '/club/locatie',
+    blank: false,
   },
   {
     name: 'Inschrijven',
     href: '/club/inschrijven',
+    blank: false,
   },
   {
-    name: 'Visie',
-    href: '/club/visie',
+    name: 'Aanspreekpunt integriteit',
+    href: '/club/aanspreekpunt-integriteit',
+    blank: false,
   },
   {
-    name: 'Historiek',
-    href: '/club/historiek',
-  },
-  {
-    name: 'Galerij',
-    href: '/club/galerij',
+    name: 'Ongeval',
+    href: '/club/ongeval',
+    blank: false,
   },
 ]
 
 const teamSublinks = [
-  {
-    name: 'Info',
-    href: '/kern',
-  },
   ...teamLinks,
+  {
+    name: 'Spelers',
+    href: '/kern/spelers',
+    blank: false,
+  },
 ]
 
 const youthSublinks = [
   {
     name: 'Info',
     href: '/jeugd',
+    blank: false,
   },
   ...youthLinks,
 ]
@@ -59,14 +62,17 @@ export const headerLinks = [
   {
     name: 'Nieuws',
     href: '/nieuws',
+    blank: false,
   },
   {
     name: 'Tickets',
     href: '/#tickets-abbonementen',
+    blank: false,
   },
   {
     name: 'Fanshop',
     href: '/fanshop',
+    blank: true,
   },
 ]
 
