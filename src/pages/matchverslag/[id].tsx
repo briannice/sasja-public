@@ -37,9 +37,16 @@ export default function MatchReportDetailPage({ matchReport, team, opponent }: P
   return (
     <>
       <Head>
-        <title>{`Sasja HC | ${matchReport.home ? team.name : opponent.name} vs ${
-          matchReport.home ? opponent.name : team.name
-        }`}</title>
+        <title>{`Sasja HC | ${createHeader()}`}</title>
+
+        <meta
+          property="og:url"
+          content={`https://www.sasja-antwerpen.com/matchverslagen/${matchReport.id}`}
+        />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content={createHeader()} />
+        <meta property="og:description" content={matchReport.content} />
+        {image && <meta property="og:image" content={image} />}
       </Head>
       <main className="cms-content-wrapper">
         <h1>{createHeader()}</h1>
