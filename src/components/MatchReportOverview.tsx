@@ -64,7 +64,7 @@ export default function MatchReportOverview({
     }
   }, [breakpoint, matchReports])
 
-  if (!breakpoint) return <></>
+  if (!breakpoint || initialMatchReports.length === 0) return <></>
 
   const findTeamById = (teamId: string) => {
     return teams.find((t) => t.id === teamId)
@@ -85,7 +85,7 @@ export default function MatchReportOverview({
     const lastDoc = await getDoc(doc(db, 'matchreport', matchReports[matchReports.length - 1].id))
 
     let newMatchReports: MatchReportModel[] = []
-    if (teamId) {
+    if (teamId === '') {
       newMatchReports = await queryToModels<MatchReportModel>(
         query(
           collection(db, 'matchreport'),
