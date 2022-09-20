@@ -70,8 +70,8 @@ export default function Hero({ timeLine, teams, gameWeek }: Props) {
         </div>
       </section>
 
-      <div className="container mt-8">
-        <section className="card p-4 laptop:hidden">
+      <div className="container mt-8 laptop:hidden">
+        <section className="card p-4">
           <h3 className="sr-only">Volgende wedstrijden!</h3>
           <div className="flex-1 divide-y divide-light">
             {gameWeek.map((game) => (
