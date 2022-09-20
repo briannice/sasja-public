@@ -60,11 +60,9 @@ export default function MatchReportDetailPage({ matchReport, team, opponent, ima
             </li>
           ))}
         </ul>
-        {image && (
-          <figure>
-            <Image src={image} alt="News image." layout="fill" objectFit="cover" />
-          </figure>
-        )}
+        <figure>
+          <Image src={image} alt="News image." layout="fill" objectFit="cover" />
+        </figure>
         <div
           className={clsx(
             'mt-16 flex items-center justify-center',
