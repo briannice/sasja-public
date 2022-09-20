@@ -118,5 +118,6 @@ export const getStaticProps: GetStaticProps = async () => {
       gameDays: gameDays,
       teams: teams,
     },
+    revalidate: 5 * 60,
   }
 }

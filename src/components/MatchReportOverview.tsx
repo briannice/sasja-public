@@ -21,9 +21,15 @@ type Props = {
   initialMatchReports: MatchReportModel[]
   teams: TeamModel[]
   opponents: OpponentModel[]
+  teamId?: string
 }
 
-export default function MatchReportOverview({ initialMatchReports, teams, opponents }: Props) {
+export default function MatchReportOverview({
+  initialMatchReports,
+  teams,
+  opponents,
+  teamId = '',
+}: Props) {
   const [matchReports, setMatchReports] = useState([...initialMatchReports])
   const [hasMore, setHasMore] = useState(true)
   const [showing, setShowing] = useState(0)
@@ -58,7 +64,7 @@ export default function MatchReportOverview({ initialMatchReports, teams, oppone
     }
   }, [breakpoint, matchReports])
 
-  if (!breakpoint) return <></>
+  if (!breakpoint || initialMatchReports.length === 0) return <></>
 
   const findTeamById = (teamId: string) => {
     return teams.find((t) => t.id === teamId)
@@ -78,15 +84,29 @@ export default function MatchReportOverview({ initialMatchReports, teams, oppone
 
     const lastDoc = await getDoc(doc(db, 'matchreport', matchReports[matchReports.length - 1].id))
 
-    const newMatchReports = await queryToModels<MatchReportModel>(
-      query(
-        collection(db, 'matchreport'),
-        where('public', '==', true),
-        orderBy('time', 'desc'),
-        startAfter(lastDoc),
-        limit(10)
+    let newMatchReports: MatchReportModel[] = []
+    if (teamId === '') {
+      newMatchReports = await queryToModels<MatchReportModel>(
+        query(
+          collection(db, 'matchreport'),
+          where('public', '==', true),
+          where('teamId', '==', teamId),
+          orderBy('time', 'desc'),
+          startAfter(lastDoc),
+          limit(10)
+        )
       )
-    )
+    } else {
+      newMatchReports = await queryToModels<MatchReportModel>(
+        query(
+          collection(db, 'matchreport'),
+          where('public', '==', true),
+          orderBy('time', 'desc'),
+          startAfter(lastDoc),
+          limit(10)
+        )
+      )
+    }
 
     if (newMatchReports.length === 0) {
       setShowing(matchReports.length)

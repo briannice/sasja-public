@@ -73,6 +73,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       ranking: ranking,
       name: competition.name,
     },
-    revalidate: 60 * 60,
+    revalidate: 5 * 60,
   }
 }

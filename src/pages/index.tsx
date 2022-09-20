@@ -86,6 +86,6 @@ export const getStaticProps: GetStaticProps = async () => {
       heroTimeLine,
       gameWeek: gameWeeks[0],
     },
-    revalidate: 2 * 60,
+    revalidate: 5 * 60,
   }
 }
