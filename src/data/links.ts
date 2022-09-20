@@ -2,33 +2,13 @@ import { teamLinks, youthLinks } from '@/data/teams'
 
 const clubSublinks = [
   {
-    name: 'Contact',
-    href: '/club/contact',
-    blank: false,
-  },
-  {
-    name: 'Werking',
-    href: '/club/werking',
-    blank: false,
-  },
-  {
     name: 'Inschrijven',
     href: '/club/inschrijven',
     blank: false,
   },
   {
-    name: 'Visie',
-    href: '/club/visie',
-    blank: false,
-  },
-  {
-    name: 'Historiek',
-    href: '/club/historiek',
-    blank: false,
-  },
-  {
-    name: 'Galerij',
-    href: '/club/galerij',
+    name: 'Ongeval',
+    href: '/club/ongeval',
     blank: false,
   },
 ]
