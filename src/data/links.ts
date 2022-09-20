@@ -4,26 +4,32 @@ const clubSublinks = [
   {
     name: 'Contact',
     href: '/club/contact',
+    blank: false,
   },
   {
     name: 'Werking',
     href: '/club/werking',
+    blank: false,
   },
   {
     name: 'Inschrijven',
     href: '/club/inschrijven',
+    blank: false,
   },
   {
     name: 'Visie',
     href: '/club/visie',
+    blank: false,
   },
   {
     name: 'Historiek',
     href: '/club/historiek',
+    blank: false,
   },
   {
     name: 'Galerij',
     href: '/club/galerij',
+    blank: false,
   },
 ]
 
@@ -32,6 +38,7 @@ const teamSublinks = [
   {
     name: 'Spelers',
     href: '/kern/spelers',
+    blank: false,
   },
 ]
 
@@ -39,6 +46,7 @@ const youthSublinks = [
   {
     name: 'Info',
     href: '/jeugd',
+    blank: false,
   },
   ...youthLinks,
 ]
@@ -59,14 +67,17 @@ export const headerLinks = [
   {
     name: 'Nieuws',
     href: '/nieuws',
+    blank: false,
   },
   {
     name: 'Tickets',
     href: '/#tickets-abbonementen',
+    blank: false,
   },
   {
     name: 'Fanshop',
     href: '/fanshop',
+    blank: true,
   },
 ]
 
