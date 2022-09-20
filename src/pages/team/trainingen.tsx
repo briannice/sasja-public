@@ -2,39 +2,21 @@ import Container from '@/components/Container'
 import Head from 'next/head'
 import React from 'react'
 
-// Maandag
-// JM14 (2dejaars)-JM16 17u30-19u sporthal Sorgvliedt
-// JM12-JM14 (1stejaars) 18u-19u30 sporthal Notelaar
-
-// Dinsdag
-// JM16 18u-19u30 Sporthal Notelaar
-
-// Woensdag
-// JM8 13u30-14u45 Sporthal Notelaar
-// JM10 14u30-16u Sporthal Notelaar
-// JM12 14u30-16u Sporthal Sorgvliedt
-// JM14 16u-18u Sporthal Sorghvliedt
-
-// Donderdag
-// JM12 17u15-19u Sporthal Kiel
-// JM14-JM16(1stejaars) 17u30-19u Sporthal Fort VIII
-// JM16(2dejaars)-Liga 1 (-18j) 18u-19u30 Sporthal Sorghvliedt
-
 const trainings = [
   {
     day: 'Maandag',
     data: [
       {
-        team: 'JM14 (2e)',
+        teams: ['JM14 (2e jaars)', 'JM16'],
         start: '17u30',
         end: '19u00',
         location: 'Sporthal Sorghvliedt',
       },
       {
-        team: 'JM12',
+        teams: ['JM12', 'JM14 (1e jaars)'],
         start: '17u30',
         end: '19u00',
-        location: 'Sporthal Sorghvliedt',
+        location: 'Sporthal Notelaar',
       },
     ],
   },
@@ -42,15 +24,61 @@ const trainings = [
     day: 'Dinsdag',
     data: [
       {
-        team: 'JM16',
-        start: '17u30',
-        end: '19u00',
+        teams: ['JM16'],
+        start: '18u00',
+        end: '19u30',
+        location: 'Sporthal Notelaar',
+      },
+    ],
+  },
+  {
+    day: 'Woensdag',
+    data: [
+      {
+        teams: ['JM8'],
+        start: '13u30',
+        end: '14u45',
+        location: 'Sporthal Notelaar',
+      },
+      {
+        teams: ['JM10'],
+        start: '14u30',
+        end: '16u00',
+        location: 'Sporthal Notelaar',
+      },
+      {
+        teams: ['JM12'],
+        start: '14u30',
+        end: '16u00',
         location: 'Sporthal Sorghvliedt',
       },
       {
-        team: 'JM12',
+        teams: ['JM14'],
+        start: '16u00',
+        end: '18u00',
+        location: 'Sporthal Sorghvliedt',
+      },
+    ],
+  },
+  {
+    day: 'Donderdag',
+    data: [
+      {
+        teams: ['JM12'],
+        start: '17u15',
+        end: '19u00',
+        location: 'Sporthal Kiel',
+      },
+      {
+        teams: ['JM14', 'JM16 (1e jaars)'],
         start: '17u30',
         end: '19u00',
+        location: 'Sporthal Fort VIII',
+      },
+      {
+        teams: ['JM16 (2e jaars)', 'Sasja 3 (-18 jaar)'],
+        start: '18u00',
+        end: '19u30',
         location: 'Sporthal Sorghvliedt',
       },
     ],
@@ -65,27 +93,32 @@ export default function TrainingsPage() {
       </Head>
       <main>
         <h1 className="title1 mt-8">Trainingen</h1>
-        <Container card={true} className="space-y-4 p-8">
+        <Container className="space-y-8">
           {trainings.map(({ data, day }) => (
-            <section key={day}>
-              <h2 className="inline-block border-b border-primary pb-2 text-xl">{day}</h2>
-              <table className="mt-2 table-fixed shadow-none">
-                <tbody>
-                  {data.map((t, i) => (
-                    <tr key={i}>
-                      <td className="pl-0">
-                        <p className="font-bold">{t.team}</p>
-                      </td>
-                      <td>
-                        <p className="text-dark">{`${t.start} tot ${t.end}`}</p>
-                      </td>
-                      <td className="text-dark">
-                        <p>{t.location}</p>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+            <section key={day} className="card p-4">
+              <h2 className="title2">{day}</h2>
+              <div className="mt-8 divide-y divide-light">
+                {data.map((training, i) => (
+                  <div
+                    key={i}
+                    className="grid grid-cols-1 gap-4 py-4 first:pt-0 last:pb-0 tablet:grid-cols-3 tablet:gap-8"
+                  >
+                    <div className="flex flex-col items-center space-y-1">
+                      {training.teams.map((team) => (
+                        <p key={team} className="font-kanit">
+                          {team}
+                        </p>
+                      ))}
+                    </div>
+                    <div className="flex items-center justify-center">
+                      <p className="text-dark">{`${training.start} tot ${training.end}`}</p>
+                    </div>
+                    <div className="flex items-center justify-center">
+                      <p className="text-dark">{training.location}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </section>
           ))}
         </Container>

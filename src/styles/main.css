@@ -45,6 +45,10 @@
     @apply text-center font-kanit text-2xl font-bold laptop:text-3xl;
   }
 
+  .title2 {
+    @apply text-center font-kanit text-xl underline decoration-primary decoration-2 underline-offset-8 laptop:text-2xl;
+  }
+
   /* ------- */
   /* BUTTONS */
   /* ------- */
