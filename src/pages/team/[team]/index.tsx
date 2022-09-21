@@ -5,7 +5,7 @@ import { db } from '@/services/firebase'
 import { collectionToModels, docRefToModel, queryToModels } from '@/services/firebase/firestore'
 import { getHandballBelgiumCalendar } from '@/services/hb/calendar'
 import { getHandballBelgiumRanking } from '@/services/hb/ranking'
-import { GameModel, MatchReportModel, OpponentModel, RankModel, TeamModel } from '@/types/models'
+import { GameModel, MatchReportModel, RankModel, TeamModel } from '@/types/models'
 import { collection, doc, getDocs, limit, orderBy, query, where } from 'firebase/firestore'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
@@ -22,17 +22,9 @@ type Props = {
   competitions: Competition[]
   team: TeamModel
   initialMatchReports: MatchReportModel[]
-  teams: TeamModel[]
-  opponents: OpponentModel[]
 }
 
-export default function TeamPage({
-  competitions,
-  team,
-  initialMatchReports,
-  opponents,
-  teams,
-}: Props) {
+export default function TeamPage({ competitions, team, initialMatchReports }: Props) {
   const image = useImage('teams', team.id, 'lg')
 
   return (
@@ -48,12 +40,7 @@ export default function TeamPage({
           </figure>
         </div>
 
-        <MatchReportOverview
-          initialMatchReports={initialMatchReports}
-          teams={teams}
-          opponents={opponents}
-          teamId={team.id}
-        />
+        <MatchReportOverview initialMatchReports={initialMatchReports} teamId={team.id} />
 
         {competitions.map(({ calendar, name, ranking }) => (
           <Competition
@@ -111,17 +98,12 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     )
   )
 
-  const teams = await queryToModels<TeamModel>(query(collection(db, 'teams')))
-  const opponents = await queryToModels<OpponentModel>(query(collection(db, 'opponents')))
-
   // Props and ISR
   return {
     props: {
       competitions,
       team,
       initialMatchReports,
-      teams,
-      opponents,
     },
     revalidate: 5 * 60,
   }

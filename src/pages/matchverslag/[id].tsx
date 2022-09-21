@@ -2,7 +2,7 @@ import ClubLogo from '@/components/teams/ClubLogo'
 import { db } from '@/services/firebase'
 import { docRefToModel, queryToModels } from '@/services/firebase/firestore'
 import { downloadImage } from '@/services/firebase/storage'
-import { MatchReportModel, OpponentModel, TeamModel } from '@/types/models'
+import { MatchReportModel } from '@/types/models'
 import { formatDate } from '@/utils/date'
 import clsx from 'clsx'
 import { collection, doc, query } from 'firebase/firestore'
@@ -14,12 +14,10 @@ import React from 'react'
 
 type Props = {
   matchReport: MatchReportModel
-  team: TeamModel
-  opponent: OpponentModel
   image: string
 }
 
-export default function MatchReportDetailPage({ matchReport, team, opponent, image }: Props) {
+export default function MatchReportDetailPage({ matchReport, image }: Props) {
   const router = useRouter()
 
   if (router.isFallback) return <></>
@@ -28,9 +26,9 @@ export default function MatchReportDetailPage({ matchReport, team, opponent, ima
 
   const createHeader = () => {
     if (matchReport.home) {
-      return `${team.name} - ${opponent.name}`
+      return `${matchReport.team.name} - ${matchReport.opponent.name}`
     } else {
-      return `${opponent.name} - ${team.name}`
+      return `${matchReport.opponent.name} - ${matchReport.team.name}`
     }
   }
 
@@ -99,7 +97,7 @@ export default function MatchReportDetailPage({ matchReport, team, opponent, ima
               </p>
             ))}
           </div>
-          <ClubLogo path={opponent.logo} size={120} />
+          <ClubLogo path={matchReport.opponent.logo} size={120} />
         </div>
         <div className="cms-content" dangerouslySetInnerHTML={{ __html: matchReport.content }} />
       </main>
@@ -122,16 +120,12 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const id = params.id as string
   const matchReport = await docRefToModel<MatchReportModel>(doc(db, 'matchreport', id))
-  const team = await docRefToModel<TeamModel>(doc(db, 'teams', matchReport.teamId))
-  const opponent = await docRefToModel<OpponentModel>(doc(db, 'opponents', matchReport.opponentId))
 
   const image = await downloadImage(`/matchreport/${matchReport.id}`, 'lg')
 
   return {
     props: {
       matchReport,
-      team,
-      opponent,
       image,
     },
     revalidate: 5 * 60,

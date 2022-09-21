@@ -57,9 +57,17 @@ export type MatchReportModel = BaseModel & {
   home: boolean
   score: { sasja: number; opponent: number }[]
   content: string
-  opponentId: string
-  teamId: string
   public: boolean
+  team: {
+    id: string
+    name: string
+  }
+  opponent: {
+    id: number
+    name: string
+    short: string
+    logo: string
+  }
 }
 
 export type StaffModel = {

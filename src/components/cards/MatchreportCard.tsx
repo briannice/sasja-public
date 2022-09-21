@@ -1,19 +1,15 @@
 import Link from '@/components/Link'
 import ClubLogo from '@/components/teams/ClubLogo'
-import { MatchReportModel, OpponentModel, TeamModel } from '@/types/models'
+import { MatchReportModel } from '@/types/models'
 import { formatDate } from '@/utils/date'
 import clsx from 'clsx'
 import React from 'react'
 
 type Props = {
   matchReport: MatchReportModel
-  team: TeamModel | undefined
-  opponent: OpponentModel | undefined
 }
 
-export default function MatchreportCard({ matchReport, team, opponent }: Props) {
-  if (!team || !opponent) return <></>
-
+export default function MatchreportCard({ matchReport }: Props) {
   const tags = [matchReport.tag, formatDate(matchReport.time, 'DD/MM')]
 
   return (
@@ -58,14 +54,14 @@ export default function MatchreportCard({ matchReport, team, opponent }: Props) 
               </p>
             ))}
           </div>
-          <ClubLogo path={opponent.logo} size={60} />
+          <ClubLogo path={matchReport.opponent.logo} size={60} />
         </div>
         <div
           className={clsx('flex items-center', matchReport.home ? 'flex-col' : 'flex-col-reverse')}
         >
-          <p className="font-kanit text-2xl">{team.name}</p>
+          <p className="font-kanit text-2xl">{matchReport.team.name}</p>
           <p>vs</p>
-          <p className="font-kanit text-2xl">{opponent.short}</p>
+          <p className="font-kanit text-2xl">{matchReport.opponent.short}</p>
         </div>
         <ul className="flex justify-center space-x-4">
           {tags.map((tag, i) => (
