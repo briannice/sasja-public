@@ -24,12 +24,7 @@ type Props = {
   teamId?: string
 }
 
-export default function MatchReportOverview({
-  initialMatchReports,
-  teams,
-  opponents,
-  teamId = '',
-}: Props) {
+export default function MatchReportOverview({ initialMatchReports, teamId = '' }: Props) {
   const [matchReports, setMatchReports] = useState([...initialMatchReports])
   const [hasMore, setHasMore] = useState(true)
   const [showing, setShowing] = useState(0)
@@ -65,14 +60,6 @@ export default function MatchReportOverview({
   }, [breakpoint, matchReports])
 
   if (!breakpoint || initialMatchReports.length === 0) return <></>
-
-  const findTeamById = (teamId: string) => {
-    return teams.find((t) => t.id === teamId)
-  }
-
-  const findOpponentById = (opponentId: string) => {
-    return opponents.find((opp) => opponentId === opp.id)
-  }
 
   const loadMoreHandler: MouseEventHandler<HTMLButtonElement> = async (e) => {
     e.preventDefault()
@@ -122,14 +109,7 @@ export default function MatchReportOverview({
       <h2 className="title1 col-span-4 tablet:col-span-8 laptop:col-span-12">Matchverslagen</h2>
       {matchReports.map(
         (matchReport, i) =>
-          i < showing && (
-            <MatchreportCard
-              key={matchReport.id}
-              matchReport={matchReport}
-              team={findTeamById(matchReport.teamId)}
-              opponent={findOpponentById(matchReport.opponentId)}
-            />
-          )
+          i < showing && <MatchreportCard key={matchReport.id} matchReport={matchReport} />
       )}
       {hasMore && (
         <div className="col-span-4 flex justify-center tablet:col-span-8 laptop:col-span-12">

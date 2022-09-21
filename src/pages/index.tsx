@@ -9,7 +9,6 @@ import {
   GameWeek,
   MatchReportModel,
   NewsModel,
-  OpponentModel,
   TeamModel,
   TimeLine,
 } from '@/types/models'
@@ -22,11 +21,10 @@ type Props = {
   newsTimeLine: TimeLine
   heroTimeLine: TimeLine
   teams: TeamModel[]
-  opponents: OpponentModel[]
   gameWeek: GameWeek
 }
 
-export default function Home({ newsTimeLine, heroTimeLine, teams, opponents, gameWeek }: Props) {
+export default function Home({ newsTimeLine, heroTimeLine, teams, gameWeek }: Props) {
   return (
     <>
       <Head>
@@ -35,7 +33,7 @@ export default function Home({ newsTimeLine, heroTimeLine, teams, opponents, gam
       <main>
         <h1 className="sr-only">Sasja HC | Home</h1>
         <Hero timeLine={heroTimeLine} teams={teams} gameWeek={gameWeek} />
-        <News timeLine={newsTimeLine} opponents={opponents} teams={teams} />
+        <News timeLine={newsTimeLine} />
         <TicketsAndAbos />
       </main>
     </>
@@ -74,14 +72,12 @@ export const getStaticProps: GetStaticProps = async () => {
   const heroTimeLine = createTimeLine(events, news, [])
 
   const teams = await queryToModels<TeamModel>(query(collection(db, 'teams')))
-  const opponents = await queryToModels<OpponentModel>(query(collection(db, 'opponents')))
 
   const gameWeeks = await getHandballBelgiumGameweeks(1)
 
   return {
     props: {
       teams,
-      opponents,
       newsTimeLine,
       heroTimeLine,
       gameWeek: gameWeeks[0],
