@@ -3,7 +3,7 @@ import Container from '@/components/Container'
 import { useTailwindBreakpoint } from '@/hooks/useTailwindBreakpoint'
 import { db } from '@/services/firebase'
 import { queryToModels } from '@/services/firebase/firestore'
-import { MatchReportModel, OpponentModel, TeamModel } from '@/types/models'
+import { MatchReportModel } from '@/types/models'
 import {
   collection,
   doc,
@@ -19,8 +19,6 @@ import { RiMoreLine } from 'react-icons/ri'
 
 type Props = {
   initialMatchReports: MatchReportModel[]
-  teams: TeamModel[]
-  opponents: OpponentModel[]
   teamId?: string
 }
 
