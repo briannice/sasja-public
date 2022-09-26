@@ -1,6 +1,5 @@
 import Layout from '@/components/layout/Layout'
 import { AppProps } from 'next/app'
-import { GoogleAnalytics } from 'nextjs-google-analytics'
 import React, { useEffect } from 'react'
 
 import '@/styles/main.css'
