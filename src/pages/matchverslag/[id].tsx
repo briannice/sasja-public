@@ -14,10 +14,11 @@ import React from 'react'
 
 type Props = {
   matchReport: MatchReportModel
-  image: string
+  image: string | null
+  teamImage: string
 }
 
-export default function MatchReportDetailPage({ matchReport, image }: Props) {
+export default function MatchReportDetailPage({ matchReport, image, teamImage }: Props) {
   const router = useRouter()
 
   if (router.isFallback) return <></>
@@ -44,7 +45,7 @@ export default function MatchReportDetailPage({ matchReport, image }: Props) {
         <meta property="og:type" content="article" />
         <meta property="og:title" content={createHeader()} />
         <meta property="og:description" content="" />
-        <meta property="og:image" content={image} />
+        <meta property="og:image" content={image ? image : teamImage} />
       </Head>
       <main className="cms-content-wrapper">
         <h1>{createHeader()}</h1>
@@ -58,9 +59,11 @@ export default function MatchReportDetailPage({ matchReport, image }: Props) {
             </li>
           ))}
         </ul>
-        <figure>
-          <Image src={image} alt="News image." layout="fill" objectFit="cover" />
-        </figure>
+        {image && (
+          <figure>
+            <Image src={image} alt="News image." layout="fill" objectFit="cover" />
+          </figure>
+        )}
         <div
           className={clsx(
             'mt-16 flex items-center justify-center',
@@ -122,11 +125,13 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const matchReport = await docRefToModel<MatchReportModel>(doc(db, 'matchreport', id))
 
   const image = await downloadImage(`/matchreport/${matchReport.id}`, 'lg')
+  const teamImage = await downloadImage(`/teams/${matchReport.team.id}`, 'lg')
 
   return {
     props: {
       matchReport,
       image,
+      teamImage,
     },
     revalidate: 5 * 60,
   }
