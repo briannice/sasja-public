@@ -107,7 +107,12 @@ export default function CalendarTable({ calendar }: Props) {
                 )}
               </td>
               <td>
-                <p>{createLocation(game.venue_short, game.venue_city)}</p>
+                <p>
+                  {createLocation(
+                    game.venue_short ? game.venue_short : game.venue_name,
+                    game.venue_city
+                  )}
+                </p>
               </td>
             </tr>
           ))}
