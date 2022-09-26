@@ -24,7 +24,7 @@ export const getHandballBelgiumCalendar = async (serieId: number) => {
     home_logo: e.home_club_logo_img_url || null,
     away_logo: e.away_club_logo_img_url || null,
     venue_name: e.venue_name,
-    venue_short: e.venue_short_name,
+    venue_short: e.venue_short_name || '',
     venue_city: e.venue_city,
     game_number: e.reference.replace('URBH-KBHB', '').replace('VHV', '').replace('AVBP', ''),
     serie_id: e.serie_id,
