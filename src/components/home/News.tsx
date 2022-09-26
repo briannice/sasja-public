@@ -13,16 +13,18 @@ export default function News({ timeLine }: Props) {
   return (
     <Container className="grid grid-cols-4 gap-8 tablet:grid-cols-8 laptop:grid-cols-12">
       <h2 className="sr-only">News</h2>
-      {timeLine.map(({ data, name }) =>
-        name === 'event' ? (
-          <EventCard key={data.id} event={data} />
-        ) : name === 'matchreport' ? (
-          <MatchreportCard key={data.id} matchReport={data} />
-        ) : name === 'news' ? (
-          <NewsCard key={data.id} news={data} />
-        ) : (
-          <></>
-        )
+      {timeLine.map(
+        ({ data, name }, i) =>
+          i < 6 &&
+          (name === 'event' ? (
+            <EventCard key={data.id} event={data} />
+          ) : name === 'matchreport' ? (
+            <MatchreportCard key={data.id} matchReport={data} />
+          ) : name === 'news' ? (
+            <NewsCard key={data.id} news={data} />
+          ) : (
+            <></>
+          ))
       )}
     </Container>
   )
