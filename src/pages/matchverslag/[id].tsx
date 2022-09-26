@@ -53,6 +53,9 @@ export default function MatchReportDetailPage({ matchReport, image, teamImage }:
           <li className="tag-time">
             <time>{formatDate(matchReport.time, 'DD/MM/YYYY')}</time>
           </li>
+          <li className="tag-outline">
+            <p>{matchReport.writer}</p>
+          </li>
           {tags.map((tag, i) => (
             <li key={i} className="tag-fill">
               <p>{tag}</p>
