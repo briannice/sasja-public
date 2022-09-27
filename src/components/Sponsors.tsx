@@ -53,9 +53,9 @@ export const sponsors = [
   },
   {
     name: 'sporting a',
-    path: '/sponsors/sporting-a.jpg',
+    path: '/sponsors/sporting-a.png',
     href: 'https://www.antwerpen.be/nl/overzicht/sporting-a',
-    aspect: 'aspect-[1/1]',
+    aspect: 'aspect-[1556/1908]',
   },
 ]
 
