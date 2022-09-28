@@ -17,7 +17,13 @@ export default function useImage(dir: string, id: string, size: 'sm' | 'lg', def
             .catch(() => setUrl(null))
         }
       })
-      .catch(() => setUrl(null))
+      .catch(() => {
+        downloadDefaultEventImage()
+          .then((url) => {
+            setUrl(url)
+          })
+          .catch(() => setUrl(null))
+      })
   }, [dir, id, size, def])
 
   return url
