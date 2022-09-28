@@ -1,4 +1,4 @@
-import { downloadImage } from '@/services/firebase/storage'
+import { downloadDefaultEventImage, downloadImage } from '@/services/firebase/storage'
 import { useEffect, useState } from 'react'
 
 export default function useImage(dir: string, id: string, size: 'sm' | 'lg', def = null) {
@@ -6,8 +6,18 @@ export default function useImage(dir: string, id: string, size: 'sm' | 'lg', def
 
   useEffect(() => {
     downloadImage(`/${dir}/${id}`, size)
-      .then((url) => setUrl(url))
-      .catch(() => setUrl(def))
+      .then((url) => {
+        if (url) {
+          setUrl(url)
+        } else {
+          downloadDefaultEventImage()
+            .then((url) => {
+              setUrl(url)
+            })
+            .catch(() => setUrl(null))
+        }
+      })
+      .catch(() => setUrl(null))
   }, [dir, id, size, def])
 
   return url
