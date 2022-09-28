@@ -1,6 +1,6 @@
 import { db } from '@/services/firebase'
 import { queryToModels, docRefToModel } from '@/services/firebase/firestore'
-import { downloadImage } from '@/services/firebase/storage'
+import { downloadDefaultEventImage, downloadImage } from '@/services/firebase/storage'
 import { NewsModel } from '@/types/models'
 import { formatDate } from '@/utils/date'
 import { collection, doc, query } from 'firebase/firestore'
@@ -12,10 +12,11 @@ import React from 'react'
 
 type Props = {
   news: NewsModel
-  image: string
+  image: string | null
+  defaultImage: string
 }
 
-export default function NewsDatailPage({ news, image }: Props) {
+export default function NewsDatailPage({ news, image, defaultImage }: Props) {
   const router = useRouter()
 
   if (router.isFallback) return <></>
@@ -31,7 +32,7 @@ export default function NewsDatailPage({ news, image }: Props) {
         <meta property="og:type" content="article" />
         <meta property="og:title" content={news.title} />
         <meta property="og:description" content="" />
-        <meta property="og:image" content={image} />
+        <meta property="og:image" content={image ? image : defaultImage} />
       </Head>
       <main className="cms-content-wrapper">
         <h1>{news.title}</h1>
@@ -45,9 +46,11 @@ export default function NewsDatailPage({ news, image }: Props) {
             </li>
           ))}
         </ul>
-        <figure>
-          <Image src={image} alt="News image." layout="fill" objectFit="cover" />
-        </figure>
+        {image && (
+          <figure>
+            <Image src={image} alt="News image." layout="fill" objectFit="cover" />
+          </figure>
+        )}
         <div className="cms-content" dangerouslySetInnerHTML={{ __html: news.content }} />
       </main>
     </>
@@ -70,11 +73,13 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const news = await docRefToModel<NewsModel>(doc(db, 'news', id))
 
   const image = await downloadImage(`/news/${news.id}`, 'lg')
+  const defaultImage = await downloadDefaultEventImage()
 
   return {
     props: {
       news,
       image,
+      defaultImage,
     },
     revalidate: 5 * 60,
   }

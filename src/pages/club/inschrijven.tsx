@@ -19,7 +19,7 @@ export default function EnrollPage() {
           </p>
           <p>
             Hou jij van lopen, springen en spelen met een bal in teamverband? Dan ben je van harte
-            welkom om een van de <Link href="/jeugd/trainingen">trainingen</Link> die wekelijks
+            welkom om een van de <Link href="/team/trainingen">trainingen</Link> die wekelijks
             meerdere malen georganiseerd worden voor jouw leeftijdscategorie (gratis) bij te wonen!
             Als je beslist dat handbal echt iets voor jou is, dan kan je lid worden van onze club en
             deelnemen aan wedstrijden in het weekend!
@@ -45,7 +45,7 @@ export default function EnrollPage() {
           <p>
             Lid worden van Jespo kan je volledig online: je gaat naar de site jespo.be en kiest{' '}
             <a
-              href="https://app.twizzit.com/website/websitepreview/2156/index.php?pid=99326"
+              href="https://static.twizzit.com/v2/public/form/3cf599d848255181e0d562de2eee7d16"
               target="_blank"
               rel="noreferrer"
             >

@@ -1,6 +1,6 @@
 import { db } from '@/services/firebase'
 import { docRefToModel, queryToModels } from '@/services/firebase/firestore'
-import { downloadImage } from '@/services/firebase/storage'
+import { downloadDefaultEventImage, downloadImage } from '@/services/firebase/storage'
 import { EventModel } from '@/types/models'
 import { formatDate, getMonthFromDate, getWeekDayFromDate } from '@/utils/date'
 import { collection, doc, query } from 'firebase/firestore'
@@ -12,10 +12,11 @@ import React from 'react'
 
 type Props = {
   event: EventModel
-  image: string
+  image: string | null
+  defaultImage: string
 }
 
-export default function EventDetailPage({ event, image }: Props) {
+export default function EventDetailPage({ event, image, defaultImage }: Props) {
   const router = useRouter()
 
   if (router.isFallback) return <></>
@@ -38,7 +39,7 @@ export default function EventDetailPage({ event, image }: Props) {
         <meta property="og:type" content="article" />
         <meta property="og:title" content={event.name} />
         <meta property="og:description" content="" />
-        <meta property="og:image" content={image} />
+        <meta property="og:image" content={image ? image : defaultImage} />
       </Head>
       <main className="cms-content-wrapper">
         <h1>{event.name}</h1>
@@ -52,9 +53,11 @@ export default function EventDetailPage({ event, image }: Props) {
             </li>
           ))}
         </ul>
-        <figure>
-          <Image src={image} alt="News image." layout="fill" objectFit="cover" />
-        </figure>
+        {image && (
+          <figure>
+            <Image src={image} alt="News image." layout="fill" objectFit="cover" />
+          </figure>
+        )}
         <div className="cms-content" dangerouslySetInnerHTML={{ __html: event.content }} />
       </main>
     </>
@@ -77,11 +80,13 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const event = await docRefToModel<EventModel>(doc(db, 'events', id))
 
   const image = await downloadImage(`/events/${event.id}`, 'lg')
+  const defaultImage = await downloadDefaultEventImage()
 
   return {
     props: {
       event,
       image,
+      defaultImage,
     },
     revalidate: 5 * 60,
   }
