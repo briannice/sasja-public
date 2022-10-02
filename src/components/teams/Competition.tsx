@@ -110,7 +110,7 @@ export default function Competition({ calendar, name, ranking, teamId }: Props) 
                     </div>
                   </td>
                   <td>
-                    {game.score_status_id === 1 && (
+                    {game.score_status_id > 0 && (
                       <p
                         className={clsx(
                           'flex h-5 w-5 items-center justify-center rounded-full text-xs font-bold text-white',
