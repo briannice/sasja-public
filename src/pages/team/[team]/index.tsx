@@ -92,7 +92,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     query(
       collection(db, 'matchreport'),
       where('public', '==', true),
-      where('teamId', '==', team.id),
+      where('team.id', '==', team.id),
       orderBy('time', 'desc'),
       limit(10)
     )
