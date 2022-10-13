@@ -35,27 +35,23 @@ export default function MatchReportOverview({ initialMatchReports, teamId = '' }
       switch (breakpoint) {
         case 'desktop':
           setShowing(6)
-          setHasMore(matchReports.length > 6)
           setStep(6)
           break
         case 'laptop':
           setShowing(6)
-          setHasMore(matchReports.length > 6)
           setStep(6)
           break
         case 'tablet':
           setShowing(3)
-          setHasMore(matchReports.length > 3)
           setStep(3)
           break
         case 'phone':
           setShowing(2)
-          setHasMore(matchReports.length > 2)
           setStep(2)
           break
       }
     }
-  }, [breakpoint, matchReports])
+  }, [breakpoint])
 
   if (!breakpoint || initialMatchReports.length === 0) return <></>
 
@@ -75,7 +71,6 @@ export default function MatchReportOverview({ initialMatchReports, teamId = '' }
         query(
           collection(db, 'matchreport'),
           where('public', '==', true),
-          where('teamId', '==', teamId),
           orderBy('time', 'desc'),
           startAfter(lastDoc),
           limit(10)
@@ -86,6 +81,7 @@ export default function MatchReportOverview({ initialMatchReports, teamId = '' }
         query(
           collection(db, 'matchreport'),
           where('public', '==', true),
+          where('teamId', '==', teamId),
           orderBy('time', 'desc'),
           startAfter(lastDoc),
           limit(10)
