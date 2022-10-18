@@ -14,6 +14,7 @@ import {
   startAfter,
   where,
 } from 'firebase/firestore'
+import { useRouter } from 'next/router'
 import React, { MouseEventHandler, useEffect, useState } from 'react'
 import { RiMoreLine } from 'react-icons/ri'
 
@@ -28,6 +29,7 @@ export default function MatchReportOverview({ initialMatchReports, teamId = '' }
   const [showing, setShowing] = useState(0)
   const [step, setStep] = useState(0)
 
+  const router = useRouter()
   const breakpoint = useTailwindBreakpoint()
 
   useEffect(() => {
@@ -51,7 +53,11 @@ export default function MatchReportOverview({ initialMatchReports, teamId = '' }
           break
       }
     }
-  }, [breakpoint])
+  }, [breakpoint, router.asPath])
+
+  useEffect(() => {
+    console.log('Router')
+  }, [router])
 
   if (!breakpoint || initialMatchReports.length === 0) return <></>
 
