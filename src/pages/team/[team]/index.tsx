@@ -62,7 +62,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     paths: paths,
-    fallback: false,
+    fallback: 'blocking',
   }
 }
 
@@ -92,11 +92,13 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     query(
       collection(db, 'matchreport'),
       where('public', '==', true),
-      where('teamId', '==', team.id),
+      where('team.id', '==', team.id),
       orderBy('time', 'desc'),
       limit(10)
     )
   )
+
+  const key = team.id
 
   // Props and ISR
   return {
@@ -104,6 +106,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       competitions,
       team,
       initialMatchReports,
+      key,
     },
     revalidate: 5 * 60,
   }

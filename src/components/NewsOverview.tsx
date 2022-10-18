@@ -34,22 +34,18 @@ export default function NewsOverview({ initialNews }: Props) {
       switch (breakpoint) {
         case 'desktop':
           setShowing(6)
-          setHasMore(news.length > 6)
           setStep(6)
           break
         case 'laptop':
           setShowing(6)
-          setHasMore(news.length > 6)
           setStep(6)
           break
         case 'tablet':
           setShowing(3)
-          setHasMore(news.length > 3)
           setStep(3)
           break
         case 'phone':
           setShowing(2)
-          setHasMore(news.length > 2)
           setStep(2)
           break
       }
