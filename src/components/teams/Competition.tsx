@@ -116,18 +116,20 @@ export default function Competition({ calendar, name, ranking, teamId }: Props) 
                           'flex h-5 w-5 items-center justify-center rounded-full text-xs font-bold text-white',
                           game.home_score === game.away_score
                             ? 'bg-warning'
-                            : game.home_score > game.away_score && game.home_name === 'Sasja HC'
+                            : game.home_score > game.away_score &&
+                              game.home_name.includes('Sasja HC')
                             ? 'bg-success'
-                            : game.home_score < game.away_score && game.away_name === 'Sasja HC'
+                            : game.home_score < game.away_score &&
+                              game.away_name.includes('Sasja HC')
                             ? 'bg-success'
                             : 'bg-error'
                         )}
                       >
                         {game.home_score === game.away_score
                           ? 'D'
-                          : game.home_score > game.away_score && game.home_name === 'Sasja HC'
+                          : game.home_score > game.away_score && game.home_name.includes('Sasja HC')
                           ? 'W'
-                          : game.home_score < game.away_score && game.away_name === 'Sasja HC'
+                          : game.home_score < game.away_score && game.away_name.includes('Sasja HC')
                           ? 'W'
                           : 'L'}
                       </p>
