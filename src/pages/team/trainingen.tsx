@@ -16,8 +16,8 @@ const trainings = [
       },
       {
         teams: ['JM12', 'JM14 (1e jaars)'],
-        start: '17u30',
-        end: '19u00',
+        start: '18u00',
+        end: '19u30',
         location: 'Sporthal Notelaar',
       },
     ],
@@ -39,7 +39,7 @@ const trainings = [
       {
         teams: ['JM8'],
         start: '13u30',
-        end: '14u45',
+        end: '14u30',
         location: 'Sporthal Notelaar',
       },
       {
@@ -56,7 +56,7 @@ const trainings = [
       },
       {
         teams: ['JM14'],
-        start: '16u00',
+        start: '16u30',
         end: '18u00',
         location: 'Sporthal Sorghvliedt',
       },
@@ -67,7 +67,7 @@ const trainings = [
     data: [
       {
         teams: ['JM12'],
-        start: '17u15',
+        start: '17u30',
         end: '19u00',
         location: 'Sporthal Kiel',
       },
