@@ -15,7 +15,7 @@ export default function News({ timeLine }: Props) {
     <Container className="grid grid-cols-4 gap-8 tablet:grid-cols-8 laptop:grid-cols-12">
       <h2 className="sr-only">News</h2>
       <section className="card card-col-1">
-        <Image src="/disco.jpg" alt="Disco" layout="fill" objectFit="contain" />
+        <Image src="/disco.jpeg" alt="Disco" layout="fill" objectFit="contain" />
       </section>
       {timeLine.map(
         ({ data, name }, i) =>
