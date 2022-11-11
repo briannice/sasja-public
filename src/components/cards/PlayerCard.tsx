@@ -3,7 +3,7 @@ import useImage from '@/hooks/useImage'
 import { PlayerModel } from '@/types/models'
 import { formatDate } from '@/utils/date'
 import Image from 'next/image'
-import React, { useState } from 'react'
+import React, { Fragment, useState } from 'react'
 
 type Props = {
   player: PlayerModel
@@ -34,10 +34,10 @@ export default function PlayerCard({ player }: Props) {
         <h3 className="text-4xl font-black">{name}</h3>
         <dl className="mt-8 inline-grid grid-cols-2 gap-y-2 gap-x-8 border-l-2 border-primary pl-4">
           {properties.map((p, i) => (
-            <>
-              <dd key={2 * i}>{p.key}</dd>
-              <dt key={2 * i + 1}>{p.value}</dt>
-            </>
+            <Fragment key={i}>
+              <dd>{p.key}</dd>
+              <dt>{p.value}</dt>
+            </Fragment>
           ))}
         </dl>
         <figure className="relative mx-auto mt-8 aspect-square max-w-sm">
