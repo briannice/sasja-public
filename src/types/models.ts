@@ -32,7 +32,10 @@ export type PlayerModel = BaseModel & {
   birthday: string
   registration: string
   public: boolean
-  teamId: string
+  team: {
+    id: string
+    name: string
+  }
 }
 
 export type NewsModel = BaseModel & {

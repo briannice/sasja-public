@@ -161,65 +161,82 @@
   }
 
   /* Content */
-  .cms-content-wrapper > .cms-content {
+  .cms-content-wrapper > .cms-content,
+  .cms-content {
     @apply mt-8;
   }
 
-  .cms-content-wrapper > .cms-content h2 {
+  .cms-content-wrapper > .cms-content h2,
+  .cms-content h2 {
     @apply mt-8 text-2xl laptop:text-3xl;
   }
 
-  .cms-content-wrapper > .cms-content h3 {
+  .cms-content-wrapper > .cms-content h3,
+  .cms-content h3 {
     @apply mt-8 text-xl laptop:text-2xl;
   }
 
-  .cms-content-wrapper > .cms-content h4 {
+  .cms-content-wrapper > .cms-content h4,
+  .cms-content h4 {
     @apply mt-8 text-lg laptop:text-xl;
   }
 
-  .cms-content-wrapper > .cms-content p {
+  .cms-content-wrapper > .cms-content p,
+  .cms-content p {
     @apply mt-4 leading-relaxed text-dark;
   }
 
-  .cms-content-wrapper > .cms-content a {
+  .cms-content-wrapper > .cms-content a,
+  .cms-content a {
     @apply font-bold text-info underline decoration-info decoration-2 underline-offset-4;
   }
 
-  .cms-content-wrapper > .cms-content b {
+  .cms-content-wrapper > .cms-content b,
+  .cms-content b {
     @apply font-bold;
   }
 
-  .cms-content-wrapper > .cms-content i {
+  .cms-content-wrapper > .cms-content i,
+  .cms-content i {
     @apply italic;
   }
 
   .cms-content-wrapper > .cms-content s,
   .cms-content-wrapper > .cms-content del,
-  .cms-content-wrapper > .cms-content strike {
+  .cms-content-wrapper > .cms-content strike,
+  .cms-content s,
+  .cms-content del,
+  .cms-content strike {
     @apply line-through decoration-primary decoration-2;
   }
 
-  .cms-content-wrapper > .cms-content ul {
+  .cms-content-wrapper > .cms-content ul,
+  .cms-content ul {
     @apply mt-4 list-inside list-disc space-y-1 pl-4 laptop:pl-8;
   }
 
-  .cms-content-wrapper > .cms-content ol {
+  .cms-content-wrapper > .cms-content ol,
+  .cms-content ol {
     @apply mt-4 list-inside list-decimal space-y-1 pl-4 laptop:pl-8;
   }
 
-  .cms-content-wrapper > .cms-content ul p {
+  .cms-content-wrapper > .cms-content ul p,
+  .cms-content ul p {
     @apply mt-0 inline pl-2;
   }
 
-  .cms-content-wrapper > .cms-content ol p {
+  .cms-content-wrapper > .cms-content ol p,
+  .cms-content ol p {
     @apply mt-0 inline pl-2;
   }
 
-  .cms-content-wrapper > .cms-content table {
+  .cms-content-wrapper > .cms-content table,
+  .cms-content table {
     @apply mt-4;
   }
 
-  .cms-content-wrapper > .cms-content figure {
+  .cms-content-wrapper > .cms-content figure,
+  .cms-content figure {
     @apply relative mx-auto mt-4 aspect-video max-h-[250px];
   }
 
@@ -246,5 +263,18 @@
 
   .carousel-hero-item > a {
     @apply btn btn-primary btn-text-icon mt-8;
+  }
+
+  /* --------- */
+  /* SCROLLBAR */
+  /* --------- */
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 }
