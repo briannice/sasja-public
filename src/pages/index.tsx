@@ -74,13 +74,14 @@ export const getStaticProps: GetStaticProps = async () => {
   const teams = await queryToModels<TeamModel>(query(collection(db, 'teams')))
 
   const gameWeeks = await getHandballBelgiumGameweeks(1)
+  const gameWeek = gameWeeks.length > 0 ? gameWeeks[0] : []
 
   return {
     props: {
       teams,
       newsTimeLine,
       heroTimeLine,
-      gameWeek: gameWeeks[0],
+      gameWeek: gameWeek,
     },
     revalidate: 5 * 60,
   }
