@@ -57,9 +57,11 @@ export default function Hero({ timeLine, teams, gameWeek }: Props) {
         <div className="relative h-full bg-black bg-opacity-50 p-8">
           <h3 className="text-center text-2xl font-bold text-white">Volgende wedstrijden</h3>
           <div className="rouned-sm relative mt-4 flex-1 divide-y divide-light bg-white py-2 shadow-lg">
-            {gameWeek.map((game) => (
-              <Game key={game.id} game={game} teams={teams} />
-            ))}
+            {gameWeek.length > 0 ? (
+              gameWeek.map((game) => <Game key={game.id} game={game} teams={teams} />)
+            ) : (
+              <p className="text-center font-kanit text-xl">Geen wedstrijden komende week</p>
+            )}
           </div>
           <div className="relative mt-4 flex justify-center">
             <Link href="/team/wedstrijden" className="btn btn-primary btn-text-icon tablet:text-sm">
