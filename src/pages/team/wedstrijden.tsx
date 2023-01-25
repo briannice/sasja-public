@@ -29,15 +29,13 @@ export default function GamesPage({ gameDays, teams }: Props) {
     return `${hours}:${minutes}`
   }
 
-  const findTeamName = (name: string, serieId: number) => {
+  const findTeamName = (name: string, vhvId: number) => {
     if (!name.includes('Sasja')) return name
     let result = 'Eerste ploeg'
     teams.forEach((team) => {
-      team.competitions.forEach((competition) => {
-        if (competition.serieId === serieId) {
-          result = team.name
-        }
-      })
+      if (team.vhvId === vhvId) {
+        result = team.name
+      }
     })
     return result
   }
@@ -79,7 +77,7 @@ export default function GamesPage({ gameDays, teams }: Props) {
                   <div className="mt-4 flex space-x-8">
                     <div className="flex flex-1 flex-col-reverse items-end tablet:flex-row tablet:items-center tablet:justify-end tablet:space-x-4">
                       <p className="mt-2 text-right font-kanit tablet:mt-0">
-                        {findTeamName(game.home_short, game.serie_id)}
+                        {findTeamName(game.home_short, game.home_id)}
                       </p>
                       <ClubLogo path={game.home_logo} size={40} />
                     </div>
@@ -96,7 +94,7 @@ export default function GamesPage({ gameDays, teams }: Props) {
                     <div className="flex flex-1 flex-col tablet:flex-row tablet:items-center tablet:space-x-4">
                       <ClubLogo path={game.away_logo} size={40} />
                       <p className="mt-2 font-kanit tablet:mt-0">
-                        {findTeamName(game.away_short, game.serie_id)}
+                        {findTeamName(game.away_short, game.away_id)}
                       </p>
                     </div>
                   </div>
