@@ -98,15 +98,13 @@ function Game({ game, teams }: { game: GameModel; teams: TeamModel[] }) {
     return `${times[0]}:${times[1]}`
   }
 
-  const findTeamName = (name: string, serieId: number) => {
+  const findTeamName = (name: string, vhvId: number) => {
     if (!name.includes('Sasja')) return name
     let result = 'Eerste ploeg'
     teams.forEach((team) => {
-      team.competitions.forEach((competition) => {
-        if (competition.serieId === serieId) {
-          result = team.name
-        }
-      })
+      if (team.vhvId === vhvId) {
+        result = team.name
+      }
     })
     return result
   }
@@ -123,14 +121,14 @@ function Game({ game, teams }: { game: GameModel; teams: TeamModel[] }) {
       <div className="mt-2 flex space-x-4">
         <div className="flex flex-1 items-center justify-end space-x-2">
           <p className="mt-2 text-right font-kanit text-sm tablet:mt-0 desktop:text-base">
-            {findTeamName(game.home_short, game.serie_id)}
+            {findTeamName(game.home_short, game.home_id)}
           </p>
           <ClubLogo path={game.home_logo} size={20} />
         </div>
         <div className="flex flex-1 items-center space-x-2">
           <ClubLogo path={game.away_logo} size={20} />
           <p className="mt-2 font-kanit text-sm tablet:mt-0 desktop:text-base">
-            {findTeamName(game.away_short, game.serie_id)}
+            {findTeamName(game.away_short, game.away_id)}
           </p>
         </div>
       </div>

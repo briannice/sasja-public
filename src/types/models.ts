@@ -17,6 +17,7 @@ export type TeamModel = BaseModel & {
   name: string
   uid: string
   youth: boolean
+  vhvId: number
   competitions: {
     name: string
     serieId: number
@@ -101,6 +102,8 @@ export type GameModel = {
   date: string
   time: string
   venue_id: number
+  home_id: number
+  away_id: number
   home_score: number
   away_score: number
   game_status_id: number

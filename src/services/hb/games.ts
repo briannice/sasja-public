@@ -20,6 +20,8 @@ export const getHandballBelgiumGames = async (weeks: number) => {
     venue_id: e.venue_id,
     home_score: e.home_score || 0,
     away_score: e.away_score || 0,
+    home_id: e.home_team_id,
+    away_id: e.away_team_id,
     game_status_id: e.game_status_id,
     score_status_id: e.score_status_id,
     home_name: e.home_team_name,
