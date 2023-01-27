@@ -21,14 +21,18 @@ export default function EventDetailPage({ event, image, defaultImage }: Props) {
 
   if (router.isFallback) return <></>
 
-  const formatTime = (time: string) => {
+  const formatTimeDate = (time: string) => {
     const weekday = getWeekDayFromDate(time)
     const month = getMonthFromDate(time)
     const day = formatDate(time, 'D')
     return `${weekday} ${day} ${month}`
   }
 
-  const tags = [formatTime(event.time), event.location, event.address]
+  const formatTime = (time: string) => {
+    return `${formatDate(time, 'HHumm')}`
+  }
+
+  const tags = [formatTimeDate(event.time), formatTime(event.time), event.location, event.address]
 
   return (
     <>
