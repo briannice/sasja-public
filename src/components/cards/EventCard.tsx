@@ -16,7 +16,8 @@ export default function EventCard({ event }: Props) {
     const weekday = getWeekDayFromDate(time)
     const month = getMonthFromDate(time)
     const day = formatDate(time, 'D')
-    return `${weekday} ${day} ${month}`
+    const t = formatDate(time, 'HHumm')
+    return `${weekday} ${day} ${month} - ${t}`
   }
 
   const tags = [formatTime(event.time), event.location]
