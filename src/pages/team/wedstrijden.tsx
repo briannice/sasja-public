@@ -23,7 +23,9 @@ export default function GamesPage({ gameDays, teams }: Props) {
     return `${weekday} ${day} ${month}`
   }
 
-  const createTime = (time: string) => {
+  const createTime = (time: string | null) => {
+    if (!time) return ''
+
     const hours = time.split(':')[0]
     const minutes = time.split(':')[1]
     return `${hours}:${minutes}`
@@ -111,6 +113,7 @@ export default function GamesPage({ gameDays, teams }: Props) {
 export const getStaticProps: GetStaticProps = async () => {
   const teams = await queryToModels<TeamModel>(query(collection(db, 'teams')))
   const gameDays = await getHandballBelgiumGames(10)
+
   return {
     props: {
       gameDays: gameDays,

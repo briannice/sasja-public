@@ -14,7 +14,7 @@ export const getHandballBelgiumGameweeks = async (weeks: number) => {
   const games: GameModel[] = data.elements.map((e: any) => ({
     id: e.id,
     date: e.date,
-    time: e.time,
+    time: e.time || null,
     venue_id: e.venue_id,
     home_score: e.home_score || 0,
     away_score: e.away_score || 0,

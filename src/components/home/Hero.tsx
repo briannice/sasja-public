@@ -93,7 +93,9 @@ export default function Hero({ timeLine, teams, gameWeek }: Props) {
 }
 
 function Game({ game, teams }: { game: GameModel; teams: TeamModel[] }) {
-  const formatTime = (time: string) => {
+  const formatTime = (time: string | null) => {
+    if (!time) return ''
+
     const times = time.split(':')
     return `${times[0]}:${times[1]}`
   }

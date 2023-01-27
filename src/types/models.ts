@@ -100,7 +100,7 @@ export type RankModel = {
 export type GameModel = {
   id: number
   date: string
-  time: string
+  time: string | null
   venue_id: number
   home_id: number
   away_id: number

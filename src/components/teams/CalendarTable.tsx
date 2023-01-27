@@ -13,7 +13,8 @@ export default function CalendarTable({ calendar }: Props) {
     return formatDate(date, 'DD/MM')
   }
 
-  const createTime = (time: string) => {
+  const createTime = (time: string | null) => {
+    if (!time) return ''
     const hours = time.split(':')[0]
     const min = time.split(':')[1]
     return `${hours}:${min}`
