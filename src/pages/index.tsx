@@ -73,7 +73,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   const teams = await queryToModels<TeamModel>(query(collection(db, 'teams')))
 
-  const gameWeeks = await getHandballBelgiumGameweeks(1)
+  const gameWeeks: GameWeek[] = []
   const gameWeek = gameWeeks.length > 0 ? gameWeeks[0] : []
 
   return {
