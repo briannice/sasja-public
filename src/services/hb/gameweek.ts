@@ -37,8 +37,6 @@ export const getHandballBelgiumGameweeks = async (weeks: number) => {
     serie_short: e.serie_short_name,
   }))
 
-  console.log(games)
-
   if (games.length === 0) return []
 
   const gameweeks: GameWeek[] = []
