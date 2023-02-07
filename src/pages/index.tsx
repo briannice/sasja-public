@@ -3,7 +3,6 @@ import News from '@/components/home/News'
 import TicketsAndAbos from '@/components/home/TicketsAndAbos'
 import { db } from '@/services/firebase'
 import { createTimeLine, queryToModels } from '@/services/firebase/firestore'
-import { getHandballBelgiumGameweeks } from '@/services/hb/gameweek'
 import {
   EventModel,
   GameWeek,
