@@ -15,7 +15,7 @@ export const getHandballBelgiumGameweeks = async (weeks: number) => {
     id: e.id,
     date: e.date,
     time: e.time || null,
-    venue_id: e.venue_id,
+    venue_id: e.venue_id || null,
     home_score: e.home_score || 0,
     away_score: e.away_score || 0,
     home_id: e.home_team_id,
@@ -28,9 +28,9 @@ export const getHandballBelgiumGameweeks = async (weeks: number) => {
     away_short: e.away_team_short_name,
     home_logo: e.home_club_logo_img_url || null,
     away_logo: e.away_club_logo_img_url || null,
-    venue_name: e.venue_name,
-    venue_short: e.venue_short_name,
-    venue_city: e.venue_city,
+    venue_name: e.venue_name || '',
+    venue_short: e.venue_short_name || '',
+    venue_city: e.venue_city || '',
     game_number: e.reference.replace('URBH-KBHB', '').replace('VHV', '').replace('AVBP', ''),
     serie_id: e.serie_id,
     serie_name: e.serie_name,
@@ -47,7 +47,7 @@ export const getHandballBelgiumGameweeks = async (weeks: number) => {
 
   games.forEach((game) => {
     const weekNumber = getWeekNumberForGamesOverview(start_date, game.date)
-    gameweeks[weekNumber].push(game)
+    gameweeks[weekNumber] && gameweeks[weekNumber].push(game)
   })
 
   return gameweeks
