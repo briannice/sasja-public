@@ -58,7 +58,11 @@ export default function Hero({ timeLine, teams, gameWeek }: Props) {
           <h3 className="text-center text-2xl font-bold text-white">Volgende wedstrijden</h3>
           <div className="rouned-sm relative mt-4 flex-1 divide-y divide-light bg-white py-2 shadow-lg">
             {gameWeek.length > 0 ? (
-              gameWeek.map((game) => <Game key={game.id} game={game} teams={teams} />)
+              gameWeek.map(
+                (game) =>
+                  game.time &&
+                  !game.time.startsWith('00:00') && <Game key={game.id} game={game} teams={teams} />
+              )
             ) : (
               <p className="text-center font-kanit text-xl">Geen wedstrijden komende week</p>
             )}
@@ -76,9 +80,11 @@ export default function Hero({ timeLine, teams, gameWeek }: Props) {
         <section className="card p-4">
           <h3 className="sr-only">Volgende wedstrijden!</h3>
           <div className="flex-1 divide-y divide-light">
-            {gameWeek.map((game) => (
-              <Game key={game.id} game={game} teams={teams} />
-            ))}
+            {gameWeek.map(
+              (game) =>
+                game.time &&
+                !game.time.startsWith('00:00') && <Game key={game.id} game={game} teams={teams} />
+            )}
           </div>
           <div className="mt-4 flex justify-center">
             <Link href="/team/wedstrijden" className="btn btn-primary btn-text-icon tablet:text-sm">
