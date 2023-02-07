@@ -54,11 +54,15 @@ export const createTimeLine = (
 ) => {
   const timeLine: TimeLine = []
 
+  console.log('Start timeline')
+
   events.forEach((event) => timeLine.push({ name: 'event', data: event }))
   news.forEach((news) => timeLine.push({ name: 'news', data: news }))
   matchReports.forEach((matchReport) => timeLine.push({ name: 'matchreport', data: matchReport }))
 
   timeLine.sort((t1, t2) => new Date(t2.data.time).getTime() - new Date(t1.data.time).getTime())
+
+  console.log('End timeline')
 
   return timeLine
 }
