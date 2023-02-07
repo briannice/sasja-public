@@ -49,7 +49,7 @@ export const getHandballBelgiumGameweeks = async (weeks: number) => {
 
   games.forEach((game) => {
     const weekNumber = getWeekNumberForGamesOverview(start_date, game.date)
-    gameweeks[weekNumber].push(game)
+    gameweeks[weekNumber] && gameweeks[weekNumber].push(game)
   })
 
   return gameweeks
