@@ -14,6 +14,14 @@ const nextConfig = {
       { source: '/instagram', destination: 'https://www.instagram.com/sasjahc/', permanent: true },
     ]
   },
+  async rewrites() {
+    return [
+      {
+        source: '/tools/wedstrijdblad',
+        destination: '/static/html/wedstrijdblad.html',
+      },
+    ]
+  },
   reactStrictMode: true,
   swcMinify: true,
 }
