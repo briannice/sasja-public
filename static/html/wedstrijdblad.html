@@ -66,7 +66,7 @@
         }
 
         function isGoal(event) {
-            return event.eventType == 'goal'
+            return event.eventType == 'goal' || event. eventType == 'sevenMeterGoal'
         }
 
         function isWarning(event) {
@@ -113,6 +113,9 @@
         }
 
         function createProtocol(events) {
+            events.sort(function (e1, e2) {
+                return e1.second - e2.second
+            })
             const ignoredEvents = ['gameTimeStart', 'gameStart', 'gamePeriodStart', 'gameTimeStop', 'gamePeriodStop', 'gameEnd', 'sevenMeterNoGoal']
             let filteredEvents = events.filter(e => {
                 return !ignoredEvents.includes(e.eventType)
@@ -147,17 +150,16 @@
                 case 'sevenMeterGoal':
                     return '<i class="fa-regular fa-futbol"></i> ' + event.pointsHome + '-' + event.pointsGuest + ' (P)'
                 case 'playerWarning':
-                    return '<i class="fa-solid fa-diamond" style="color: yellow"></i>'
+                    return '<i class="fa-solid fa-diamond" style="color: yellow"></i> ' + (event.teamHome ? homeTeam : awayTeam)
                 case 'playerPenalty':
-                    return '<i class="fa-solid fa-diamond" style="color: black"></i>'
+                    return '<i class="fa-solid fa-diamond" style="color: black"></i> ' + (event.teamHome ? homeTeam : awayTeam)
                 case 'disqualificationNoReport':
-                    return '<i class="fa-solid fa-diamond" style="color: red"></i>'
+                    return '<i class="fa-solid fa-diamond" style="color: red"></i> ' + (event.teamHome ? homeTeam : awayTeam)
                 case 'disqualificationReport':
-                    return '<i class="fa-solid fa-diamond" style="color: blue"></i>'
+                    return '<i class="fa-solid fa-diamond" style="color: blue"></i> ' + (event.teamHome ? homeTeam : awayTeam)
                 case 'interruptionByGuest':
-                    return '<i class="fa-regular fa-clock"></i> ' + awayTeam
                 case 'interruptionByHome':
-                    return '<i class="fa-regular fa-clock"></i> ' + homeTeam
+                    return '<i class="fa-regular fa-clock"></i> ' + (event.teamHome ? homeTeam : awayTeam)
                 default:
                     return ''
             }
@@ -165,7 +167,7 @@
 
         function getPlayerName(player) {
             if (player) {
-                return player.firstname + ' ' + player.lastname
+                return player.firstname + ' ' + player.lastname + ' (' + player.nr + ')'
             }
             return ''
         }
