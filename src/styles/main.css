@@ -119,7 +119,7 @@
 
   /* Wrapper */
   .cms-content-wrapper {
-    @apply container bg-white py-8;
+    @apply container overflow-scroll bg-white py-8;
   }
 
   .cms-content-wrapper h1 {
