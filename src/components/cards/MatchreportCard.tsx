@@ -25,43 +25,52 @@ export default function MatchreportCard({ matchReport }: Props) {
           )}
         >
           <ClubLogo sasja={true} size={60} />
-          <div className="flex flex-col items-center space-y-2">
-            {matchReport.score.map((score, i) => (
-              <p
-                key={i}
-                className={clsx(
-                  'flex font-kanit',
-                  matchReport.home ? 'flex-row' : 'flex-row-reverse'
-                )}
-              >
-                <span
-                  className={clsx(
-                    'inline-block w-10 text-xl',
-                    matchReport.home ? 'text-right' : 'text-left'
-                  )}
-                >
-                  {score.sasja}
-                </span>
-                <span className="mx-2 inline-block text-lg">-</span>
-                <span
-                  className={clsx(
-                    'inline-block w-10 text-xl',
-                    matchReport.home ? 'text-left' : 'text-right'
-                  )}
-                >
-                  {score.opponent}
-                </span>
-              </p>
-            ))}
-          </div>
-          <ClubLogo path={matchReport.opponent.logo} size={60} />
+          {matchReport.tag.toLocaleLowerCase() !== 'tornooi' ? (
+            <>
+              <div className="flex flex-col items-center space-y-2">
+                {matchReport.score.map((score, i) => (
+                  <p
+                    key={i}
+                    className={clsx(
+                      'flex font-kanit',
+                      matchReport.home ? 'flex-row' : 'flex-row-reverse'
+                    )}
+                  >
+                    <span
+                      className={clsx(
+                        'inline-block w-10 text-xl',
+                        matchReport.home ? 'text-right' : 'text-left'
+                      )}
+                    >
+                      {score.sasja}
+                    </span>
+                    <span className="mx-2 inline-block text-lg">-</span>
+                    <span
+                      className={clsx(
+                        'inline-block w-10 text-xl',
+                        matchReport.home ? 'text-left' : 'text-right'
+                      )}
+                    >
+                      {score.opponent}
+                    </span>
+                  </p>
+                ))}
+              </div>
+
+              <ClubLogo path={matchReport.opponent.logo} size={60} />
+            </>
+          ) : null}
         </div>
         <div
           className={clsx('flex items-center', matchReport.home ? 'flex-col' : 'flex-col-reverse')}
         >
           <p className="font-kanit text-2xl">{matchReport.team.name}</p>
-          <p>vs</p>
-          <p className="font-kanit text-2xl">{matchReport.opponent.short}</p>
+          {matchReport.tag.toLocaleLowerCase() !== 'tornooi' ? (
+            <>
+              <p>vs</p>
+              <p className="font-kanit text-2xl">{matchReport.opponent.short}</p>
+            </>
+          ) : null}
         </div>
         <ul className="flex justify-center space-x-4">
           {tags.map((tag, i) => (
