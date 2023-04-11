@@ -240,6 +240,11 @@
     @apply relative mx-auto mt-4 aspect-video max-h-[250px];
   }
 
+  .cms-content-wrapper > .cms-content iframe,
+  .cms-content iframe {
+    @apply mx-auto mt-4;
+  }
+
   /* -------- */
   /* CAROUSEL */
   /* -------- */
