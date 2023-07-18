@@ -112,7 +112,7 @@ export default function GamesPage({ gameDays, teams }: Props) {
 
 export const getStaticProps: GetStaticProps = async () => {
   const teams = await queryToModels<TeamModel>(query(collection(db, 'teams')))
-  const gameDays = await getHandballBelgiumGames(10)
+  const gameDays = await getHandballBelgiumGames()
 
   return {
     props: {
