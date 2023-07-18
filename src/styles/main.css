@@ -119,7 +119,7 @@
 
   /* Wrapper */
   .cms-content-wrapper {
-    @apply container bg-white py-8;
+    @apply container overflow-scroll bg-white py-8;
   }
 
   .cms-content-wrapper h1 {
@@ -238,6 +238,11 @@
   .cms-content-wrapper > .cms-content figure,
   .cms-content figure {
     @apply relative mx-auto mt-4 aspect-video max-h-[250px];
+  }
+
+  .cms-content-wrapper > .cms-content iframe,
+  .cms-content iframe {
+    @apply mx-auto mt-4;
   }
 
   /* -------- */
