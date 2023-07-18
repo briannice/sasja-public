@@ -25,13 +25,8 @@ export const teams = [
     youth: true,
   },
   {
-    uid: 'jm12-midden',
-    name: 'JM12 Midden',
-    youth: true,
-  },
-  {
     uid: 'jm12-noord',
-    name: 'JM12 Noord',
+    name: 'JM12',
     youth: true,
   },
   {

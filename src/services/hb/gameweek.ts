@@ -6,7 +6,7 @@ export const getHandballBelgiumGameweeks = async (weeks: number) => {
   const [start_date, end_date] = getDateRangeForGamesOverview(weeks)
 
   const { data, status } = await HandballBelgiumApi.get(
-    `ng/game/byMyLeague?with_referees=false&no_forfeit=true&season_id=2&without_in_preparation=true&sort%5B0%5D=date&sort%5B1%5D=time&club_id=24&start_date=${start_date}&end_date=${end_date}`
+    `ng/game/byMyLeague?with_referees=false&no_forfeit=true&without_in_preparation=true&sort%5B0%5D=date&sort%5B1%5D=time&club_id=24&start_date=${start_date}&end_date=${end_date}`
   )
 
   if (status !== 200) return []
