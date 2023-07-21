@@ -55,15 +55,19 @@ export default function TicketsAndAbos() {
       </section>
       <section className="card px-8 py-8 laptop:py-16">
         <h3 className="text-center text-3xl laptop:text-5xl">Abonnementen</h3>
-        <p className="mt-8 text-center font-kanit text-2xl">Heren en Beloften</p>
+        <p className="mt-8 text-center font-kanit text-2xl">Heren, Beloften en Den Drei</p>
         <p className="mt-5 leading-relaxed text-dark">
-          Alle wedstrijden van zowel de Heren als Beloften en Play offs, uitgezonderd de
-          bekerwedstrijden
+          Alle wedstrijden van zowel de Heren, de Play offs als de Beloften en Den Drei,
+          uitgezonderd de bekerwedstrijden.
         </p>
-        <p className="mt-5 text-center font-kanit text-2xl">€100</p>
+        <div className="mt-5 -skew-x-3 transform space-y-4 bg-primary p-4 text-center font-kanit text-2xl text-white">
+          <p>Promotie tot en met 25/8/2023</p>
+          <p className="">€100</p>
+        </div>
+        <p className="mt-5 text-center font-kanit text-2xl">Daarna betaal je €120</p>
         <p className="mt-5 leading-relaxed text-dark">
           Abonnementen kan u bekomen door op rekeningnummer BE36 3631 9217 0881 het juiste bedrag
-          over te maken en in de mededeling uw naam te vermelden.
+          (100 euro tem 25/8) over te maken en in de mededeling uw naam te vermelden.
         </p>
       </section>
     </Container>
