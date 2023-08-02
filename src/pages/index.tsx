@@ -59,10 +59,13 @@ export const getStaticProps: GetStaticProps = async () => {
     )
   )
 
+  const TWO_WEEKS_IN_MS = 1000 * 60 * 60 * 24 * 14
+
   const matchReports = await queryToModels<MatchReportModel>(
     query(
       collection(db, 'matchreport'),
       where('public', '==', true),
+      where('time', '>', Timestamp.fromMillis(Timestamp.now().toMillis() - TWO_WEEKS_IN_MS)),
       orderBy('time', 'desc'),
       limit(10)
     )
