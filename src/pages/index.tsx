@@ -17,6 +17,8 @@ import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import React from 'react'
 
+const TWO_WEEKS_IN_MS = 1000 * 60 * 60 * 24 * 14
+
 type Props = {
   newsTimeLine: TimeLine
   heroTimeLine: TimeLine
@@ -63,6 +65,7 @@ export const getStaticProps: GetStaticProps = async () => {
     query(
       collection(db, 'matchreport'),
       where('public', '==', true),
+      where('time', '>', Timestamp.fromMillis(Timestamp.now().toMillis() - TWO_WEEKS_IN_MS)),
       orderBy('time', 'desc'),
       limit(10)
     )
