@@ -45,7 +45,7 @@ export default function EnrollPage() {
           <p>
             Lid worden van Jespo kan je volledig online: je gaat naar de site jespo.be en kiest{' '}
             <a
-              href="https://static.twizzit.com/v2/public/form/3cf599d848255181e0d562de2eee7d16"
+              href="https://static.twizzit.com/v2/public/form/02d787c978f0142367b00b5bfcbe2a97"
               target="_blank"
               rel="noreferrer"
             >
@@ -55,7 +55,7 @@ export default function EnrollPage() {
             inschrijvingsproces. Let er wel op dat je de juiste locatie (Hoboken) en leeftijd kiest!
           </p>
           <p>
-            Naargelang de leeftijd bedraagt het inschrijvingsgeld 60 of 110 EUR (1 of 2 trainingen
+            Naargelang de leeftijd bedraagt het inschrijvingsgeld 70 of 125 EUR (1 of 2 trainingen
             per week)
           </p>
           <p>
@@ -71,7 +71,7 @@ export default function EnrollPage() {
             Indien je ook competitie wil spelen (en wie wil dat niet), moet je ook lid worden van
             SASJA. De handbalbond organiseert competities per leeftijdscategorie vanaf de JM12
             (welpen) en SASJA probeert elk seizoen minstens 1 ploeg af te vaardigen. Het lidgeld bij
-            SASJA bedraagt 110 EUR per seizoen. Hiervoor organiseert SASJA wekelijks een extra
+            SASJA bedraagt 150 EUR per seizoen. Hiervoor organiseert SASJA wekelijks een extra
             training en wordt je lid als speler bij de handbalbond, zodat je aan wedstrijden kan en
             mag deelnemen.
           </p>
