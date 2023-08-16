@@ -17,7 +17,9 @@ export default function PlayerCard({ player }: Props) {
     { key: 'Voornaam', value: player.firstname },
     { key: 'Achternaam', value: player.lastname },
     { key: 'Rugnummer', value: player.backNumber },
-    { key: 'Team', value: player.team.name },
+    // { key: 'Team', value: player.team.name },
+    // { key: 'Geboortedatum', value: formatDate(player.birthday, 'DD/MM/YYYY') },
+    // { key: 'Aansluitingsdatum', value: formatDate(player.registration, 'DD/MM/YYYY') },
   ]
 
   return (
