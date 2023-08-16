@@ -1,7 +1,6 @@
 import Popup from '@/components/Popup'
 import useImage from '@/hooks/useImage'
 import { PlayerModel } from '@/types/models'
-import { formatDate } from '@/utils/date'
 import Image from 'next/image'
 import React, { Fragment, useState } from 'react'
 
@@ -19,8 +18,6 @@ export default function PlayerCard({ player }: Props) {
     { key: 'Achternaam', value: player.lastname },
     { key: 'Rugnummer', value: player.backNumber },
     { key: 'Team', value: player.team.name },
-    { key: 'Geboortedatum', value: formatDate(player.birthday, 'DD/MM/YYYY') },
-    { key: 'Aansluitingsdatum', value: formatDate(player.registration, 'DD/MM/YYYY') },
   ]
 
   return (
