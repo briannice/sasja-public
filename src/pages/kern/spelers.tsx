@@ -20,7 +20,7 @@ export default function Players({ players }: Props) {
       </Head>
       <main>
         <h1 className="title1 mt-8">Spelers</h1>
-        <Container className="mt-8 grid grid-cols-6 tablet:grid-cols-9 laptop:grid-cols-12">
+        <Container className="mt-8 grid grid-cols-4 gap-8 tablet:grid-cols-8 laptop:grid-cols-12">
           {players.map((player) => (
             <PlayerCard key={player.id} player={player} />
           ))}
