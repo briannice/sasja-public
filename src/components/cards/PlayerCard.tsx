@@ -24,11 +24,11 @@ export default function PlayerCard({ player }: Props) {
   ]
 
   return (
-    <section className="card card-click col-span-3 p-4" onClick={() => setShowInfo(true)}>
-      <figure className="relative aspect-square">
+    <section className="card card-click col-span-4" onClick={() => setShowInfo(true)}>
+      <figure className="relative aspect-[1940/1282]">
         {image && <Image src={image} alt="Player image" layout="fill" objectFit="cover" />}
       </figure>
-      <h3 className="mt-4 px-4 text-center text-lg">{name}</h3>
+      <h3 className="p-4 text-center text-lg">{name}</h3>
 
       <Popup open={showInfo} onClose={setShowInfo}>
         <h3 className="text-4xl font-black">{name}</h3>
@@ -40,7 +40,7 @@ export default function PlayerCard({ player }: Props) {
             </Fragment>
           ))}
         </dl>
-        <figure className="relative mx-auto mt-8 aspect-square max-w-sm">
+        <figure className="relative mx-auto mt-8 aspect-[1940/1282] max-w-sm">
           {image && <Image src={image} alt="Player image" layout="fill" objectFit="cover" />}
         </figure>
         <div className="cms-content" dangerouslySetInnerHTML={{ __html: player.description }} />
