@@ -60,10 +60,6 @@ export default function TicketsAndAbos() {
           Alle wedstrijden van zowel de Heren, de Play offs als de Beloften en Den Drei,
           uitgezonderd de bekerwedstrijden.
         </p>
-        <div className="mt-5 -skew-x-3 transform space-y-4 bg-primary p-4 text-center font-kanit text-2xl text-white">
-          <p>Promotie tot en met 25/8/2023</p>
-          <p className="">€100</p>
-        </div>
         <p className="mt-5 text-center font-kanit text-2xl">Daarna betaal je €120</p>
         <p className="mt-5 leading-relaxed text-dark">
           Abonnementen kan u bekomen door op rekeningnummer BE36 3631 9217 0881 het juiste bedrag
