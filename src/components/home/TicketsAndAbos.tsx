@@ -60,10 +60,10 @@ export default function TicketsAndAbos() {
           Alle wedstrijden van zowel de Heren, de Play offs als de Beloften en Den Drei,
           uitgezonderd de bekerwedstrijden.
         </p>
-        <p className="mt-5 text-center font-kanit text-2xl">Daarna betaal je €120</p>
+        <p className="mt-5 text-center font-kanit text-2xl">€120</p>
         <p className="mt-5 leading-relaxed text-dark">
           Abonnementen kan u bekomen door op rekeningnummer BE36 3631 9217 0881 het juiste bedrag
-          (100 euro tem 25/8) over te maken en in de mededeling uw naam te vermelden.
+          over te maken en in de mededeling uw naam te vermelden.
         </p>
       </section>
     </Container>
