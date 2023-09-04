@@ -78,6 +78,7 @@ export type StaffModel = {
   name: string
   function: string
   email: string
+  telephone: string
 }
 
 export type RankModel = {
