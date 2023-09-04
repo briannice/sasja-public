@@ -6,16 +6,19 @@ const topStaff = [
     name: 'Nick Jansen',
     function: 'Voorzitter',
     email: 'nick.jansen@telenet.be',
+    telephone: ''
   },
   {
     name: 'Rita Van der Auwera',
     function: 'Secretaris',
     email: 'secretariaat@sasja-antwerpen.be',
+    telephone: ''
   },
   {
     name: 'Tom Ocket',
     function: 'Penningmeester',
     email: 'ockettom@hotmail.com',
+    telephone: ''
   },
 ]
 
@@ -23,22 +26,26 @@ const board = [
   {
     name: 'Carl Bakx',
     function: 'Bestuurslid',
-    email: ''
+    email: '',
+    telephone: ''
   },
   {
     name: 'Dirk Faes',
     function: 'Bestuurslid',
-    email: ''
+    email: '',
+    telephone: ''
   },
   {
     name: 'Michael Leeman',
     function: 'Bestuurslid',
-    email: ''
+    email: '',
+    telephone: ''
   },
   {
     name: 'Alex Jacobs',
     function: 'Bestuurslid',
-    email: ''
+    email: '',
+    telephone: ''
   },
 ]
 
@@ -46,7 +53,8 @@ const api = [
   {
     name: 'Kenny Claes',
     function: 'API',
-    email: 'api@sasja-antwerpen.be'
+    email: 'api@sasja-antwerpen.be',
+    telephone: ''
   }
 ]
 
@@ -54,17 +62,20 @@ const youth = [
   {
     name: 'Michael Leeman',
     function: 'Jeugdvoorzitter',
-    email: 'jeugd@sasja-antwerpen.be'
+    email: 'jeugd@sasja-antwerpen.be',
+    telephone: ''
   },
   {
     name: 'Inge Servaes',
     function: 'Kalenderverantwoordelijke',
-    email: 'jeugd@sasja-antwerpen.be'
+    email: 'jeugd@sasja-antwerpen.be',
+    telephone: ''
   },
   {
     name: 'Kenny Claes',
     function: 'Bestuurslid',
-    email: 'jeugd@sasja-antwerpen.be'
+    email: 'jeugd@sasja-antwerpen.be',
+    telephone: ''
   },
 ]
 
@@ -73,28 +84,39 @@ const other = [
     name: 'Inge Servaes',
     function: 'Promotieverantwoordelijke',
     email: 'inge.servaes@sasja-antwerpen.be',
+    telephone: ''
   },
   {
     name: 'Michael Leeman',
     function: 'Administratief Coördinator',
     email: 'michael.leeman@sasja-antwerpen.be',
     phone: '0499157422',
+    telephone: ''
   },
   {
     name: 'Carrie Claes',
     function: 'Vrijwilligerscoördinator',
     email: 'carrie.claes@gmail.com',
+    telephone: ''
   },
   {
     name: 'Kevin Jacobs',
     function: 'Technisch Coördinator',
     email: 'kevin.jacobs@sasja-antwerpen.be',
+    telephone: ''
   },
   {
     name: 'Jos Riské',
     function: 'Technisch Coördinator',
     email: 'jos.riske@gmail.com',
+    telephone: ''
   },
+  {
+    name: 'Nick Jansen',
+    function: 'Medisch Coördinator',
+    email: 'nick.jansen@telenet.be',
+    telephone: ''
+  }
 ]
 
 const coaches = [
@@ -102,16 +124,19 @@ const coaches = [
     name: 'Kevin Jacobs',
     function: 'T1',
     email: 'kevin.jacobs@sasja-antwerpen.be',
+    telephone: ''
   },
   {
     name: 'Bart Van Ransbeeck',
     function: 'T2',
     email: 'bartvanransbeeck@telenet.be',
+    telephone: ''
   },
   {
     name: 'Alex Jacobs',
     function: 'T3',
     email: 'alexjacobs266@gmail.com',
+    telephone: ''
   },
 ]
 
@@ -120,75 +145,125 @@ const youthReferees = [
     name: 'Robert Peeters',
     function: '',
     email: 'jeugd@sasja-antwerpen.be',
+    telephone: ''
   },
   {
     name: 'Kenny Claes',
     function: '',
     email: 'jeugd@sasja-antwerpen.be',
+    telephone: ''
   },
 ]
 const youthCoaches = [
   {
-    name: 'Jos Riské',
-    function: '',
-    email: '',
-  },
-  {
-    name: 'Jan Brouwers',
-    function: '',
-    email: '',
-  },
-  {
-    name: 'Broes Geens',
-    function: '',
-    email: '',
-  },
-  {
-    name: 'Jörgen Sempels',
-    function: '',
-    email: '',
-  },
-  {
-    name: 'Inge Servaes',
-    function: '',
-    email: '',
-  },
-  {
-    name: 'Lars Celis',
-    function: '',
-    email: '',
-  },
-  {
     name: 'David André',
     function: '',
     email: '',
-  },
-  {
-    name: 'Michael Leeman',
-    function: '',
-    email: '',
+    telephone: ''
   },
   {
     name: 'Carl Bakx',
     function: '',
     email: '',
+    telephone: ''
+  },
+  {
+    name: 'Bob Beuckels',
+    function: '',
+    email: '',
+    telephone: ''
+  },
+  {
+    name: 'Rik Beuckels',
+    function: '',
+    email: '',
+    telephone: ''
+  },
+  {
+    name: 'Jan Brouwers',
+    function: '',
+    email: '',
+    telephone: ''
+  },
+  {
+    name: 'Lars Celis',
+    function: '',
+    email: '',
+    telephone: ''
+  },
+  {
+    name: 'Broes Geens',
+    function: '',
+    email: '',
+    telephone: ''
+  },
+  {
+    name: 'Michael Leeman',
+    function: '',
+    email: '',
+    telephone: ''
+  },
+  {
+    name: 'Jos Riské',
+    function: '',
+    email: '',
+    telephone: ''
+  },
+  {
+    name: 'Jörgen Sempels',
+    function: '',
+    email: '',
+    telephone: ''
+  },
+  {
+    name: 'Inge Servaes',
+    function: '',
+    email: '',
+    telephone: ''
+  },
+  {
+    name: 'Johannes Verhoeven',
+    function: '',
+    email: '',
+    telephone: ''
   },
 ]
 const medicalStaff = [
   {
     name: 'Nick Jansen',
-    function: 'Sportdokter',
+    function: 'Medisch Coördinator',
     email: '',
+    telephone: '0478643547'
   },
   {
-    name: 'Achraf Bendahby',
-    function: 'Kinesist',
+    name: 'Nicolai Sake',
+    function: 'Mental Coach',
     email: '',
+    telephone: '0493675618'
   },
   {
-    name: 'Kaat Soors',
+    name: 'Kristof Polhain',
+    function: 'Voedingssupplementen',
+    email: '',
+    telephone: '0478209833'
+  },
+  {
+    name: 'Robin De Roeck',
     function: 'Kinesist',
     email: '',
+    telephone: '0494215224'
+  },
+  {
+    name: 'Ralf De Roeck',
+    function: 'Kinesist',
+    email: '',
+    telephone: '0495461289'
+  },
+  {
+    name: 'Kobe Decorte',
+    function: 'Kinesist',
+    email: '',
+    telephone: '0471394529'
   },
 ]
 
@@ -202,7 +277,7 @@ export default function werking() {
       <StaffOverview name="Coördinators" staff={other} />
       <StaffOverview name="Jeugdbestuur" staff={youth} />
       <StaffOverview name="Coaches" staff={coaches} />
-      <StaffOverview name="Coaches (Jeugd)" staff={youthCoaches} />
+      <StaffOverview name="Coaches (Jeugd)" description="(Alfabetisch)" staff={youthCoaches} />
       <StaffOverview name="Jeugdscheidsrechterbegeleiders" staff={youthReferees} />
       <StaffOverview name="Medische cel" staff={medicalStaff} />
     </main>
