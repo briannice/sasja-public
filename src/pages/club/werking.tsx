@@ -81,6 +81,24 @@ const youth = [
 
 const other = [
   {
+    name: 'Alex Jacobs',
+    function: 'Technisch Coördinator',
+    email: 'alexjacobs266@gmail.com',
+    telephone: ''
+  },
+  {
+    name: 'Kevin Jacobs',
+    function: 'Technisch Coördinator',
+    email: 'kevin.jacobs@sasja-antwerpen.be',
+    telephone: ''
+  },
+  {
+    name: 'Jos Riské',
+    function: 'Technisch Coördinator',
+    email: 'jos.riske@gmail.com',
+    telephone: ''
+  },
+  {
     name: 'Inge Servaes',
     function: 'Promotieverantwoordelijke',
     email: 'inge.servaes@sasja-antwerpen.be',
@@ -97,18 +115,6 @@ const other = [
     name: 'Carrie Claes',
     function: 'Vrijwilligerscoördinator',
     email: 'carrie.claes@gmail.com',
-    telephone: ''
-  },
-  {
-    name: 'Kevin Jacobs',
-    function: 'Technisch Coördinator',
-    email: 'kevin.jacobs@sasja-antwerpen.be',
-    telephone: ''
-  },
-  {
-    name: 'Jos Riské',
-    function: 'Technisch Coördinator',
-    email: 'jos.riske@gmail.com',
     telephone: ''
   },
   {
@@ -242,7 +248,7 @@ const medicalStaff = [
     telephone: '0493675618'
   },
   {
-    name: 'Kristof Polhain',
+    name: 'Kristof Dolhain',
     function: 'Voedingssupplementen',
     email: '',
     telephone: '0478209833'
