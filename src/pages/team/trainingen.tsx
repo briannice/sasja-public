@@ -72,13 +72,13 @@ const trainings = [
         location: 'Sporthal Kiel',
       },
       {
-        teams: ['JM14', 'JM16 (1e jaars)'],
+        teams: ['JM14'],
         start: '17u30',
         end: '19u00',
         location: 'Sporthal Fort VIII',
       },
       {
-        teams: ['JM16 (2e jaars)', 'Kern (-18 jaar)'],
+        teams: ['JM16'],
         start: '18u00',
         end: '19u30',
         location: 'Sporthal Sorghvliedt',
