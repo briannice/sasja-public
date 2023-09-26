@@ -20,6 +20,12 @@ export const mainSponsors: Sponsor[] = [
 
 export const secondarySponsors: Sponsor[] = [
   {
+    name: 'aertssen',
+    path: '/sponsors/aertssen2.png',
+    href: 'https://www.aertssen.be/',
+    aspect: 'aspect-[283/218]',
+  },
+  {
     name: 'umicore',
     path: '/sponsors/umicore.png',
     href: 'https://www.umicore.be/',
