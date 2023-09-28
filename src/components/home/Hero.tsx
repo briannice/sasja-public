@@ -110,12 +110,15 @@ function Game({ game, teams }: { game: GameModel; teams: TeamModel[] }) {
     if (!name.includes('Sasja')) return name
     let result = 'Eerste ploeg'
     teams.forEach((team) => {
-      if (team.vhvId === vhvId) {
-        result = team.name
-      }
+      team.competitions.forEach((competition) => {
+        if (competition.vhvId === vhvId) {
+          result = team.name
+        }
+      })
     })
     return result
   }
+
   return (
     <div key={game.id} className="py-2">
       <div className="flex divide-x divide-primary">
