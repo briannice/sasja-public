@@ -35,9 +35,11 @@ export default function GamesPage({ gameDays, teams }: Props) {
     if (!name.includes('Sasja')) return name
     let result = 'Eerste ploeg'
     teams.forEach((team) => {
-      if (team.vhvId === vhvId) {
-        result = team.name
-      }
+      team.competitions.forEach((competition) => {
+        if (competition.vhvId === vhvId) {
+          result = team.name
+        }
+      })
     })
     return result
   }

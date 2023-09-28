@@ -17,10 +17,10 @@ export type TeamModel = BaseModel & {
   name: string
   uid: string
   youth: boolean
-  vhvId: number
   competitions: {
     name: string
     serieId: number
+    vhvId: number
   }[]
 }
 
