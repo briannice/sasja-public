@@ -15,7 +15,7 @@ const trainings = [
         location: 'Sporthal Sorghvliedt',
       },
       {
-        teams: ['JM12', 'JM14 (1e jaars)'],
+        teams: ['JM12 (2e jaars)', 'JM14 (1e jaars)'],
         start: '18u00',
         end: '19u30',
         location: 'Sporthal Notelaar',
