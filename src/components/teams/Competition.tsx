@@ -63,7 +63,7 @@ export default function Competition({ calendar, name, ranking, teamId }: Props) 
             href={`/team/${teamId}/klassement/${name.toLocaleLowerCase().replaceAll(/\ /g, '-')}`}
             className="btn btn-primary btn-text-icon"
           >
-            <span>Volledig klassement</span>
+            <span>Gedetailleerd klassement</span>
             <RiArrowRightSLine />
           </Link>
         </div>
@@ -145,7 +145,15 @@ export default function Competition({ calendar, name, ranking, teamId }: Props) 
             href={`/team/${teamId}/kalender/${name.toLocaleLowerCase().replaceAll(/\ /g, '-')}`}
             className="btn btn-primary btn-text-icon"
           >
-            <span>Volledige kalender</span>
+            <span>Wedstrijden SASJA</span>
+            <RiArrowRightSLine />
+          </Link>
+            &nbsp;&nbsp;
+          <Link
+              href={`/team/${teamId}/kalender/${name.toLocaleLowerCase().replaceAll(/\ /g, '-')}/full`}
+              className="btn btn-primary btn-text-icon"
+          >
+            <span>Alle wedstrijden</span>
             <RiArrowRightSLine />
           </Link>
         </div>
