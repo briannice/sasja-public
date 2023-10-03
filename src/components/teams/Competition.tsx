@@ -63,7 +63,7 @@ export default function Competition({ calendar, name, ranking, teamId }: Props) 
             href={`/team/${teamId}/klassement/${name.toLocaleLowerCase().replaceAll(/\ /g, '-')}`}
             className="btn btn-primary btn-text-icon"
           >
-            <span>Gedetailleerd klassement</span>
+            <span>Volledig klassement</span>
             <RiArrowRightSLine />
           </Link>
         </div>
