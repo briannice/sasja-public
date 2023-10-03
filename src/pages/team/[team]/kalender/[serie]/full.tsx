@@ -53,7 +53,7 @@ export default function FullCalendarPage({ name, gameDays }: Props) {
                                             </p>
                                             <ClubLogo path={game.home_logo} size={20} />
                                         </div>
-                                        <div                                            className="flex items-center justify-center space-x-2 font-kanit'">
+                                        <div className="flex items-center justify-center space-x-2 font-kanit'">
                                             <p className="w-6 text-right">{game.score_status_id === 0 ? "" : game.home_score}</p>
                                             <p>{game.score_status_id === 0 ? "" : '-'}</p>
                                             <p className="w-6">{game.score_status_id === 0 ? "" : game.away_score}</p>
