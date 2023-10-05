@@ -1,10 +1,10 @@
 import ClubLogo from '@/components/teams/ClubLogo'
 import { db } from '@/services/firebase'
-import {docRefToModel} from '@/services/firebase/firestore'
+import {docRefToModel, queryToModels} from '@/services/firebase/firestore'
 import { getHandballBelgiumCalendarFull } from '@/services/hb/calendarfull'
 import { GameDay, TeamModel } from '@/types/models'
 import { formatDate, getMonthFromDate, getWeekDayFromDate } from '@/utils/date'
-import {doc} from 'firebase/firestore'
+import {collection, doc, query} from 'firebase/firestore'
 import {GetStaticPaths, GetStaticProps} from 'next'
 import Head from 'next/head'
 import React from 'react'
@@ -79,10 +79,23 @@ export default function FullCalendarPage({ name, gameDays }: Props) {
 }
 
 export const getStaticPaths: GetStaticPaths<{ slug: string }> = async () => {
-
+    const teams = await queryToModels<TeamModel>(query(collection(db, 'teams')))
+    const paths: any = []
+    teams.forEach((team) => {
+        const id = team.id
+        team.competitions.forEach((competition) => {
+            const path = {
+                params: {
+                    team: id,
+                    serie: competition.name.toLocaleLowerCase().replaceAll(/\ /g, '-'),
+                },
+            }
+            paths.push(path)
+        })
+    })
     return {
-        paths: [], //indicates that no page needs be created at build time
-        fallback: 'blocking' //indicates the type of fallback
+        paths: paths,
+        fallback: 'blocking',
     }
 }
 
