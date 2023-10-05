@@ -140,12 +140,19 @@ export default function Competition({ calendar, name, ranking, teamId }: Props) 
             </tbody>
           </table>
         </div>
-        <div className="flex justify-center">
+        <div className="flex justify-center space-x-2">
           <Link
             href={`/team/${teamId}/kalender/${name.toLocaleLowerCase().replaceAll(/\ /g, '-')}`}
             className="btn btn-primary btn-text-icon"
           >
-            <span>Volledige kalender</span>
+            <span>Wedstrijden SASJA</span>
+            <RiArrowRightSLine />
+          </Link>
+          <Link
+              href={`/team/${teamId}/kalender/${name.toLocaleLowerCase().replaceAll(/\ /g, '-')}/full`}
+              className="btn btn-primary btn-text-icon"
+          >
+            <span>Alle wedstrijden</span>
             <RiArrowRightSLine />
           </Link>
         </div>
