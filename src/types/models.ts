@@ -21,6 +21,7 @@ export type TeamModel = BaseModel & {
     name: string
     serieId: number
     vhvId: number
+    ranking: boolean
   }[]
 }
 
