@@ -77,7 +77,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const competitions: Competition[] = []
 
   for (const competition of team.competitions) {
-    const ranking = await getHandballBelgiumRanking(competition.serieId)
+    const ranking = competition.ranking ? await getHandballBelgiumRanking(competition.serieId) : []
     const calendar = await getHandballBelgiumCalendar(competition.serieId)
 
     competitions.push({
