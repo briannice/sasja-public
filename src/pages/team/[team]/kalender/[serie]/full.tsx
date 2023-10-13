@@ -36,10 +36,11 @@ export default function FullCalendarPage({ name, gameDays }: Props) {
                 <title>{`Sasja HC | ${name}`}</title>
             </Head>
             <main className="container space-y-8">
-                <h1 className="sr-only">Aankomende wedstrijden</h1>
+                <h1 className="sr-only">Alle wedstrijden</h1>
+                <h2 className="title1">{name}</h2>
                 {gameDays.map((gameDay) => (
                     <section key={gameDay.date}>
-                        <h2 className="title1">{createDate(gameDay.date)}</h2>
+                        <h2 className="title2">{createDate(gameDay.date)}</h2>
                         <div className="card mt-8 divide-y divide-light">
                             {gameDay.games.map((game) => (
                                 <div key={game.id} className="p-4">

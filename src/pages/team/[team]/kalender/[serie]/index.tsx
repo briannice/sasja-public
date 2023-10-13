@@ -20,7 +20,7 @@ export default function CalendarPage({ name, calendar }: Props) {
         <title>{`Sasja HC | ${name}`}</title>
       </Head>
       <main>
-        <h1 className="sr-only">Klassement | {name}</h1>
+        <h1 className="sr-only">Wedstrijden | {name}</h1>
         <section className="container space-y-8 py-16">
           <h2 className="title1">{name}</h2>
           <CalendarTable calendar={calendar} />

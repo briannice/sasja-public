@@ -39,7 +39,7 @@ export default function Competition({ calendar, name, ranking, teamId }: Props) 
               </tr>
             </thead>
             <tbody>
-              {ranking.length != 0 ? ranking.map((rank) => (
+              {ranking.length > 0 ? ranking.map((rank) => (
                 <tr key={rank.id} className={clsx(rank.name === 'Sasja HC' && 'font-bold')}>
                   <td>
                     <p>{rank.position}</p>
@@ -64,8 +64,8 @@ export default function Competition({ calendar, name, ranking, teamId }: Props) 
             </tbody>
           </table>
         </div>
-        { ranking.length > 0 ? (
         <div className="flex justify-center">
+          { ranking.length > 0 && (
           <Link
             href={`/team/${teamId}/klassement/${name.toLocaleLowerCase().replaceAll(/\ /g, '-')}`}
             className="btn btn-primary btn-text-icon"
@@ -73,8 +73,8 @@ export default function Competition({ calendar, name, ranking, teamId }: Props) 
             <span>Volledig klassement</span>
             <RiArrowRightSLine />
           </Link>
+          )}
         </div>
-        ):(<div className="flex justify-center"></div>)}
       </div>
       <div className="space-y-8">
         <div className="overflow-auto">
