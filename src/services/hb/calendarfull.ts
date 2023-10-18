@@ -3,7 +3,7 @@ import {GameDay, GameModel} from '@/types/models'
 
 export const getHandballBelgiumCalendarFull = async (serieId: number) => {
     const {data, status} = await HandballBelgiumApi(
-        `ng/game/byMyLeague?serie_id=${serieId}&with_referees=false&without_in_preparation=true&sort=game_date_time`
+        `ng/game/byMyLeague?serie_id=${serieId}&with_referees=true&without_in_preparation=true&sort=game_date_time`
     )
 
     if (status !== 200) return []
@@ -32,6 +32,10 @@ export const getHandballBelgiumCalendarFull = async (serieId: number) => {
         serie_id: e.serie_id,
         serie_name: e.serie_name,
         serie_short: e.serie_short_name,
+        referees: e.referees.filter((r: any) => r).map((r: any) => ({
+            firstname: r.firstname || '',
+            surname: r.surname || ''
+        }))
     }))
 
     if (games.length === 0) return []
