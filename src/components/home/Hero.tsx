@@ -10,7 +10,7 @@ import React, {Fragment, useState} from 'react'
 import { RiArrowRightSLine } from 'react-icons/ri'
 import Popup from "@/components/Popup";
 import GameDetail from "@/components/teams/GameDetail";
-import {findTeamName} from "@/utils/team";
+import {findTeamName} from "@/utils/game";
 
 type Props = {
   timeLine: TimeLine

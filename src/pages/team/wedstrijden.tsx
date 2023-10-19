@@ -9,7 +9,7 @@ import { collection, query } from 'firebase/firestore'
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import React, {useState} from 'react'
-import {findTeamName} from "@/utils/team";
+import {findTeamName} from "@/utils/game";
 import Popup from "@/components/Popup";
 import GameDetail from "@/components/teams/GameDetail";
 
@@ -59,6 +59,9 @@ function Game({ game, teams }: { game: GameModel; teams: TeamModel[]}) {
     return `${hours}:${minutes}`
   }
 
+  const homeTeam = findTeamName(game.home_short, game.home_id, teams)
+  const awayTeam = findTeamName(game.away_short, game.away_id, teams)
+
   return (
       <div key={game.id} className="card-click p-4" onClick={() => setShowInfo(true)}>
         <div className="flex items-center justify-center">
@@ -85,7 +88,7 @@ function Game({ game, teams }: { game: GameModel; teams: TeamModel[]}) {
         <div className="mt-4 flex space-x-8">
           <div className="flex flex-1 flex-col-reverse items-end tablet:flex-row tablet:items-center tablet:justify-end tablet:space-x-4">
             <p className="mt-2 text-right font-kanit tablet:mt-0">
-              {findTeamName(game.home_short, game.home_id, teams)}
+              {homeTeam}
             </p>
             <ClubLogo path={game.home_logo} size={40} />
           </div>
@@ -102,12 +105,12 @@ function Game({ game, teams }: { game: GameModel; teams: TeamModel[]}) {
           <div className="flex flex-1 flex-col tablet:flex-row tablet:items-center tablet:space-x-4">
             <ClubLogo path={game.away_logo} size={40} />
             <p className="mt-2 font-kanit tablet:mt-0">
-              {findTeamName(game.away_short, game.away_id, teams)}
+              {awayTeam}
             </p>
           </div>
         </div>
         <Popup open={showInfo} onClose={setShowInfo}>
-          <GameDetail game={game} homeTeam={findTeamName(game.home_short, game.home_id, teams)} awayTeam={findTeamName(game.away_short, game.away_id, teams)}/>
+          <GameDetail game={game} homeTeam={homeTeam} awayTeam={awayTeam}/>
         </Popup>
       </div>
   )
