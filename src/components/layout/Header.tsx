@@ -8,6 +8,7 @@ import clsx from 'clsx'
 import Image from 'next/image'
 import React, { Fragment, useState } from 'react'
 import { RiArrowDownSLine, RiCloseLine, RiMenuLine } from 'react-icons/ri'
+import TiktokIcon from "@/components/icons/TiktokIcon";
 
 export default function Header() {
   const [isOpens, setIsOpens] = useState(headerLinks.map(() => false))
@@ -76,6 +77,9 @@ export default function Header() {
           </a>
           <a href="https://www.instagram.com/sasjahc" target="_blank" rel="noreferrer">
             <InstagramIcon className="h-4 w-4 text-primary" />
+          </a>
+          <a href="https://www.tiktok.com/@sasja.hc" target="_blank" rel="noreferrer">
+            <TiktokIcon className="h-4 w-4 text-primary" />
           </a>
         </div>
 
@@ -167,6 +171,9 @@ export default function Header() {
                       </a>
                       <a href="https://www.instagram.com/sasjahc" target="_blank" rel="noreferrer">
                         <InstagramIcon className="h-5 w-5 text-primary" />
+                      </a>
+                      <a href="https://www.tiktok.com/@sasja.hc" target="_blank" rel="noreferrer">
+                        <TiktokIcon className="h-5 w-5 text-primary" />
                       </a>
                     </li>
                   </ul>
