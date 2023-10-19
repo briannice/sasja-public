@@ -4,8 +4,10 @@ import ClubLogo from '@/components/teams/ClubLogo'
 import { GameModel, RankModel } from '@/types/models'
 import { formatDate } from '@/utils/date'
 import clsx from 'clsx'
-import React from 'react'
+import React, {useState} from 'react'
 import { RiArrowRightSLine } from 'react-icons/ri'
+import Popup from "@/components/Popup";
+import GameDetail from "@/components/teams/GameDetail";
 
 type Props = {
   calendar: GameModel[]
@@ -15,9 +17,6 @@ type Props = {
 }
 
 export default function Competition({ calendar, name, ranking, teamId }: Props) {
-  const createScore = (home: number, away: number) => {
-    return `${home} - ${away}`
-  }
 
   return (
     <Container className="grid grid-cols-1 gap-8 desktop:grid-cols-2">
@@ -95,55 +94,7 @@ export default function Competition({ calendar, name, ranking, teamId }: Props) 
             </thead>
             <tbody>
               {calendar.map((game) => (
-                <tr key={game.id}>
-                  <td>
-                    <div className="flex items-center justify-end space-x-4">
-                      <p>{game.home_short}</p>
-                      <ClubLogo path={game.home_logo} size={20} />
-                    </div>
-                  </td>
-                  <td>
-                    {game.score_status_id !== 0 ? (
-                      <p className="text-center">{createScore(game.home_score, game.away_score)}</p>
-                    ) : (
-                      <p className="text-center text-sm text-dark">
-                        {formatDate(game.date, 'DD/MM')}
-                      </p>
-                    )}
-                  </td>
-                  <td>
-                    <div className="flex items-center space-x-4">
-                      <ClubLogo path={game.away_logo} size={20} />
-                      <p>{game.away_short}</p>
-                    </div>
-                  </td>
-                  <td>
-                    {game.score_status_id > 0 && (
-                      <p
-                        className={clsx(
-                          'flex h-5 w-5 items-center justify-center rounded-full text-xs font-bold text-white',
-                          game.home_score === game.away_score
-                            ? 'bg-warning'
-                            : game.home_score > game.away_score &&
-                              game.home_name.includes('Sasja HC')
-                            ? 'bg-success'
-                            : game.home_score < game.away_score &&
-                              game.away_name.includes('Sasja HC')
-                            ? 'bg-success'
-                            : 'bg-error'
-                        )}
-                      >
-                        {game.home_score === game.away_score
-                          ? 'D'
-                          : game.home_score > game.away_score && game.home_name.includes('Sasja HC')
-                          ? 'W'
-                          : game.home_score < game.away_score && game.away_name.includes('Sasja HC')
-                          ? 'W'
-                          : 'L'}
-                      </p>
-                    )}
-                  </td>
-                </tr>
+                <Game key={game.id} game={game}/>
               ))}
             </tbody>
           </table>
@@ -166,5 +117,68 @@ export default function Competition({ calendar, name, ranking, teamId }: Props) 
         </div>
       </div>
     </Container>
+  )
+}
+
+function Game({ game }: { game: GameModel;}) {
+  const [showInfo, setShowInfo] = useState(false)
+
+  const createScore = (home: number, away: number) => {
+    if (home === 0 && away === 0) return ''
+    return `${home} - ${away}`
+  }
+  return (
+      <tr className="card-click p-4" onClick={() => setShowInfo(true)}>
+        <td>
+          <div className="flex items-center justify-end space-x-4">
+            <p>{game.home_short}</p>
+            <ClubLogo path={game.home_logo} size={20} />
+          </div>
+        </td>
+        <td>
+          {game.score_status_id !== 0 ? (
+              <p className="text-center">{createScore(game.home_score, game.away_score)}</p>
+          ) : (
+              <p className="text-center text-sm text-dark">
+                {formatDate(game.date, 'DD/MM')}
+              </p>
+          )}
+        </td>
+        <td>
+          <div className="flex items-center space-x-4">
+            <ClubLogo path={game.away_logo} size={20} />
+            <p>{game.away_short}</p>
+          </div>
+        </td>
+        <td>
+          {game.score_status_id > 0 && (
+              <p
+                  className={clsx(
+                      'flex h-5 w-5 items-center justify-center rounded-full text-xs font-bold text-white',
+                      game.home_score === game.away_score
+                          ? 'bg-warning'
+                          : game.home_score > game.away_score &&
+                          game.home_name.includes('Sasja HC')
+                              ? 'bg-success'
+                              : game.home_score < game.away_score &&
+                              game.away_name.includes('Sasja HC')
+                                  ? 'bg-success'
+                                  : 'bg-error'
+                  )}
+              >
+                {game.home_score === game.away_score
+                    ? 'D'
+                    : game.home_score > game.away_score && game.home_name.includes('Sasja HC')
+                        ? 'W'
+                        : game.home_score < game.away_score && game.away_name.includes('Sasja HC')
+                            ? 'W'
+                            : 'L'}
+              </p>
+          )}
+        </td>
+        <Popup open={showInfo} onClose={setShowInfo}>
+          <GameDetail game={game}/>
+        </Popup>
+      </tr>
   )
 }

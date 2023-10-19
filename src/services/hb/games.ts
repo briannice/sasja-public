@@ -8,7 +8,7 @@ export const getHandballBelgiumGames = async () => {
   const [start_date] = getDateRangeForGamesOverview(0)
 
   const { data, status } = await HandballBelgiumApi.get(
-    `ng/game/byMyLeague?with_referees=false&no_forfeit=true&without_in_preparation=true&sort%5B0%5D=date&sort%5B1%5D=time&club_id=24&start_date=${start_date}`
+    `ng/game/byMyLeague?with_referees=true&no_forfeit=true&without_in_preparation=true&sort%5B0%5D=date&sort%5B1%5D=time&club_id=24&start_date=${start_date}`
   )
 
   if (status !== 200) return []
@@ -37,6 +37,10 @@ export const getHandballBelgiumGames = async () => {
     serie_id: e.serie_id,
     serie_name: e.serie_name,
     serie_short: e.serie_short_name,
+    referees: e.referees.filter((r: any) => r).map((r: any) => ({
+      firstname: r.firstname || '',
+      surname: r.surname || ''
+    }))
   }))
 
   if (games.length === 0) return []
