@@ -5,6 +5,7 @@ import {formatDate, getMonthFromDate, getWeekDayFromDate} from "@/utils/date";
 import ClubLogo from "@/components/teams/ClubLogo";
 import {GiWhistle} from "react-icons/gi";
 import {FaMapMarkerAlt} from "react-icons/fa";
+import {AiOutlineFieldNumber} from "react-icons/ai";
 
 type Props = {
     game: GameModel
@@ -66,8 +67,6 @@ export default function GameDetail({ game }: Props) {
         if(venue.street)
             address.push(venue.street)
         address.push(venue.zip + " " + venue.city)
-        console.log(address)
-        console.log(address.length)
         return address
     }
 
@@ -94,6 +93,12 @@ export default function GameDetail({ game }: Props) {
                         <div className="flex flex-1 flex-col content-center items-center justify-center">
                             <ClubLogo path={game.away_logo} size={width > 600 ? 160: 40} />
                             <p className="text-center font-kanit desktop:text-2xl">{game.away_name}</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div className="flex items-center justify-center"><AiOutlineFieldNumber/></div>
+                        <div className="flex items-center justify-center space-x-1 text-sm">
+                            {game.game_number}
                         </div>
                     </div>
                     <div className="m-5">
