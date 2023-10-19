@@ -3,11 +3,14 @@ import EventCarouselItem from '@/components/carousel/items/EventCarouselItem'
 import NewsCarouselItem from '@/components/carousel/items/NewsCarouselItem'
 import Link from '@/components/Link'
 import ClubLogo from '@/components/teams/ClubLogo'
-import { GameModel, GameWeek, TeamModel, TimeLine } from '@/types/models'
+import {GameModel, GameWeek, TeamModel, TimeLine} from '@/types/models'
 import {formatDate, getMonthFromDate, getWeekDayFromDate} from '@/utils/date'
 import Image from 'next/image'
-import React from 'react'
+import React, {Fragment, useState} from 'react'
 import { RiArrowRightSLine } from 'react-icons/ri'
+import Popup from "@/components/Popup";
+import GameDetail from "@/components/teams/GameDetail";
+import {findTeamName} from "@/utils/team";
 
 type Props = {
   timeLine: TimeLine
@@ -103,6 +106,8 @@ export default function Hero({ timeLine, teams, gameWeek }: Props) {
 }
 
 function Game({ game, teams, showDate }: { game: GameModel; teams: TeamModel[]; showDate: boolean }) {
+  const [showInfo, setShowInfo] = useState(false)
+
   const formatTime = (time: string | null) => {
     if (!time) return ''
 
@@ -110,21 +115,12 @@ function Game({ game, teams, showDate }: { game: GameModel; teams: TeamModel[]; 
     return `${times[0]}:${times[1]}`
   }
 
-  const findTeamName = (name: string, vhvId: number) => {
-    if (!name.includes('Sasja')) return name
-    let result = 'Eerste ploeg'
-    teams.forEach((team) => {
-      team.competitions.forEach((competition) => {
-        if (competition.vhvId === vhvId) {
-          result = team.name
-        }
-      })
-    })
-    return result
-  }
+
+  const homeTeam = findTeamName(game.home_short, game.home_id, teams)
+  const awayTeam = findTeamName(game.away_short, game.away_id, teams)
 
   return (
-    <div key={game.id} className="py-2">
+    <div key={game.id} className="card-click py-2" onClick={() => setShowInfo(true)}>
       { showDate &&
       <div className="text-center font-kanit text-sm text-dark desktop:text-xl">
         <p>{getWeekDayFromDate(game.date) + "," + formatDate(game.date, ' DD ') + getMonthFromDate(game.date)}</p>
@@ -133,7 +129,7 @@ function Game({ game, teams, showDate }: { game: GameModel; teams: TeamModel[]; 
       <div className="mt-2 flex space-x-4">
         <div className="flex flex-1 items-center justify-end space-x-2">
           <p className="mt-2 text-right font-kanit text-sm tablet:mt-0 desktop:text-base">
-            {findTeamName(game.home_short, game.home_id)}
+              {homeTeam}
           </p>
           <ClubLogo path={game.home_logo} size={20} />
         </div>
@@ -145,10 +141,13 @@ function Game({ game, teams, showDate }: { game: GameModel; teams: TeamModel[]; 
         <div className="flex flex-1 items-center space-x-2">
           <ClubLogo path={game.away_logo} size={20} />
           <p className="mt-2 font-kanit text-sm tablet:mt-0 desktop:text-base">
-            {findTeamName(game.away_short, game.away_id)}
+              {awayTeam}
           </p>
         </div>
       </div>
+      <Popup open={showInfo} onClose={setShowInfo}>
+        <GameDetail game={game} homeTeam={homeTeam} awayTeam={awayTeam}/>
+      </Popup>
     </div>
   )
 }

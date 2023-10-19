@@ -123,6 +123,23 @@ export type GameModel = {
   serie_id: number
   serie_name: string
   serie_short: string
+  referees: [Referee]
+}
+
+export type Referee = {
+  firstname: string
+  surname: string
+}
+
+export type Venue = {
+  id: number
+  name: string
+  short_name: string
+  street: string
+  zip: string
+  city: string
+  country: string
+  phone: string
 }
 
 export type GameDay = {
