@@ -2,7 +2,6 @@ import {HandballBelgiumApi} from "@/services/hb/index";
 import {Venue} from "@/types/models";
 
 export const getHandballBelgiumVenue = async (venueId: number) => {
-    console.log("calling for venue " + venueId)
     const {data, status} = await HandballBelgiumApi.get(
         `ng/venue/${venueId}`
     )

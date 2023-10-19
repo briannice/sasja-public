@@ -15,13 +15,10 @@ type Props = {
 export default function GameDetail({ game, homeTeam, awayTeam }: Props) {
     const [venue, setVenue] = useState({id: game.venue_id, name:game.venue_name, city:game.venue_city, country:'BE', street:'', phone:'', short_name:game.venue_short, zip:''})
 
+    const getAndSetVenue = async () => { setVenue(await getHandballBelgiumVenue(game.venue_id) as Venue) }
     useEffect(() => {
-        const getData = async () => {
-            const data = await getHandballBelgiumVenue(game.venue_id)
-            setVenue(data)
-        }
-        getData();
-    },[])
+        getAndSetVenue();
+    },[getAndSetVenue])
 
     const createDate = (date: string) => {
         const weekday = getWeekDayFromDate(date)
@@ -37,8 +34,9 @@ export default function GameDetail({ game, homeTeam, awayTeam }: Props) {
         const minutes = time.split(':')[1]
         return `${hours}:${minutes}`
     }
-    const createReferees = (referees: [Referee]) => {
+    const createReferees = (referees: Referee[]) => {
         if (!referees) return ''
+        if (referees.length == 0) return 'Geen aanduidingen'
         return referees.map((ref) => (ref.firstname + " " + ref.surname)).join(', ')
     }
 
