@@ -8,17 +8,15 @@ import {FaMapMarkerAlt} from "react-icons/fa";
 
 type Props = {
     game: GameModel
-    homeTeam: string
-    awayTeam: string
 }
 
-export default function GameDetail({ game, homeTeam, awayTeam }: Props) {
+export default function GameDetail({ game }: Props) {
     const [venue, setVenue] = useState({id: game.venue_id, name:game.venue_name, city:game.venue_city, country:'BE', street:'', phone:'', short_name:game.venue_short, zip:''})
 
-    const getAndSetVenue = async () => { setVenue(await getHandballBelgiumVenue(game.venue_id) as Venue) }
     useEffect(() => {
+        const getAndSetVenue = async () => { setVenue(await getHandballBelgiumVenue(game.venue_id) as Venue) }
         getAndSetVenue();
-    },[getAndSetVenue])
+    },[game.venue_id])
 
     const createDate = (date: string) => {
         const weekday = getWeekDayFromDate(date)
@@ -50,7 +48,7 @@ export default function GameDetail({ game, homeTeam, awayTeam }: Props) {
 
     return    (
         <section key={game.date}>
-            <div className="card mt-8 divide-y divide-light">
+            <div className="card divide-y divide-light">
                 <div>
                     <p className="rounded-sm bg-primary px-1.5 py-0.5 font-kanit title1 text-white">{game.serie_name}</p>
                 </div>
@@ -59,7 +57,7 @@ export default function GameDetail({ game, homeTeam, awayTeam }: Props) {
                     <div className="mt-4 flex space-x-8">
                         <div className="flex flex-1 flex-col items-center justify-center">
                             <ClubLogo path={game.home_logo} size={160} />
-                            <p className="text-center font-kanit">{homeTeam}</p>
+                            <p className="text-center font-kanit">{game.home_name}</p>
                         </div>
                         <div className="flex items-center justify-center space-x-2 font-kanit">
                             { game.game_status_id == 2 ? (
@@ -70,7 +68,7 @@ export default function GameDetail({ game, homeTeam, awayTeam }: Props) {
                         </div>
                         <div className="flex flex-1 flex-col content-center items-center justify-center">
                             <ClubLogo path={game.away_logo} size={160} />
-                            <p className="text-center font-kanit">{awayTeam}</p>
+                            <p className="text-center font-kanit">{game.away_name}</p>
                         </div>
                     </div>
                     <div className="m-5">

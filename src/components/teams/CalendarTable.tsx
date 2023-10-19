@@ -129,7 +129,7 @@ function Game({ game }: { game: GameModel;}) {
           </p>
         </td>
         <Popup open={showInfo} onClose={setShowInfo}>
-          <GameDetail game={game} homeTeam={game.home_name} awayTeam={game.away_name}/>
+          <GameDetail game={game}/>
         </Popup>
       </tr>
   )

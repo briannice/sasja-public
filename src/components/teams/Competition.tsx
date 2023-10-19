@@ -177,7 +177,7 @@ function Game({ game }: { game: GameModel;}) {
           )}
         </td>
         <Popup open={showInfo} onClose={setShowInfo}>
-          <GameDetail game={game} homeTeam={game.home_name} awayTeam={game.away_name}/>
+          <GameDetail game={game}/>
         </Popup>
       </tr>
   )
