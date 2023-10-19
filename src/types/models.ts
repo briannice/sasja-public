@@ -123,7 +123,7 @@ export type GameModel = {
   serie_id: number
   serie_name: string
   serie_short: string
-  referees: [Referee]
+  referees: Referee[]
 }
 
 export type Referee = {
