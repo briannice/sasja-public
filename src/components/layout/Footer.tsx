@@ -5,6 +5,7 @@ import Sponsors from '@/components/Sponsors'
 import { footerLinks } from '@/data/links'
 import React from 'react'
 import { RiMailFill, RiMapPinFill } from 'react-icons/ri'
+import TiktokIcon from "@/components/icons/TiktokIcon";
 
 export default function Footer() {
   return (
@@ -43,6 +44,11 @@ export default function Footer() {
               <li>
                 <a href="https://www.instagram.com/sasjahc" target="_blank" rel="noreferrer">
                   <InstagramIcon className="h-4 w-4 text-primary" />
+                </a>
+              </li>
+              <li>
+                <a href="https://www.tiktok.com/@sasja.hc" target="_blank" rel="noreferrer">
+                  <TiktokIcon className="h-4 w-4 text-primary" />
                 </a>
               </li>
             </ul>
