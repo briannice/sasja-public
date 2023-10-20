@@ -28,7 +28,7 @@ export default function GameDetail({ game }: Props) {
     useEffect(() => {
         const getAndSetGame = async () => setGameDetail(await getHandballBelgiumGameDetail(game.id, game.referees) as GameDetailModel)
         getAndSetGame();
-    },[game.id])
+    },[game.id, game.referees])
 
     useEffect(() => {
         function handleResize() {
