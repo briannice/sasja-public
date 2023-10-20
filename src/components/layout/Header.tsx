@@ -9,6 +9,7 @@ import Image from 'next/image'
 import React, { Fragment, useState } from 'react'
 import { RiArrowDownSLine, RiCloseLine, RiMenuLine } from 'react-icons/ri'
 import TiktokIcon from "@/components/icons/TiktokIcon";
+import Login from "@/components/Login";
 
 export default function Header() {
   const [isOpens, setIsOpens] = useState(headerLinks.map(() => false))
@@ -70,6 +71,7 @@ export default function Header() {
               )}
             </li>
           ))}
+          <li className="group relative h-full"><Login className="relative flex h-full items-center px-8"/></li>
         </ul>
         <div className="ml-8 hidden flex-col justify-center space-y-2 laptop:flex">
           <a href="https://www.facebook.com/SasjaHC" target="_blank" rel="noreferrer">
@@ -165,6 +167,7 @@ export default function Header() {
                         )}
                       </li>
                     ))}
+                    <li className="block py-3 font-kanit"><Login></Login></li>
                     <li className="flex space-x-4 pt-5">
                       <a href="https://www.facebook.com/SasjaHC" target="_blank" rel="noreferrer">
                         <FacebookIcon className="h-5 w-5 text-primary" />
