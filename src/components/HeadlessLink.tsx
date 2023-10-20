@@ -13,7 +13,7 @@ const HeadlessLink = forwardRef<HTMLAnchorElement, Props & HTMLProps<HTMLAnchorE
   ({ href, children, className, blank = false, ...props }, ref) => {
     if (blank) {
       return (
-        <a href={href} ref={ref} target="_blank" rel="noreferrer" {...props}>
+        <a className={clsx(className)} href={href} ref={ref} target="_blank" rel="noreferrer" {...props}>
           {children}
         </a>
       )

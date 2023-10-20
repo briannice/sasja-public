@@ -126,20 +126,18 @@ export type GameModel = {
   referees: Referee[]
 }
 
+export type GameDetailModel  = GameModel & {
+  referees: Referee[]
+  home_team_pin: string
+  away_team_pin: string
+  match_code: string
+  venue_street: string
+  venue_zip: string
+}
+
 export type Referee = {
   firstname: string
   surname: string
-}
-
-export type Venue = {
-  id: number
-  name: string
-  short_name: string
-  street: string
-  zip: string
-  city: string
-  country: string
-  phone: string
 }
 
 export type GameDay = {

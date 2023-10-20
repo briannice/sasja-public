@@ -1,24 +1,34 @@
-import {GameModel, Referee, Venue} from "@/types/models";
+import {GameDetailModel, GameModel, Referee} from "@/types/models";
 import React, {useEffect, useState} from "react";
-import {getHandballBelgiumVenue} from "@/services/hb/venue";
 import {formatDate, getMonthFromDate, getWeekDayFromDate} from "@/utils/date";
 import ClubLogo from "@/components/teams/ClubLogo";
 import {GiWhistle} from "react-icons/gi";
 import {FaMapMarkerAlt} from "react-icons/fa";
-import {AiOutlineFieldNumber} from "react-icons/ai";
+import {AiOutlineCar, AiOutlineFieldNumber, AiOutlineHome} from "react-icons/ai";
+import {getHandballBelgiumGameDetail} from "@/services/hb/gamedetail";
+import useAuthentication from "@/utils/auth";
 
 type Props = {
     game: GameModel
 }
 
 export default function GameDetail({ game }: Props) {
-    const [venue, setVenue] = useState({id: game.venue_id, name:game.venue_name, city:game.venue_city, country:'BE', street:'', phone:'', short_name:game.venue_short, zip:''})
+    const [gameDetail, setGameDetail] = useState({
+        ...game,
+        referees: [],
+        home_team_pin: '',
+        away_team_pin: '',
+        match_code: '',
+        venue_street: '',
+        venue_zip: ''
+    } as GameDetailModel)
     const [width, setWidth] = useState<number>(0);
+    const {isAuthenticated} = useAuthentication()
 
     useEffect(() => {
-        const getAndSetVenue = async () => { setVenue(await getHandballBelgiumVenue(game.venue_id) as Venue) }
-        getAndSetVenue();
-    },[game.venue_id])
+        const getAndSetGame = async () => setGameDetail(await getHandballBelgiumGameDetail(game.id, game.referees) as GameDetailModel)
+        getAndSetGame();
+    },[game.id, game.referees])
 
     useEffect(() => {
         function handleResize() {
@@ -62,48 +72,54 @@ export default function GameDetail({ game }: Props) {
         return referees
     }
 
-    const createAddress = (venue: Venue) => {
+    const createAddress = (gameDetail: GameDetailModel) => {
         const address: string[] = []
-        if(venue.street)
-            address.push(venue.street)
-        address.push(venue.zip + " " + venue.city)
+        if(gameDetail.venue_street)
+            address.push(gameDetail.venue_street)
+        address.push(gameDetail.venue_zip + " " + gameDetail.venue_city)
         return address
     }
 
     return    (
-        <section key={game.date}>
+        <section key={gameDetail.date}>
             <div className="card divide-y divide-light">
                 <div>
-                    <p className="rounded-sm bg-primary px-1.5 py-0.5 font-kanit desktop:text-xl text-center text-white">{game.serie_name}</p>
+                    <p className="rounded-sm bg-primary px-1.5 py-0.5 font-kanit desktop:text-xl text-center text-white">{gameDetail.serie_name}</p>
                 </div>
-                <div key={game.id} className="p-4">
-                    <div className="font-kanit text-center desktop:text-2xl text">{createDate(game.date)}</div>
+                <div key={gameDetail.id} className="p-4">
+                    <div className="font-kanit text-center desktop:text-2xl text">{createDate(gameDetail.date)}</div>
                     <div className="mt-4 flex space-x-8">
                         <div className="flex flex-1 flex-col items-center justify-center">
-                            <ClubLogo path={game.home_logo} size={width > 600 ? 160: 40} />
-                            <p className="text-center font-kanit desktop:text-2xl">{game.home_name}</p>
+                            <ClubLogo path={gameDetail.home_logo} size={width > 600 ? 160: 40} />
+                            <p className="text-center font-kanit desktop:text-2xl">{gameDetail.home_name}</p>
                         </div>
                         <div className="flex items-center justify-center space-x-4 font-kanit">
-                            { game.game_status_id == 2 ? (
-                                <p className="text-center desktop:text-3xl text-dark">{game.home_score}{' - '}{game.away_score}</p>
+                            { gameDetail.game_status_id == 2 ? (
+                                <p className="text-center desktop:text-3xl text-dark">{gameDetail.home_score}{' - '}{gameDetail.away_score}</p>
                             ):(
-                                <p className="text-center desktop:text-3xl text-dark">{createTime(game.time)}</p>
+                                <p className="text-center desktop:text-3xl text-dark">{createTime(gameDetail.time)}</p>
                             )}
                         </div>
                         <div className="flex flex-1 flex-col content-center items-center justify-center">
-                            <ClubLogo path={game.away_logo} size={width > 600 ? 160: 40} />
-                            <p className="text-center font-kanit desktop:text-2xl">{game.away_name}</p>
+                            <ClubLogo path={gameDetail.away_logo} size={width > 600 ? 160: 40} />
+                            <p className="text-center font-kanit desktop:text-2xl">{gameDetail.away_name}</p>
                         </div>
                     </div>
                     <div>
                         <div className="flex items-center justify-center"><AiOutlineFieldNumber/></div>
-                        <div className="flex items-center justify-center space-x-1 text-sm">
-                            {game.game_number}
-                        </div>
+                        <div className="flex items-center justify-center space-x-1 text-sm">{gameDetail.game_number}</div>
+                        {isAuthenticated()?
+                            <div>
+                                <div className="flex items-center justify-center space-x-1 text-sm">{gameDetail.match_code}</div>
+                                <div className="flex items-center justify-center space-x-1 text-sm"><AiOutlineHome/><span/>{gameDetail.home_team_pin} | {gameDetail.away_team_pin}<AiOutlineCar/><span/></div>
+                            </div>
+                            :
+                            <div className="flex items-center justify-center space-x-1 text-sm">(Log in voor meer informatie)</div>
+                        }
                     </div>
                     <div className="m-5">
                         <div className="flex items-center justify-center"><GiWhistle/></div>
-                        {createReferees(game.referees).map((ref) => (
+                        {createReferees(gameDetail.referees).map((ref) => (
                             <div key={ref} className="flex items-center justify-center space-x-1 text-sm">
                                 {ref}
                             </div>
@@ -112,9 +128,9 @@ export default function GameDetail({ game }: Props) {
                     <div>
                         <div className="flex items-center justify-center"><FaMapMarkerAlt/></div>
                         <div className="flex items-center justify-center space-x-1 ">
-                            <p className="">{venue.name}</p>
+                            <p className="">{gameDetail.venue_name}</p>
                         </div>
-                        {createAddress(venue).map((addressLine) => (
+                        {createAddress(gameDetail).map((addressLine) => (
                         <div key={addressLine} className="flex items-center justify-center space-x-1 text-sm">
                             {addressLine}
                         </div>
