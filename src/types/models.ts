@@ -17,6 +17,7 @@ export type TeamModel = BaseModel & {
   name: string
   uid: string
   youth: boolean
+  calender: string
   competitions: {
     name: string
     serieId: number

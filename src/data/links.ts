@@ -12,6 +12,11 @@ const clubSublinks = [
     blank: false,
   },
   {
+    name: 'Kalenders',
+    href: '/club/kalenders',
+    blank: false,
+  },
+  {
     name: 'Inschrijven',
     href: '/club/inschrijven',
     blank: false,
