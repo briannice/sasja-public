@@ -24,7 +24,7 @@ export default function CalendersPage({teams}: Props) {
                 <h1 className="title1 mt-8">Kalenders</h1>
                 <Container card={true} className="card-text">
                     <p>
-                        Alle kalenders en standen vind je op de team-pagina's onder <b>Kern</b> of <b>Jeugd</b>.
+                        Alle kalenders en standen vind je op de team-pagina&apos;s onder <b>Kern</b> of <b>Jeugd</b>.
                     </p>
                     <p>
                         Wil je de wedstrijden toevoegen aan je persoonlijke kalender op je computer, telefoon of tablet, dan kan je dat doen met links op deze pagina.
