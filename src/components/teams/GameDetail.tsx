@@ -1,12 +1,16 @@
-import {GameDetailModel, GameModel, Referee} from "@/types/models";
+import {GameDetailModel, GameModel, Referee, TeamModel} from "@/types/models";
 import React, {useEffect, useState} from "react";
 import {formatDate, getMonthFromDate, getWeekDayFromDate} from "@/utils/date";
 import ClubLogo from "@/components/teams/ClubLogo";
 import {GiWhistle} from "react-icons/gi";
-import {FaMapMarkerAlt} from "react-icons/fa";
+import {FaMapMarkerAlt, FaWaze} from "react-icons/fa";
 import {AiOutlineCar, AiOutlineFieldNumber, AiOutlineHome} from "react-icons/ai";
 import {getHandballBelgiumGameDetail} from "@/services/hb/gamedetail";
 import useAuthentication from "@/utils/auth";
+import Link from "@/components/Link";
+import {FaMapMarkedAlt} from "react-icons/fa";
+import {GrFormCheckmark} from "react-icons/gr";
+import {HiClipboardDocumentList} from "react-icons/hi2";
 
 type Props = {
     game: GameModel
@@ -24,6 +28,7 @@ export default function GameDetail({ game }: Props) {
     } as GameDetailModel)
     const [width, setWidth] = useState<number>(0);
     const {isAuthenticated} = useAuthentication()
+    const [mapCopied, setMapCopied] = useState(false);
 
     useEffect(() => {
         const getAndSetGame = async () => setGameDetail(await getHandballBelgiumGameDetail(game.id, game.referees) as GameDetailModel)
@@ -80,6 +85,24 @@ export default function GameDetail({ game }: Props) {
         return address
     }
 
+    const createMapAddress = (gameDetail: GameDetailModel) => {
+        let address = gameDetail.venue_name
+        if(gameDetail.venue_street)
+            address += ", " + gameDetail.venue_street
+        address += ", " + gameDetail.venue_zip + " " + gameDetail.venue_city
+        return address
+    }
+
+    const clickMapCopy = (e: any) => {
+        e.preventDefault();
+        navigator.clipboard.writeText(createMapAddress(gameDetail))
+        setMapCopied(true)
+        const id = setTimeout(() => {
+            setMapCopied(false)
+        }, 1500);
+        return () => clearTimeout(id)
+    }
+
     return    (
         <section key={gameDetail.date}>
             <div className="card divide-y divide-light">
@@ -126,6 +149,7 @@ export default function GameDetail({ game }: Props) {
                         ))}
                     </div>
                     <div>
+                        <Link href={`https://maps.apple.com/maps?q=${createMapAddress(gameDetail)}`} blank={true}>
                         <div className="flex items-center justify-center"><FaMapMarkerAlt/></div>
                         <div className="flex items-center justify-center space-x-1 ">
                             <p className="">{gameDetail.venue_name}</p>
@@ -135,6 +159,18 @@ export default function GameDetail({ game }: Props) {
                             {addressLine}
                         </div>
                         ))}
+                        </Link>
+                        <div className="flex items-center justify-center space-x-1 text-sm">
+                            <Link href={`https://maps.apple.com/maps?q=${createMapAddress(gameDetail)}`} blank={true}>
+                                <FaMapMarkedAlt/>
+                            </Link>
+                            <Link href={`https://waze.com/ul?q=${createMapAddress(gameDetail)}`} blank={true}>
+                                <FaWaze/>
+                            </Link>
+                            <Link href="#" onClick={(e) => clickMapCopy(e)}>
+                                {mapCopied ? <GrFormCheckmark/> : <HiClipboardDocumentList/>}
+                            </Link>
+                        </div>
                     </div>
                 </div>
             </div>
