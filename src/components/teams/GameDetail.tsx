@@ -109,7 +109,7 @@ export default function GameDetail({ game }: Props) {
 
     return    (
         <section key={gameDetail.date}>
-            <div className="card divide-y divide-light">
+            <div className="card divide-y divide-light overflow-auto">
                 <div>
                     <p className="rounded-sm bg-primary px-1.5 py-0.5 font-kanit desktop:text-xl text-center text-white">{gameDetail.serie_name}</p>
                 </div>
@@ -117,7 +117,7 @@ export default function GameDetail({ game }: Props) {
                     <div className="font-kanit text-center desktop:text-2xl text">{createDate(gameDetail.date)}</div>
                     <div className="mt-4 flex space-x-8">
                         <div className="flex flex-1 flex-col items-center justify-center">
-                            <ClubLogo path={gameDetail.home_logo} size={width > 600 ? 160: 25} />
+                            <ClubLogo path={gameDetail.home_logo} size={width > 600 ? 120: 40} />
                             <p className="text-center font-kanit desktop:text-2xl">{gameDetail.home_name}</p>
                         </div>
                         <div className="flex items-center justify-center space-x-4 font-kanit">
@@ -128,7 +128,7 @@ export default function GameDetail({ game }: Props) {
                             )}
                         </div>
                         <div className="flex flex-1 flex-col content-center items-center justify-center">
-                            <ClubLogo path={gameDetail.away_logo} size={width > 600 ? 160: 25} />
+                            <ClubLogo path={gameDetail.away_logo} size={width > 600 ? 120: 40} />
                             <p className="text-center font-kanit desktop:text-2xl">{gameDetail.away_name}</p>
                         </div>
                     </div>
