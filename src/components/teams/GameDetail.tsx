@@ -149,7 +149,6 @@ export default function GameDetail({ game }: Props) {
                         ))}
                     </div>
                     <div>
-                        <Link href={`https://maps.apple.com/maps?q=${createMapAddress(gameDetail)}`} blank={true}>
                         <div className="flex items-center justify-center"><FaMapMarkerAlt/></div>
                         <div className="flex items-center justify-center space-x-1 ">
                             <p className="">{gameDetail.venue_name}</p>
@@ -159,15 +158,14 @@ export default function GameDetail({ game }: Props) {
                             {addressLine}
                         </div>
                         ))}
-                        </Link>
-                        <div className="flex items-center justify-center space-x-1 text-sm">
-                            <Link href={`https://maps.apple.com/maps?q=${createMapAddress(gameDetail)}`} blank={true}>
+                        <div className="flex items-center justify-center">
+                            <Link className="m-2" href={`https://maps.apple.com/maps?q=${createMapAddress(gameDetail)}`} blank={true}>
                                 <FaMapMarkedAlt/>
                             </Link>
-                            <Link href={`https://waze.com/ul?q=${createMapAddress(gameDetail)}`} blank={true}>
+                            <Link className="m-2" href={`https://waze.com/ul?q=${createMapAddress(gameDetail)}`} blank={true}>
                                 <FaWaze/>
                             </Link>
-                            <Link href="#" onClick={(e) => clickMapCopy(e)}>
+                            <Link className="m-2" href="#" onClick={(e) => clickMapCopy(e)}>
                                 {mapCopied ? <GrFormCheckmark/> : <HiClipboardDocumentList/>}
                             </Link>
                         </div>
