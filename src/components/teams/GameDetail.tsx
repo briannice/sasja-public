@@ -3,10 +3,14 @@ import React, {useEffect, useState} from "react";
 import {formatDate, getMonthFromDate, getWeekDayFromDate} from "@/utils/date";
 import ClubLogo from "@/components/teams/ClubLogo";
 import {GiWhistle} from "react-icons/gi";
-import {FaMapMarkerAlt} from "react-icons/fa";
+import {FaMapMarkerAlt, FaWaze} from "react-icons/fa";
 import {AiOutlineCar, AiOutlineFieldNumber, AiOutlineHome} from "react-icons/ai";
 import {getHandballBelgiumGameDetail} from "@/services/hb/gamedetail";
 import useAuthentication from "@/utils/auth";
+import Link from "@/components/Link";
+import {FaMapMarkedAlt} from "react-icons/fa";
+import {GrFormCheckmark} from "react-icons/gr";
+import {HiClipboardDocumentList} from "react-icons/hi2";
 
 type Props = {
     game: GameModel
@@ -24,9 +28,14 @@ export default function GameDetail({ game }: Props) {
     } as GameDetailModel)
     const [width, setWidth] = useState<number>(0);
     const {isAuthenticated} = useAuthentication()
+    const [loading, isLoading] = useState(true);
+    const [mapCopied, setMapCopied] = useState(false);
 
     useEffect(() => {
-        const getAndSetGame = async () => setGameDetail(await getHandballBelgiumGameDetail(game.id, game.referees) as GameDetailModel)
+        const getAndSetGame = async () => {
+            setGameDetail(await getHandballBelgiumGameDetail(game.id, game.referees) as GameDetailModel)
+            isLoading(false)
+        }
         getAndSetGame();
     },[game.id, game.referees])
 
@@ -80,9 +89,27 @@ export default function GameDetail({ game }: Props) {
         return address
     }
 
+    const createMapAddress = (gameDetail: GameDetailModel) => {
+        let address = gameDetail.venue_name
+        if(gameDetail.venue_street)
+            address += ", " + gameDetail.venue_street
+        address += ", " + gameDetail.venue_zip + " " + gameDetail.venue_city
+        return address
+    }
+
+    const clickMapCopy = (e: any) => {
+        e.preventDefault();
+        navigator.clipboard.writeText(createMapAddress(gameDetail))
+        setMapCopied(true)
+        const id = setTimeout(() => {
+            setMapCopied(false)
+        }, 1500);
+        return () => clearTimeout(id)
+    }
+
     return    (
         <section key={gameDetail.date}>
-            <div className="card divide-y divide-light">
+            <div className="card divide-y divide-light overflow-auto">
                 <div>
                     <p className="rounded-sm bg-primary px-1.5 py-0.5 font-kanit desktop:text-xl text-center text-white">{gameDetail.serie_name}</p>
                 </div>
@@ -90,7 +117,7 @@ export default function GameDetail({ game }: Props) {
                     <div className="font-kanit text-center desktop:text-2xl text">{createDate(gameDetail.date)}</div>
                     <div className="mt-4 flex space-x-8">
                         <div className="flex flex-1 flex-col items-center justify-center">
-                            <ClubLogo path={gameDetail.home_logo} size={width > 600 ? 160: 40} />
+                            <ClubLogo path={gameDetail.home_logo} size={width > 600 ? 120: 40} />
                             <p className="text-center font-kanit desktop:text-2xl">{gameDetail.home_name}</p>
                         </div>
                         <div className="flex items-center justify-center space-x-4 font-kanit">
@@ -101,7 +128,7 @@ export default function GameDetail({ game }: Props) {
                             )}
                         </div>
                         <div className="flex flex-1 flex-col content-center items-center justify-center">
-                            <ClubLogo path={gameDetail.away_logo} size={width > 600 ? 160: 40} />
+                            <ClubLogo path={gameDetail.away_logo} size={width > 600 ? 120: 40} />
                             <p className="text-center font-kanit desktop:text-2xl">{gameDetail.away_name}</p>
                         </div>
                     </div>
@@ -135,6 +162,17 @@ export default function GameDetail({ game }: Props) {
                             {addressLine}
                         </div>
                         ))}
+                        {!loading && <div className="flex items-center justify-center">
+                            <Link className="m-2" href={`https://maps.apple.com/maps?q=${createMapAddress(gameDetail)}`} blank={true}>
+                                <FaMapMarkedAlt/>
+                            </Link>
+                            <Link className="m-2" href={`https://waze.com/ul?q=${createMapAddress(gameDetail)}`} blank={true}>
+                                <FaWaze/>
+                            </Link>
+                            <Link className="m-2" href="#" onClick={(e) => clickMapCopy(e)}>
+                                {mapCopied ? <GrFormCheckmark/> : <HiClipboardDocumentList/>}
+                            </Link>
+                        </div>}
                     </div>
                 </div>
             </div>
