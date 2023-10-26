@@ -4,7 +4,7 @@ import Head from 'next/head'
 import React, {useEffect, useRef, useState} from 'react'
 import {collectionToModels} from "@/services/firebase/firestore";
 import {TeamModel} from "@/types/models";
-import {collection, getDocs, query} from "firebase/firestore";
+import {collection, getDocs, orderBy, query} from "firebase/firestore";
 import {db} from "@/services/firebase";
 import {GetStaticProps} from "next";
 import {AiFillApple} from "react-icons/ai";
@@ -96,7 +96,7 @@ export default function CalendersPage({teams}: Props) {
                             {teams.map((team, i) => (
                                 <tr key={team.id}>
                                     <td>
-                                        <span>{team.name}</span>
+                                        <span className="font-kanit">{team.name}</span>
                                     </td>
                                     <td>
                                         <div className="flex">
@@ -200,7 +200,7 @@ export default function CalendersPage({teams}: Props) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-    const teams = collectionToModels<TeamModel>(await getDocs(query(collection(db, 'teams'))))
+    const teams = collectionToModels<TeamModel>(await getDocs(query(collection(db, 'teams'), orderBy("sortOrder"))))
     return {
         props: {
             teams,
