@@ -1,4 +1,4 @@
-import {GameDetailModel, GameModel, Referee, TeamModel} from "@/types/models";
+import {GameDetailModel, GameModel, Referee} from "@/types/models";
 import React, {useEffect, useState} from "react";
 import {formatDate, getMonthFromDate, getWeekDayFromDate} from "@/utils/date";
 import ClubLogo from "@/components/teams/ClubLogo";
