@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Used to offset anchor links - set to height of header */
+html {
+  scroll-padding-top: 100px;
+}
+
 @layer base {
   body {
     @apply bg-pattern font-lato text-black;

@@ -22,16 +22,23 @@ export default function CalendersPage({teams}: Props) {
     const googleCopiedRef = useRef(teams.map(() => false));
     const [appleCopied, setAppleCopied] = useState(teams.map(() => false));
     const [googleCopied, setGoogleCopied] = useState(teams.map(() => false));
-    const copylink = (link: string) => {
-        navigator.clipboard.writeText(link)
+
+    const clickGoogle = (e: any, team: TeamModel, i: number) => {
+        e.preventDefault();
+        copylink(team.calender)
+        const stateCopy = [...googleCopied]
+        stateCopy[i] = true
+        setGoogleCopied(stateCopy)
+        const id = setTimeout(() => {
+            const stateCopy = [...googleCopiedRef.current]
+            stateCopy[i] = false
+            setGoogleCopied(stateCopy)
+        }, 1500);
+        return () => clearTimeout(id)
     }
-
-    useEffect(() => {
-        appleCopiedRef.current = appleCopied;
-        googleCopiedRef.current = googleCopied;
-    }, [appleCopied, googleCopied]);
-
-    const setCheckMarkApple = (i: number) => {
+    const clickApple = (e: any, team: TeamModel, i: number) => {
+        e.preventDefault();
+        copylink("https://calendar.google.com/calendar/ical/" + team.calender + "/public/basic.ics")
         const stateCopy = [...appleCopied]
         stateCopy[i] = true
         setAppleCopied(stateCopy)
@@ -43,17 +50,14 @@ export default function CalendersPage({teams}: Props) {
         return () => clearTimeout(id)
     }
 
-    const setCheckMarkGoogle = (i: number) => {
-        const stateCopy = [...googleCopied]
-        stateCopy[i] = true
-        setGoogleCopied(stateCopy)
-        const id = setTimeout(() => {
-            const stateCopy = [...googleCopiedRef.current]
-            stateCopy[i] = false
-            setGoogleCopied(stateCopy)
-        }, 1500);
-        return () => clearTimeout(id)
+    const copylink = (link: string) => {
+        navigator.clipboard.writeText(link)
     }
+
+    useEffect(() => {
+        appleCopiedRef.current = appleCopied;
+        googleCopiedRef.current = googleCopied;
+    }, [appleCopied, googleCopied]);
 
     return (
         <>
@@ -64,7 +68,7 @@ export default function CalendersPage({teams}: Props) {
                 <h1 className="title1 mt-8">Kalenders</h1>
                 <Container card={true} className="card-text">
                     <p>
-                        Alle kalenders en standen vind je op de team-pagina&apos;s onder <b>Kern</b> of <b>Jeugd</b>.
+                        Alle uitslagen, kalenders en standen vind je op de team-pagina&apos;s onder <b>Kern</b> of <b>Jeugd</b>.
                     </p>
                     <p>
                         Wil je de wedstrijden toevoegen aan je persoonlijke kalender op je computer, telefoon of tablet,
@@ -75,7 +79,7 @@ export default function CalendersPage({teams}: Props) {
                     </p>
                 </Container>
                 <Container card={true}>
-                    <div className="overflow-auto">
+                    <div className="">
                         <table>
                             <thead>
                             <tr>
@@ -103,12 +107,7 @@ export default function CalendersPage({teams}: Props) {
                                                   blank={true}>
                                                 <FcGoogle color="#3DDC84"/><HiExternalLink/>
                                             </Link>
-                                            <Link className="flex" href="#"
-                                                  onClick={() => {
-                                                      copylink(team.calender)
-                                                      setCheckMarkGoogle(i)
-                                                  }
-                                                  }>
+                                            <Link className="flex" href="#" onClick={(e) => clickGoogle(e, team, i)}>
                                                 <FcGoogle color="#3DDC84"/>{googleCopied[i] ? <GrFormCheckmark/> :
                                                 <HiClipboardDocumentList/>}
                                             </Link>
@@ -116,12 +115,7 @@ export default function CalendersPage({teams}: Props) {
                                     </td>
                                     <td>
                                         <div className="flex">
-                                            <Link className="flex" href="#"
-                                                  onClick={() => {
-                                                      copylink("https://calendar.google.com/calendar/ical/" + team.calender + "/public/basic.ics")
-                                                      setCheckMarkApple(i)
-                                                  }
-                                                  }>
+                                            <Link className="flex" href="#" onClick={(e) => clickApple(e, team, i)}>
                                                 <AiFillApple color="#555555"/><RiMicrosoftFill
                                                 color="#0072C6"/>{appleCopied[i] ? <GrFormCheckmark/> :
                                                 <HiClipboardDocumentList/>}
@@ -141,7 +135,7 @@ export default function CalendersPage({teams}: Props) {
                     <ul>
                         <li><a href="#google">Google Agenda</a><p className="text-sm">(Android telefoon of tablet,
                             Gmail, ...)</p></li>
-                        <li><a href="#google">iCal</a><p className="text-sm">(Apple iCloud, iPhone, iPad, macOS,
+                        <li><a href="#ical">iCal</a><p className="text-sm">(Apple iCloud, iPhone, iPad, macOS,
                             Microsoft Outlook, )</p></li>
                     </ul>
                     <h3 id="google">Gebruikers van Google Agenda (Calendar)</h3>
