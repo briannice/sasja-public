@@ -79,7 +79,7 @@ export default function CalendersPage({teams}: Props) {
                     </p>
                 </Container>
                 <Container card={true}>
-                    <div className="">
+                    <div className="overflow-auto">
                         <table>
                             <thead>
                             <tr>
@@ -87,11 +87,9 @@ export default function CalendersPage({teams}: Props) {
                                     <p>Team</p>
                                 </th>
                                 <th>
-                                    <p>Google Agenda</p>
+                                    <p>Kalender</p>
                                 </th>
-                                <th>
-                                    <p>iCal</p>
-                                </th>
+
                             </tr>
                             </thead>
                             <tbody>
@@ -102,20 +100,16 @@ export default function CalendersPage({teams}: Props) {
                                     </td>
                                     <td>
                                         <div className="flex">
-                                            <Link className="flex"
+                                            <Link className="flex m-2"
                                                   href={"https://calendar.google.com/calendar/render?cid=" + team.calender}
                                                   blank={true}>
                                                 <FcGoogle color="#3DDC84"/><HiExternalLink/>
                                             </Link>
-                                            <Link className="flex" href="#" onClick={(e) => clickGoogle(e, team, i)}>
+                                            <Link className="flex m-2" href="#" onClick={(e) => clickGoogle(e, team, i)}>
                                                 <FcGoogle color="#3DDC84"/>{googleCopied[i] ? <GrFormCheckmark/> :
                                                 <HiClipboardDocumentList/>}
                                             </Link>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div className="flex">
-                                            <Link className="flex" href="#" onClick={(e) => clickApple(e, team, i)}>
+                                            <Link className="flex m-2" href="#" onClick={(e) => clickApple(e, team, i)}>
                                                 <AiFillApple color="#555555"/><RiMicrosoftFill
                                                 color="#0072C6"/>{appleCopied[i] ? <GrFormCheckmark/> :
                                                 <HiClipboardDocumentList/>}
