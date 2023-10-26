@@ -28,10 +28,14 @@ export default function GameDetail({ game }: Props) {
     } as GameDetailModel)
     const [width, setWidth] = useState<number>(0);
     const {isAuthenticated} = useAuthentication()
+    const [loading, isLoading] = useState(true);
     const [mapCopied, setMapCopied] = useState(false);
 
     useEffect(() => {
-        const getAndSetGame = async () => setGameDetail(await getHandballBelgiumGameDetail(game.id, game.referees) as GameDetailModel)
+        const getAndSetGame = async () => {
+            setGameDetail(await getHandballBelgiumGameDetail(game.id, game.referees) as GameDetailModel)
+            isLoading(false)
+        }
         getAndSetGame();
     },[game.id, game.referees])
 
@@ -158,7 +162,7 @@ export default function GameDetail({ game }: Props) {
                             {addressLine}
                         </div>
                         ))}
-                        <div className="flex items-center justify-center">
+                        {!loading && <div className="flex items-center justify-center">
                             <Link className="m-2" href={`https://maps.apple.com/maps?q=${createMapAddress(gameDetail)}`} blank={true}>
                                 <FaMapMarkedAlt/>
                             </Link>
@@ -168,7 +172,7 @@ export default function GameDetail({ game }: Props) {
                             <Link className="m-2" href="#" onClick={(e) => clickMapCopy(e)}>
                                 {mapCopied ? <GrFormCheckmark/> : <HiClipboardDocumentList/>}
                             </Link>
-                        </div>
+                        </div>}
                     </div>
                 </div>
             </div>
