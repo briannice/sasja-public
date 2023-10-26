@@ -154,8 +154,7 @@ export default function CalendersPage({teams}: Props) {
                     <p>
                         Nadat je de vraag hebt gekregen om de kalender toe te voegen aan je eigen agenda,
                         kan je de kleur van de wedstrijden in je agenda selecteren, instellen of je wil verwittigd
-                        worden
-                        en alle andere instellingen die je gewend bent van Google Agenda.
+                        worden of elke andere aanpassing maken die je gewend bent van Google Agenda.
                     </p>
                     <h4 className="flex">Code naar klembord kopiëren (<FcGoogle
                         color="#3DDC84"/><HiClipboardDocumentList/>)</h4>
@@ -182,8 +181,7 @@ export default function CalendersPage({teams}: Props) {
                     </p>
                     <p>
                         Hieronder vind je een aantal links naar pagina&apos;s die je uitleggen hoe je dat moet doen met
-                        de
-                        url die je naar je klembord hebt gekopiëerd door op de link te drukken:
+                        de url die je naar je klembord hebt gekopiëerd uit de tabel hierboven:
                     </p>
                     <ul>
                         <li>
