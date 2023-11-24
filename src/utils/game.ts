@@ -12,3 +12,12 @@ export const findTeamName = (name: string, vhvId: number, teams: TeamModel[]) =>
     })
     return result
 }
+
+export const cleanGameNumber = (number: string) => {
+    return number
+        .replace('URBH-KBHB', '')
+        .replace('VHVVHV-eindronde', '')
+        .replace('VHV', '')
+        .replace('AVB', '')
+}
+

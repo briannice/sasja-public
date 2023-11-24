@@ -1,5 +1,6 @@
 import {HandballBelgiumApi} from '@/services/hb'
 import {GameDay, GameModel} from '@/types/models'
+import {cleanGameNumber} from "@/utils/game";
 
 export const getHandballBelgiumCalendarFull = async (serieId: number) => {
     const {data, status} = await HandballBelgiumApi(
@@ -28,7 +29,7 @@ export const getHandballBelgiumCalendarFull = async (serieId: number) => {
         venue_name: e.venue_name || '',
         venue_short: e.venue_short_name || '',
         venue_city: e.venue_city || '',
-        game_number: e.reference.replace('URBH-KBHB', '').replace('VHV', '').replace('AVBP', ''),
+        game_number: cleanGameNumber(e.reference),
         serie_id: e.serie_id,
         serie_name: e.serie_name,
         serie_short: e.serie_short_name,
