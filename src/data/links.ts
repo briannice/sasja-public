@@ -61,6 +61,11 @@ export const headerLinks = [
     sublinks: youthSublinks,
   },
   {
+    name: 'Recreanten',
+    href: '/recreanten',
+    blank: false,
+  },
+  {
     name: 'Club',
     sublinks: clubSublinks,
   },
