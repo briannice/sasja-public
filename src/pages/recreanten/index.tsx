@@ -75,7 +75,7 @@ export default function index() {
                             maken? </p>
                     <p>Zoek niet verder! Onze recreantenploeg heet jou van harte welkom!</p>
                         <h2>Doe Vandaag Nog Mee!</h2>
-                        <p>Of je nu een oude handbalprof bent of gewoon nieuwsgierig bent naar deze geweldige sport,
+                        <p>Of je nu een oud-handbalprof bent of gewoon nieuwsgierig bent naar deze geweldige sport,
                             onze recreantenploeg staat open voor iedereen die wil deelnemen: <a href="mailto:recreanten@sasja-antwerpen.be">meld je aan</a> en ontdek de sfeer, het
                             plezier en de vriendschap binnen het handbal.</p>
                         <p>Laten we samen plezier hebben, bewegen en de magie van handbal beleven! Tot gauw!️</p>
