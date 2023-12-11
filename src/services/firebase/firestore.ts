@@ -49,16 +49,18 @@ export const docRefToModel = async <M>(docRef: DocumentReference<DocumentData>) 
 
 export const createTimeLine = (
   events: EventModel[],
-  news: NewsModel[],
+  pinnedNews: NewsModel[],
+  currentNews: NewsModel[],
   matchReports: MatchReportModel[]
 ) => {
-  const timeLine: TimeLine = []
+  const staticTimeLine: TimeLine = []
+  events.forEach((event) => staticTimeLine.push({ name: 'event', data: event }))
+  pinnedNews.forEach((news) => staticTimeLine.push({ name: 'news', data: news }))
+  const dynamicTimeLine: TimeLine = []
 
-  events.forEach((event) => timeLine.push({ name: 'event', data: event }))
-  news.forEach((news) => timeLine.push({ name: 'news', data: news }))
-  matchReports.forEach((matchReport) => timeLine.push({ name: 'matchreport', data: matchReport }))
+  currentNews.forEach((news) => dynamicTimeLine.push({ name: 'news', data: news }))
+  matchReports.forEach((matchReport) => dynamicTimeLine.push({ name: 'matchreport', data: matchReport }))
+  dynamicTimeLine.sort((t1, t2) => new Date(t2.data.time).getTime() - new Date(t1.data.time).getTime())
 
-  timeLine.sort((t1, t2) => new Date(t2.data.time).getTime() - new Date(t1.data.time).getTime())
-
-  return timeLine
+  return [...staticTimeLine, ...dynamicTimeLine, ]
 }

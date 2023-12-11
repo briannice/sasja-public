@@ -76,7 +76,7 @@ export const headerLinks = [
   },
   {
     name: 'Tickets',
-    href: '/#tickets-abbonementen',
+    href: '/tickets',
     blank: false,
   },
   {
