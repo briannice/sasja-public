@@ -15,7 +15,7 @@ export default function News({ timeLine }: Props) {
       <h2 className="sr-only">News</h2>
       {timeLine.map(
         ({ data, name }, i) =>
-          i < 6 &&
+          i < 9 &&
           (name === 'event' ? (
             <EventCard key={data.id} event={data} />
           ) : name === 'matchreport' ? (

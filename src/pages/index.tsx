@@ -1,6 +1,5 @@
 import Hero from '@/components/home/Hero'
 import News from '@/components/home/News'
-import TicketsAndAbos from '@/components/home/TicketsAndAbos'
 import { db } from '@/services/firebase'
 import { createTimeLine, queryToModels } from '@/services/firebase/firestore'
 import { getHandballBelgiumGameweeks } from '@/services/hb/gameweek'
@@ -34,7 +33,6 @@ export default function Home({ newsTimeLine, heroTimeLine, teams, gameWeek }: Pr
         <h1 className="sr-only">Sasja HC | Home</h1>
         <Hero timeLine={heroTimeLine} teams={teams} gameWeek={gameWeek} />
         <News timeLine={newsTimeLine} />
-        <TicketsAndAbos />
       </main>
     </>
   )
@@ -46,11 +44,11 @@ export const getStaticProps: GetStaticProps = async () => {
       collection(db, 'events'),
       where('public', '==', true),
       where('time', '>=', Timestamp.now()),
-      orderBy('time', 'desc')
+      orderBy('time', 'asc')
     )
   )
 
-  const news = await queryToModels<NewsModel>(
+  const pinnedNews = await queryToModels<NewsModel>(
     query(
       collection(db, 'news'),
       where('public', '==', true),
@@ -60,6 +58,15 @@ export const getStaticProps: GetStaticProps = async () => {
   )
 
   const TWO_WEEKS_IN_MS = 1000 * 60 * 60 * 24 * 14
+
+  const currentNews = await queryToModels<NewsModel>(
+      query(
+          collection(db, 'news'),
+          where('public', '==', true),
+          where('time', '>', Timestamp.fromMillis(Timestamp.now().toMillis() - TWO_WEEKS_IN_MS)),
+          orderBy('time', 'desc')
+      )
+  )
 
   const matchReports = await queryToModels<MatchReportModel>(
     query(
@@ -71,8 +78,8 @@ export const getStaticProps: GetStaticProps = async () => {
     )
   )
 
-  const newsTimeLine = createTimeLine(events, news, matchReports)
-  const heroTimeLine = createTimeLine(events, news, [])
+  const newsTimeLine = createTimeLine(events, pinnedNews, currentNews, matchReports)
+  const heroTimeLine = createTimeLine(events, pinnedNews, currentNews, [])
 
   const teams = await queryToModels<TeamModel>(query(collection(db, 'teams')))
 
