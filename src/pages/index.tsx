@@ -60,12 +60,12 @@ export const getStaticProps: GetStaticProps = async () => {
   const TWO_WEEKS_IN_MS = 1000 * 60 * 60 * 24 * 14
 
   const currentNews = await queryToModels<NewsModel>(
-      query(
-          collection(db, 'news'),
-          where('public', '==', true),
-          where('time', '>', Timestamp.fromMillis(Timestamp.now().toMillis() - TWO_WEEKS_IN_MS)),
-          orderBy('time', 'desc')
-      )
+    query(
+      collection(db, 'news'),
+      where('public', '==', true),
+      where('time', '>', Timestamp.fromMillis(Timestamp.now().toMillis() - TWO_WEEKS_IN_MS)),
+      orderBy('time', 'desc')
+    )
   )
 
   const matchReports = await queryToModels<MatchReportModel>(
