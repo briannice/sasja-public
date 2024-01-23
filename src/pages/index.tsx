@@ -1,5 +1,6 @@
 import Hero from '@/components/home/Hero'
 import News from '@/components/home/News'
+import NewsLetter from '@/components/home/NewsLetter'
 import { db } from '@/services/firebase'
 import { createTimeLine, queryToModels } from '@/services/firebase/firestore'
 import { getHandballBelgiumGameweeks } from '@/services/hb/gameweek'
@@ -29,10 +30,11 @@ export default function Home({ newsTimeLine, heroTimeLine, teams, gameWeek }: Pr
       <Head>
         <title>Sasja HC | Home</title>
       </Head>
-      <main>
+      <main className="pb-0">
         <h1 className="sr-only">Sasja HC | Home</h1>
         <Hero timeLine={heroTimeLine} teams={teams} gameWeek={gameWeek} />
         <News timeLine={newsTimeLine} />
+        <NewsLetter />
       </main>
     </>
   )
