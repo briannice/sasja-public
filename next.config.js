@@ -20,6 +20,10 @@ const nextConfig = {
         source: '/tools/wedstrijdblad',
         destination: '/static/html/wedstrijdblad.html',
       },
+      {
+        source: '/nieuwsbrief',
+        destination: '/static/html/nieuwsbrief.html',
+      },
     ]
   },
   reactStrictMode: true,
