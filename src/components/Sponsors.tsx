@@ -11,6 +11,12 @@ type Sponsor = {
 
 export const mainSponsors: Sponsor[] = [
   {
+    name: 'biobest',
+    path: '/sponsors/biobest.svg',
+    href: 'https://www.biobestgroup.com/nl',
+    aspect: 'aspect-[1275/521]',
+  },
+  {
     name: 'filter technics',
     path: '/sponsors/filter-technics.svg',
     href: 'https://www.filter-technics.be/nl',
@@ -65,7 +71,7 @@ export const secondarySponsors: Sponsor[] = [
     name: 'sporting a',
     path: '/sponsors/sporting-a.png',
     href: 'https://www.antwerpen.be/nl/overzicht/sporting-a',
-    aspect: 'aspect-[1556/1908]',
+    aspect: 'aspect-[847/1241]',
   },
 ]
 
