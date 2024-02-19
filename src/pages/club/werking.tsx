@@ -3,38 +3,32 @@ import React from 'react'
 
 const topStaff = [
   {
-    name: 'Nick Jansen',
-    function: 'Voorzitter',
-    email: 'nick.jansen@telenet.be',
+    name: 'Jan Brouwers',
+    function: 'Co-Voorzitter',
+    email: 'jan.brouwers@sasja-antwerpen.be',
     telephone: ''
   },
   {
-    name: 'Rita Van der Auwera',
+    name: 'Evert Hamblok',
+    function: 'Co-Voorzitter',
+    email: 'evert.hamblok@sasja-antwerpen.be',
+    telephone: ''
+  },
+  {
+    name: 'Iny Hofstede',
     function: 'Secretaris',
-    email: 'secretariaat@sasja-antwerpen.be',
+    email: 'iny.hofstede@sasja-antwerpen.be',
     telephone: ''
   },
   {
-    name: 'Tom Ocket',
+    name: 'Tom Van Herle',
     function: 'Penningmeester',
-    email: 'ockettom@hotmail.com',
+    email: 'tom.van.herle@sasja-antwerpen.be',
     telephone: ''
   },
 ]
 
 const board = [
-  {
-    name: 'Carl Bakx',
-    function: 'Bestuurslid',
-    email: '',
-    telephone: ''
-  },
-  {
-    name: 'Dirk Faes',
-    function: 'Bestuurslid',
-    email: '',
-    telephone: ''
-  },
   {
     name: 'Michael Leeman',
     function: 'Bestuurslid',
@@ -43,6 +37,12 @@ const board = [
   },
   {
     name: 'Alex Jacobs',
+    function: 'Bestuurslid',
+    email: '',
+    telephone: ''
+  },
+  {
+    name: 'Lynn Gordijn',
     function: 'Bestuurslid',
     email: '',
     telephone: ''
@@ -68,12 +68,6 @@ const youth = [
   {
     name: 'Inge Servaes',
     function: 'Kalenderverantwoordelijke',
-    email: 'jeugd@sasja-antwerpen.be',
-    telephone: ''
-  },
-  {
-    name: 'Kenny Claes',
-    function: 'Bestuurslid',
     email: 'jeugd@sasja-antwerpen.be',
     telephone: ''
   },
@@ -112,9 +106,9 @@ const other = [
     telephone: ''
   },
   {
-    name: 'Carrie Claes',
-    function: 'Vrijwilligerscoördinator',
-    email: 'carrie.claes@gmail.com',
+    name: 'Lynn Gordijn',
+    function: 'Operationeel Coördinator',
+    email: 'lynn.gordijn@sasja-antwerpen.be',
     telephone: ''
   },
   {
