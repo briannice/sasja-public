@@ -5,7 +5,8 @@ import Sponsors from '@/components/Sponsors'
 import { footerLinks } from '@/data/links'
 import React from 'react'
 import { RiMailFill, RiMapPinFill } from 'react-icons/ri'
-import TiktokIcon from "@/components/icons/TiktokIcon";
+import TiktokIcon from '@/components/icons/TiktokIcon'
+import Login from '@/components/Login'
 
 export default function Footer() {
   return (
@@ -68,6 +69,9 @@ export default function Footer() {
                   <p>2660 Hoboken</p>
                 </div>
                 <RiMapPinFill className="mr-4 h-5 w-5 text-primary laptop:ml-4 laptop:mr-0" />
+              </li>
+              <li>
+                <Login />
               </li>
             </ul>
           </div>
