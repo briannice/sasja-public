@@ -40,6 +40,28 @@ html {
   td {
     @apply bg-white px-4 py-2;
   }
+
+  [type='text'],
+  [type='email'],
+  [type='url'],
+  [type='password'],
+  [type='number'],
+  [type='date'],
+  [type='datetime-local'],
+  [type='month'],
+  [type='search'],
+  [type='tel'],
+  [type='time'],
+  [type='week'],
+  [multiple],
+  textarea,
+  select {
+    @apply w-full rounded border-gray focus:border-primary focus:outline-none focus:ring-primary;
+  }
+
+  label {
+    @apply mb-1.5 block pl-0.5 font-kanit capitalize text-dark;
+  }
 }
 
 @layer components {
