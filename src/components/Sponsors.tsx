@@ -73,6 +73,12 @@ export const secondarySponsors: Sponsor[] = [
     href: 'https://www.antwerpen.be/nl/overzicht/sporting-a',
     aspect: 'aspect-[847/1241]',
   },
+  {
+    name: 'hoboken',
+    path: '/sponsors/hoboken.jpg',
+    href: 'https://www.antwerpen.be/nl/overzicht/district-hoboken-1/nieuws',
+    aspect: 'aspect-[1500/1500]',
+  },
 ]
 
 export default function Sponsors() {
