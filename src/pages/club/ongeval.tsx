@@ -15,7 +15,7 @@ export default function ongeval() {
             <li>
               <p>
                 Na het ongeval stuurt u zo snel mogelijk onderstaande gevraagde gegevens door aan
-                Rita Van der Auwera (secretaris van de club) via{' '}
+                de secretaris van de club via{' '}
                 <a href="mailto:secretariaat@sasja-antwerpen.be">secretariaat@sasja-antwerpen.be</a>
               </p>
             </li>
