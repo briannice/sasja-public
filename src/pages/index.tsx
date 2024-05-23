@@ -65,6 +65,7 @@ export const getStaticProps: GetStaticProps = async () => {
     query(
       collection(db, 'news'),
       where('public', '==', true),
+      where('pinned', '==', false),
       where('time', '>', Timestamp.fromMillis(Timestamp.now().toMillis() - TWO_WEEKS_IN_MS)),
       orderBy('time', 'desc')
     )
