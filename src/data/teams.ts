@@ -15,6 +15,11 @@ export const teams = [
     youth: false,
   },
   {
+    uid: 'j18',
+    name: 'J18',
+    youth: true,
+  },
+  {
     uid: 'jm16',
     name: 'JM16',
     youth: true,
