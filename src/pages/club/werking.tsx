@@ -3,15 +3,9 @@ import React from 'react'
 
 const topStaff = [
   {
-    name: 'Jan Brouwers',
-    function: 'Co-Voorzitter',
-    email: 'jan.brouwers@sasja-antwerpen.be',
-    telephone: ''
-  },
-  {
-    name: 'Evert Hamblok',
-    function: 'Co-Voorzitter',
-    email: 'evert.hamblok@sasja-antwerpen.be',
+    name: 'Michael Leeman',
+    function: 'Voorzitter',
+    email: 'michael.leeman@sasja-antwerpen.be',
     telephone: ''
   },
   {
@@ -21,26 +15,14 @@ const topStaff = [
     telephone: ''
   },
   {
-    name: 'Tom Van Herle',
+    name: 'Alex Jacobs',
     function: 'Penningmeester',
-    email: 'tom.van.herle@sasja-antwerpen.be',
+    email: 'alexjacobs266@gmail.com',
     telephone: ''
   },
 ]
 
 const board = [
-  {
-    name: 'Michael Leeman',
-    function: 'Bestuurslid',
-    email: '',
-    telephone: ''
-  },
-  {
-    name: 'Alex Jacobs',
-    function: 'Bestuurslid',
-    email: '',
-    telephone: ''
-  },
   {
     name: 'Lynn Gordijn',
     function: 'Bestuurslid',
