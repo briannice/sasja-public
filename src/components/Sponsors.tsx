@@ -38,10 +38,16 @@ export const secondarySponsors: Sponsor[] = [
     aspect: 'aspect-[1920/651]',
   },
   {
-    name: 'kempa',
-    path: '/sponsors/kempa.png',
-    href: 'https://en.kempa-sports.com/en/start',
-    aspect: 'aspect-[1772/648]',
+    name: 'jako',
+    path: '/sponsors/jako.svg',
+    href: 'https://www.jako.com/be-nl/',
+    aspect: 'aspect-[512/146]',
+  },
+  {
+    name: 'blackroll',
+    path: '/sponsors/blackroll.svg',
+    href: 'https://blackroll.com/nl',
+    aspect: 'aspect-[3000/1000]',
   },
   {
     name: 'de waele',
@@ -56,10 +62,10 @@ export const secondarySponsors: Sponsor[] = [
     aspect: 'aspect-[183/79]',
   },
   {
-    name: 'team fashion',
-    path: '/sponsors/team-fashion.png',
-    href: 'https://teamfashion.be/nl/',
-    aspect: 'aspect-[2619/1023]',
+    name: 'schaessens sport',
+    path: '/sponsors/schaessens-sport.jpg',
+    href: 'https://www.schaessenssport.be/',
+    aspect: 'aspect-[1266/564]',
   },
   {
     name: 'jespo',
