@@ -4,7 +4,7 @@ import useImage from '@/hooks/useImage'
 import { db } from '@/services/firebase'
 import { collectionToModels, docRefToModel, queryToModels } from '@/services/firebase/firestore'
 import { getHandballBelgiumCalendar } from '@/services/hb/calendar'
-import { getHandballBelgiumRanking } from '@/services/hb/ranking'
+import { getCompetitionRanking } from '@/services/competitions/ranking'
 import { GameModel, MatchReportModel, RankModel, TeamModel } from '@/types/models'
 import { collection, doc, getDocs, limit, orderBy, query, where } from 'firebase/firestore'
 import { GetStaticPaths, GetStaticProps } from 'next'
@@ -77,7 +77,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const competitions: Competition[] = []
 
   for (const competition of team.competitions) {
-    const ranking = competition.ranking ? await getHandballBelgiumRanking(competition.serieId) : []
+    const ranking = competition.ranking ? await getCompetitionRanking(competition) : []
     const calendar = await getHandballBelgiumCalendar(competition.serieId)
 
     competitions.push({

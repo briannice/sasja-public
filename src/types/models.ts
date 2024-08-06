@@ -13,17 +13,19 @@ export type EventModel = BaseModel & {
   public: boolean
 }
 
+export type TeamCompetition = BaseModel & {
+  name: string
+  serieId: number
+  vhvId: number
+  ranking: boolean
+}
+
 export type TeamModel = BaseModel & {
   name: string
   uid: string
   youth: boolean
   calender: string
-  competitions: {
-    name: string
-    serieId: number
-    vhvId: number
-    ranking: boolean
-  }[]
+  competitions: TeamCompetition[]
 }
 
 export type PlayerModel = BaseModel & {
