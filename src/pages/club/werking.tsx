@@ -3,15 +3,9 @@ import React from 'react'
 
 const topStaff = [
   {
-    name: 'Jan Brouwers',
-    function: 'Co-Voorzitter',
-    email: 'jan.brouwers@sasja-antwerpen.be',
-    telephone: ''
-  },
-  {
-    name: 'Evert Hamblok',
-    function: 'Co-Voorzitter',
-    email: 'evert.hamblok@sasja-antwerpen.be',
+    name: 'Michael Leeman',
+    function: 'Voorzitter',
+    email: 'michael.leeman@sasja-antwerpen.be',
     telephone: ''
   },
   {
@@ -21,26 +15,14 @@ const topStaff = [
     telephone: ''
   },
   {
-    name: 'Tom Van Herle',
+    name: 'Alex Jacobs',
     function: 'Penningmeester',
-    email: 'tom.van.herle@sasja-antwerpen.be',
+    email: 'alexjacobs266@gmail.com',
     telephone: ''
   },
 ]
 
 const board = [
-  {
-    name: 'Michael Leeman',
-    function: 'Bestuurslid',
-    email: '',
-    telephone: ''
-  },
-  {
-    name: 'Alex Jacobs',
-    function: 'Bestuurslid',
-    email: '',
-    telephone: ''
-  },
   {
     name: 'Lynn Gordijn',
     function: 'Bestuurslid',
@@ -156,12 +138,6 @@ const youthReferees = [
 ]
 const youthCoaches = [
   {
-    name: 'David André',
-    function: '',
-    email: '',
-    telephone: ''
-  },
-  {
     name: 'Carl Bakx',
     function: '',
     email: '',
@@ -180,19 +156,7 @@ const youthCoaches = [
     telephone: ''
   },
   {
-    name: 'Jan Brouwers',
-    function: '',
-    email: '',
-    telephone: ''
-  },
-  {
     name: 'Lars Celis',
-    function: '',
-    email: '',
-    telephone: ''
-  },
-  {
-    name: 'Broes Geens',
     function: '',
     email: '',
     telephone: ''
@@ -204,25 +168,25 @@ const youthCoaches = [
     telephone: ''
   },
   {
+    name: 'Gert-jan Mathijs',
+    function: '',
+    email: '',
+    telephone: ''
+  },
+  {
+    name: 'Robbie Mestdagh',
+    function: '',
+    email: '',
+    telephone: ''
+  },
+  {
     name: 'Jos Riské',
     function: '',
     email: '',
     telephone: ''
   },
   {
-    name: 'Jörgen Sempels',
-    function: '',
-    email: '',
-    telephone: ''
-  },
-  {
     name: 'Inge Servaes',
-    function: '',
-    email: '',
-    telephone: ''
-  },
-  {
-    name: 'Johannes Verhoeven',
     function: '',
     email: '',
     telephone: ''

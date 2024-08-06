@@ -10,7 +10,7 @@ type Props = {
 
 export default function ClubLogo({ size, path = '', sasja = false }: Props) {
   const [url, setUrl] = useState<string | null>(
-    `https://admin.handballbelgium.be/lms_league_ws/public/img/${path}`
+    path?.startsWith('http') ? path : `https://admin.handballbelgium.be/lms_league_ws/public/img/${path}`,
   )
 
   return (
