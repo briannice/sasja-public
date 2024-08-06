@@ -45,7 +45,7 @@ export default function EnrollPage() {
           <p>
             Lid worden van Jespo kan je volledig online: je gaat naar de site jespo.be en kiest{' '}
             <a
-              href="https://static.twizzit.com/v2/public/form/02d787c978f0142367b00b5bfcbe2a97"
+              href="https://static.twizzit.com/v2/public/form/c2b02184a5ebbf81603a0fb069fa6f79"
               target="_blank"
               rel="noreferrer"
             >
@@ -71,7 +71,7 @@ export default function EnrollPage() {
             Indien je ook competitie wil spelen (en wie wil dat niet), moet je ook lid worden van
             SASJA. De handbalbond organiseert competities per leeftijdscategorie vanaf de JM12
             (welpen) en SASJA probeert elk seizoen minstens 1 ploeg af te vaardigen. Het lidgeld bij
-            SASJA bedraagt 150 EUR per seizoen. Hiervoor organiseert SASJA wekelijks een extra
+            SASJA bedraagt 175 EUR per seizoen. Hiervoor organiseert SASJA wekelijks een extra
             training en wordt je lid als speler bij de handbalbond, zodat je aan wedstrijden kan en
             mag deelnemen.
           </p>
