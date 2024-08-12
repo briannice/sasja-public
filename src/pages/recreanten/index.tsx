@@ -11,7 +11,7 @@ const trainings = [
         data: [
             {
                 teams: ['Recreanten'],
-                start: '20u00',
+                start: '20u30',
                 end: '22u00',
                 location: 'Sporthal Sorghvliedt',
             }
