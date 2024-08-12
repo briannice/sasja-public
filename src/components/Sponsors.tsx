@@ -62,6 +62,12 @@ export const secondarySponsors: Sponsor[] = [
     aspect: 'aspect-[183/79]',
   },
   {
+    name: 'ah antwerpen centraal',
+    path: '/sponsors/ah.png',
+    href: 'https://www.ah.be/winkel/3159',
+    aspect: 'aspect-[3/1]',
+  },
+  {
     name: 'schaessens sport',
     path: '/sponsors/schaessens-sport.jpg',
     href: 'https://www.schaessenssport.be/',
