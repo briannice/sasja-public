@@ -1,0 +1,76 @@
+- id: 1
+  date: !!str 2024-09-07
+  time: 19:15:00
+  home_score: ' '
+  away_score: ' '
+  score_status_id: 0
+  home_name: Green Park Aalsmeer
+  home_short: Aalsmeer
+  away_name: BioBest Sasja HC
+  away_short: Sasja HC
+  home_logo: /clubs/aalsmeer.png
+  away_logo: uploads/club24/sasja-goud-png.png
+  venue_name: Sporthal De Bloemhof
+  venue_short: De Bloemhof
+  venue_city: Aalsmeer
+  venue_street: Braziliëlaan 6a
+  venue_zip: 1432 DG
+  referees: []
+  has_detail: true
+- id: 2
+  date: !!str 2024-09-14
+  time: 20:15:00
+  home_score: ' '
+  away_score: ' '
+  score_status_id: 0
+  home_name: BioBest Sasja HC
+  home_short: Sasja HC
+  away_name: Handbal Houten
+  away_short: Houten
+  home_logo: uploads/club24/sasja-goud-png.png
+  away_logo: /clubs/houten.png
+  venue_name: Sporthal Sorghvliedt
+  venue_short: Sorghvliedt
+  venue_city: Hoboken
+  venue_street: Krijgsbaan 20
+  venue_zip: 2660
+  referees: []
+  has_detail: true
+- id: 3
+  date: !!str 2024-09-21
+  time: 20:15:00
+  home_score: ' '
+  away_score: ' '
+  score_status_id: 0
+  home_name: KTSV Eupen
+  home_short: KTSV Eupen
+  away_name: BioBest Sasja HC
+  away_short: Sasja HC
+  home_logo: uploads/club119/ktsv-eupen-1.jpg
+  away_logo: uploads/club24/sasja-goud-png.png
+  venue_name: Sporthalle Eupen
+  venue_short: Sporthalle Eupen
+  venue_city: Eupen
+  venue_street: Stockbergerweg 5
+  venue_zip: 4700
+  referees: []
+  has_detail: true
+- id: 4
+  date: !!str 2024-09-28
+  time: 19:00:00
+  home_score: ' '
+  away_score: ' '
+  score_status_id: 0
+  home_name: Hurry-up
+  home_short: Hurry-up
+  away_name: BioBest Sasja HC
+  away_short: Sasja HC
+  home_logo: /clubs/hurry-up.png
+  away_logo: uploads/club24/sasja-goud-png.png
+  venue_name: De Eendracht
+  venue_short: De Eendracht
+  venue_city: Zwartemeer
+  venue_street: De Klinken 8
+  venue_zip: 7894 DH
+  referees: []
+  has_detail: true

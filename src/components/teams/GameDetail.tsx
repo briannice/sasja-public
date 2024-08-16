@@ -13,18 +13,17 @@ import {GrFormCheckmark} from "react-icons/gr";
 import {HiClipboardDocumentList} from "react-icons/hi2";
 
 type Props = {
-    game: GameModel
+    game: GameDetailModel
 }
 
 export default function GameDetail({ game }: Props) {
     const [gameDetail, setGameDetail] = useState({
         ...game,
-        referees: [],
-        home_team_pin: '',
-        away_team_pin: '',
-        match_code: '',
-        venue_street: '',
-        venue_zip: ''
+        home_team_pin: game.has_detail ? game.home_team_pin : '',
+        away_team_pin: game.has_detail ? game.away_team_pin : '',
+        match_code: game.has_detail ? game.match_code : '',
+        venue_street: game.has_detail ? game.venue_street : '',
+        venue_zip: game.has_detail ? game.venue_zip : ''
     } as GameDetailModel)
     const [width, setWidth] = useState<number>(0);
     const {isAuthenticated} = useAuthentication()
@@ -33,7 +32,8 @@ export default function GameDetail({ game }: Props) {
 
     useEffect(() => {
         const getAndSetGame = async () => {
-            setGameDetail(await getHandballBelgiumGameDetail(game.id, game.referees) as GameDetailModel)
+            if (!game.has_detail)
+                setGameDetail(await getHandballBelgiumGameDetail(game.id, game.referees) as GameDetailModel)
             isLoading(false)
         }
         getAndSetGame();

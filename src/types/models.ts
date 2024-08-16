@@ -127,10 +127,10 @@ export type GameModel = {
   serie_name: string
   serie_short: string
   referees: Referee[]
+  has_detail: boolean
 }
 
 export type GameDetailModel  = GameModel & {
-  referees: Referee[]
   home_team_pin: string
   away_team_pin: string
   match_code: string
