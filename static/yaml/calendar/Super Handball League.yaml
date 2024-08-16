@@ -43,7 +43,7 @@
   away_score: ' '
   score_status_id: 0
   home_name: KTSV Eupen
-  home_short: KTSV Eupen
+  home_short: Eupen
   away_name: BioBest Sasja HC
   away_short: Sasja HC
   home_logo: uploads/club119/ktsv-eupen-1.jpg
@@ -72,5 +72,347 @@
   venue_city: Zwartemeer
   venue_street: De Klinken 8
   venue_zip: 7894 DH
+  referees: []
+  has_detail: true
+- id: 5
+  date: !!str 2024-10-05
+  time: 20:00:00
+  home_score: ' '
+  away_score: ' '
+  score_status_id: 0
+  home_name: Kembit Lions Sittardia
+  home_short: Lions
+  away_name: BioBest Sasja HC
+  away_short: Sasja HC
+  home_logo: /clubs/lions.png
+  away_logo: uploads/club24/sasja-goud-png.png
+  venue_name: Stadssporthal Sittard
+  venue_short: Stadssporthal Sittard
+  venue_city: Sittard
+  venue_street: Stadswegke 8
+  venue_zip: 6131 AG
+  referees: []
+  has_detail: true
+- id: 6
+  date: !!str 2024-10-12
+  time: 20:15:00
+  home_score: ' '
+  away_score: ' '
+  score_status_id: 0
+  home_name: BioBest Sasja HC
+  home_short: Sasja HC
+  away_name: Sporting Pelt
+  away_short: Pelt
+  home_logo: uploads/club24/sasja-goud-png.png
+  away_logo: uploads/club14/112-sporting-pelt.png
+  venue_name: Sporthal Sorghvliedt
+  venue_short: Sorghvliedt
+  venue_city: Hoboken
+  venue_street: Krijgsbaan 20
+  venue_zip: 2660
+  referees: []
+  has_detail: true
+- id: 7
+  date: !!str 2024-10-19
+  time: 20:15:00
+  home_score: ' '
+  away_score: ' '
+  score_status_id: 0
+  home_name: Sezoens Achilles Bocholt
+  home_short: Bocholt
+  away_name: BioBest Sasja HC
+  away_short: Sasja HC
+  home_logo: uploads/club48/logo.png
+  away_logo: uploads/club24/sasja-goud-png.png
+  venue_name: Sportcomplex De Damburg
+  venue_short: De Damburg
+  venue_city: Bocholt
+  venue_street: Brogelerweg 59
+  venue_zip: 3950
+  referees: []
+  has_detail: true
+- id: 8
+  date: !!str 2024-10-26
+  time: 20:15:00
+  home_score: ' '
+  away_score: ' '
+  score_status_id: 0
+  home_name: Herpertz Bevo
+  home_short: Bevo
+  away_name: BioBest Sasja HC
+  away_short: Sasja HC
+  home_logo: /clubs/bevo.png
+  away_logo: uploads/club24/sasja-goud-png.png
+  venue_name: Sportarena De Heuf
+  venue_short: De Heuf
+  venue_city: Panningen
+  venue_street: Wilhelminastraat 44
+  venue_zip: 5981 XW
+  referees: []
+  has_detail: true
+- id: 9
+  date: !!str 2024-11-02
+  time: 20:15:00
+  home_score: ' '
+  away_score: ' '
+  score_status_id: 0
+  home_name: HC Visé BM
+  home_short: Visé
+  away_name: BioBest Sasja HC
+  away_short: Sasja HC
+  home_logo: uploads/club94/hc-vis-bm.jpg
+  away_logo: uploads/club24/sasja-goud-png.png
+  venue_name: Hall Omnisport de Visé
+  venue_short: Hall Omnisport
+  venue_city: Visé
+  venue_street: Rue de Berneau 30
+  venue_zip: 4600
+  referees: []
+  has_detail: true
+- id: 10
+  date: !!str 2024-11-16
+  time: 20:15:00
+  home_score: ' '
+  away_score: ' '
+  score_status_id: 0
+  home_name: Hubo Handbal
+  home_short: Hubo
+  away_name: BioBest Sasja HC
+  away_short: Sasja HC
+  home_logo: uploads/club16/image001.jpg
+  away_logo: uploads/club24/sasja-goud-png.png
+  venue_name: Stedelijke sporthal Alverberg
+  venue_short: Alverberg
+  venue_city: Hasselt
+  venue_street: Herkenrodesingel 33
+  venue_zip: 3500
+  referees: []
+  has_detail: true
+- id: 11
+  date: !!str 2024-11-24
+  time: 14:30:00
+  home_score: ' '
+  away_score: ' '
+  score_status_id: 0
+  home_name: BioBest Sasja HC
+  home_short: Sasja HC
+  away_name: Kras Volendam
+  away_short: Volendam
+  home_logo: uploads/club24/sasja-goud-png.png
+  away_logo: /clubs/volendam.png
+  venue_name: Sporthal Sorghvliedt
+  venue_short: Sorghvliedt
+  venue_city: Hoboken
+  venue_street: Krijgsbaan 20
+  venue_zip: 2660
+  referees: []
+  has_detail: true
+- id: 12
+  date: !!str 2024-11-30
+  time: 20:15:00
+  home_score: ' '
+  away_score: ' '
+  score_status_id: 0
+  home_name: BioBest Sasja HC
+  home_short: Sasja HC
+  away_name: Green Park Aalsmeer
+  away_short: Aalsmeer
+  home_logo: uploads/club24/sasja-goud-png.png
+  away_logo: /clubs/aalsmeer.png
+  venue_name: Sporthal Sorghvliedt
+  venue_short: Sorghvliedt
+  venue_city: Hoboken
+  venue_street: Krijgsbaan 20
+  venue_zip: 2660
+  referees: []
+  has_detail: true
+- id: 13
+  date: !!str 2024-12-07
+  time: 19:00:00
+  home_score: ' '
+  away_score: ' '
+  score_status_id: 0
+  home_name: Handbal Houten
+  home_short: Houten
+  away_name: BioBest Sasja HC
+  away_short: Sasja HC
+  home_logo: /clubs/houten.png
+  away_logo: uploads/club24/sasja-goud-png.png
+  venue_name: Sporthal The Dome
+  venue_short: The Dome
+  venue_city: Houten
+  venue_street: Kruisboog 32
+  venue_zip: 3994 AE
+  referees: []
+  has_detail: true
+- id: 14
+  date: !!str 2024-12-14
+  time: 20:15:00
+  home_score: ' '
+  away_score: ' '
+  score_status_id: 0
+  home_name: BioBest Sasja HC
+  home_short: Sasja HC
+  away_name: KTSV Eupen
+  away_short: Eupen
+  home_logo: uploads/club24/sasja-goud-png.png
+  away_logo: uploads/club119/ktsv-eupen-1.jpg
+  venue_name: Sporthal Sorghvliedt
+  venue_short: Sorghvliedt
+  venue_city: Hoboken
+  venue_street: Krijgsbaan 20
+  venue_zip: 2660
+  referees: []
+  has_detail: true
+- id: 15
+  date: !!str 2024-12-21
+  time: 17:00:00
+  home_score: ' '
+  away_score: ' '
+  score_status_id: 0
+  home_name: BioBest Sasja HC
+  home_short: Sasja HC
+  away_name: Hurry-up
+  away_short: Hurry-up
+  home_logo: uploads/club24/sasja-goud-png.png
+  away_logo: /clubs/hurry-up.png
+  venue_name: Sporthal Sorghvliedt
+  venue_short: Sorghvliedt
+  venue_city: Hoboken
+  venue_street: Krijgsbaan 20
+  venue_zip: 2660
+  referees: []
+  has_detail: true
+- id: 16
+  date: !!str 2025-02-08
+  time: 20:15:00
+  home_score: ' '
+  away_score: ' '
+  score_status_id: 0
+  home_name: BioBest Sasja HC
+  home_short: Sasja HC
+  away_name: Kembit Lions Sittardia
+  away_short: Lions
+  home_logo: uploads/club24/sasja-goud-png.png
+  away_logo: /clubs/lions.png
+  venue_name: Sporthal Sorghvliedt
+  venue_short: Sorghvliedt
+  venue_city: Hoboken
+  venue_street: Krijgsbaan 20
+  venue_zip: 2660
+  referees: []
+  has_detail: true
+- id: 17
+  date: !!str 2025-02-12
+  time: 20:15:00
+  home_score: ' '
+  away_score: ' '
+  score_status_id: 0
+  home_name: Sporting Pelt
+  home_short: Pelt
+  away_name: BioBest Sasja HC
+  away_short: Sasja HC
+  home_logo: uploads/club14/112-sporting-pelt.png
+  away_logo: uploads/club24/sasja-goud-png.png
+  venue_name: Sportcentrum Dommelhof
+  venue_short: Dommelhof
+  venue_city: Pelt
+  venue_street: Toekomstlaan 5
+  venue_zip: 3910
+  referees: []
+  has_detail: true
+- id: 18
+  date: !!str 2025-02-16
+  time: 14:30:00
+  home_score: ' '
+  away_score: ' '
+  score_status_id: 0
+  home_name: BioBest Sasja HC
+  home_short: Sasja HC
+  away_name: Sezoens Achilles Bocholt
+  away_short: Bocholt
+  home_logo: uploads/club24/sasja-goud-png.png
+  away_logo: uploads/club48/logo.png
+  venue_name: Sporthal Sorghvliedt
+  venue_short: Sorghvliedt
+  venue_city: Hoboken
+  venue_street: Krijgsbaan 20
+  venue_zip: 2660
+  referees: []
+  has_detail: true
+- id: 19
+  date: !!str 2025-02-22
+  time: 20:15:00
+  home_score: ' '
+  away_score: ' '
+  score_status_id: 0
+  home_name: BioBest Sasja HC
+  home_short: Sasja HC
+  away_name: Herpertz Bevo
+  away_short: Bevo
+  home_logo: uploads/club24/sasja-goud-png.png
+  away_logo: /clubs/bevo.png
+  venue_name: Sporthal Sorghvliedt
+  venue_short: Sorghvliedt
+  venue_city: Hoboken
+  venue_street: Krijgsbaan 20
+  venue_zip: 2660
+  referees: []
+  has_detail: true
+- id: 20
+  date: !!str 2025-03-01
+  time: 20:15:00
+  home_score: ' '
+  away_score: ' '
+  score_status_id: 0
+  home_name: BioBest Sasja HC
+  home_short: Sasja HC
+  away_name: HC Visé BM
+  away_short: Visé
+  home_logo: uploads/club24/sasja-goud-png.png
+  away_logo: uploads/club94/hc-vis-bm.jpg
+  venue_name: Sporthal Sorghvliedt
+  venue_short: Sorghvliedt
+  venue_city: Hoboken
+  venue_street: Krijgsbaan 20
+  venue_zip: 2660
+  referees: []
+  has_detail: true
+- id: 21
+  date: !!str 2025-03-08
+  time: 20:00:00
+  home_score: ' '
+  away_score: ' '
+  score_status_id: 0
+  home_name: BioBest Sasja HC
+  home_short: Sasja HC
+  away_name: Hubo Handbal
+  away_short: Hubo
+  home_logo: uploads/club24/sasja-goud-png.png
+  away_logo: uploads/club16/image001.jpg
+  venue_name: Sporthal Sorghvliedt
+  venue_short: Sorghvliedt
+  venue_city: Hoboken
+  venue_street: Krijgsbaan 20
+  venue_zip: 2660
+  referees: []
+  has_detail: true
+- id: 22
+  date: !!str 2025-03-22
+  time: 20:00:00
+  home_score: ' '
+  away_score: ' '
+  score_status_id: 0
+  home_name: Kras Volendam
+  home_short: Volendam
+  away_name: BioBest Sasja HC
+  away_short: Sasja HC
+  home_logo: /clubs/volendam.png
+  away_logo: uploads/club24/sasja-goud-png.png
+  venue_name: Sporthal Opperdam
+  venue_short: Opperdam
+  venue_city: Volendam
+  venue_street: Heideweg 4
+  venue_zip: 1132 DB
   referees: []
   has_detail: true
