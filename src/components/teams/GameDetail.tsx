@@ -30,7 +30,7 @@ export default function GameDetail({ game }: Props) {
             isLoading(false)
         }
         getAndSetGame();
-    },[game.id, game.referees])
+    },[game.id, game.has_detail, game.referees])
 
     useEffect(() => {
         function handleResize() {
