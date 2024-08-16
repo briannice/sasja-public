@@ -29,3 +29,17 @@ export const getFileBasedGameweeks = async (weeks: number) => {
     }),
   )
 }
+
+export const getFutureFileBasedGames = async () => {
+  const [start_date] = getDateRangeForGamesOverview(0)
+  return Promise.all(
+    FILE_BASED_COMPETITIONS.map((name) =>
+      getFileBasedCalendar({ name: name } as TeamCompetition)),
+  ).then((games) =>
+    games.flat()
+  ).then((games) =>
+    games.filter((game) => {
+      return new Date(game.date).getTime() >= new Date(start_date).getTime()
+    }),
+  )
+}

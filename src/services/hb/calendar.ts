@@ -31,6 +31,17 @@ export const getHandballBelgiumGameweeks = async (weeks: number) => {
   return toGameModelArray(data)
 }
 
+export const getFutureHandballBelgiumGames = async () => {
+  const [start_date] = getDateRangeForGamesOverview(0)
+
+  const { data, status } = await HandballBelgiumApi.get(
+    `ng/game/byMyLeague?with_referees=true&no_forfeit=true&without_in_preparation=true&sort%5B0%5D=date&sort%5B1%5D=time&club_id=24&start_date=${start_date}`
+  )
+
+  if (status !== 200) return []
+  return toGameModelArray(data)
+}
+
 function toGameModelArray(data: any) {
   const games: GameModel[] = data.elements.map((e: any) => ({
     id: e.id,
