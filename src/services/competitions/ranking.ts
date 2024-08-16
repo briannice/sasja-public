@@ -4,7 +4,7 @@ import { getFileBasedRanking } from '@/services/filebased/ranking'
 import { FILE_BASED_COMPETITIONS } from '@/services/filebased/competitions'
 
 export const getCompetitionRanking = async (competition: TeamCompetition) => {
-  if (FILE_BASED_COMPETITIONS.includes(competition.name))
+  if (FILE_BASED_COMPETITIONS.some(other => other.name === competition.name))
     return getFileBasedRanking(competition)
   return getHandballBelgiumRanking(competition.serieId)
 }

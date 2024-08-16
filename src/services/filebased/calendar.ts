@@ -7,7 +7,13 @@ import { FILE_BASED_COMPETITIONS } from '@/services/filebased/competitions'
 export const getFileBasedCalendar = async (competition: TeamCompetition) => {
   const file = await fs.readFile(process.cwd() + '/static/yaml/calendar/' + competition.name + '.yaml', 'utf8')
 
-  return yaml.load(file) as GameModel[]
+  const games = yaml.load(file) as GameModel[]
+  return games.map((game) => {
+    game.serie_id = competition.serieId
+    game.serie_name = competition.name
+    game.serie_short = competition.name
+    return game
+  })
 }
 
 export const getFileBasedCalendarFull = async (competition: TeamCompetition) => {
@@ -18,10 +24,10 @@ export const getFileBasedCalendarFull = async (competition: TeamCompetition) => 
 export const getFileBasedGameweeks = async (weeks: number) => {
   const [start_date, end_date] = getDateRangeForGamesOverview(weeks)
   return Promise.all(
-    FILE_BASED_COMPETITIONS.map((name) =>
-      getFileBasedCalendar({ name: name } as TeamCompetition)),
+    FILE_BASED_COMPETITIONS.map((competition) =>
+      getFileBasedCalendar(competition)),
   ).then((games) =>
-    games.flat()
+    games.flat(),
   ).then((games) =>
     games.filter((game) => {
       const gameDate = new Date(game.date).getTime()
@@ -33,10 +39,10 @@ export const getFileBasedGameweeks = async (weeks: number) => {
 export const getFutureFileBasedGames = async () => {
   const [start_date] = getDateRangeForGamesOverview(0)
   return Promise.all(
-    FILE_BASED_COMPETITIONS.map((name) =>
-      getFileBasedCalendar({ name: name } as TeamCompetition)),
+    FILE_BASED_COMPETITIONS.map((competition) =>
+      getFileBasedCalendar(competition)),
   ).then((games) =>
-    games.flat()
+    games.flat(),
   ).then((games) =>
     games.filter((game) => {
       return new Date(game.date).getTime() >= new Date(start_date).getTime()

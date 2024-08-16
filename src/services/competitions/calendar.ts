@@ -13,13 +13,13 @@ import { FILE_BASED_COMPETITIONS } from '@/services/filebased/competitions'
 
 
 export const getCompetitionCalendar = async (competition: TeamCompetition) => {
-  if (FILE_BASED_COMPETITIONS.includes(competition.name))
+  if (FILE_BASED_COMPETITIONS.some(other => other.name === competition.name))
     return getFileBasedCalendar(competition)
   return getHandballBelgiumCalendar(competition.serieId)
 }
 
 export const getCompetitionCalendarFull = async (competition: TeamCompetition) => {
-  const games = FILE_BASED_COMPETITIONS.includes(competition.name)
+  const games = FILE_BASED_COMPETITIONS.some(other => other.name === competition.name)
     ? getFileBasedCalendarFull(competition)
     : getHandballBelgiumCalendarFull(competition.serieId)
 
