@@ -1,16 +1,17 @@
 import { GameDay, TeamCompetition } from '@/types/models'
 import { getHandballBelgiumCalendar, getHandballBelgiumCalendarFull } from '@/services/hb/calendar'
 import { getFileBasedCalendar, getFileBasedCalendarFull } from '@/services/filebased/calendar'
+import { FILE_BASED_COMPETITIONS } from '@/services/filebased/competitions'
 
 export const getCompetitionCalendar = async (competition: TeamCompetition) => {
-  if (competition.name == 'Super Handball League')
+  if (competition.name in FILE_BASED_COMPETITIONS)
     return getFileBasedCalendar(competition)
   return getHandballBelgiumCalendar(competition.serieId)
 }
 
 export const getCompetitionCalendarFull = async (competition: TeamCompetition) => {
   let games = getHandballBelgiumCalendarFull(competition.serieId)
-  if (competition.name == 'Super Handball League')
+  if (competition.name in FILE_BASED_COMPETITIONS)
     games = getFileBasedCalendarFull(competition)
 
   return games.then((games) => {
