@@ -1,4 +1,4 @@
-import {GameDetailModel, GameModel, Referee} from "@/types/models";
+import { GameModel, Referee} from "@/types/models";
 import React, {useEffect, useState} from "react";
 import {formatDate, getMonthFromDate, getWeekDayFromDate} from "@/utils/date";
 import ClubLogo from "@/components/teams/ClubLogo";
@@ -13,18 +13,11 @@ import {GrFormCheckmark} from "react-icons/gr";
 import {HiClipboardDocumentList} from "react-icons/hi2";
 
 type Props = {
-    game: GameDetailModel
+    game: GameModel
 }
 
 export default function GameDetail({ game }: Props) {
-    const [gameDetail, setGameDetail] = useState({
-        ...game,
-        home_team_pin: game.has_detail ? game.home_team_pin : '',
-        away_team_pin: game.has_detail ? game.away_team_pin : '',
-        match_code: game.has_detail ? game.match_code : '',
-        venue_street: game.has_detail ? game.venue_street : '',
-        venue_zip: game.has_detail ? game.venue_zip : ''
-    } as GameDetailModel)
+    const [gameDetail, setGameDetail] = useState(game)
     const [width, setWidth] = useState<number>(0);
     const {isAuthenticated} = useAuthentication()
     const [loading, isLoading] = useState(true);
@@ -33,7 +26,7 @@ export default function GameDetail({ game }: Props) {
     useEffect(() => {
         const getAndSetGame = async () => {
             if (!game.has_detail)
-                setGameDetail(await getHandballBelgiumGameDetail(game.id, game.referees) as GameDetailModel)
+                setGameDetail(await getHandballBelgiumGameDetail(game.id, game.referees) as GameModel)
             isLoading(false)
         }
         getAndSetGame();
@@ -81,7 +74,7 @@ export default function GameDetail({ game }: Props) {
         return referees
     }
 
-    const createAddress = (gameDetail: GameDetailModel) => {
+    const createAddress = (gameDetail: GameModel) => {
         const address: string[] = []
         if(gameDetail.venue_street)
             address.push(gameDetail.venue_street)
@@ -89,7 +82,7 @@ export default function GameDetail({ game }: Props) {
         return address
     }
 
-    const createMapAddress = (gameDetail: GameDetailModel) => {
+    const createMapAddress = (gameDetail: GameModel) => {
         let address = gameDetail.venue_name
         if(gameDetail.venue_street)
             address += ", " + gameDetail.venue_street

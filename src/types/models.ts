@@ -128,9 +128,7 @@ export type GameModel = {
   serie_short: string
   referees: Referee[]
   has_detail: boolean
-}
-
-export type GameDetailModel  = GameModel & {
+  // below fields are retrieved with a different API and considered 'detail'
   home_team_pin: string
   away_team_pin: string
   match_code: string
