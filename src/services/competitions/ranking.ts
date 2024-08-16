@@ -1,9 +1,10 @@
 import { TeamCompetition } from '@/types/models'
-import { getBENELeagueRanking } from '@/services/bnl/ranking'
 import { getHandballBelgiumRanking } from '@/services/hb/ranking'
+import { getFileBasedRanking } from '@/services/filebased/ranking'
+import { FILE_BASED_COMPETITIONS } from '@/services/filebased/competitions'
 
 export const getCompetitionRanking = async (competition: TeamCompetition) => {
-  if (false) // (competition.name == 'BENE-League')
-    return getBENELeagueRanking()
+  if (FILE_BASED_COMPETITIONS.some(other => other.name === competition.name))
+    return getFileBasedRanking(competition)
   return getHandballBelgiumRanking(competition.serieId)
 }

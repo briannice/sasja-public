@@ -1,4 +1,4 @@
-import {GameDetailModel, GameModel, Referee} from "@/types/models";
+import { GameModel, Referee} from "@/types/models";
 import React, {useEffect, useState} from "react";
 import {formatDate, getMonthFromDate, getWeekDayFromDate} from "@/utils/date";
 import ClubLogo from "@/components/teams/ClubLogo";
@@ -17,15 +17,7 @@ type Props = {
 }
 
 export default function GameDetail({ game }: Props) {
-    const [gameDetail, setGameDetail] = useState({
-        ...game,
-        referees: [],
-        home_team_pin: '',
-        away_team_pin: '',
-        match_code: '',
-        venue_street: '',
-        venue_zip: ''
-    } as GameDetailModel)
+    const [gameDetail, setGameDetail] = useState(game)
     const [width, setWidth] = useState<number>(0);
     const {isAuthenticated} = useAuthentication()
     const [loading, isLoading] = useState(true);
@@ -33,11 +25,12 @@ export default function GameDetail({ game }: Props) {
 
     useEffect(() => {
         const getAndSetGame = async () => {
-            setGameDetail(await getHandballBelgiumGameDetail(game.id, game.referees) as GameDetailModel)
+            if (!game.has_detail)
+                setGameDetail(await getHandballBelgiumGameDetail(game.id, game.referees) as GameModel)
             isLoading(false)
         }
         getAndSetGame();
-    },[game.id, game.referees])
+    },[game.id, game.has_detail, game.referees])
 
     useEffect(() => {
         function handleResize() {
@@ -81,7 +74,7 @@ export default function GameDetail({ game }: Props) {
         return referees
     }
 
-    const createAddress = (gameDetail: GameDetailModel) => {
+    const createAddress = (gameDetail: GameModel) => {
         const address: string[] = []
         if(gameDetail.venue_street)
             address.push(gameDetail.venue_street)
@@ -89,7 +82,7 @@ export default function GameDetail({ game }: Props) {
         return address
     }
 
-    const createMapAddress = (gameDetail: GameDetailModel) => {
+    const createMapAddress = (gameDetail: GameModel) => {
         let address = gameDetail.venue_name
         if(gameDetail.venue_street)
             address += ", " + gameDetail.venue_street

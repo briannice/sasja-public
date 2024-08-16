@@ -3,7 +3,7 @@ import News from '@/components/home/News'
 import NewsLetter from '@/components/home/NewsLetter'
 import { db } from '@/services/firebase'
 import { createTimeLine, queryToModels } from '@/services/firebase/firestore'
-import { getHandballBelgiumGameweeks } from '@/services/hb/gameweek'
+import { getGameweeks } from '@/services/competitions/gameweek'
 import {
   EventModel,
   GameWeek,
@@ -86,7 +86,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   const teams = await queryToModels<TeamModel>(query(collection(db, 'teams')))
 
-  const gameWeeks = await getHandballBelgiumGameweeks(1)
+  const gameWeeks = await getGameweeks(1)
   const gameWeek = gameWeeks.length > 0 ? gameWeeks[0] : []
 
   return {

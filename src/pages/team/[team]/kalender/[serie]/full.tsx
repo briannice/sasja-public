@@ -1,7 +1,7 @@
 import ClubLogo from '@/components/teams/ClubLogo'
 import { db } from '@/services/firebase'
 import {docRefToModel, queryToModels} from '@/services/firebase/firestore'
-import { getHandballBelgiumCalendarFull } from '@/services/hb/calendarfull'
+import { getCompetitionCalendarFull } from '@/services/competitions/calendar'
 import {GameDay, GameModel, TeamModel} from '@/types/models'
 import { formatDate, getMonthFromDate, getWeekDayFromDate } from '@/utils/date'
 import {collection, doc, query} from 'firebase/firestore'
@@ -81,8 +81,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
     if (!competition) return { notFound: true }
 
-    const serieId = competition.serieId
-    const gameDays = await getHandballBelgiumCalendarFull(serieId)
+    const gameDays = await getCompetitionCalendarFull(competition)
 
     return {
         props: {

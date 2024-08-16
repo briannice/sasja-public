@@ -1,5 +1,5 @@
 import {HandballBelgiumApi} from "@/services/hb/index";
-import {GameDetailModel, Referee} from "@/types/models";
+import {GameModel, Referee} from "@/types/models";
 
 export const getHandballBelgiumGameDetail = async (gameId: number, referees: Referee[]) => {
     const {data, status} = await HandballBelgiumApi.get(
@@ -7,7 +7,7 @@ export const getHandballBelgiumGameDetail = async (gameId: number, referees: Ref
     )
     if (status !== 200) return []
 
-    const game: GameDetailModel = {
+    const game: GameModel = {
         id: data.data.id,
         date: data.data.date,
         time: data.data.time || null,
@@ -32,6 +32,7 @@ export const getHandballBelgiumGameDetail = async (gameId: number, referees: Ref
         serie_name: data.data.serie_name,
         serie_short: data.data.serie_short_name,
         referees: referees,
+        has_detail: true,
         home_team_pin: data.data.home_team_pin || '',
         away_team_pin: data.data.away_team_pin || '',
         match_code: data.data.code || '',
