@@ -7,3 +7,8 @@ export const getFileBasedCalendar = async (competition: TeamCompetition) => {
 
   return yaml.load(file) as GameModel[];
 }
+
+export const getFileBasedCalendarFull = async (competition: TeamCompetition) => {
+  //no way to retrieve full calendar for SHL yet
+  return getFileBasedCalendar(competition);
+}

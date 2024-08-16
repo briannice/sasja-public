@@ -8,7 +8,19 @@ export const getHandballBelgiumCalendar = async (serieId: number) => {
   )
 
   if (status !== 200) return []
+  return toGameModelArray(data)
+}
 
+export const getHandballBelgiumCalendarFull = async (serieId: number) => {
+  const { data, status } = await HandballBelgiumApi(
+    `ng/game/byMyLeague?serie_id=${serieId}&with_referees=true&without_in_preparation=true&sort=game_date_time`
+  )
+  if (status !== 200) return []
+  return toGameModelArray(data)
+}
+
+
+function toGameModelArray(data: any) {
   const games: GameModel[] = data.elements.map((e: any) => ({
     id: e.id,
     date: e.date,
@@ -16,6 +28,8 @@ export const getHandballBelgiumCalendar = async (serieId: number) => {
     venue_id: e.venue_id || null,
     home_score: e.home_score || 0,
     away_score: e.away_score || 0,
+    home_id: e.home_team_id || 0,
+    away_id: e.away_team_id || 0,
     game_status_id: e.game_status_id,
     score_status_id: e.score_status_id,
     home_name: e.home_team_name || '',
@@ -39,3 +53,4 @@ export const getHandballBelgiumCalendar = async (serieId: number) => {
 
   return games
 }
+
