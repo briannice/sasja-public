@@ -7,7 +7,7 @@ const nextConfig = {
     return [
       {
         source: '/fanshop',
-        destination: 'https://teamfashion.be/nl/178-sasja-hc',
+        destination: 'https://team.jako.com/be-nl/team/hc_sasja/club_teamline/',
         permanent: true,
       },
       { source: '/facebook', destination: 'https://www.facebook.com/SasjaHC', permanent: true },
