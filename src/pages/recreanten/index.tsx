@@ -29,7 +29,7 @@ export default function index() {
                 <h1 className="title1 mt-8">Recreanten</h1>
                 <div className="cms-content">
                 <figure>
-                    <Image src="/recreanten/team.jpg" layout="fill" objectFit="contain" alt="best team in the world"/>
+                    <Image src="/recreanten/team.png" layout="fill" objectFit="contain" alt="best team in the world"/>
                 </figure>
                 </div>
                 <h2 className="title1 mt-8">Trainingen</h2>
