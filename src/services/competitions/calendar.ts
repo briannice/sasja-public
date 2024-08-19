@@ -9,19 +9,28 @@ import {
   getFileBasedCalendarFull,
   getFutureFileBasedGames,
 } from '@/services/filebased/calendar'
+import { getFutureHandbalNlGames,
+  getHandbalNlCalendar,
+  getHandbalNlCalendarFull
+} from '@/services/handbalnl/calendar'
 import { FILE_BASED_COMPETITIONS } from '@/services/filebased/competitions'
+import { HANDBALNL_BASED_COMPETITIONS } from '@/services/handbalnl/competitions'
 
 
 export const getCompetitionCalendar = async (competition: TeamCompetition) => {
-  if (FILE_BASED_COMPETITIONS.some(other => other.name === competition.name))
-    return getFileBasedCalendar(competition)
-  return getHandballBelgiumCalendar(competition.serieId)
+  return FILE_BASED_COMPETITIONS.some(other => other.name === competition.name) ?
+    getFileBasedCalendar(competition) :
+    (HANDBALNL_BASED_COMPETITIONS.some(other => other.name === competition.name)) ?
+      getHandbalNlCalendar(competition) :
+      getHandballBelgiumCalendar(competition.serieId)
 }
 
 export const getCompetitionCalendarFull = async (competition: TeamCompetition) => {
-  const games = FILE_BASED_COMPETITIONS.some(other => other.name === competition.name)
-    ? getFileBasedCalendarFull(competition)
-    : getHandballBelgiumCalendarFull(competition.serieId)
+  const games = FILE_BASED_COMPETITIONS.some(other => other.name === competition.name) ?
+    getFileBasedCalendarFull(competition) :
+    (HANDBALNL_BASED_COMPETITIONS.some(other => other.name === competition.name)) ?
+      getHandbalNlCalendarFull(competition) :
+      getHandballBelgiumCalendarFull(competition.serieId)
 
   return games.then((games) => {
     const gameDays: GameDay[] = []
@@ -40,7 +49,7 @@ export const getCompetitionCalendarFull = async (competition: TeamCompetition) =
 }
 
 export const getFutureGames = async () => {
-  return Promise.all([getFutureHandballBelgiumGames(), getFutureFileBasedGames()])
+  return Promise.all([getFutureHandballBelgiumGames(), getFutureFileBasedGames(), getFutureHandbalNlGames()])
     .then((games) => games.flat())
     .then((games) => {
       // sort by key, given us an object with key being the date and the value the array of games
