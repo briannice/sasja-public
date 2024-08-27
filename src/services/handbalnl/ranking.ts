@@ -1,30 +1,13 @@
-import { HandbalNlApi, teamService } from '@/services/handbalnl/index'
+import { handbalNlService, teamService } from '@/services/handbalnl/index'
 import { RankModel } from '@/types/models'
 import * as xlsx from 'xlsx'
 
 export const getHandbalNlRanking = async () => {
   const ranking: RankModel[] = []
 
-  const formData = new URLSearchParams()
-  formData.append('getter', 'xlsx')
-  formData.append('page', 'poules')
-  formData.append('tab', 'standen')
-  formData.append('excludedClubs', 'ZV452QZ ZV452DM ZV452JS ZT814KL')
-  formData.append('params[]', 'NHV Landelijk | Zaal | Heren Super Handball League | Super Handball League')
-  formData.append('params[]', '37674')
+  const data = await handbalNlService.retrieveData('standen')
 
-  const { data, status } = await HandbalNlApi.post(
-    'export-uitslagen',
-    formData,
-    {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-      },
-      responseType: 'arraybuffer',
-    },
-  )
-
-  if (status !== 200) return []
+  if (data.byteLength === 0) return []
 
   const workbook = xlsx.read(data)
   const sheetName = workbook.SheetNames[0]
