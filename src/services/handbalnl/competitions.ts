@@ -1,5 +1,7 @@
 import { TeamCompetition } from '@/types/models'
 
+export const RETRIEVE_LIVE_DATA = false
+
 export const HANDBALNL_BASED_COMPETITIONS: TeamCompetition[] = [
   {
     name: 'Super Handball League',

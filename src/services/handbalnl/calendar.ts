@@ -2,31 +2,14 @@ import { GameModel, TeamCompetition } from '@/types/models'
 import { getDateRangeForGamesOverview } from '@/utils/date'
 import { HANDBALNL_BASED_COMPETITIONS } from '@/services/handbalnl/competitions'
 import * as xlsx from 'xlsx'
-import { HandbalNlApi, teamService, venueService } from '@/services/handbalnl/index'
+import { fromIsoDate, handbalNlService, teamService, toIsoDate, venueService } from '@/services/handbalnl/index'
 
 export const getHandbalNlCalendarFull = async (competition: TeamCompetition, fromDate = '', toDate = '') => {
 
-  const formData = new URLSearchParams()
-  formData.append('getter', 'xlsx')
-  formData.append('page', 'poules')
-  formData.append('tab', 'programma')
-  formData.append('filters', `{ "from": "${fromIsoDate(fromDate)}", "to": "${fromIsoDate(toDate)}", "home":[""] }`)
-  formData.append('excludedClubs', 'ZV452QZ ZV452DM ZV452JS ZT814KL')
-  formData.append('params[]', 'NHV Landelijk | Zaal | Heren Super Handball League | Super Handball League')
-  formData.append('params[]', '37674')
 
-  const { data, status } = await HandbalNlApi.post(
-    'export-uitslagen',
-    formData,
-    {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-      },
-      responseType: 'arraybuffer',
-    },
-  )
+  const data = await handbalNlService.retrieveData('programma', fromDate, toDate)
 
-  if (status !== 200) return []
+  if (data.byteLength === 0) return []
 
 
   const workbook = xlsx.read(data)
@@ -102,22 +85,6 @@ export const getFutureHandbalNlGames = async () => {
 
 function isSasjaGame(home: string, away: string): boolean {
   return [home, away].some((name) => name && name.toLowerCase().includes('sasja'))
-}
-
-function toIsoDate(dateString: string): string {
-  if (dateString && dateString.includes('-')) {
-    const [day, month, year] = dateString.split('-')
-    return `${year}-${month}-${day}`
-  }
-  return ''
-}
-
-function fromIsoDate(dateString: string): string {
-  if (dateString && dateString.includes('-')) {
-    const [year, month, day] = dateString.split('-')
-    return `${day}-${month}-${year}`
-  }
-  return ''
 }
 
 type HandbalNlCalendar = {
