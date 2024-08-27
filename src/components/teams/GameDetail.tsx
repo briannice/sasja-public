@@ -5,7 +5,7 @@ import ClubLogo from "@/components/teams/ClubLogo";
 import {GiWhistle} from "react-icons/gi";
 import {FaMapMarkerAlt, FaWaze} from "react-icons/fa";
 import {AiOutlineCar, AiOutlineFieldNumber, AiOutlineHome} from "react-icons/ai";
-import {getHandballBelgiumGameDetail} from "@/services/hb/gamedetail";
+import { gameDetailService } from '@/services/competitions/gamedetail'
 import useAuthentication from "@/utils/auth";
 import Link from "@/components/Link";
 import {FaMapMarkedAlt} from "react-icons/fa";
@@ -25,12 +25,11 @@ export default function GameDetail({ game }: Props) {
 
     useEffect(() => {
         const getAndSetGame = async () => {
-            if (!game.has_detail)
-                setGameDetail(await getHandballBelgiumGameDetail(game.id, game.referees) as GameModel)
+            setGameDetail(await gameDetailService.getGameDetail(game))
             isLoading(false)
         }
         getAndSetGame();
-    },[game.id, game.has_detail, game.referees])
+    },[game])
 
     useEffect(() => {
         function handleResize() {
