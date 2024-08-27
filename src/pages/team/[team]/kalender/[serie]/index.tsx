@@ -6,7 +6,7 @@ import { collection, doc, query } from 'firebase/firestore'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import React from 'react'
-import { getCompetitionCalendar } from '@/services/competitions/calendar'
+import { competitionService } from '@/services/competitions/competition'
 
 type Props = {
   name: string
@@ -64,7 +64,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   if (!competition) return { notFound: true }
 
-  const calendar = await getCompetitionCalendar(competition)
+  const calendar = await competitionService.getCompetitionCalendar(competition)
 
   return {
     props: {

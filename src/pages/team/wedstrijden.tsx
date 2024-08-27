@@ -1,7 +1,6 @@
 import ClubLogo from '@/components/teams/ClubLogo'
 import { db } from '@/services/firebase'
 import { queryToModels } from '@/services/firebase/firestore'
-import { getFutureGames } from '@/services/competitions/calendar'
 import {GameDay, GameModel, TeamModel} from '@/types/models'
 import { formatDate, getMonthFromDate, getWeekDayFromDate } from '@/utils/date'
 import clsx from 'clsx'
@@ -12,6 +11,7 @@ import React, {useState} from 'react'
 import {findTeamName} from "@/utils/game";
 import Popup from "@/components/Popup";
 import GameDetail from "@/components/teams/GameDetail";
+import { competitionService } from '@/services/competitions/competition'
 
 type Props = {
   gameDays: GameDay[]
@@ -118,7 +118,7 @@ function Game({ game, teams }: { game: GameModel; teams: TeamModel[]}) {
 
 export const getStaticProps: GetStaticProps = async () => {
   const teams = await queryToModels<TeamModel>(query(collection(db, 'teams')))
-  const gameDays = await getFutureGames()
+  const gameDays = await competitionService.getFutureGames()
 
   return {
     props: {

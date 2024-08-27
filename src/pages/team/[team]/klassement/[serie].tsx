@@ -1,7 +1,7 @@
 import RankingTable from '@/components/teams/RankingTable'
 import { db } from '@/services/firebase'
 import { docRefToModel, queryToModels } from '@/services/firebase/firestore'
-import { getCompetitionRanking } from '@/services/competitions/ranking'
+import { competitionService } from '@/services/competitions/competition'
 import { RankModel, TeamModel } from '@/types/models'
 import { collection, doc, query } from 'firebase/firestore'
 import { GetStaticPaths, GetStaticProps } from 'next'
@@ -65,7 +65,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   if (!competition) return { notFound: true }
 
-  const ranking = await getCompetitionRanking(competition)
+  const ranking = await competitionService.getCompetitionRanking(competition)
 
   return {
     props: {
