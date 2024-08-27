@@ -9,68 +9,68 @@ import React from 'react'
 import { competitionService } from '@/services/competitions/competition'
 
 type Props = {
-  name: string
-  calendar: GameModel[]
+    name: string
+    calendar: GameModel[]
 }
 
 export default function CalendarPage({ name, calendar }: Props) {
-  return (
-    <>
-      <Head>
-        <title>{`Sasja HC | ${name}`}</title>
-      </Head>
-      <main>
-        <h1 className="sr-only">Wedstrijden | {name}</h1>
-        <section className="container space-y-8 py-16">
-          <h2 className="title1">{name}</h2>
-          <CalendarTable calendar={calendar} />
-        </section>
-      </main>
-    </>
-  )
+    return (
+        <>
+            <Head>
+                <title>{`Sasja HC | ${name}`}</title>
+            </Head>
+            <main>
+                <h1 className="sr-only">Wedstrijden | {name}</h1>
+                <section className="container space-y-8 py-16">
+                    <h2 className="title1">{name}</h2>
+                    <CalendarTable calendar={calendar} />
+                </section>
+            </main>
+        </>
+    )
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const teams = await queryToModels<TeamModel>(query(collection(db, 'teams')))
-  const paths: any = []
-  teams.forEach((team) => {
-    const id = team.id
-    team.competitions.forEach((competition) => {
-      const path = {
-        params: {
-          team: id,
-          serie: competition.name.toLocaleLowerCase().replaceAll(/\ /g, '-'),
-        },
-      }
-      paths.push(path)
+    const teams = await queryToModels<TeamModel>(query(collection(db, 'teams')))
+    const paths: any = []
+    teams.forEach((team) => {
+        const id = team.id
+        team.competitions.forEach((competition) => {
+            const path = {
+                params: {
+                    team: id,
+                    serie: competition.name.toLocaleLowerCase().replaceAll(/\ /g, '-'),
+                },
+            }
+            paths.push(path)
+        })
     })
-  })
-  return {
-    paths: paths,
-    fallback: 'blocking',
-  }
+    return {
+        paths: paths,
+        fallback: 'blocking',
+    }
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  if (!params) return { notFound: true }
+    if (!params) return { notFound: true }
 
-  const teamId = params.team as string
-  const team = await docRefToModel<TeamModel>(doc(db, 'teams', teamId))
+    const teamId = params.team as string
+    const team = await docRefToModel<TeamModel>(doc(db, 'teams', teamId))
 
-  const serieName = params.serie as string
-  const competition = team.competitions.find(
-    (c) => c.name.toLocaleLowerCase().replaceAll(/\ /g, '-') === serieName
-  )
+    const serieName = params.serie as string
+    const competition = team.competitions.find(
+        (c) => c.name.toLocaleLowerCase().replaceAll(/\ /g, '-') === serieName
+    )
 
-  if (!competition) return { notFound: true }
+    if (!competition) return { notFound: true }
 
-  const calendar = await competitionService.getCompetitionCalendar(competition)
+    const calendar = await competitionService.getCompetitionCalendar(competition)
 
-  return {
-    props: {
-      name: competition.name,
-      calendar: calendar,
-    },
-    revalidate: 5 * 60,
-  }
+    return {
+        props: {
+            name: competition.name,
+            calendar: calendar,
+        },
+        revalidate: 5 * 60,
+    }
 }

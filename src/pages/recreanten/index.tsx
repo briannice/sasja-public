@@ -1,9 +1,9 @@
 import Head from 'next/head'
 import React from 'react'
-import Container from "@/components/Container";
-import Link from "@/components/Link";
-import {RiExternalLinkLine} from "react-icons/ri";
-import Image from "next/legacy/image";
+import Container from '@/components/Container'
+import Link from '@/components/Link'
+import { RiExternalLinkLine } from 'react-icons/ri'
+import Image from 'next/legacy/image'
 
 const trainings = [
     {
@@ -14,7 +14,7 @@ const trainings = [
                 start: '20u30',
                 end: '22u00',
                 location: 'Sporthal Sorghvliedt',
-            }
+            },
         ],
     },
 ]
@@ -28,13 +28,18 @@ export default function index() {
             <main>
                 <h1 className="title1 mt-8">Recreanten</h1>
                 <div className="cms-content">
-                <figure>
-                    <Image src="/recreanten/team.png" layout="fill" objectFit="contain" alt="best team in the world"/>
-                </figure>
+                    <figure>
+                        <Image
+                            src="/recreanten/team.png"
+                            layout="fill"
+                            objectFit="contain"
+                            alt="best team in the world"
+                        />
+                    </figure>
                 </div>
                 <h2 className="title1 mt-8">Trainingen</h2>
                 <Container className="space-y-8">
-                    {trainings.map(({data, day}) => (
+                    {trainings.map(({ data, day }) => (
                         <section key={day} className="card p-4">
                             <h2 className="title2">{day}</h2>
                             <div className="mt-8 divide-y divide-light">
@@ -59,7 +64,7 @@ export default function index() {
                                                 className="flex items-center space-x-2 text-info underline"
                                             >
                                                 <span>{training.location}</span>
-                                                <RiExternalLinkLine/>
+                                                <RiExternalLinkLine />
                                             </Link>
                                         </div>
                                     </div>
@@ -70,18 +75,25 @@ export default function index() {
                 </Container>
                 <h2 className="title1 mt-8">Info</h2>
                 <Container card={true} className="card-text">
-                        <h2>Ontdek de Passie van Handbal met Onze Recreantenploeg!</h2>
-                        <p>Ben jij op zoek naar een leuke en energieke manier om actief te blijven en nieuwe vrienden te
-                            maken? </p>
+                    <h2>Ontdek de Passie van Handbal met Onze Recreantenploeg!</h2>
+                    <p>
+                        Ben jij op zoek naar een leuke en energieke manier om actief te blijven en
+                        nieuwe vrienden te maken?{' '}
+                    </p>
                     <p>Zoek niet verder! Onze recreantenploeg heet jou van harte welkom!</p>
-                        <h2>Doe Vandaag Nog Mee!</h2>
-                        <p>Of je nu een oud-handbalprof bent of gewoon nieuwsgierig bent naar deze geweldige sport,
-                            onze recreantenploeg staat open voor iedereen die wil deelnemen: <a href="mailto:recreanten@sasja-antwerpen.be">meld je aan</a> en ontdek de sfeer, het
-                            plezier en de vriendschap binnen het handbal.</p>
-                        <p>Laten we samen plezier hebben, bewegen en de magie van handbal beleven! Tot gauw!️</p>
+                    <h2>Doe Vandaag Nog Mee!</h2>
+                    <p>
+                        Of je nu een oud-handbalprof bent of gewoon nieuwsgierig bent naar deze
+                        geweldige sport, onze recreantenploeg staat open voor iedereen die wil
+                        deelnemen: <a href="mailto:recreanten@sasja-antwerpen.be">meld je aan</a> en
+                        ontdek de sfeer, het plezier en de vriendschap binnen het handbal.
+                    </p>
+                    <p>
+                        Laten we samen plezier hebben, bewegen en de magie van handbal beleven! Tot
+                        gauw!️
+                    </p>
                 </Container>
             </main>
         </>
     )
 }
-

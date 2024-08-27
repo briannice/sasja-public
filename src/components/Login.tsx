@@ -1,9 +1,8 @@
-import React, {AnchorHTMLAttributes, FormEventHandler, Fragment, useState} from "react";
-import Link from "@/components/Link";
-import {RiLoginBoxLine} from "react-icons/ri";
-import {Dialog, Transition} from "@headlessui/react";
-import useAuthentication from "@/utils/auth";
-import {AiFillLock, AiFillUnlock} from "react-icons/ai";
+import React, { AnchorHTMLAttributes, FormEventHandler, Fragment, useState } from 'react'
+import { RiLoginBoxLine } from 'react-icons/ri'
+import { Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react'
+import useAuthentication from '@/utils/auth'
+import { AiFillLock, AiFillUnlock } from 'react-icons/ai'
 
 type Props = AnchorHTMLAttributes<HTMLAnchorElement> & {
     className?: string | undefined
@@ -14,14 +13,14 @@ export default function Login({ className }: Props) {
     const [showLogout, setShowLogout] = useState(false)
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
-    const {setAuthenticated, isAuthenticated} = useAuthentication()
+    const { setAuthenticated, isAuthenticated } = useAuthentication()
 
     const login = async (password: string) => {
-        if (password === "Sasja1958") {
+        if (password === 'Sasja1958') {
             setAuthenticated(true)
             setShowLogin(false)
         } else {
-            throw {"message": "Ongeldig wachtwoord"}
+            throw { message: 'Ongeldig wachtwoord' }
         }
     }
 
@@ -29,7 +28,6 @@ export default function Login({ className }: Props) {
         setAuthenticated(false)
         setShowLogout(true)
     }
-
 
     const submitHandler: FormEventHandler<HTMLFormElement> = (e) => {
         e.preventDefault()
@@ -40,56 +38,67 @@ export default function Login({ className }: Props) {
             })
     }
     return (
-        <Link
-            href="javascript:;"
-            onClick={() => isAuthenticated() ? logout(): setShowLogin(true)}
-            blank={false}
+        <button
+            onClick={() => (isAuthenticated() ? logout() : setShowLogin(true))}
             className={className}
         >
-            {isAuthenticated() ?
-                <span className="font-kanit text-dark"><AiFillLock/></span>
-                :
-                <span className="font-kanit text-dark"><AiFillUnlock/></span>
-            }
+            {isAuthenticated() ? (
+                <span className="font-kanit text-dark">
+                    <AiFillLock />
+                </span>
+            ) : (
+                <span className="font-kanit text-dark">
+                    <AiFillUnlock />
+                </span>
+            )}
+
             <span className="absolute inset-x-8 mt-6 block h-0.5 origin-left scale-x-0 transform bg-primary transition group-hover:scale-x-100" />
-            <Transition appear show={showLogin} as={Fragment}>
-                <Dialog onClose={setShowLogin} className="fixed inset-0 z-50 flex items-center justify-center">
-                    <Dialog.Overlay className="fixed inset-0 bg-black bg-opacity-25" />
-                    <div className="scrollbar-hidden no-scrollbar">
-                        <div className='relative rounded-lg bg-white p-4 shadow'>
-                            <span className="font-kanit text-lg">Login Tafelofficials</span>
-                            <form onSubmit={submitHandler} className="border-primary">
-                                <div className="mt-4">
-                                    <label htmlFor="password">wachtwoord:</label>
-                                    <input
-                                        type="password"
-                                        id="password"
-                                        name="password"
-                                        value={password}
-                                        className="m-2"
-                                        onChange={(e) => setPassword(e.target.value)}
-                                    />
-                                </div>
-                                <button type="submit" className="btn btn-primary btn-text-icon mt-8">
-                                    <span>Aanmelden</span>
-                                    <RiLoginBoxLine />
-                                </button>
-                                {error && <p className="mt-4 text-center text-sm text-error">{error}</p>}
-                            </form>
+
+            <Dialog
+                open={showLogin}
+                onClose={() => setShowLogin(false)}
+                transition
+                className="fixed inset-0 flex w-screen items-center justify-center bg-black/30 p-4 transition duration-300 ease-out data-[closed]:opacity-0"
+            >
+                <DialogPanel
+                    transition
+                    className="max-w-lg space-y-4 bg-white p-12 duration-300 ease-out data-[closed]:scale-95 data-[closed]:opacity-0"
+                >
+                    <span className="font-kanit text-lg">Login Tafelofficials</span>
+                    <form onSubmit={submitHandler} className="">
+                        <div className="mt-4">
+                            <label htmlFor="password">Wachtwoord</label>
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                value={password}
+                                className="mt-2"
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
                         </div>
-                    </div>
-                </Dialog>
-            </Transition>
-            <Transition appear show={showLogout} as={Fragment}>
-                <Dialog onClose={setShowLogout} className="fixed inset-0 z-50 flex items-center justify-center">
-                    <Dialog.Overlay className="fixed inset-0 bg-black bg-opacity-25" />
-                    <div className="scrollbar-hidden no-scrollbar">
-                        <div className='relative rounded-lg bg-white p-4 shadow'>
-                            <p>Bedankt en tot ziens!</p>
-                        </div>
-                    </div>
-                </Dialog>
-            </Transition>
-        </Link>
+                        <button type="submit" className="btn btn-primary btn-text-icon mt-8">
+                            <span>Aanmelden</span>
+                            <RiLoginBoxLine />
+                        </button>
+                        {error && <p className="mt-4 text-center text-sm text-error">{error}</p>}
+                    </form>
+                </DialogPanel>
+            </Dialog>
+
+            <Dialog
+                open={showLogout}
+                onClose={() => setShowLogout(false)}
+                transition
+                className="fixed inset-0 flex w-screen items-center justify-center bg-black/30 p-4 transition duration-300 ease-out data-[closed]:opacity-0"
+            >
+                <DialogPanel
+                    transition
+                    className="max-w-lg space-y-4 bg-white p-12 duration-300 ease-out data-[closed]:scale-95 data-[closed]:opacity-0"
+                >
+                    <p>Bedankt en tot ziens!</p>
+                </DialogPanel>
+            </Dialog>
+        </button>
     )
 }

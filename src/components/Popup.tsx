@@ -1,25 +1,31 @@
-import { Dialog, Transition } from '@headlessui/react'
+import { Dialog, DialogPanel } from '@headlessui/react'
 import clsx from 'clsx'
-import React, { Fragment, ReactNode } from 'react'
+import React, { ReactNode } from 'react'
 
 type Props = {
-  children: ReactNode
-  onClose: (v: boolean) => void
-  open: boolean
-  className?: string | undefined
+    children: ReactNode
+    onClose: (v: boolean) => void
+    open: boolean
+    className?: string | undefined
 }
 
 export default function Popup({ children, onClose, open, className }: Props) {
-  return (
-    <Transition appear show={open} as={Fragment}>
-      <Dialog onClose={onClose} className="fixed inset-0 z-50 flex items-center justify-center">
-        <Dialog.Overlay className="fixed inset-0 bg-black bg-opacity-25" />
-        <div className="scrollbar-hidden no-scrollbar container max-h-screen overflow-y-scroll py-8">
-          <div className={clsx('relative rounded-lg bg-white p-8 shadow', className)}>
-            {children}
-          </div>
-        </div>
-      </Dialog>
-    </Transition>
-  )
+    return (
+        <Dialog
+            open={open}
+            onClose={onClose}
+            transition
+            className="fixed inset-0 flex w-screen items-center justify-center bg-black/30 p-4 transition duration-300 ease-out data-[closed]:opacity-0"
+        >
+            <DialogPanel
+                transition
+                className={clsx(
+                    'max-w-lg space-y-4 bg-white p-12 duration-300 ease-out data-[closed]:scale-95 data-[closed]:opacity-0',
+                    className
+                )}
+            >
+                {children}
+            </DialogPanel>
+        </Dialog>
+    )
 }
