@@ -84,6 +84,11 @@ export const headerLinks = [
     href: '/fanshop',
     blank: true,
   },
+  {
+    name: 'Trooper',
+    href: '/trooper',
+    blank: true,
+  },
 ]
 
 const createFooterLinks = () => {
