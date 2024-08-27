@@ -1,6 +1,6 @@
 import { TeamCompetition } from '@/types/models'
 
-export const RETRIEVE_LIVE_DATA = true
+export const RETRIEVE_LIVE_DATA = false
 
 export const HANDBALNL_BASED_COMPETITIONS: TeamCompetition[] = [
   {
