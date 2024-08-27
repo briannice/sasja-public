@@ -12,6 +12,7 @@ const nextConfig = {
       },
       { source: '/facebook', destination: 'https://www.facebook.com/SasjaHC', permanent: true },
       { source: '/instagram', destination: 'https://www.instagram.com/sasjahc/', permanent: true },
+      { source: '/trooper', destination: 'https://www.trooper.be/sasjahc', permanent: true },
     ]
   },
   async rewrites() {
