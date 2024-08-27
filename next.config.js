@@ -1,7 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['firebasestorage.googleapis.com', 'admin.handballbelgium.be', 'avzlamsrtp.cloudimg.io'],
+    domains: [
+      'firebasestorage.googleapis.com',
+      'admin.handballbelgium.be',
+      'avzlamsrtp.cloudimg.io',
+    ],
   },
   async redirects() {
     return [
@@ -28,7 +32,6 @@ const nextConfig = {
     ]
   },
   reactStrictMode: true,
-  swcMinify: true,
 }
 
 module.exports = nextConfig

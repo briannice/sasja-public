@@ -1,7 +1,7 @@
 import Popup from '@/components/Popup'
 import useImage from '@/hooks/useImage'
 import { PlayerModel } from '@/types/models'
-import Image from 'next/image'
+import Image from "next/legacy/image"
 import React, { Fragment, useState } from 'react'
 
 type Props = {

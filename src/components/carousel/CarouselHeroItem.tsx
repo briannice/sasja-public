@@ -1,6 +1,6 @@
 import CarouselItem from '@/components/carousel/CarouselItem'
 import useImage from '@/hooks/useImage'
-import Image from 'next/image'
+import Image from "next/legacy/image"
 import React, { ReactNode } from 'react'
 import { RiArrowLeftSLine, RiArrowRightSLine } from 'react-icons/ri'
 

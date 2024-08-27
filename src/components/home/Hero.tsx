@@ -5,7 +5,7 @@ import Link from '@/components/Link'
 import ClubLogo from '@/components/teams/ClubLogo'
 import {GameModel, GameWeek, TeamModel, TimeLine} from '@/types/models'
 import {formatDate, getMonthFromDate, getWeekDayFromDate} from '@/utils/date'
-import Image from 'next/image'
+import Image from "next/legacy/image"
 import React, {Fragment, useState} from 'react'
 import { RiArrowRightSLine } from 'react-icons/ri'
 import Popup from "@/components/Popup";

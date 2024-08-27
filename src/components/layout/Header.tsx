@@ -5,7 +5,7 @@ import Link from '@/components/Link'
 import { headerLinks } from '@/data/links'
 import { Menu, Transition } from '@headlessui/react'
 import clsx from 'clsx'
-import Image from 'next/image'
+import Image from "next/legacy/image"
 import React, { Fragment, useState } from 'react'
 import { RiArrowDownSLine, RiCloseLine, RiMenuLine } from 'react-icons/ri'
 import TiktokIcon from "@/components/icons/TiktokIcon";

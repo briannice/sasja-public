@@ -7,7 +7,7 @@ import { GameModel, MatchReportModel, RankModel, TeamModel } from '@/types/model
 import { collection, doc, getDocs, limit, orderBy, query, where } from 'firebase/firestore'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
+import Image from "next/legacy/image"
 import React from 'react'
 import { competitionService } from '@/services/competitions/competition'
 

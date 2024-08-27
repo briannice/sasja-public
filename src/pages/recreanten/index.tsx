@@ -3,7 +3,7 @@ import React from 'react'
 import Container from "@/components/Container";
 import Link from "@/components/Link";
 import {RiExternalLinkLine} from "react-icons/ri";
-import Image from "next/image";
+import Image from "next/legacy/image";
 
 const trainings = [
     {

@@ -2,7 +2,7 @@ import Link from '@/components/Link'
 import useImage from '@/hooks/useImage'
 import { NewsModel } from '@/types/models'
 import { formatDate } from '@/utils/date'
-import Image from 'next/image'
+import Image from "next/legacy/image"
 import React from 'react'
 
 type Props = {

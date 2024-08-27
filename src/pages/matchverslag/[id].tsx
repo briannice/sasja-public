@@ -8,7 +8,7 @@ import clsx from 'clsx'
 import { collection, doc, query } from 'firebase/firestore'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
+import Image from "next/legacy/image"
 import { useRouter } from 'next/router'
 import React from 'react'
 

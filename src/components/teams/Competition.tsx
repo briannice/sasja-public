@@ -117,7 +117,7 @@ export default function Competition({ calendar, name, ranking, teamId }: Props) 
         </div>
       </div>
     </Container>
-  )
+  );
 }
 
 function Game({ game }: { game: GameModel;}) {
