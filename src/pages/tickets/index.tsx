@@ -1,6 +1,6 @@
-import Head from "next/head";
-import TicketsAndAbos from "@/components/home/TicketsAndAbos";
-import React from "react";
+import Head from 'next/head'
+import TicketsAndAbos from '@/components/home/TicketsAndAbos'
+import React from 'react'
 
 export default function Home() {
     return (

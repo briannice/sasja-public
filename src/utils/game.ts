@@ -1,4 +1,4 @@
-import {TeamModel} from "@/types/models";
+import { TeamModel } from '@/types/models'
 
 export const findTeamName = (name: string, vhvId: number, teams: TeamModel[]) => {
     if (!name.includes('Sasja')) return name
@@ -20,4 +20,3 @@ export const cleanGameNumber = (number: string) => {
         .replace('VHV', '')
         .replace('AVB', '')
 }
-

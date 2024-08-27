@@ -1,15 +1,15 @@
 import ClubLogo from '@/components/teams/ClubLogo'
 import { db } from '@/services/firebase'
-import {docRefToModel, queryToModels} from '@/services/firebase/firestore'
+import { docRefToModel, queryToModels } from '@/services/firebase/firestore'
 import { competitionService } from '@/services/competitions/competition'
-import {GameDay, GameModel, TeamModel} from '@/types/models'
+import { GameDay, GameModel, TeamModel } from '@/types/models'
 import { formatDate, getMonthFromDate, getWeekDayFromDate } from '@/utils/date'
-import {collection, doc, query} from 'firebase/firestore'
-import {GetStaticPaths, GetStaticProps} from 'next'
+import { collection, doc, query } from 'firebase/firestore'
+import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
-import React, {useState} from 'react'
-import Popup from "@/components/Popup";
-import GameDetail from "@/components/teams/GameDetail";
+import React, { useState } from 'react'
+import Popup from '@/components/Popup'
+import GameDetail from '@/components/teams/GameDetail'
 
 type Props = {
     name: string
@@ -37,7 +37,7 @@ export default function FullCalendarPage({ name, gameDays }: Props) {
                         <h2 className="title2">{createDate(gameDay.date)}</h2>
                         <div className="card mt-8 divide-y divide-light">
                             {gameDay.games.map((game) => (
-                                <Game key={game.id} game={game}/>
+                                <Game key={game.id} game={game} />
                             ))}
                         </div>
                     </section>
@@ -92,7 +92,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     }
 }
 
-function Game({ game }: { game: GameModel;}) {
+function Game({ game }: { game: GameModel }) {
     const [showInfo, setShowInfo] = useState(false)
 
     const createTime = (time: string | null) => {
@@ -110,28 +110,26 @@ function Game({ game }: { game: GameModel;}) {
                     <p className="text-right text-sm text-dark">{createTime(game.time)}</p>
                 </div>
                 <div className="flex flex-1 flex-col-reverse items-end tablet:flex-row tablet:items-center tablet:justify-end tablet:space-x-4">
-                    <p className="mt-2 text-right font-kanit tablet:mt-0">
-                        {game.home_short}
-                    </p>
+                    <p className="mt-2 text-right font-kanit tablet:mt-0">{game.home_short}</p>
                     <ClubLogo path={game.home_logo} size={20} />
                 </div>
                 <div className="flex items-center justify-center space-x-2 font-kanit'">
-                    <p className="w-6 text-right">{game.score_status_id === 0 ? "" : game.home_score}</p>
-                    <p>{game.score_status_id === 0 ? "" : '-'}</p>
-                    <p className="w-6">{game.score_status_id === 0 ? "" : game.away_score}</p>
+                    <p className="w-6 text-right">
+                        {game.score_status_id === 0 ? '' : game.home_score}
+                    </p>
+                    <p>{game.score_status_id === 0 ? '' : '-'}</p>
+                    <p className="w-6">{game.score_status_id === 0 ? '' : game.away_score}</p>
                 </div>
                 <div className="flex flex-1 flex-col tablet:flex-row tablet:items-center tablet:space-x-4">
                     <ClubLogo path={game.away_logo} size={20} />
-                    <p className="mt-2 font-kanit tablet:mt-0">
-                        {game.away_short}
-                    </p>
+                    <p className="mt-2 font-kanit tablet:mt-0">{game.away_short}</p>
                 </div>
                 <div className="hidden flex-1 pl-4 tablet:block">
                     <p className="text-sm text-dark">{game.venue_name}</p>
                 </div>
             </div>
             <Popup open={showInfo} onClose={setShowInfo}>
-                <GameDetail game={game}/>
+                <GameDetail game={game} />
             </Popup>
         </div>
     )

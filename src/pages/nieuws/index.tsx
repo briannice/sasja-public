@@ -9,44 +9,49 @@ import Head from 'next/head'
 import React from 'react'
 
 type Props = {
-  initialNews: NewsModel[]
-  initialMatchReports: MatchReportModel[]
+    initialNews: NewsModel[]
+    initialMatchReports: MatchReportModel[]
 }
 
 export default function index({ initialNews, initialMatchReports }: Props) {
-  return (
-    <>
-      <Head>
-        <title>Sasja HC | News</title>
-      </Head>
-      <main>
-        <h1 className="sr-only">Nieuws en matchverslagen</h1>
-        <NewsOverview initialNews={initialNews} />
-        <MatchReportOverview initialMatchReports={initialMatchReports} />
-      </main>
-    </>
-  )
+    return (
+        <>
+            <Head>
+                <title>Sasja HC | News</title>
+            </Head>
+            <main>
+                <h1 className="sr-only">Nieuws en matchverslagen</h1>
+                <NewsOverview initialNews={initialNews} />
+                <MatchReportOverview initialMatchReports={initialMatchReports} />
+            </main>
+        </>
+    )
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const initialNews = await queryToModels<NewsModel>(
-    query(collection(db, 'news'), where('public', '==', true), orderBy('time', 'desc'), limit(10))
-  )
-
-  const initialMatchReports = await queryToModels<MatchReportModel>(
-    query(
-      collection(db, 'matchreport'),
-      where('public', '==', true),
-      orderBy('time', 'desc'),
-      limit(10)
+    const initialNews = await queryToModels<NewsModel>(
+        query(
+            collection(db, 'news'),
+            where('public', '==', true),
+            orderBy('time', 'desc'),
+            limit(10)
+        )
     )
-  )
 
-  return {
-    props: {
-      initialNews,
-      initialMatchReports,
-    },
-    revalidate: 5 * 60,
-  }
+    const initialMatchReports = await queryToModels<MatchReportModel>(
+        query(
+            collection(db, 'matchreport'),
+            where('public', '==', true),
+            orderBy('time', 'desc'),
+            limit(10)
+        )
+    )
+
+    return {
+        props: {
+            initialNews,
+            initialMatchReports,
+        },
+        revalidate: 5 * 60,
+    }
 }
