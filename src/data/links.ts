@@ -1,107 +1,107 @@
 import { teamLinks, youthLinks } from '@/data/teams'
 
 const clubSublinks = [
-    {
-        name: 'Werking',
-        href: '/club/werking',
-        blank: false,
-    },
-    {
-        name: 'Locatie',
-        href: '/club/locatie',
-        blank: false,
-    },
-    {
-        name: 'Kalenders',
-        href: '/club/kalenders',
-        blank: false,
-    },
-    {
-        name: 'Inschrijven',
-        href: '/club/inschrijven',
-        blank: false,
-    },
-    {
-        name: 'Aanspreekpunt integriteit',
-        href: '/club/aanspreekpunt-integriteit',
-        blank: false,
-    },
-    {
-        name: 'Ongeval',
-        href: '/club/ongeval',
-        blank: false,
-    },
+  {
+    name: 'Nieuws',
+    href: '/nieuws',
+    blank: false,
+  },
+  {
+    name: 'Werking',
+    href: '/club/werking',
+    blank: false,
+  },
+  {
+    name: 'Locatie',
+    href: '/club/locatie',
+    blank: false,
+  },
+  {
+    name: 'Kalenders',
+    href: '/club/kalenders',
+    blank: false,
+  },
+  {
+    name: 'Inschrijven',
+    href: '/club/inschrijven',
+    blank: false,
+  },
+  {
+    name: 'Aanspreekpunt integriteit',
+    href: '/club/aanspreekpunt-integriteit',
+    blank: false,
+  },
+  {
+    name: 'Ongeval',
+    href: '/club/ongeval',
+    blank: false,
+  },
 ]
 
 const teamSublinks = [
-    ...teamLinks,
-    {
-        name: 'Spelers',
-        href: '/kern/spelers',
-        blank: false,
-    },
+  ...teamLinks,
+  {
+    name: 'Spelers',
+    href: '/kern/spelers',
+    blank: false,
+  },
 ]
 
 const youthSublinks = [
-    {
-        name: 'Info',
-        href: '/jeugd',
-        blank: false,
-    },
-    ...youthLinks,
+  {
+    name: 'Info',
+    href: '/jeugd',
+    blank: false,
+  },
+  ...youthLinks,
 ]
 
 export const headerLinks = [
-    {
-        name: 'Kern',
-        sublinks: teamSublinks,
-    },
-    {
-        name: 'Jeugd',
-        sublinks: youthSublinks,
-    },
-    {
-        name: 'Recreanten',
-        href: '/recreanten',
-        blank: false,
-    },
-    {
-        name: 'Club',
-        sublinks: clubSublinks,
-    },
-    {
-        name: 'Nieuws',
-        href: '/nieuws',
-        blank: false,
-    },
-    {
-        name: 'Tickets',
-        href: '/tickets',
-        blank: false,
-    },
-    {
-        name: 'Fanshop',
-        href: '/fanshop',
-        blank: true,
-    },
-    {
-        name: 'Trooper',
-        href: '/trooper',
-        blank: true,
-    },
+  {
+    name: 'Kern',
+    sublinks: teamSublinks,
+  },
+  {
+    name: 'Jeugd',
+    sublinks: youthSublinks,
+  },
+  {
+    name: 'Recreanten',
+    href: '/recreanten',
+    blank: false,
+  },
+  {
+    name: 'Club',
+    sublinks: clubSublinks,
+  },
+  {
+    name: 'Tickets',
+    href: '/tickets',
+    blank: false,
+  },
+  {
+    name: 'Fanshop',
+    href: '/fanshop',
+    blank: true,
+  },
+  {
+    name: 'Trooper',
+    href: '/trooper',
+    blank: true,
+  },
 ]
 
 const createFooterLinks = () => {
-    const links = headerLinks.filter((link) => link.href)
-    const result = [{ name: 'Links', links: links }]
+  const links = headerLinks.filter((link) => link.href)
+  const result = [{ name: 'Links', links: links }]
 
-    headerLinks.forEach((link) => {
-        if (link.sublinks) {
-            result.push({ name: link.name, links: link.sublinks })
-        }
-    })
+  headerLinks.forEach((link) => {
+    if (link.sublinks) {
+      result.push({ name: link.name, links: link.sublinks })
+    }
+  })
 
-    return result
+  return result
 }
 
 export const footerLinks = createFooterLinks()

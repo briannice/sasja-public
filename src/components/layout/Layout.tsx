@@ -1,17 +1,18 @@
-import Footer from '@/components/layout/Footer'
-import Header from '@/components/layout/Header'
 import React, { ReactNode } from 'react'
 
+import Footer from '@/components/layout/Footer'
+import Header from '@/components/layout/Header'
+
 type Props = {
-    children: ReactNode
+  children: ReactNode
 }
 
 export default function Layout({ children }: Props) {
-    return (
-        <div className="flex min-h-screen flex-col pt-20 laptop:pt-24">
-            <Header />
-            {children}
-            <Footer />
-        </div>
-    )
+  return (
+    <div className="no-scrollbar flex min-h-screen flex-col pt-20 laptop:pt-24">
+      <Header />
+      {children}
+      <Footer />
+    </div>
+  )
 }

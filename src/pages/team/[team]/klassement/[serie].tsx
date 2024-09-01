@@ -1,77 +1,82 @@
-import RankingTable from '@/components/teams/RankingTable'
-import { db } from '@/services/firebase'
-import { docRefToModel, queryToModels } from '@/services/firebase/firestore'
-import { competitionService } from '@/services/competitions/competition'
-import { RankModel, TeamModel } from '@/types/models'
-import { collection, doc, query } from 'firebase/firestore'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
+
 import React from 'react'
 
+import { collection, doc, query } from 'firebase/firestore'
+
+import RankingTable from '@/components/teams/RankingTable'
+
+import { competitionService } from '@/services/competitions/competition'
+import { db } from '@/services/firebase'
+import { docRefToModel, queryToModels } from '@/services/firebase/firestore'
+
+import { RankModel, TeamModel } from '@/types/models'
+
 type Props = {
-    ranking: RankModel[]
-    name: string
+  ranking: RankModel[]
+  name: string
 }
 
 export default function CalendarPage({ ranking, name }: Props) {
-    return (
-        <>
-            <Head>
-                <title>{`Sasja HC | ${name}`}</title>
-            </Head>
+  return (
+    <>
+      <Head>
+        <title>{`Sasja HC | ${name}`}</title>
+      </Head>
 
-            <main>
-                <h1 className="sr-only">Klassement | {name}</h1>
-                <section className="container space-y-8 py-16">
-                    <h2 className="title1">{name}</h2>
-                    <RankingTable ranking={ranking} />
-                </section>
-            </main>
-        </>
-    )
+      <main>
+        <h1 className="sr-only">Klassement | {name}</h1>
+        <section className="container space-y-8 py-16">
+          <h2 className="title1">{name}</h2>
+          <RankingTable ranking={ranking} />
+        </section>
+      </main>
+    </>
+  )
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-    const teams = await queryToModels<TeamModel>(query(collection(db, 'teams')))
-    const paths: any = []
-    teams.forEach((team) => {
-        const id = team.id
-        team.competitions.forEach((competition) => {
-            const path = {
-                params: {
-                    team: id,
-                    serie: competition.name.toLocaleLowerCase().replaceAll(/\ /g, '-'),
-                },
-            }
-            paths.push(path)
-        })
+  const teams = await queryToModels<TeamModel>(query(collection(db, 'teams')))
+  const paths: any = []
+  teams.forEach((team) => {
+    const id = team.id
+    team.competitions.forEach((competition) => {
+      const path = {
+        params: {
+          team: id,
+          serie: competition.name.toLocaleLowerCase().replaceAll(/\ /g, '-'),
+        },
+      }
+      paths.push(path)
     })
-    return {
-        paths: paths,
-        fallback: 'blocking',
-    }
+  })
+  return {
+    paths: paths,
+    fallback: 'blocking',
+  }
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-    if (!params) return { notFound: true }
+  if (!params) return { notFound: true }
 
-    const teamId = params.team as string
-    const team = await docRefToModel<TeamModel>(doc(db, 'teams', teamId))
+  const teamId = params.team as string
+  const team = await docRefToModel<TeamModel>(doc(db, 'teams', teamId))
 
-    const serieName = params.serie as string
-    const competition = team.competitions.find(
-        (c) => c.name.toLocaleLowerCase().replaceAll(/\ /g, '-') === serieName
-    )
+  const serieName = params.serie as string
+  const competition = team.competitions.find(
+    (c) => c.name.toLocaleLowerCase().replaceAll(/\ /g, '-') === serieName
+  )
 
-    if (!competition) return { notFound: true }
+  if (!competition) return { notFound: true }
 
-    const ranking = await competitionService.getCompetitionRanking(competition)
+  const ranking = await competitionService.getCompetitionRanking(competition)
 
-    return {
-        props: {
-            ranking: ranking,
-            name: competition.name,
-        },
-        revalidate: 5 * 60,
-    }
+  return {
+    props: {
+      ranking: ranking,
+      name: competition.name,
+    },
+    revalidate: 5 * 60,
+  }
 }
