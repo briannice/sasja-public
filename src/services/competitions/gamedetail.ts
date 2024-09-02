@@ -1,6 +1,6 @@
 import { GameModel } from '@/types/models'
 
-import { HBCompetitionIntegration } from '@/services/competitions/hb/service'
+import { HBCompetitionIntegration } from '@/services/competitions/hb/integration'
 
 const HB_INTEGRATION = new HBCompetitionIntegration()
 
