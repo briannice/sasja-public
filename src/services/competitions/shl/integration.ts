@@ -2,7 +2,7 @@ import { AbstractCompetitionIntegration } from '@/services/competitions/abstract
 import { GameModel, RankModel, TeamCompetition } from '@/types/models'
 import { SHL_BASED_COMPETITIONS } from '@/services/competitions/competition'
 import { shlApi } from '@/services/competitions/shl/index'
-import { teamService, toIsoDate } from '@/services/competitions/handbalnl'
+import { teamService } from '@/services/competitions/handbalnl'
 
 export class SuperHandballLeageCompetitionIntegration extends AbstractCompetitionIntegration {
 
@@ -13,7 +13,7 @@ export class SuperHandballLeageCompetitionIntegration extends AbstractCompetitio
 
     return data.map((e: any) => ({
       id: '',
-      date: toIsoDate(e.date),
+      date: this.toIsoDate(e.date),
       time: '', // TODO asjemenou
       venue_id: 0,
       home_id: 0,
@@ -73,4 +73,35 @@ export class SuperHandballLeageCompetitionIntegration extends AbstractCompetitio
   public getAllCompetitions(): TeamCompetition[] {
     return SHL_BASED_COMPETITIONS
   }
+
+
+  private toIsoDate(dateString: string): string {
+
+    if (dateString) {
+      const months:MonthMapping = {
+        'januari': 1,
+        'februari': 2,
+        'maart': 3,
+        'april': 4,
+        'mei': 5,
+        'juni': 6,
+        'juli': 7,
+        'augustus':8,
+        'september': 9,
+        'oktober': 10,
+        'november': 11,
+        'december': 12
+      };
+
+      const [, date, monthName] = dateString.split(' ');
+      const month = months[monthName.toLowerCase()];
+
+      return `${month<7?2025:2024}-${month}-${date}`
+    }
+    return ''
+  }
+}
+
+interface MonthMapping {
+  [key: string]: number;
 }
