@@ -118,9 +118,9 @@ class CompetitionService {
       week.sort((game1, game2) =>
         game1.date.localeCompare(game2.date) !== 0 ?
           game1.date.localeCompare(game2.date) :
-          game1.time && game2.time ?
+          (game1.time && game2.time ?
             game1.time.localeCompare(game2.time) :
-            0,
+            0),
       )
     })
     return gameweeks

@@ -84,29 +84,29 @@ export class SuperHandballLeageCompetitionIntegration extends AbstractCompetitio
 
     if (dateString) {
       const months: MonthMapping = {
-        'januari': 1,
-        'februari': 2,
-        'maart': 3,
-        'april': 4,
-        'mei': 5,
-        'juni': 6,
-        'juli': 7,
-        'augustus': 8,
-        'september': 9,
-        'oktober': 10,
-        'november': 11,
-        'december': 12,
+        'januari': '01',
+        'februari': '02',
+        'maart': '03',
+        'april': '04',
+        'mei': '05',
+        'juni': '06',
+        'juli': '07',
+        'augustus': '08',
+        'september': '09',
+        'oktober': '10',
+        'november': '11',
+        'december': '12',
       }
 
       const [, date, monthName] = dateString.split(' ')
       const month = months[monthName.toLowerCase()]
 
-      return `${month < 7 ? 2025 : 2024}-${month}-${date}`
+      return `${month < '07' ? 2025 : 2024}-${month}-${date}`
     }
     return ''
   }
 }
 
 interface MonthMapping {
-  [key: string]: number;
+  [key: string]: string;
 }
