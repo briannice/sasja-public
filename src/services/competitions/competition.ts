@@ -1,11 +1,24 @@
 import { GameDay, GameModel, GameWeek, RankModel, TeamCompetition } from '@/types/models'
-import { FILE_BASED_COMPETITIONS } from '@/services/competitions/filebased/competitions'
-import { HANDBALNL_BASED_COMPETITIONS } from '@/services/competitions/handbalnl/competitions'
 import { getDateRangeForGamesOverview, getWeekNumberForGamesOverview } from '@/utils/date'
-import { FileBasedCompetitionIntegration } from '@/services/competitions/filebased/service'
-import { HandbalNlCompetitionIntegration } from '@/services/competitions/handbalnl/service'
-import { HBCompetitionIntegration } from '@/services/competitions/hb/service'
+import { FileBasedCompetitionIntegration } from '@/services/competitions/filebased/integration'
+import { HandbalNlCompetitionIntegration } from '@/services/competitions/handbalnl/integration'
+import { HBCompetitionIntegration } from '@/services/competitions/hb/integration'
+import { SuperHandballLeageCompetitionIntegration } from '@/services/competitions/shl/integration'
 
+const SHL = {
+  name: 'Super Handball League',
+  serieId: -1,
+  vhvId: 0,
+  ranking: true,
+} as TeamCompetition
+
+export const FILE_BASED_COMPETITIONS: TeamCompetition[] = [
+]
+export const HANDBALNL_BASED_COMPETITIONS: TeamCompetition[] = [
+  SHL
+]
+export const SHL_BASED_COMPETITIONS: TeamCompetition[] = [
+]
 
 export interface CompetitionIntegration {
   getCompetitionCalendar(competition: TeamCompetition): Promise<GameModel[]>
@@ -22,13 +35,15 @@ export interface CompetitionIntegration {
 const HB_INTEGRATION = new HBCompetitionIntegration()
 const HANDBALNL_INTEGRATION = new HandbalNlCompetitionIntegration()
 const FILEBASED_INTEGRATION = new FileBasedCompetitionIntegration()
+const SHL_INTEGRATION = new SuperHandballLeageCompetitionIntegration()
 
 function getCompetitionIntegration(competition: TeamCompetition): CompetitionIntegration {
   return FILE_BASED_COMPETITIONS.some(other => other.name === competition.name) ?
     FILEBASED_INTEGRATION :
     (HANDBALNL_BASED_COMPETITIONS.some(other => other.name === competition.name)) ?
       HANDBALNL_INTEGRATION :
-      HB_INTEGRATION
+      (SHL_BASED_COMPETITIONS.some(other => other.name == competition.name)) ?
+        SHL_INTEGRATION : HB_INTEGRATION
 }
 
 class CompetitionService {
@@ -95,7 +110,15 @@ class CompetitionService {
       const weekNumber = getWeekNumberForGamesOverview(start_date, game.date)
       gameweeks[weekNumber] && gameweeks[weekNumber].push(game)
     })
-
+    gameweeks.forEach((week) => {
+      week.sort((game1, game2) =>
+         game1.date.localeCompare(game2.date) !== 0 ?
+          game1.date.localeCompare(game2.date) :
+          game1.time && game2.time ?
+            game1.time.localeCompare(game2.time) :
+            0
+        )
+    })
     return gameweeks
   }
 

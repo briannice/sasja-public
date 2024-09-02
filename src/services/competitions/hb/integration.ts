@@ -1,9 +1,9 @@
 import { GameModel, RankModel, TeamCompetition } from '@/types/models'
-import { CompetitionIntegration } from '@/services/competitions/competition'
 import { getDateRangeForGamesOverview } from '@/utils/date'
 import { HandballBelgiumApi } from '@/services/competitions/hb/index'
 import { cleanGameNumber } from '@/utils/game'
 import { GamedetailIntegration } from '@/services/competitions/gamedetail'
+import { CompetitionIntegration } from '@/services/competitions/competition'
 
 export class HBCompetitionIntegration implements CompetitionIntegration, GamedetailIntegration {
 

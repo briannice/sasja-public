@@ -1,5 +1,5 @@
 import { GameModel, RankModel, TeamCompetition } from '@/types/models'
-import { CompetitionIntegration } from '@/services/competitions/competition'
+import { AbstractCompetitionIntegration } from '@/services/competitions/abstract/integration'
 import {
   handbalNlService,
   teamService,
@@ -7,19 +7,9 @@ import {
   venueService,
 } from '@/services/competitions/handbalnl/index'
 import * as xlsx from 'xlsx'
-import { getDateRangeForGamesOverview } from '@/utils/date'
-import { HANDBALNL_BASED_COMPETITIONS } from '@/services/competitions/handbalnl/competitions'
+import { HANDBALNL_BASED_COMPETITIONS } from '@/services/competitions/competition'
 
-export class HandbalNlCompetitionIntegration implements CompetitionIntegration {
-
-  public async getCompetitionCalendar(competition: TeamCompetition): Promise<GameModel[]> {
-    return this.getCompetitionCalendarFull(competition)
-      .then((games) =>
-        games.filter((game) => {
-          return this.isSasjaGame(game.home_name, game.away_name)
-        }),
-      )
-  }
+export class HandbalNlCompetitionIntegration extends AbstractCompetitionIntegration {
 
   public async getCompetitionCalendarFull(competition: TeamCompetition): Promise<GameModel[]> {
     const data = await handbalNlService.retrieveData('programma')
@@ -72,41 +62,8 @@ export class HandbalNlCompetitionIntegration implements CompetitionIntegration {
 
   }
 
-  public async getFutureGames(): Promise<GameModel[]> {
-    const [start_date] = getDateRangeForGamesOverview(0)
-    const games = await Promise.all(
-      HANDBALNL_BASED_COMPETITIONS.map((competition) =>
-        this.getCompetitionCalendar(competition)),
-    )
-    return games
-      .flat()
-      .filter((game) => {
-          return this.isSasjaGame(game.home_name, game.away_name)
-        },
-      )
-      .filter((game) => {
-          return new Date(game.date).getTime() >= new Date(start_date).getTime()
-        },
-      )
-  }
-
-  private isSasjaGame(home: string, away: string): boolean {
-    return [home, away].some((name) => name && name.toLowerCase().includes('sasja'))
-  }
-
-  public async getGameWeeks(weeks: number): Promise<GameModel[]> {
-    const [start_date, end_date] = getDateRangeForGamesOverview(weeks)
-    const games = await Promise.all(
-      HANDBALNL_BASED_COMPETITIONS.map((competition) =>
-        this.getCompetitionCalendar(competition)),
-    )
-    return games
-      .flat()
-      .filter((game) => {
-          const gameDate = new Date(game.date).getTime()
-          return gameDate >= new Date(start_date).getTime() && gameDate <= new Date(end_date).getTime()
-        },
-      )
+  public getAllCompetitions(): TeamCompetition[] {
+    return HANDBALNL_BASED_COMPETITIONS
   }
 
   public async getCompetitionRanking(): Promise<RankModel[]> {

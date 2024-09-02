@@ -2,7 +2,8 @@ import axios from 'axios'
 import fs from 'fs'
 import path from 'path'
 import yaml from 'js-yaml'
-import { RETRIEVE_LIVE_DATA } from '@/services/competitions/handbalnl/competitions'
+
+export const RETRIEVE_LIVE_DATA = false
 
 interface Team {
   name: string;
