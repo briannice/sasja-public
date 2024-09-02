@@ -12,12 +12,10 @@ const SHL = {
   ranking: true,
 } as TeamCompetition
 
-export const FILE_BASED_COMPETITIONS: TeamCompetition[] = [
-]
-export const HANDBALNL_BASED_COMPETITIONS: TeamCompetition[] = [
-  SHL
-]
+export const FILE_BASED_COMPETITIONS: TeamCompetition[] = []
+export const HANDBALNL_BASED_COMPETITIONS: TeamCompetition[] = []
 export const SHL_BASED_COMPETITIONS: TeamCompetition[] = [
+  SHL,
 ]
 
 export interface CompetitionIntegration {
@@ -68,7 +66,12 @@ class CompetitionService {
   }
 
   public async getFutureGames(): Promise<GameDay[]> {
-    const games = await Promise.all([HB_INTEGRATION.getFutureGames(), FILEBASED_INTEGRATION.getFutureGames(), HANDBALNL_INTEGRATION.getFutureGames()])
+    const games = await Promise.all([
+      HB_INTEGRATION.getFutureGames(),
+      FILEBASED_INTEGRATION.getFutureGames(),
+      HANDBALNL_INTEGRATION.getFutureGames(),
+      SHL_INTEGRATION.getFutureGames(),
+    ])
     const gamesByDate = games
       .flat()
       .reduce((acc, game) => {
@@ -104,6 +107,7 @@ class CompetitionService {
         HB_INTEGRATION.getGameWeeks(weeks),
         FILEBASED_INTEGRATION.getGameWeeks(weeks),
         HANDBALNL_INTEGRATION.getGameWeeks(weeks),
+        SHL_INTEGRATION.getGameWeeks(weeks),
       ],
     )
     games.flat().forEach((game) => {
@@ -112,12 +116,12 @@ class CompetitionService {
     })
     gameweeks.forEach((week) => {
       week.sort((game1, game2) =>
-         game1.date.localeCompare(game2.date) !== 0 ?
+        game1.date.localeCompare(game2.date) !== 0 ?
           game1.date.localeCompare(game2.date) :
-          game1.time && game2.time ?
+          (game1.time && game2.time ?
             game1.time.localeCompare(game2.time) :
-            0
-        )
+            0),
+      )
     })
     return gameweeks
   }
