@@ -59,9 +59,9 @@ export class SuperHandballLeageCompetitionIntegration extends AbstractCompetitio
 
     return data.map((e: any) => ({
       id: '',
-      name: this.teamService.getName(e.name),
-      short: this.teamService.getShortName(e.name),
-      logo: this.teamService.getLogo(e.name),
+      name: this.teamService.getName(lookupTeam(e.name)),
+      short: this.teamService.getShortName(lookupTeam(e.name)),
+      logo: this.teamService.getLogo(lookupTeam(e.name)),
       played: e.games,
       wins: e.wins,
       losses: e.losses,
