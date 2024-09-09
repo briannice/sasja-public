@@ -17,7 +17,27 @@ export class HandbalNlCompetitionIntegration extends AbstractCompetitionIntegrat
   private venueService = new VenueService(path.join(process.cwd(), 'static/handbalnl/venues.yaml'))
 
   public async getCompetitionCalendarFull(competition: TeamCompetition): Promise<GameModel[]> {
-    const data = await handbalNlService.retrieveData('programma')
+    const games = await Promise.all([
+      this.getCompetitionCalendarPart(competition, 'uitslagen'),
+      this.getCompetitionCalendarPart(competition, 'programma'),
+    ])
+    return [
+      ...games[0], // played games
+      ...games[1]
+        .filter(futureGame => // future games, filtering out games that are already in played games
+          !games[0].some(playedGame => playedGame.game_number === futureGame.game_number),
+        ),
+    ].sort((game1, game2) =>
+      game1.date.localeCompare(game2.date) !== 0 ?
+        game1.date.localeCompare(game2.date) :
+        (game1.time && game2.time ?
+          game1.time.localeCompare(game2.time) :
+          0),
+    )
+  }
+
+  private async getCompetitionCalendarPart(competition: TeamCompetition, tab: string): Promise<GameModel[]> {
+    const data = await handbalNlService.retrieveData(tab)
 
     if (data.byteLength === 0) return []
 
@@ -36,20 +56,20 @@ export class HandbalNlCompetitionIntegration extends AbstractCompetitionIntegrat
         venue_id: 0,
         home_id: 0,
         away_id: 0,
-        home_score: 0,
-        away_score: 0,
+        home_score: (gameRow.Uitslagen ?? '').includes('-') ? parseInt(gameRow.Uitslagen.split('-')[0]) : 0,
+        away_score: (gameRow.Uitslagen ?? '').includes('-') ? parseInt(gameRow.Uitslagen.split('-')[1]) : 0,
         game_status_id: 0,
-        score_status_id: 0,
+        score_status_id: (gameRow.Uitslagen ?? '').includes('-') ? 1 : 0,
         home_name: this.teamService.getName(lookupTeam(gameRow['Thuis team'])),
         home_short: this.teamService.getShortName(lookupTeam(gameRow['Thuis team'])),
         away_name: this.teamService.getName(lookupTeam(gameRow['Uit team'])),
         away_short: this.teamService.getShortName(lookupTeam(gameRow['Uit team'])),
         home_logo: this.teamService.getLogo(lookupTeam(gameRow['Thuis team'])),
         away_logo: this.teamService.getLogo(lookupTeam(gameRow['Uit team'])),
-        venue_name: this.venueService.getName(gameRow.Accommodatie),
-        venue_short: this.venueService.getShortName(gameRow.Accommodatie),
-        venue_city: this.venueService.getCity(gameRow.Accommodatie),
-        game_number: '', // gameRow.Wedstrijdnr,
+        venue_name: this.venueService.getName((gameRow.Accommodatie ?? '').trim()),
+        venue_short: this.venueService.getShortName((gameRow.Accommodatie ?? '').trim()),
+        venue_city: this.venueService.getCity((gameRow.Accommodatie ?? '').trim()),
+        game_number: gameRow.Wedstrijdnr,
         serie_id: competition.serieId,
         serie_name: competition.name,
         serie_short: competition.name,
@@ -58,8 +78,8 @@ export class HandbalNlCompetitionIntegration extends AbstractCompetitionIntegrat
         home_team_pin: '',
         away_team_pin: '',
         match_code: '',
-        venue_street: this.venueService.getStreet(gameRow.Accommodatie),
-        venue_zip: this.venueService.getZip(gameRow.Accommodatie),
+        venue_street: this.venueService.getStreet((gameRow.Accommodatie ?? '').trim()),
+        venue_zip: this.venueService.getZip((gameRow.Accommodatie ?? '').trim()),
       })
     })
 
