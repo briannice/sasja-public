@@ -103,8 +103,8 @@ const trainings = [
       },
       {
         teams: ['J18'],
-        start: '19u00',
-        end: '20u30',
+        start: '18u30',
+        end: '20u15',
         location: 'Sporthal Sorghvliedt',
       },
     ],
