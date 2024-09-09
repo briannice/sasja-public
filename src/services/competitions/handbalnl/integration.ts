@@ -2,6 +2,7 @@ import { GameModel, RankModel, TeamCompetition } from '@/types/models'
 import { AbstractCompetitionIntegration } from '@/services/competitions/abstract/integration'
 import {
   handbalNlService,
+  lookupTeam,
   toIsoDate,
 } from '@/services/competitions/handbalnl/index'
 import * as xlsx from 'xlsx'
@@ -39,12 +40,12 @@ export class HandbalNlCompetitionIntegration extends AbstractCompetitionIntegrat
         away_score: 0,
         game_status_id: 0,
         score_status_id: 0,
-        home_name: this.teamService.getName(gameRow['Thuis team']),
-        home_short: this.teamService.getShortName(gameRow['Thuis team']),
-        away_name: this.teamService.getName(gameRow['Uit team']),
-        away_short: this.teamService.getShortName(gameRow['Uit team']),
-        home_logo: this.teamService.getLogo(gameRow['Thuis team']),
-        away_logo: this.teamService.getLogo(gameRow['Uit team']),
+        home_name: this.teamService.getName(lookupTeam(gameRow['Thuis team'])),
+        home_short: this.teamService.getShortName(lookupTeam(gameRow['Thuis team'])),
+        away_name: this.teamService.getName(lookupTeam(gameRow['Uit team'])),
+        away_short: this.teamService.getShortName(lookupTeam(gameRow['Uit team'])),
+        home_logo: this.teamService.getLogo(lookupTeam(gameRow['Thuis team'])),
+        away_logo: this.teamService.getLogo(lookupTeam(gameRow['Uit team'])),
         venue_name: this.venueService.getName(gameRow.Accommodatie),
         venue_short: this.venueService.getShortName(gameRow.Accommodatie),
         venue_city: this.venueService.getCity(gameRow.Accommodatie),
@@ -84,9 +85,9 @@ export class HandbalNlCompetitionIntegration extends AbstractCompetitionIntegrat
     handNlRanking.forEach((rankingRow) => {
       ranking.push({
         id: 0,
-        name: this.teamService.getName(rankingRow.Team),
-        short: this.teamService.getShortName(rankingRow.Team),
-        logo: this.teamService.getLogo(rankingRow.Team),
+        name: this.teamService.getName(lookupTeam(rankingRow.Team)),
+        short: this.teamService.getShortName(lookupTeam(rankingRow.Team)),
+        logo: this.teamService.getLogo(lookupTeam(rankingRow.Team)),
         played: rankingRow.Gespeeld,
         wins: rankingRow.Winst,
         losses: rankingRow.Verlies,
