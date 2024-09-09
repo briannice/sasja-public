@@ -23,8 +23,8 @@ export class HandbalNlCompetitionIntegration extends AbstractCompetitionIntegrat
     ])
     return [
       ...games[0], // played games
-      ...games[1]
-        .filter(futureGame => // future games, filtering out games that are already in played games
+      ...games[1] // future games, filtering out games that are already in played games
+        .filter(futureGame =>
           !games[0].some(playedGame => playedGame.game_number === futureGame.game_number),
         ),
     ].sort((game1, game2) =>
