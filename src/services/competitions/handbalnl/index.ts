@@ -1,8 +1,10 @@
 import axios from 'axios'
 import fs from 'fs'
 import path from 'path'
+import { Mutex } from 'async-mutex'
 
 export const RETRIEVE_LIVE_DATA = false
+const handbalNlMutex = new Mutex()
 
 export function toIsoDate(dateString: string): string {
   if (dateString && dateString.includes('-')) {
@@ -81,34 +83,39 @@ class HandbalNlLiveService implements HandbalNlService {
   public async retrieveData(tab: string): Promise<ArrayBuffer> {
     const cacheKey = `${tab}`
     if (this.isCacheValid(cacheKey)) {
-      console.log(`\nCached response for handbalnl for ${tab} at ${new Date().toISOString()}`)
       return this.cache[cacheKey].data
     }
-    const timeUntilNextApiCall = this.getTimeUntilNextApiCall()
-    if (timeUntilNextApiCall > 0) {
-      await this.delay(timeUntilNextApiCall)
-    }
 
-    const now = Date.now()
-    console.log(`\nMaking call to handbalnl for ${tab} at ${new Date(now).toISOString()}`)
-    this.lastApiCallTime = now
-    const { data, status } = RETRIEVE_LIVE_DATA
-      ? await this.handbalNlApi.post(
-        'export-uitslagen',
-        this.makeFormData(tab),
-        {
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-          },
-          responseType: 'arraybuffer',
-        })
-      : { data: this.readFromFile(tab), status: 200 }
+    const release = await handbalNlMutex.acquire()
+    try {
+      const timeUntilNextApiCall = this.getTimeUntilNextApiCall()
+      if (timeUntilNextApiCall > 0) {
+        await this.delay(timeUntilNextApiCall)
+      }
 
-    if (status === 200) {
-      this.cache[cacheKey] = { data, lastFetched: now }
-      return data
+      const now = Date.now()
+      console.log(`\nMaking call to handbalnl for ${tab} at ${new Date(now).toISOString()}`)
+      this.lastApiCallTime = now
+      const { data, status } = RETRIEVE_LIVE_DATA
+        ? await this.handbalNlApi.post(
+          'export-uitslagen',
+          this.makeFormData(tab),
+          {
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+            },
+            responseType: 'arraybuffer',
+          })
+        : { data: this.readFromFile(tab), status: 200 }
+
+      if (status === 200) {
+        this.cache[cacheKey] = { data, lastFetched: now }
+        return data
+      }
+      return new ArrayBuffer(0)
+    } finally {
+      release()
     }
-    return new ArrayBuffer(0)
   }
 }
 
