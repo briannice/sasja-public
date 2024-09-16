@@ -29,10 +29,11 @@ const nextConfig = {
   },
   reactStrictMode: true,
   swcMinify: true,
-  experimental: {
-    workerThreads: false,
-    cpus: 1
-  }
+  // enable this when using HandballNL caching
+  // experimental: {
+  //   workerThreads: false,
+  //   cpus: 1
+  // }
 }
 
 module.exports = nextConfig

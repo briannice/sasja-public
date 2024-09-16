@@ -1,7 +1,7 @@
 import { AbstractCompetitionIntegration } from '@/services/competitions/abstract/integration'
 import { GameModel, RankModel, TeamCompetition } from '@/types/models'
 import { SHL_BASED_COMPETITIONS } from '@/services/competitions/competition'
-import { lookupTeam, Page, shlService } from '@/services/competitions/shl/index'
+import { lookupTeam, Page, shlService, teamMapping } from '@/services/competitions/shl/index'
 import path from 'path'
 import { TeamService } from '@/services/teams'
 import { VenueService } from '@/services/venues'
@@ -71,26 +71,77 @@ export class SuperHandballLeageCompetitionIntegration extends AbstractCompetitio
   }
 
   public async getCompetitionRanking(): Promise<RankModel[]> {
-    const data = await shlService.retrieveData(Page.STANDING)
+    const data = await shlService.retrieveData(Page.PLAYED_GAMES)
 
     if (data.size === 0) return []
 
-    return data.map((e: any) => ({
-      id: '',
-      name: this.teamService.getName(lookupTeam(e.name)),
-      short: this.teamService.getShortName(lookupTeam(e.name)),
-      logo: this.teamService.getLogo(lookupTeam(e.name)),
-      played: e.games,
-      wins: e.wins,
-      losses: e.losses,
-      draws: e.draws,
-      // scored: e.score_for,
-      // conceded: e.score_against,
-      // difference: e.score_for - e.score_against,
-      points: e.points,
+    const emptyRanking = new Map<string, RankModel>(Array.from(teamMapping.values()).map((fullName) => ([fullName, {
+      id: 0,
+      name: this.teamService.getName(fullName),
+      short: this.teamService.getShortName(fullName),
+      logo: this.teamService.getLogo(fullName),
+      played: 0,
+      wins: 0,
+      losses: 0,
+      draws: 0,
+      scored: 0,
+      conceded: 0,
+      difference: 0,
+      points: 0,
       results: [],
-      position: e.position,
-    })) as RankModel[]
+      position: 0,
+    } as RankModel])))
+
+    const ranking: Map<string, RankModel> = data.reduce((acc: Map<string, RankModel>, game: any) => {
+      const homeRow = acc.get(lookupTeam(game.home_team))!
+      const awayRow = acc.get(lookupTeam(game.away_team))!
+      const winner = game.home_result < game.away_result ? awayRow : (game.home_result > game.away_result ? homeRow : null)
+      const loser = winner == null ? null : (homeRow === winner ? awayRow : homeRow)
+      if(winner == null || loser == null) {
+        homeRow.points++
+        homeRow.draws++
+        homeRow.results.unshift('D')
+        awayRow.points++
+        awayRow.draws++
+        awayRow.results.unshift('D')
+      } else {
+        winner.points += 2
+        winner.wins++
+        winner.results.unshift('W')
+        loser.losses++
+        loser.results.unshift('L')
+      }
+      homeRow.played++
+      homeRow.scored += game.home_result
+      homeRow.conceded += game.away_result
+      awayRow.played++
+      awayRow.scored += game.away_result
+      awayRow.conceded += game.home_result
+
+      homeRow.difference = homeRow.scored - homeRow.conceded
+      awayRow.difference = awayRow.scored - awayRow.conceded
+      return acc;
+    }, emptyRanking);
+
+    let rank = 0
+    return Array.from(ranking.values()).sort((team1: RankModel, team2: RankModel) => {
+      if(team1.points === team2.points) {
+        if(team1.wins === team2.wins) {
+          if (team1.difference === team2.difference) {
+            if (team1.scored === team2.scored) {
+              return team2.name.localeCompare(team1.name)
+            }
+            return team2.scored - team1.scored
+          }
+          return team2.difference - team1.difference
+        }
+        return team2.wins - team1.wins
+      }
+      return team2.points - team1.points;
+    }).map((team) => {
+      team.position = ++rank
+      return team
+    })
   }
 
   public getAllCompetitions(): TeamCompetition[] {
