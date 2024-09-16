@@ -1,7 +1,7 @@
 import { AbstractCompetitionIntegration } from '@/services/competitions/abstract/integration'
 import { GameModel, RankModel, TeamCompetition } from '@/types/models'
 import { SHL_BASED_COMPETITIONS } from '@/services/competitions/competition'
-import { lookupTeam, shlApi } from '@/services/competitions/shl/index'
+import { lookupTeam, Page, shlService } from '@/services/competitions/shl/index'
 import path from 'path'
 import { TeamService } from '@/services/teams'
 import { VenueService } from '@/services/venues'
@@ -12,10 +12,29 @@ export class SuperHandballLeageCompetitionIntegration extends AbstractCompetitio
   private venueService = new VenueService(path.join(process.cwd(), 'static/shl/venues.yaml'))
 
   public async getCompetitionCalendarFull(competition: TeamCompetition): Promise<GameModel[]> {
-    const { data, status } = await shlApi.get(`general/api/sportsuite/match-program/ALL/37674`)
+    const games = await Promise.all([
+      this.getCompetitionCalendarPart(competition, Page.PLAYED_GAMES),
+      this.getCompetitionCalendarPart(competition, Page.FUTURE_GAMES),
+    ])
+    return [
+      ...games[0], // played games
+      ...games[1] // future games, filtering out games that are already in played games
+        .filter(futureGame =>
+          !games[0].some(playedGame => playedGame.game_number === futureGame.game_number),
+        ),
+    ].sort((game1, game2) =>
+      game1.date.localeCompare(game2.date) !== 0 ?
+        game1.date.localeCompare(game2.date) :
+        (game1.time && game2.time ?
+          game1.time.localeCompare(game2.time) :
+          0),
+    )
+  }
 
-    if (status !== 200) return []
+  private async getCompetitionCalendarPart(competition: TeamCompetition, page: Page): Promise<GameModel[]> {
+    const data = await shlService.retrieveData(page)
 
+    if (data.size === 0) return []
     return data.map((e: any) => ({
       id: 0,
       date: this.toIsoDate(e.date),
@@ -23,10 +42,10 @@ export class SuperHandballLeageCompetitionIntegration extends AbstractCompetitio
       venue_id: 0,
       home_id: e.home_team_id,
       away_id: e.away_team_id,
-      home_score: 0,
-      away_score: 0,
+      home_score: e.status === "Gepland" ? 0:e.home_result,
+      away_score: e.status === "Gepland" ? 0:e.away_result,
       game_status_id: 0,
-      score_status_id: 0,
+      score_status_id: e.status === "Gepland" ? 0 : 1,
       home_name: this.teamService.getName(lookupTeam(e.home_team)),
       home_short: this.teamService.getShortName(lookupTeam(e.home_team)),
       away_name: this.teamService.getName(lookupTeam(e.away_team)),
@@ -48,14 +67,13 @@ export class SuperHandballLeageCompetitionIntegration extends AbstractCompetitio
       venue_street: this.venueService.getStreet(this.teamService.getVenue(lookupTeam(e.home_team))),
       venue_zip: this.venueService.getZip(this.teamService.getVenue(lookupTeam(e.home_team))),
     })) as GameModel[]
+
   }
 
-  public async getCompetitionRanking(competition: TeamCompetition): Promise<RankModel[]> {
-    const { data, status } = await shlApi.get(`/general/api/sportsuite/pool-standing/37674`)
+  public async getCompetitionRanking(): Promise<RankModel[]> {
+    const data = await shlService.retrieveData(Page.STANDING)
 
-    competition.name
-
-    if (status !== 200) return []
+    if (data.size === 0) return []
 
     return data.map((e: any) => ({
       id: '',

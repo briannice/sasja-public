@@ -1,25 +1,65 @@
 import axios from 'axios'
+import path from 'path'
+import fs from 'fs'
 
-export const shlApi = axios.create({
-  baseURL: 'https://api.superhandballeague.com/',
-  timeout: 10000,
-  headers: {
-    accept: 'application/json'
+export const RETRIEVE_LIVE_DATA = false
+
+export enum Page {
+  STANDING="/general/api/sportsuite/pool-standing/37674",
+  FUTURE_GAMES="general/api/sportsuite/match-program/ALL/37674",
+  PLAYED_GAMES="general/api/sportsuite/match-result/ALL/37674"
+}
+
+class ShlService {
+  private shlApi = axios.create({
+    baseURL: 'https://api.superhandballeague.com/',
+    timeout: 10000,
+    headers: {
+      accept: 'application/json'
+    }
+  })
+
+  private readFromFile(tab: Page): any {
+    const file = tab === Page.STANDING ? "stand.json" : (tab === Page.FUTURE_GAMES ? "programma.json" : "uitslagen.json")
+    const filePath = path.join(process.cwd(), `static/shl/${file}`)
+    return fs.existsSync(filePath) ? JSON.parse(fs.readFileSync(filePath, 'utf8')) : []
   }
-})
+
+  public async retrieveData(page: Page): Promise<any> {
+    const { data, status } = RETRIEVE_LIVE_DATA
+      ? await this.shlApi.get(page)
+      : { data: this.readFromFile(page), status: 200 }
+      if (status === 200) {
+        return data
+      }
+      return []
+  }
+}
 
 export function lookupTeam(teamName: string) {
-  if (teamName.toLowerCase().includes("aalsmeer")) return "Green Park/Handbal Aalsmeer HS1"
-  if (teamName.toLowerCase().includes("bevo")) return "Herpertz/Bevo HC HS1"
-  if (teamName.toLowerCase().includes("bocholt")) return "Sezoens Achilles Bocholt HS1"
-  if (teamName.toLowerCase().includes("eupen")) return "KTSV Eupen (B) HS1"
-  if (teamName.toLowerCase().includes("houten")) return "LvanRaak Milieu/Handbal Houten HS1"
-  if (teamName.toLowerCase().includes("hurry-up")) return "JD Techniek/ Hurry-up HS1"
-  if (teamName.toLowerCase().includes("pelt")) return "Sporting Pelt HS1"
-  if (teamName.toLowerCase().includes("sasja")) return "Biobest/ Sasja HC HS1"
-  if (teamName.toLowerCase().includes("lions")) return "KEMBIT-LIONS/Sittardia HS1"
-  if (teamName.toLowerCase().includes("hubo")) return "HUBO Handbal HS1"
-  if (teamName.toLowerCase().includes("visé")) return "HC Visé BM HS1"
-  if (teamName.toLowerCase().includes("volendam")) return "KRAS/Volendam HS1"
+  const lowerTeam = teamName.toLowerCase()
+  for (const [k,v] of teamMapping) {
+    if (lowerTeam.includes(k)) {
+      return v
+    }
+  }
   return teamName
 }
+
+const teamMapping = new Map([
+  ["aalsmeer","Green Park/Handbal Aalsmeer HS1"],
+  ["bevo","Herpertz/Bevo HC HS1"],
+  ["bocholt","Sezoens Achilles Bocholt HS1"],
+  ["eupen","KTSV Eupen (B) HS1"],
+  ["houten","LvanRaak Milieu/Handbal Houten HS1"],
+  ["hurry-up","JD Techniek/ Hurry-up HS1"],
+  ["pelt","Sporting Pelt HS1"],
+  ["sasja","Biobest/ Sasja HC HS1"],
+  ["lions","KEMBIT-LIONS/Sittardia HS1"],
+  ["hubo","HUBO Handbal HS1"],
+  ["visé","HC Visé BM HS1"],
+  ["volendam","KRAS/Volendam HS1"]
+])
+
+
+export const shlService = new ShlService()
