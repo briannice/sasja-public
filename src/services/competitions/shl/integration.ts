@@ -93,8 +93,8 @@ export class SuperHandballLeageCompetitionIntegration extends AbstractCompetitio
     } as RankModel])))
 
     const ranking: Map<string, RankModel> = data.reduce((acc: Map<string, RankModel>, game: any) => {
-      const homeRow = acc.get(lookupTeam(game.home_team))!
-      const awayRow = acc.get(lookupTeam(game.away_team))!
+      const homeRow = acc.get(lookupTeam(game.home_team)) as RankModel
+      const awayRow = acc.get(lookupTeam(game.away_team)) as RankModel
       const winner = game.home_result < game.away_result ? awayRow : (game.home_result > game.away_result ? homeRow : null)
       const loser = winner == null ? null : (homeRow === winner ? awayRow : homeRow)
       if(winner == null || loser == null) {
