@@ -2,7 +2,7 @@ import axios from 'axios'
 import path from 'path'
 import fs from 'fs'
 
-export const RETRIEVE_LIVE_DATA = false
+export const RETRIEVE_LIVE_DATA = true
 
 export enum Page {
   RANKING="/general/api/sportsuite/pool-standing/37674",
