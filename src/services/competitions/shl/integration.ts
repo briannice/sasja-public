@@ -44,7 +44,7 @@ export class SuperHandballLeageCompetitionIntegration extends AbstractCompetitio
       away_id: e.away_team_id,
       home_score: e.status === "Gepland" ? 0:e.home_result,
       away_score: e.status === "Gepland" ? 0:e.away_result,
-      game_status_id: 0,
+      game_status_id: e.status === "Gepland" ? 0 : 2,
       score_status_id: e.status === "Gepland" ? 0 : 1,
       home_name: this.teamService.getName(lookupTeam(e.home_team)),
       home_short: this.teamService.getShortName(lookupTeam(e.home_team)),
