@@ -58,7 +58,7 @@ export class HandbalNlCompetitionIntegration extends AbstractCompetitionIntegrat
         away_id: 0,
         home_score: (gameRow.Uitslagen ?? '').includes('-') ? parseInt(gameRow.Uitslagen.split('-')[0]) : 0,
         away_score: (gameRow.Uitslagen ?? '').includes('-') ? parseInt(gameRow.Uitslagen.split('-')[1]) : 0,
-        game_status_id: 0,
+        game_status_id: (gameRow.Uitslagen ?? '').includes('-') ? 2 : 0,
         score_status_id: (gameRow.Uitslagen ?? '').includes('-') ? 1 : 0,
         home_name: this.teamService.getName(lookupTeam(gameRow['Thuis team'])),
         home_short: this.teamService.getShortName(lookupTeam(gameRow['Thuis team'])),
