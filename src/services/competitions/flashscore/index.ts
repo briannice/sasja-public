@@ -20,15 +20,16 @@ export class FlashScoreService {
     let browser = null;
     if (process.env.AWS_LAMBDA_FUNCTION_VERSION) {
       // running on the Vercel platform.
-      const chromium = require('@sparticuz/chromium')
-      chromium.setHeadlessMode = true
-      chromium.setGraphicsMode = false
+      const chromium = require('@sparticuz/chromium-min')
       const puppeteer = require('puppeteer-core')
       browser = await puppeteer.launch({
-        args: chromium.args,
+        args: [...chromium.args, '--hide-scrollbars', '--disable-web-security'],
         defaultViewport: chromium.defaultViewport,
-        executablePath: await chromium.executablePath(),
+        executablePath: await chromium.executablePath(
+          `https://github.com/Sparticuz/chromium/releases/download/v127.0.0/chromium-v127.0.0-pack.tar`
+        ),
         headless: chromium.headless,
+        ignoreHTTPSErrors: true,
       });
     } else {
       // running locally.
