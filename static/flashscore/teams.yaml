@@ -2,47 +2,59 @@ Aalsmeer:
   name: Green Park Aalsmeer
   short: Aalsmeer
   logo: /clubs/aalsmeer.png
-Bevo:
+  venue: Sporthal de Bloemhof
+Bevo HC:
   name: Herpertz Bevo
   short: Bevo
   logo: /clubs/bevo.png
+  venue: De Heuf
 Bocholt:
   name: Sezoens Achilles Bocholt
   short: Bocholt
   logo: uploads/club48/logo.png
+  venue: De Damburg (B)
 Eupen:
   name: KTSV Eupen
   short: Eupen
   logo: uploads/club119/ktsv-eupen-1.jpg
+  venue: Sporthalle Stockbergerweg
 Houten:
   name: Handbal Houten
   short: Houten
   logo: /clubs/houten.png
-Hurry-up:
+  venue: Sporthal The Dome
+Hurry-Up:
   name: Hurry-up
   short: Hurry-up
   logo: /clubs/hurry-up.png
-Pelt:
+  venue: De Eendracht
+Sporting Pelt:
   name: Sporting Pelt
   short: Pelt
   logo: uploads/club14/112-sporting-pelt.png
-Sasja:
+  venue: Dommelhof (B)
+Sasja KV:
   name: BioBest Sasja HC
   short: Sasja HC
   logo: uploads/club24/sasja-goud-png.png
-Lions:
-  name: Limburg Lions Sittardia
+  venue: Sorghvliedt Sporthal (B)
+Limburg Lions:
+  name: Kembit Lions Sittardia
   short: Lions
   logo: /clubs/lions.png
-HUBO:
+  venue: Stadssporthal
+Hubo Handbal:
   name: Hubo Handbal
   short: Hubo
   logo: uploads/club16/image001.jpg
-Visé:
+  venue: Alverberg (B)
+Vise:
   name: HC Visé BM
   short: Visé
   logo: uploads/club94/hc-vis-bm.jpg
-Volendam:
+  venue: Hall Omnisport De Visé (B)
+KRAS/Volendam:
   name: Kras Volendam
   short: Volendam
   logo: /clubs/volendam.png
+  venue: Sporthal Opperdam

@@ -1,9 +1,8 @@
 import { GameDay, GameModel, GameWeek, RankModel, TeamCompetition } from '@/types/models'
 import { getDateRangeForGamesOverview, getWeekNumberForGamesOverview } from '@/utils/date'
-import { FileBasedCompetitionIntegration } from '@/services/competitions/filebased/integration'
-import { HandbalNlCompetitionIntegration } from '@/services/competitions/handbalnl/integration'
 import { HBCompetitionIntegration } from '@/services/competitions/hb/integration'
 import { SuperHandballLeageCompetitionIntegration } from '@/services/competitions/shl/integration'
+import { FlashScoreIntegration } from '@/services/competitions/flashscore/integration'
 
 const SHL = {
   name: 'Super Handball League',
@@ -14,10 +13,10 @@ const SHL = {
 
 export const FILE_BASED_COMPETITIONS: TeamCompetition[] = [
 ]
-export const HANDBALNL_BASED_COMPETITIONS: TeamCompetition[] = [
-]
 export const SHL_BASED_COMPETITIONS: TeamCompetition[] = [
-  SHL,
+]
+export const FLASHSCORE_BASED_COMPETITIONS: TeamCompetition[] = [
+  SHL
 ]
 
 export interface CompetitionIntegration {
@@ -33,15 +32,12 @@ export interface CompetitionIntegration {
 }
 
 const HB_INTEGRATION = new HBCompetitionIntegration()
-const HANDBALNL_INTEGRATION = new HandbalNlCompetitionIntegration()
-const FILEBASED_INTEGRATION = new FileBasedCompetitionIntegration()
+const FLASHSCORE_INTEGRATION = new FlashScoreIntegration()
 const SHL_INTEGRATION = new SuperHandballLeageCompetitionIntegration()
 
 function getCompetitionIntegration(competition: TeamCompetition): CompetitionIntegration {
-  return FILE_BASED_COMPETITIONS.some(other => other.name === competition.name) ?
-    FILEBASED_INTEGRATION :
-    (HANDBALNL_BASED_COMPETITIONS.some(other => other.name === competition.name)) ?
-      HANDBALNL_INTEGRATION :
+  return FLASHSCORE_BASED_COMPETITIONS.some(other => other.name === competition.name) ?
+      FLASHSCORE_INTEGRATION :
       (SHL_BASED_COMPETITIONS.some(other => other.name == competition.name)) ?
         SHL_INTEGRATION : HB_INTEGRATION
 }
@@ -70,8 +66,7 @@ class CompetitionService {
   public async getFutureGames(): Promise<GameDay[]> {
     const games = await Promise.all([
       HB_INTEGRATION.getFutureGames(),
-      FILEBASED_INTEGRATION.getFutureGames(),
-      HANDBALNL_INTEGRATION.getFutureGames(),
+      FLASHSCORE_INTEGRATION.getFutureGames(),
       SHL_INTEGRATION.getFutureGames(),
     ])
     const gamesByDate = games
@@ -107,8 +102,7 @@ class CompetitionService {
 
     const games = await Promise.all([
         HB_INTEGRATION.getGameWeeks(weeks),
-        FILEBASED_INTEGRATION.getGameWeeks(weeks),
-        HANDBALNL_INTEGRATION.getGameWeeks(weeks),
+        FLASHSCORE_INTEGRATION.getGameWeeks(weeks),
         SHL_INTEGRATION.getGameWeeks(weeks),
       ],
     )
