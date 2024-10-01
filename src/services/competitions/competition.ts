@@ -11,12 +11,10 @@ const SHL = {
   ranking: true,
 } as TeamCompetition
 
-export const FILE_BASED_COMPETITIONS: TeamCompetition[] = [
-]
 export const SHL_BASED_COMPETITIONS: TeamCompetition[] = [
+  SHL
 ]
 export const FLASHSCORE_BASED_COMPETITIONS: TeamCompetition[] = [
-  SHL
 ]
 
 export interface CompetitionIntegration {
