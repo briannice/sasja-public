@@ -1,4 +1,3 @@
-import puppeteer from 'puppeteer'
 import { TeamCompetition } from '@/types/models'
 
 export type FlashScoreGame = {
@@ -18,7 +17,25 @@ export class FlashScoreService {
   }
 
   public async getGames(competition: TeamCompetition, page: string): Promise<FlashScoreGame[]> {
-    const browser = await puppeteer.launch()
+    let browser = null;
+    if (process.env.AWS_LAMBDA_FUNCTION_VERSION) {
+      // running on the Vercel platform.
+      const chromium = require('@sparticuz/chromium')
+      chromium.setHeadlessMode = true
+      chromium.setGraphicsMode = false
+      const puppeteer = require('puppeteer-core')
+      browser = await puppeteer.launch({
+        args: chromium.args,
+        defaultViewport: chromium.defaultViewport,
+        executablePath: await chromium.executablePath(),
+        headless: chromium.headless,
+      });
+    } else {
+      // running locally.
+      const puppeteer = require('puppeteer')
+      browser = await puppeteer.launch()
+    }
+
     const browserPage = await browser.newPage()
     await browserPage.goto(`https://www.flashscore.com/handball/europe/${this.getLeague(competition)}/${page}/`)
     const games = await browserPage.evaluate(() => {

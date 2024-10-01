@@ -10,7 +10,8 @@
   "rules": {
     "@typescript-eslint/no-unused-vars": "error",
     "@typescript-eslint/no-explicit-any": "off",
-    "react/display-name": "off"
+    "react/display-name": "off",
+    "@typescript-eslint/no-var-requires": "off"
   },
   "ignorePatterns": ["tailwind.config.js"]
 }
