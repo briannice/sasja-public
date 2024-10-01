@@ -18,7 +18,7 @@ export class FlashScoreService {
 
   public async getGames(competition: TeamCompetition, page: string): Promise<FlashScoreGame[]> {
     let browser = null;
-    if (process.env.AWS_LAMBDA_FUNCTION_VERSION) {
+    // if (process.env.AWS_LAMBDA_FUNCTION_VERSION) {
       // running on the Vercel platform.
       const chromium = require('@sparticuz/chromium-min')
       const puppeteer = require('puppeteer-core')
@@ -31,11 +31,11 @@ export class FlashScoreService {
         headless: chromium.headless,
         ignoreHTTPSErrors: true,
       });
-    } else {
-      // running locally.
-      const puppeteer = require('puppeteer')
-      browser = await puppeteer.launch()
-    }
+    // } else {
+    //   // running locally.
+    //   const puppeteer = require('puppeteer')
+    //   browser = await puppeteer.launch()
+    // }
 
     const browserPage = await browser.newPage()
     await browserPage.goto(`https://www.flashscore.com/handball/europe/${this.getLeague(competition)}/${page}/`)
