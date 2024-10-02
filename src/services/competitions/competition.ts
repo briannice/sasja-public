@@ -12,9 +12,9 @@ const SHL = {
 } as TeamCompetition
 
 export const SHL_BASED_COMPETITIONS: TeamCompetition[] = [
+  SHL
 ]
 export const FLASHSCORE_BASED_COMPETITIONS: TeamCompetition[] = [
-  SHL
 ]
 
 export interface CompetitionIntegration {
