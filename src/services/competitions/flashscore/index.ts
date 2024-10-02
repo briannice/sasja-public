@@ -11,6 +11,8 @@ export type FlashScoreGame = {
   awayScore: number,
 }
 
+// https://gist.github.com/kettanaito/56861aff96e6debc575d522dd03e5725
+// https://github.com/hehehai/headless-try/tree/main
 const localExecutablePath =
   process.platform === 'win32'
     ? 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe'
@@ -52,7 +54,10 @@ export class FlashScoreService {
     try {
       const browserPage = await browser.newPage()
       try {
-        await browserPage.goto(`https://www.flashscore.com/handball/europe/${this.getLeague(competition)}/${page}/`)
+        await browserPage.goto(`https://www.flashscore.com/handball/europe/${this.getLeague(competition)}/${page}/`, {
+          waitUntil: "networkidle2",
+          timeout: 60000,
+        })
         return await browserPage.evaluate(() => {
           return Array.from(document.querySelectorAll(
             '.event__match.event__match--static.event__match--twoLine',
