@@ -33,7 +33,7 @@ export type PlayerModel = BaseModel & {
   lastname: string
   position: string
   description: string
-  backNumber: number
+  backNumber: string
   birthday: string
   registration: string
   public: boolean
