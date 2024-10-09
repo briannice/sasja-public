@@ -287,4 +287,16 @@ html {
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+
+  .team-number {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    background-color: rgba(255, 0, 0, 0.9);
+    color: white;
+    padding: 5px;
+    border-radius: 4px;
+  }
 }
