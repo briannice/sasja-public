@@ -66,7 +66,11 @@ function Game({ game, teams }: { game: GameModel; teams: TeamModel[]}) {
       <div key={game.id} className="card-click p-4" onClick={() => setShowInfo(true)}>
         <div className="flex items-center justify-center">
           <div className="hidden flex-1 pr-4 tablet:block">
-            <p className="text-right text-sm text-dark">{createTime(game.time)}</p>
+            { game.game_status_id == 6 ? (
+              <p className="text-right text-sm text-dark">uitgest.</p>
+            ) : (
+              <p className="text-right text-sm text-dark">{createTime(game.time)}</p>
+            )}
           </div>
           <div>
             <p className="rounded-sm bg-primary px-1.5 py-0.5 font-kanit text-xs text-white">
@@ -79,7 +83,11 @@ function Game({ game, teams }: { game: GameModel; teams: TeamModel[]}) {
         </div>
         <div className="mt-4 flex divide-x divide-primary tablet:hidden">
           <div className="flex-1 pr-4">
-            <p className="text-right text-sm text-dark">{createTime(game.time)}</p>
+            { game.game_status_id == 6 ? (
+              <p className="text-right text-sm text-dark">uitgest.</p>
+            ) : (
+              <p className="text-right text-sm text-dark">{createTime(game.time)}</p>
+            )}
           </div>
           <div className="flex-1 pl-4">
             <p className="text-sm text-dark">{game.venue_name}</p>

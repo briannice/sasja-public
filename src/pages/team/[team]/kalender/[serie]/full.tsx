@@ -107,7 +107,11 @@ function Game({ game }: { game: GameModel;}) {
         <div className="card-click p-4" onClick={() => setShowInfo(true)}>
             <div className="flex items-center justify-center">
                 <div className="hidden flex-1 pr-4 tablet:block">
-                    <p className="text-right text-sm text-dark">{createTime(game.time)}</p>
+                    { game.game_status_id == 6 ? (
+                      <p className="text-right text-sm text-dark">uitgest.</p>
+                    ) : (
+                      <p className="text-right text-sm text-dark">{createTime(game.time)}</p>
+                    )}
                 </div>
                 <div className="flex flex-1 flex-col-reverse items-end tablet:flex-row tablet:items-center tablet:justify-end tablet:space-x-4">
                     <p className="mt-2 text-right font-kanit tablet:mt-0">

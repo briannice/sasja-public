@@ -135,6 +135,8 @@ function Game({ game, teams, showDate }: { game: GameModel; teams: TeamModel[]; 
         </div>
         { game.game_status_id == 2 ? (
             <div className="text-base font-kanit"><p>{game.home_score}-{game.away_score}</p></div>
+        ): game.game_status_id == 6 ? (
+            <div className="text-base font-kanit"><p>uitgst.</p></div>
         ):(
             <div className="text-sm"><p>{formatTime(game.time)}</p></div>
         )}
