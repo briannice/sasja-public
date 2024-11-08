@@ -67,7 +67,7 @@ function Game({ game, teams }: { game: GameModel; teams: TeamModel[]}) {
         <div className="flex items-center justify-center">
           <div className="hidden flex-1 pr-4 tablet:block">
             { game.game_status_id == 6 ? (
-              <p className="text-right text-sm text-dark">uitgest.</p>
+              <p className="text-right text-sm text-dark">uitgst.</p>
             ) : (
               <p className="text-right text-sm text-dark">{createTime(game.time)}</p>
             )}
@@ -84,7 +84,7 @@ function Game({ game, teams }: { game: GameModel; teams: TeamModel[]}) {
         <div className="mt-4 flex divide-x divide-primary tablet:hidden">
           <div className="flex-1 pr-4">
             { game.game_status_id == 6 ? (
-              <p className="text-right text-sm text-dark">uitgest.</p>
+              <p className="text-right text-sm text-dark">uitgst.</p>
             ) : (
               <p className="text-right text-sm text-dark">{createTime(game.time)}</p>
             )}
