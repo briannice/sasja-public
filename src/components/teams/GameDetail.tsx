@@ -115,6 +115,8 @@ export default function GameDetail({ game }: Props) {
                         <div className="flex items-center justify-center space-x-4 font-kanit">
                             { gameDetail.game_status_id == 2 ? (
                                 <p className="text-center desktop:text-3xl text-dark">{gameDetail.home_score}{' - '}{gameDetail.away_score}</p>
+                            ): gameDetail.game_status_id == 6 ? (
+                              <p className="text-center desktop:text-3xl text-dark">Uitgesteld</p>
                             ):(
                                 <p className="text-center desktop:text-3xl text-dark">{createTime(gameDetail.time)}</p>
                             )}

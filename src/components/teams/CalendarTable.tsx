@@ -76,7 +76,11 @@ function Game({ game }: { game: GameModel;}) {
           <time>{createDate(game.date)}</time>
         </td>
         <td>
-          <time>{createTime(game.time)}</time>
+          { game.game_status_id == 6 ? (
+            <time>uitgst.</time>
+          ) : (
+            <time>{createTime(game.time)}</time>
+          )}
         </td>
         <td>
           <p>{game.game_number}</p>
