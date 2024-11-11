@@ -141,6 +141,7 @@
         date: game.date,
         time: game.time,
         serie_name: game.serie_short_name,
+        reference: game.reference,
         home_team: game.home_team_short_name,
         away_team: game.away_team_short_name,
         venue_name: game.venue_name + (game.venue_city ? `, ${game.venue_city} ` : ''),
@@ -309,7 +310,8 @@
     away_team: 'Uitploeg',
     venue_name: 'Locatie',
     referees: 'Scheidsrechters',
-    observer: 'Waarnemer'
+    observer: 'Waarnemer',
+    reference: 'Wedstrijdnummer'
   }
 
   function displayTable(data) {
