@@ -231,7 +231,6 @@
         text: item.name,
         click: function() {
           addEntity(item)
-          toggleSubmitbutton()
           $autocompleteList.empty()
         },
       })
@@ -242,8 +241,9 @@
   }
 
   function addEntity(referee) {
-    $inputField.val('').prop('placeholder', '')
+    $inputField.val('').prop('disabled', true).prop('placeholder', '')
     selectedReferee = referee
+    toggleSubmitbutton()
     const $tag = $('<span class="entity-tag">').text(referee.name);
     const $closeBtn = $('<span class="close-btn">&times;</span>').on('click', function () {
       removeEntity();
@@ -255,6 +255,7 @@
 
   function removeEntity() {
     selectedReferee = null;
+    toggleSubmitbutton()
     $entityContainer.find('.entity-tag').remove();
     $inputField.prop('disabled', false).prop('placeholder', 'Vul een naam in...'); // Re-enable the input
     $inputField.focus(); // Focus back on input
@@ -270,21 +271,18 @@
 
   const handleInput = function() {
     selectedReferee = null
+    toggleSubmitbutton()
     const query = $inputField.val().trim()
 
     if (query.length < MIN_CHARACTERS) {
       $autocompleteList.empty().hide()
-      $autocompleteSpinner.hide()
-      toggleSubmitbutton()
       return
     }
     $autocompleteSpinner.show()
-
     fetchRefereeAutoComplete(query).then(
       results => showSuggestions(results),
     ).then(() => $autocompleteSpinner.hide())
 
-    toggleSubmitbutton()
   }
 
   // Attach input event listener to the input field
