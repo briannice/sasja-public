@@ -22,6 +22,10 @@ const nextConfig = {
         destination: '/static/html/wedstrijdblad.html',
       },
       {
+        source: '/tools/aanduidingen',
+        destination: '/static/html/aanduidingen.html',
+      },
+      {
         source: '/nieuwsbrief',
         destination: '/static/html/nieuwsbrief.html',
       },

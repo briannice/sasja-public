@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aanduidingen Scheidsrechters</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+          crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.css">
+  <style>
+      .entity-tag {
+          display: inline-flex;
+          align-items: center;
+          background-color: #e9ecef;
+          border: 1px solid #ced4da;
+          border-radius: 20px;
+          padding: 5px 10px;
+          margin: 3px;
+      }
+      .entity-tag .close-btn {
+          color: #888;
+          font-size: 0.9rem;
+          margin-left: 8px;
+          cursor: pointer;
+      }
+      .autocomplete-items {
+          border: 1px solid #d4d4d4;
+          max-height: 200px;
+          overflow-y: auto;
+          position: absolute;
+          z-index: 1000;
+          background-color: #fff;
+          width: 100%;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+      }
+
+      .autocomplete-item {
+          padding: 10px;
+          cursor: pointer;
+      }
+
+      .autocomplete-item:hover {
+          background-color: #e9ecef;
+      }
+
+      .autocomplete-container {
+          position: relative;
+      }
+
+
+  </style>
+  <script>
+    const bearerToken = 'WP_Access eyJpdiI6Ikdoa0VQMkpMdkFQRUFpU0VkRXlTXC9BPT0iLCJ2YWx1ZSI6IktEMG9KRTMxRjMxMlJnKys2RSszV0FQbGxBU0pjZ2l4YnFlWGF4U00wQzRxbVFEcTJyTkVsaFwvcmxDZkVEYWZKIiwibWFjIjoiODg1YjgzMjY4ZmU2MDdhNGFlNmRmNGU4NWQxNTQwMDY2YmU2ZjU2MjY2YzRjZTA1MWRlNTU5NDIwZDQxYmNmMyJ9'
+
+    async function fetchRefereeAutoComplete(input) {
+
+      try {
+        const response = await fetch(`https://admin.handballbelgium.be/lms_league_ws/public/api/v3/ng/referee?filter=${input}&role_type=2&selects=reduced`, {
+          method: 'GET',
+          headers: {
+            'Authorization': `${bearerToken}`,
+            'Content-Type': 'application/json',
+          },
+        })
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`)
+        }
+        let data = (await response.json()).elements
+        data.forEach(ref => {
+          ref['name'] = `${ref.surname} ${ref.firstname}`
+        })
+        data.sort((a, b) => `${a.surname} ${a.firstname}`.localeCompare(`${b.surname} ${b.firstname}`))
+        return data
+      } catch (error) {
+        console.error('Error fetching data:', error)
+        return []
+      }
+    }
+
+    async function fetchFutureGames(selectedReferee) {
+      start_date = '2024-09-01'
+      end_date = '2025-07-01'
+      seasonId = 4
+      try {
+        // Replace with your second API endpoint
+        const response = await fetch(`https://admin.handballbelgium.be/lms_league_ws/public/api/v3/ng/referee/referee-calls?season_id=${seasonId}&referee_member_id=${selectedReferee.id}&sort[0]=date&sort[1]=time&start_date=${start_date}&end_date=${end_date}`, {
+          method: 'GET',
+          headers: {
+            'Authorization': `${bearerToken}`,
+            'Content-Type': 'application/json',
+          },
+        })
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`)
+        }
+        return (await response.json()).elements
+      } catch (error) {
+        console.error('Error fetching details:', error)
+        return []
+      }
+    }
+
+    const FIRST_HALF = ['08', '09', '10', '11', '12']
+    const SEASON_START = 2024
+
+    async function fetchGamesPerMonth(selectedReferee, month) {
+      const year = (FIRST_HALF.includes(month)) ? SEASON_START : SEASON_START + 1
+      const start_date = `${year}-${month}-01`
+      const end_date = `${year}-${month}-31`
+      const seasonId = 4
+      try {
+        // Replace with your second API endpoint
+        const response = await fetch(`https://admin.handballbelgium.be/lms_league_ws/public/api/v1/game/byMyLeague?with_referees=true&season_id=${seasonId}&without_in_preparation=true&sort[0]=date&sort[1]=time&start_date=${start_date}&end_date=${end_date}`, {
+          method: 'GET',
+          headers: {
+            'Authorization': `${bearerToken}`,
+            'Content-Type': 'application/json',
+          },
+        })
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`)
+        }
+        return (await response.json()).elements.filter(game => game.referees.some(ref => ref && ref.member_id === selectedReferee.id))
+      } catch (error) {
+        console.error('Error fetching details:', error)
+        return []
+      }
+    }
+
+    async function fetchGames(selectedReferee, selectedMonth) {
+      apiGames = selectedMonth !== 'future' ? await fetchGamesPerMonth(selectedReferee, selectedMonth) : await fetchFutureGames(selectedReferee)
+      games = apiGames.map(game => ({
+        //     "home_club_logo_img_url": "uploads\/club101\/entente-centre.jpg",
+        //     "away_club_logo_img_url": "uploads\/club123\/waterloo-ash.jpg",
+        date: game.date,
+        time: game.time,
+        serie_name: game.serie_short_name,
+        home_team: game.home_team_short_name,
+        away_team: game.away_team_short_name,
+        venue_name: game.venue_name + (game.venue_city ? `, ${game.venue_city} ` : ''),
+        referees: game.referees.slice(0, 2).filter(ref => ref).map(ref => `${ref.firstname} ${ref.surname}`).join(', '),
+        observer: game.referees.length > 2 ? [game.referees[2]].filter(ref => ref).map(ref => `${ref.firstname} ${ref.surname}`).join(', ') : ""
+      }))
+      return games
+    }
+  </script>
+
+<body>
+<div class="container "><h1>Aanduidingen Scheidsrechters '24-'25</h1></div>
+<div class="container mt-5">
+  <div class="mb-3 position-relative">
+    <div id="entityContainer" class="form-control p-2 d-flex flex-wrap">
+      <input type="text" id="autocompleteInput" class="border-0" placeholder="Vul een naam in..." autocomplete="off" style="flex: 1; min-width: 150px;">
+      <div class="spinner-border float-end rounded-circle" id="autocompleteSpinner" role="status"></div>
+    </div>
+    <div id="autocompleteList" class="autocomplete-items"></div>
+  </div>
+  <div class="mb-3">
+    <label for="monthDropdown" class="form-label">Enkel toekomstige wedstrijden of per maand opzoeken:</label>
+    <select id="monthDropdown" class="form-control">
+      <option value="future" selected>Enkel toekomstige wedstrijden</option>
+      <option value="08">Augustus</option>
+      <option value="09">September</option>
+      <option value="10">Oktober</option>
+      <option value="11">November</option>
+      <option value="12">December</option>
+      <option value="01">Januari</option>
+      <option value="02">Februari</option>
+      <option value="03">Maart</option>
+      <option value="04">April</option>
+      <option value="05">Mei</option>
+      <option value="06">Juni</option>
+      <option value="07">Juli</option>
+    </select>
+  </div>
+  <button id="submitButton" class="btn btn-primary" disabled>
+    <span class="spinner-border spinner-border-sm rounded-circle" id="loadingSpinner" role="status"
+          aria-hidden="true"></span>
+    Zoeken
+  </button>
+
+  <div class="mt-5">
+    <table class="table table-striped" id="resultTable" style="display:none;">
+      <thead >
+      <tr id="tableHeader"></tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+  const $inputField = $('#autocompleteInput')
+  const $entityContainer = $('#entityContainer');
+  const $autocompleteList = $('#autocompleteList')
+  const $autocompleteSpinner = $('#autocompleteSpinner')
+  const $submitButton = $('#submitButton')
+  const $monthDropdown = $('#monthDropdown')
+  const $resultTable = $('#resultTable')
+  const $loadingSpinner = $('#loadingSpinner')
+  const MIN_CHARACTERS = 3 // Minimum characters required to trigger API call
+  const DEBOUNCE_DELAY = 300 // Debounce delay in milliseconds
+  let selectedReferee = null
+
+  // Debounce function to limit API calls
+  function debounce(func, delay) {
+    let timeout
+    return function(...args) {
+      clearTimeout(timeout)
+      timeout = setTimeout(() => func.apply(this, args), delay)
+    }
+  }
+
+  function showSuggestions(suggestions) {
+    $autocompleteList.empty()
+
+    if (!suggestions || suggestions.length === 0) {
+      $autocompleteList.hide()
+      return
+    }
+
+    suggestions.forEach(function(item) {
+      const $listItem = $('<div>', {
+        class: 'autocomplete-item',
+        text: item.name,
+        click: function() {
+          addEntity(item)
+          toggleSubmitbutton()
+          $autocompleteList.empty()
+        },
+      })
+      $autocompleteList.append($listItem)
+    })
+
+    $autocompleteList.show()
+  }
+
+  function addEntity(referee) {
+    $inputField.val('').prop('placeholder', '')
+    selectedReferee = referee
+    const $tag = $('<span class="entity-tag">').text(referee.name);
+    const $closeBtn = $('<span class="close-btn">&times;</span>').on('click', function () {
+      removeEntity();
+    });
+
+    $tag.append($closeBtn);
+    $inputField.before($tag);
+  }
+
+  function removeEntity() {
+    selectedReferee = null;
+    $entityContainer.find('.entity-tag').remove();
+    $inputField.prop('disabled', false).prop('placeholder', 'Vul een naam in...'); // Re-enable the input
+    $inputField.focus(); // Focus back on input
+  }
+
+  function toggleSubmitbutton() {
+    if (selectedReferee) {
+      $submitButton.prop('disabled', false)
+    } else {
+      $submitButton.prop('disabled', true)
+    }
+  }
+
+  const handleInput = function() {
+    selectedReferee = null
+    const query = $inputField.val().trim()
+
+    if (query.length < MIN_CHARACTERS) {
+      $autocompleteList.empty().hide()
+      $autocompleteSpinner.hide()
+      toggleSubmitbutton()
+      return
+    }
+    $autocompleteSpinner.show()
+
+    fetchRefereeAutoComplete(query).then(
+      results => showSuggestions(results),
+    ).then(() => $autocompleteSpinner.hide())
+
+    toggleSubmitbutton()
+  }
+
+  // Attach input event listener to the input field
+  $inputField.on('input', debounce(handleInput, DEBOUNCE_DELAY))
+
+  $inputField.on('focus', function() {
+    if (!selectedReferee) {
+      handleInput()
+    }
+  })
+
+
+  $(document).on('click', function(e) {
+    if (!$(e.target).closest('#autocompleteInput').length) {
+      $autocompleteList.empty().hide()
+    }
+  })
+  // Dictionary to map original header keys to display-friendly names
+  const headerMappings = {
+    date: 'Datum',
+    time: 'Time',
+    serie_name: 'Reeks',
+    home_team: 'Gasten',
+    away_team: 'Bezoekers',
+    venue_name: 'Locatie',
+    referees: 'Scheidsrechters',
+    observer: 'Waarnemer'
+  }
+
+  function displayTable(data) {
+    const $tableHeader = $('#tableHeader')
+    const $tableBody = $('#tableBody')
+
+    $tableHeader.empty()
+    $tableBody.empty()
+
+    if (!data || data.length === 0) {
+      $tableHeader.append(`<th>Geen wedstrijden gevonden</th>`)
+      $resultTable.show()
+      return
+    }
+
+    const headers = Object.keys(data[0])
+    const displayHeaders = headers.map(header => headerMappings[header] || header)
+    displayHeaders.forEach(key => {
+      $tableHeader.append(`<th>${key}</th>`)
+    })
+
+    // Populate table rows
+    data.forEach(item => {
+      const $row = $('<tr>')
+      headers.forEach(key => {
+        $row.append(`<td>${item[key]}</td>`)
+      })
+      $tableBody.append($row)
+    })
+
+    $resultTable.show()
+  }
+
+  $monthDropdown.on('change', function() {
+    toggleSubmitbutton()
+  })
+
+  $submitButton.on('click', function() {
+    const button = $(this)
+    const spinner = button.find('.spinner-border')
+    const buttonText = button.find('.button-text')
+    button.prop('disabled', true)
+    buttonText.text('Zoeken...')
+    spinner.show()
+
+    const selectedMonth = $monthDropdown.val()
+    fetchGames(selectedReferee, selectedMonth).then(
+      details => displayTable(details),
+    ).finally(() => {
+        buttonText.text('Zoeken')
+        spinner.hide()
+      },
+    )
+  })
+
+  $(document).ready(function() {
+    $autocompleteList.empty().hide()
+    $autocompleteSpinner.hide()
+    $loadingSpinner.hide()
+  })
+</script>
+</body>
+</html>
