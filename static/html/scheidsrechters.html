@@ -89,7 +89,7 @@
       seasonId = 4
       try {
         // Replace with your second API endpoint
-        const response = await fetch(`https://admin.handballbelgium.be/lms_league_ws/public/api/v3/ng/referee/referee-calls?season_id=${seasonId}&referee_member_id=${selectedReferee.id}&start_date=${start_date}&end_date=${end_date}`, {
+        const response = await fetch(`https://admin.handballbelgium.be/lms_league_ws/public/api/v3/ng/referee/referee-calls?season_id=${seasonId}&referee_member_id=${selectedReferee.id}&sort[0]=date&sort[1]=time&start_date=${start_date}&end_date=${end_date}`, {
           method: 'GET',
           headers: {
             'Authorization': `${bearerToken}`,
@@ -144,14 +144,15 @@
         home_team: game.home_team_short_name,
         away_team: game.away_team_short_name,
         venue_name: game.venue_name + (game.venue_city ? `, ${game.venue_city} ` : ''),
-        referees: game.referees.filter(ref => ref).map(ref => `${ref.firstname} ${ref.surname}`).join(', '),
+        referees: game.referees.slice(0, 2).filter(ref => ref).map(ref => `${ref.firstname} ${ref.surname}`).join(', '),
+        observer: game.referees.length > 2 ? [game.referees[2]].filter(ref => ref).map(ref => `${ref.firstname} ${ref.surname}`).join(', ') : ""
       }))
       return games
     }
   </script>
 
 <body>
-<div class="container "><h1>Aanduidingen Scheidsrechters</h1></div>
+<div class="container "><h1>Aanduidingen Scheidsrechters '24-'25</h1></div>
 <div class="container mt-5">
   <div class="mb-3 position-relative">
     <div id="entityContainer" class="form-control p-2 d-flex flex-wrap">
@@ -310,7 +311,7 @@
     away_team: 'Bezoekers',
     venue_name: 'Locatie',
     referees: 'Scheidsrechters',
-
+    observer: 'Waarnemer'
   }
 
   function displayTable(data) {
