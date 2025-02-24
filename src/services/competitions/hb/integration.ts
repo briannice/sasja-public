@@ -1,6 +1,6 @@
 import { GameModel, RankModel, TeamCompetition } from '@/types/models'
 import { getDateRangeForGamesOverview } from '@/utils/date'
-import { HandballBelgiumApi } from '@/services/competitions/hb/index'
+import { HandballBelgiumApi, SecureHandballBelgiumAPI } from '@/services/competitions/hb/index'
 import { cleanGameNumber } from '@/utils/game'
 import { GamedetailIntegration } from '@/services/competitions/gamedetail'
 import { CompetitionIntegration } from '@/services/competitions/competition'
@@ -73,9 +73,10 @@ export class HBCompetitionIntegration implements CompetitionIntegration, Gamedet
     return ranking
   }
 
-  public async getGameDetail(game: GameModel): Promise<GameModel> {
+  public async getGameDetail(game: GameModel, isAuthenticated: boolean): Promise<GameModel> {
     const referees = game.referees
-    const { data, status } = await HandballBelgiumApi.get(
+    const hbApi = isAuthenticated ? SecureHandballBelgiumAPI : HandballBelgiumApi
+    const { data, status } = await hbApi.get(
       `ng/game/${game.id}`,
     )
     if (status !== 200) return game
@@ -106,9 +107,9 @@ export class HBCompetitionIntegration implements CompetitionIntegration, Gamedet
       serie_short: data.data.serie_short_name,
       referees: referees,
       has_detail: true,
-      home_team_pin: data.data.home_team_pin || '',
-      away_team_pin: data.data.away_team_pin || '',
-      match_code: data.data.code || '',
+      home_team_pin: (data.data.home_team_pin == '-' ? '\u20E0' : data.data.home_team_pin) || '\u20E0',
+      away_team_pin: (data.data.away_team_pin == '-' ? '\u20E0' : data.data.away_team_pin) || '\u20E0',
+      match_code: data.data.code || '\u20E0',
       venue_street: data.data.venue_street,
       venue_zip: data.data.venue_zip,
     }

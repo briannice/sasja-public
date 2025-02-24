@@ -4,7 +4,7 @@ import {formatDate, getMonthFromDate, getWeekDayFromDate} from "@/utils/date";
 import ClubLogo from "@/components/teams/ClubLogo";
 import {GiWhistle} from "react-icons/gi";
 import {FaMapMarkerAlt, FaWaze} from "react-icons/fa";
-import {AiOutlineCar, AiOutlineFieldNumber, AiOutlineHome} from "react-icons/ai";
+import { AiFillLock, AiFillUnlock, AiOutlineCar, AiOutlineFieldNumber, AiOutlineHome } from 'react-icons/ai'
 import { gameDetailService } from '@/services/competitions/gamedetail'
 import useAuthentication from "@/utils/auth";
 import Link from "@/components/Link";
@@ -25,11 +25,11 @@ export default function GameDetail({ game }: Props) {
 
     useEffect(() => {
         const getAndSetGame = async () => {
-            setGameDetail(await gameDetailService.getGameDetail(game))
+            setGameDetail(await gameDetailService.getGameDetail(game, isAuthenticated()))
             isLoading(false)
         }
         getAndSetGame();
-    },[game])
+    },[game, isAuthenticated])
 
     useEffect(() => {
         function handleResize() {
@@ -129,13 +129,24 @@ export default function GameDetail({ game }: Props) {
                     <div>
                         <div className="flex items-center justify-center"><AiOutlineFieldNumber/></div>
                         <div className="flex items-center justify-center space-x-1 text-sm">{gameDetail.game_number}</div>
+                    </div>
+                    <div className="m-5">
                         {isAuthenticated()?
-                            <div>
-                                <div className="flex items-center justify-center space-x-1 text-sm">{gameDetail.match_code}</div>
-                                <div className="flex items-center justify-center space-x-1 text-sm"><AiOutlineHome/><span/>{gameDetail.home_team_pin} | {gameDetail.away_team_pin}<AiOutlineCar/><span/></div>
-                            </div>
+                            <>
+                                <div className="flex items-center justify-center"><AiFillUnlock/></div>
+                                <div>
+                                    <div
+                                      className="flex items-center justify-center space-x-1 text-sm">{gameDetail.match_code == '\u20E0' ? 'Geen gegevens beschikbaar' : gameDetail.match_code}</div>
+                                    <div className="flex items-center justify-center space-x-1 text-sm">
+                                        <AiOutlineHome /><span />{gameDetail.home_team_pin} | {gameDetail.away_team_pin}<AiOutlineCar /><span />
+                                    </div>
+                                </div>
+                            </>
                             :
-                            <div className="flex items-center justify-center space-x-1 text-sm">(Log in voor meer informatie)</div>
+                            <>
+                                <div className="flex items-center justify-center"><AiFillLock/></div>
+                                <div className="flex items-center justify-center space-x-1 text-sm">(Log in voor meer informatie)</div>
+                            </>
                         }
                     </div>
                     <div className="m-5">

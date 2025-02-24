@@ -61,9 +61,9 @@ export class SuperHandballLeageCompetitionIntegration extends AbstractCompetitio
       serie_short: competition.name,
       referees: [],
       has_detail: true,
-      home_team_pin: '',
-      away_team_pin: '',
-      match_code: '',
+      home_team_pin: '\u20E0',
+      away_team_pin: '\u20E0',
+      match_code: '\u20E0',
       venue_street: this.venueService.getStreet(this.teamService.getVenue(lookupTeam(e.home_team))),
       venue_zip: this.venueService.getZip(this.teamService.getVenue(lookupTeam(e.home_team))),
     })) as GameModel[]
