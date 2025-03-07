@@ -26,7 +26,9 @@ export default function EventCard({ event }: Props) {
     <Link href={`/evenement/${event.id}`} className="card card-click card-col-1">
       <section className="flex h-full flex-col">
         <figure className="relative h-full">
-          {image && <Image src={image} alt="Nieuws banner." layout="fill" objectFit="cover" />}
+          {image && (
+            <Image src={image} alt="Nieuws banner." layout="fill" objectFit="cover" unoptimized />
+          )}
         </figure>
         <div className="absolute inset-0 bg-black bg-opacity-40" />
         <div className="absolute -inset-x-5 top-5 -rotate-2 bg-primary py-2">

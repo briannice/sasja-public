@@ -1,9 +1,9 @@
 import { db } from '@/services/firebase'
-import { docRefToModel, queryToModels } from '@/services/firebase/firestore'
+import { docRefToModel } from '@/services/firebase/firestore'
 import { downloadDefaultEventImage, downloadImage } from '@/services/firebase/storage'
 import { EventModel } from '@/types/models'
 import { formatDate, getMonthFromDate, getWeekDayFromDate } from '@/utils/date'
-import { collection, doc, query } from 'firebase/firestore'
+import { doc } from 'firebase/firestore'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
@@ -59,7 +59,7 @@ export default function EventDetailPage({ event, image, defaultImage }: Props) {
         </ul>
         {image && (
           <figure>
-            <Image src={image} alt="News image." layout="fill" objectFit="cover" />
+            <Image src={image} alt="News image." layout="fill" objectFit="cover" unoptimized />
           </figure>
         )}
         <div className="cms-content" dangerouslySetInnerHTML={{ __html: event.content }} />
@@ -69,11 +69,11 @@ export default function EventDetailPage({ event, image, defaultImage }: Props) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const events = await queryToModels<EventModel>(query(collection(db, 'events')))
-  const pahts = events.map((event) => ({ params: { id: event.id } }))
+  // const events = await queryToModels<EventModel>(query(collection(db, 'events')))
+  // const pahts = events.map((event) => ({ params: { id: event.id } }))
   return {
-    paths: pahts,
-    fallback: true,
+    paths: [],
+    fallback: 'blocking',
   }
 }
 

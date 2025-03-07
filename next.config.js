@@ -6,7 +6,6 @@ const nextConfig = {
       'admin.handballbelgium.be',
       'avzlamsrtp.cloudimg.io',
     ],
-    unoptimized: true, // Disables built-in image optimization
   },
   async redirects() {
     return [

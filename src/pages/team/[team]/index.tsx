@@ -35,7 +35,9 @@ export default function TeamPage({ competitions, team, initialMatchReports }: Pr
         <h1 className="title1 mt-8">{team.name}</h1>
         <div className="mt-8 flex justify-center">
           <figure className="relative aspect-video w-full tablet:h-80 tablet:w-auto">
-            {image && <Image src={image} alt="Team Image" layout="fill" objectFit="cover" />}
+            {image && (
+              <Image src={image} alt="Team Image" layout="fill" objectFit="cover" unoptimized />
+            )}
           </figure>
         </div>
 
@@ -76,7 +78,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const competitions: Competition[] = []
 
   for (const competition of team.competitions) {
-    const ranking = competition.ranking ? await competitionService.getCompetitionRanking(competition) : []
+    const ranking = competition.ranking
+      ? await competitionService.getCompetitionRanking(competition)
+      : []
     const calendar = await competitionService.getCompetitionCalendar(competition)
 
     competitions.push({

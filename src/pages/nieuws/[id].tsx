@@ -1,9 +1,9 @@
 import { db } from '@/services/firebase'
-import { queryToModels, docRefToModel } from '@/services/firebase/firestore'
+import { docRefToModel } from '@/services/firebase/firestore'
 import { downloadDefaultEventImage, downloadImage } from '@/services/firebase/storage'
 import { NewsModel } from '@/types/models'
 import { formatDate } from '@/utils/date'
-import { collection, doc, query } from 'firebase/firestore'
+import { doc } from 'firebase/firestore'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
@@ -48,7 +48,7 @@ export default function NewsDatailPage({ news, image, defaultImage }: Props) {
         </ul>
         {image && (
           <figure>
-            <Image src={image} alt="News image." layout="fill" objectFit="cover" />
+            <Image src={image} alt="News image." layout="fill" objectFit="cover" unoptimized />
           </figure>
         )}
         <div className="cms-content" dangerouslySetInnerHTML={{ __html: news.content }} />
@@ -58,11 +58,11 @@ export default function NewsDatailPage({ news, image, defaultImage }: Props) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const news = await queryToModels<NewsModel>(query(collection(db, 'news')))
-  const pahts = news.map((news) => ({ params: { id: news.id } }))
+  // const news = await queryToModels<NewsModel>(query(collection(db, 'news')))
+  // const pahts = news.map((news) => ({ params: { id: news.id } }))
   return {
-    paths: pahts,
-    fallback: true,
+    paths: [],
+    fallback: 'blocking',
   }
 }
 

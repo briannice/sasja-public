@@ -8,8 +8,8 @@ import clsx from 'clsx'
 import Image from 'next/image'
 import React, { Fragment, useState } from 'react'
 import { RiArrowDownSLine, RiCloseLine, RiMenuLine } from 'react-icons/ri'
-import TiktokIcon from "@/components/icons/TiktokIcon";
-import Login from "@/components/Login";
+import TiktokIcon from '@/components/icons/TiktokIcon'
+import Login from '@/components/Login'
 
 export default function Header() {
   const [isOpens, setIsOpens] = useState(headerLinks.map(() => false))
@@ -18,7 +18,13 @@ export default function Header() {
     <header className="fixed inset-x-0 top-0 z-40 h-20 bg-white shadow-sm laptop:h-24">
       <nav className="container flex h-full items-center">
         <Link href="/" className="relative block aspect-square h-3/4">
-          <Image src="/logo.png" alt="Logo Sasja HC" layout="fill" objectFit="contain" />
+          <Image
+            src="/logo.png"
+            alt="Logo Sasja HC"
+            layout="fill"
+            objectFit="contain"
+            unoptimized
+          />
         </Link>
         <ul className="ml-auto hidden h-full laptop:flex">
           {headerLinks.map((link) => (
@@ -71,7 +77,9 @@ export default function Header() {
               )}
             </li>
           ))}
-          <li className="group relative h-full"><Login className="relative flex h-full items-center px-8"/></li>
+          <li className="group relative h-full">
+            <Login className="relative flex h-full items-center px-8" />
+          </li>
         </ul>
         <div className="ml-8 hidden flex-col justify-center space-y-2 laptop:flex">
           <a href="https://www.facebook.com/SasjaHC" target="_blank" rel="noreferrer">
@@ -167,7 +175,9 @@ export default function Header() {
                         )}
                       </li>
                     ))}
-                    <li className="block py-3 font-kanit"><Login></Login></li>
+                    <li className="block py-3 font-kanit">
+                      <Login></Login>
+                    </li>
                     <li className="flex space-x-4 pt-5">
                       <a href="https://www.facebook.com/SasjaHC" target="_blank" rel="noreferrer">
                         <FacebookIcon className="h-5 w-5 text-primary" />

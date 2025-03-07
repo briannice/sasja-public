@@ -106,7 +106,13 @@ export default function Sponsors() {
             className="mx-8 my-4 laptop:mx-12 laptop:my-6"
           >
             <figure className={clsx('relative h-12 tablet:h-16 laptop:h-20', sponsor.aspect)}>
-              <Image src={sponsor.path} alt="Sponsor image" layout="fill" objectFit="cover" />
+              <Image
+                src={sponsor.path}
+                alt="Sponsor image"
+                layout="fill"
+                objectFit="cover"
+                unoptimized
+              />
             </figure>
           </a>
         ))}
@@ -121,7 +127,13 @@ export default function Sponsors() {
             className="mx-8 my-4 laptop:mx-12 laptop:my-6"
           >
             <figure className={clsx('relative h-8 tablet:h-10 laptop:h-12', sponsor.aspect)}>
-              <Image src={sponsor.path} alt="Sponsor image" layout="fill" objectFit="cover" />
+              <Image
+                src={sponsor.path}
+                alt="Sponsor image"
+                layout="fill"
+                objectFit="cover"
+                unoptimized
+              />
             </figure>
           </a>
         ))}

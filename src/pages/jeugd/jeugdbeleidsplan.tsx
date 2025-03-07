@@ -60,7 +60,13 @@ export default function Youthplan() {
             </li>
           </ol>
           <figure>
-            <Image src="/jeugd/mazlow.jpg" alt="mazlow" layout="fill" objectFit="contain" />
+            <Image
+              src="/jeugd/mazlow.jpg"
+              alt="mazlow"
+              layout="fill"
+              objectFit="contain"
+              unoptimized
+            />
           </figure>
           <p>
             Begeleiden van de spelers vergt voor elke pijler en elke fase een weldoordacht plan van
@@ -97,7 +103,13 @@ export default function Youthplan() {
             naar Tophandbal of recreatief handbal.
           </p>
           <figure>
-            <Image src="/jeugd/piramide.jpg" alt="mazlow" layout="fill" objectFit="contain" />
+            <Image
+              src="/jeugd/piramide.jpg"
+              alt="mazlow"
+              layout="fill"
+              objectFit="contain"
+              unoptimized
+            />
           </figure>
           <h2>Jeugdwerking, meer dan spelen alleen</h2>
           <p>
@@ -332,7 +344,13 @@ export default function Youthplan() {
             blijven bij de club.
           </p>
           <figure>
-            <Image src="/jeugd/club.jpg" alt="mazlow" layout="fill" objectFit="contain" />
+            <Image
+              src="/jeugd/club.jpg"
+              alt="mazlow"
+              layout="fill"
+              objectFit="contain"
+              unoptimized
+            />
           </figure>
         </div>
       </main>

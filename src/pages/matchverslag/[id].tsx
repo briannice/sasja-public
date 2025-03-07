@@ -1,11 +1,11 @@
 import ClubLogo from '@/components/teams/ClubLogo'
 import { db } from '@/services/firebase'
-import { docRefToModel, queryToModels } from '@/services/firebase/firestore'
+import { docRefToModel } from '@/services/firebase/firestore'
 import { downloadImage } from '@/services/firebase/storage'
 import { MatchReportModel } from '@/types/models'
 import { formatDate } from '@/utils/date'
 import clsx from 'clsx'
-import { collection, doc, query } from 'firebase/firestore'
+import { doc } from 'firebase/firestore'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
@@ -64,7 +64,7 @@ export default function MatchReportDetailPage({ matchReport, image, teamImage }:
         </ul>
         {image && (
           <figure>
-            <Image src={image} alt="News image." layout="fill" objectFit="cover" />
+            <Image src={image} alt="News image." layout="fill" objectFit="cover" unoptimized />
           </figure>
         )}
         <div
@@ -112,12 +112,11 @@ export default function MatchReportDetailPage({ matchReport, image, teamImage }:
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const matchReports = await queryToModels<MatchReportModel>(query(collection(db, 'matchreport')))
-
-  const pahts = matchReports.map((mr) => ({ params: { id: mr.id } }))
+  // const matchReports = await queryToModels<MatchReportModel>(query(collection(db, 'matchreport')))
+  // const pahts = matchReports.map((mr) => ({ params: { id: mr.id } }))
   return {
-    paths: pahts,
-    fallback: true,
+    paths: [],
+    fallback: 'blocking',
   }
 }
 
