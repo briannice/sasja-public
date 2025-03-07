@@ -1,7 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['firebasestorage.googleapis.com', 'admin.handballbelgium.be', 'avzlamsrtp.cloudimg.io'],
+    domains: [
+      'firebasestorage.googleapis.com',
+      'admin.handballbelgium.be',
+      'avzlamsrtp.cloudimg.io',
+    ],
+    unoptimized: true, // Disables built-in image optimization
   },
   async redirects() {
     return [
