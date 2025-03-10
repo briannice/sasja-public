@@ -93,108 +93,110 @@ export default function Header() {
           </a>
         </div>
 
-        <Menu as="div" className="ml-auto block laptop:hidden">
-          {({ open }) => (
-            <>
-              <Menu.Button className="ml-auto">
-                {open ? <RiCloseLine className="h-8 w-8" /> : <RiMenuLine className="h-8 w-8" />}
-              </Menu.Button>
-              <Transition
-                as={Fragment}
-                enter="transition ease-out duration-100"
-                enterFrom="translate-x-full"
-                enterTo="translate-x-0"
-                leave="transition ease-in duration-100"
-                leaveFrom="translate-x-0"
-                leaveTo="translate-x-full"
-              >
-                <Menu.Items
-                  as="div"
-                  className="container fixed top-20 bottom-0 right-0 z-50 overflow-y-scroll bg-white px-8 shadow tablet:w-80"
+        <div className="flex items-center ml-auto laptop:hidden">
+          <Menu as="div" className="order-1">
+            {({ open }) => (
+              <>
+                <Menu.Button className="ml-auto">
+                  {open ? <RiCloseLine className="h-8 w-8" /> : <RiMenuLine className="h-8 w-8" />}
+                </Menu.Button>
+                <Transition
+                  as={Fragment}
+                  enter="transition ease-out duration-100"
+                  enterFrom="translate-x-full"
+                  enterTo="translate-x-0"
+                  leave="transition ease-in duration-100"
+                  leaveFrom="translate-x-0"
+                  leaveTo="translate-x-full"
                 >
-                  <ul className="divide-y divide-light py-8">
-                    {headerLinks.map((link, i) => (
-                      <li key={link.name}>
-                        {link.href ? (
-                          <Menu.Item>
-                            <HeadlessLink
-                              href={link.href}
-                              blank={link.blank}
-                              className="block py-3 font-kanit"
-                            >
-                              {link.name}
-                            </HeadlessLink>
-                          </Menu.Item>
-                        ) : (
-                          link.sublinks && (
-                            <>
-                              <button
-                                onClick={() => {
-                                  const isOpensCopy = [...isOpens]
-                                  isOpensCopy[i] = !isOpensCopy[i]
-                                  setIsOpens(isOpensCopy)
-                                }}
-                                className="flex w-full items-center justify-between py-3"
+                  <Menu.Items
+                    as="div"
+                    className="container fixed top-20 bottom-0 right-0 z-50 overflow-y-scroll bg-white px-8 shadow tablet:w-80"
+                  >
+                    <ul className="divide-y divide-light py-8">
+                      {headerLinks.map((link, i) => (
+                        <li key={link.name}>
+                          {link.href ? (
+                            <Menu.Item>
+                              <HeadlessLink
+                                href={link.href}
+                                blank={link.blank}
+                                className="block py-3 font-kanit"
                               >
-                                <span className="font-kanit">{link.name}</span>
-                                <RiArrowDownSLine
-                                  className={clsx(
-                                    'mt-0.5 h-5 w-5 text-primary transition',
-                                    isOpens[i] ? 'rotate-180' : 'rotate-0'
-                                  )}
-                                />
-                              </button>
-                              <Transition
-                                as={Fragment}
-                                show={isOpens[i]}
-                                enter="transition ease-out duration-100 origin-top"
-                                enterFrom="scale-y-0"
-                                enterTo="scale-y-100"
-                                leave="transition ease-in duration-75 origin-top"
-                                leaveFrom="scale-y-100"
-                                leaveTo="scale-y-0"
-                              >
-                                <ul className="mb-3 flex flex-col border-l border-primary pl-3">
-                                  {link.sublinks.map((sublink) => (
-                                    <li key={sublink.name}>
-                                      <Menu.Item>
-                                        <HeadlessLink
-                                          href={sublink.href}
-                                          blank={sublink.blank}
-                                          className="block py-3 font-kanit text-dark"
-                                        >
-                                          {sublink.name}
-                                        </HeadlessLink>
-                                      </Menu.Item>
-                                    </li>
-                                  ))}
-                                </ul>
-                              </Transition>
-                            </>
-                          )
-                        )}
+                                {link.name}
+                              </HeadlessLink>
+                            </Menu.Item>
+                          ) : (
+                            link.sublinks && (
+                              <>
+                                <button
+                                  onClick={() => {
+                                    const isOpensCopy = [...isOpens]
+                                    isOpensCopy[i] = !isOpensCopy[i]
+                                    setIsOpens(isOpensCopy)
+                                  }}
+                                  className="flex w-full items-center justify-between py-3"
+                                >
+                                  <span className="font-kanit">{link.name}</span>
+                                  <RiArrowDownSLine
+                                    className={clsx(
+                                      'mt-0.5 h-5 w-5 text-primary transition',
+                                      isOpens[i] ? 'rotate-180' : 'rotate-0'
+                                    )}
+                                  />
+                                </button>
+                                <Transition
+                                  as={Fragment}
+                                  show={isOpens[i]}
+                                  enter="transition ease-out duration-100 origin-top"
+                                  enterFrom="scale-y-0"
+                                  enterTo="scale-y-100"
+                                  leave="transition ease-in duration-75 origin-top"
+                                  leaveFrom="scale-y-100"
+                                  leaveTo="scale-y-0"
+                                >
+                                  <ul className="mb-3 flex flex-col border-l border-primary pl-3">
+                                    {link.sublinks.map((sublink) => (
+                                      <li key={sublink.name}>
+                                        <Menu.Item>
+                                          <HeadlessLink
+                                            href={sublink.href}
+                                            blank={sublink.blank}
+                                            className="block py-3 font-kanit text-dark"
+                                          >
+                                            {sublink.name}
+                                          </HeadlessLink>
+                                        </Menu.Item>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </Transition>
+                              </>
+                            )
+                          )}
+                        </li>
+                      ))}
+                      <li className="flex space-x-4 pt-5">
+                        <a href="https://www.facebook.com/SasjaHC" target="_blank" rel="noreferrer">
+                          <FacebookIcon className="h-5 w-5 text-primary" />
+                        </a>
+                        <a href="https://www.instagram.com/sasjahc" target="_blank" rel="noreferrer">
+                          <InstagramIcon className="h-5 w-5 text-primary" />
+                        </a>
+                        <a href="https://www.tiktok.com/@sasja.hc" target="_blank" rel="noreferrer">
+                          <TiktokIcon className="h-5 w-5 text-primary" />
+                        </a>
                       </li>
-                    ))}
-                    <li className="block py-3 font-kanit">
-                      <Login></Login>
-                    </li>
-                    <li className="flex space-x-4 pt-5">
-                      <a href="https://www.facebook.com/SasjaHC" target="_blank" rel="noreferrer">
-                        <FacebookIcon className="h-5 w-5 text-primary" />
-                      </a>
-                      <a href="https://www.instagram.com/sasjahc" target="_blank" rel="noreferrer">
-                        <InstagramIcon className="h-5 w-5 text-primary" />
-                      </a>
-                      <a href="https://www.tiktok.com/@sasja.hc" target="_blank" rel="noreferrer">
-                        <TiktokIcon className="h-5 w-5 text-primary" />
-                      </a>
-                    </li>
-                  </ul>
-                </Menu.Items>
-              </Transition>
-            </>
-          )}
-        </Menu>
+                    </ul>
+                  </Menu.Items>
+                </Transition>
+              </>
+            )}
+          </Menu>
+          <div className="order-2 ml-4">
+            <Login />
+          </div>
+        </div>
       </nav>
     </header>
   )
