@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Referee Assignment Table (Cached, Deduction Column)</title>
+  <style>
+      body { font-family: sans-serif; padding: 1rem; }
+      button { margin-right: 0.5rem; padding: 0.5rem 1rem; font-size: 1rem; }
+      #status, #lastUpdate { display: inline-block; margin-left: 1rem; }
+      progress { vertical-align: middle; width: 200px; margin-left: 1rem; }
+
+      table { border-collapse: collapse; width: 100%; margin-top: 1rem; }
+      th, td { border: 1px solid #aaa; padding: 6px 10px; text-align: center; }
+      table thead th, table thead td { background: #4A90E2; color: #fff; }
+      td.clickable { cursor: pointer; background: #fafafa; }
+      tbody td.totals.green { background: #50E3C2; color: #000; }
+      tbody td.totals.red   { background: #E25050; color: #fff; }
+      tbody td.deducted     { background: #F5A623; color: #000; }
+      tbody td.yellow      { background: #F8E71C; color: #000; }
+      tbody tr:nth-child(even) { background: #f2f2f2; }
+      tbody tr:nth-child(odd)  { background: #fff; }
+
+      #modalOverlay { position: fixed; top:0; left:0; right:0; bottom:0;
+          background: rgba(0,0,0,0.5); display: none;
+          align-items: center; justify-content: center; z-index: 100;
+      }
+      #modal { background: #fff; padding: 1rem; border-radius: 6px;
+          width: 90%; max-width: 600px; max-height: 80vh;
+          display: flex; flex-direction: column;
+      }
+      #modalHeader { display: flex; justify-content: space-between; align-items: center; }
+      #modalHeader h2 { margin: 0; font-size: 1.25rem; }
+      #modalHeader .close { cursor: pointer; font-size: 1.5rem; }
+      #modalList { margin-top: 0.5rem; overflow: auto; flex: 1; }
+      #modalList table { width: 100%; border-collapse: collapse; }
+      #modalList th, #modalList td {
+          border: 1px solid #ccc; padding: 4px 8px;
+          white-space: nowrap; text-align: left;
+      }
+      #modalList th { background: #4A90E2; color: #fff; }
+  </style>
+</head>
+<body>
+<button id="loadBtn">Load Data (Refetch)</button>
+<span id="status"></span>
+<span id="lastUpdate"></span>
+<progress id="progress" value="0" max="11" style="display:none;"></progress>
+<div id="table-container"></div>
+
+<div id="modalOverlay">
+  <div id="modal">
+    <div id="modalHeader">
+      <h2 id="modalTitle"></h2>
+      <span class="close" id="modalClose">&times;</span>
+    </div>
+    <div id="modalList"></div>
+  </div>
+</div>
+
+<script>
+  const bearerToken = 'WP_Access eyJpdiI6Ikdoa0VQMkpMdkFQRUFpU0VkRXlTXC9BPT0iLCJ2YWx1ZSI6IktEMG9KRTMxRjMxMlJnKys2RSszV0FQbGxBU0pjZ2l4YnFlWGF4U00wQzRxbVFEcTJyTkVsaFwvcmxDZkVEYWZKIiwibWFjIjoiODg1YjgzMjY4ZmU2MDdhNGFlNmRmNGU4NWQxNTQwMDY2YmU2ZjU2MjY2YzRjZTA1MWRlNTU5NDIwZDQxYmNmMyJ9'
+  const API_BASE      = 'https://admin.handballbelgium.be/lms_league_ws/public/api/v1/game/byMyLeague';
+  const API_PARAMS    = '?with_referees=true&season_id=4&without_in_preparation=true';
+  const MONTH_NAMES   = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  const SEASON_MONTHS = [7,8,9,10,11,0,1,2,3,4,5];
+  const FETCH_MONTHS  = [7,8,9,10,11,0,1,2,3,4,5];
+  const CACHE_KEY     = 'refereeCache';
+  const TIME_KEY      = 'refereeLastFetch';
+  let refereeData = {};
+
+  async function fetchAllGames() {
+    const games=[];
+    const status = document.getElementById('status');
+    const prog   = document.getElementById('progress');
+    prog.max = FETCH_MONTHS.length; prog.value = 0; prog.style.display = 'inline';
+    for(let i=0; i<FETCH_MONTHS.length; i++){
+      const m=FETCH_MONTHS[i], y=m>=7?2024:2025;
+      const mm=String(m+1).padStart(2,'0');
+      const start=`${y}-${mm}-01`;
+      const endDay=(new Date(y,m+1,0)).getDate();
+      const end=`${y}-${mm}-${endDay}`;
+      status.textContent=`Loading ${MONTH_NAMES[m]} ${y}…`;
+      const res = await fetch(`${API_BASE}${API_PARAMS}&start_date=${start}&end_date=${end}`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `${bearerToken}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      if(!res.ok) throw new Error(res.statusText||res.status);
+      const json = await res.json();
+      games.push(...json.elements);
+      prog.value = i+1;
+    }
+    prog.style.display = 'none';
+    return games;
+  }
+
+  function buildMinimalCache(games) {
+    const cache = {};
+    games.forEach(g => {
+      const m = new Date(g.date).getMonth();
+      (g.referees||[]).forEach(r => {
+        if(!r) return;
+        const name = `${r.surname}, ${r.firstname}`;
+        if(!cache[name]) {
+          cache[name] = { total:0, deductTotal:0, byMonth:{} };
+          SEASON_MONTHS.forEach(mm => cache[name].byMonth[mm] = { count:0, games:[], deduct:0 });
+        }
+        const info = cache[name].byMonth[m];
+        info.count++;
+        info.games.push({ date:g.date, time:g.time, home:g.home_team_name, away:g.away_team_name, division:g.serie_short_name });
+        cache[name].total++;
+      });
+    });
+    // calculate per-month deduct and season total
+    Object.values(cache).forEach(data => {
+      data.deductTotal = 0;
+      for(let m of SEASON_MONTHS) {
+        const info = data.byMonth[m];
+        const byDate = {};
+        info.games.forEach(g=> byDate[g.date] = (byDate[g.date]||0)+1);
+        // days with >3 games deduct all those games
+        const ded = Object.values(byDate).filter(c=>c>3).reduce((s,c)=>s+c,0);
+        info.deduct = ded;
+        data.deductTotal += ded;
+      }
+    });
+    return cache;
+  }
+
+  function renderTable() {
+    const container = document.getElementById('table-container');
+    container.innerHTML = '';
+    const table = document.createElement('table');
+    const thead = table.createTHead();
+    const hrow = thead.insertRow();
+    hrow.insertCell().textContent = 'Referee';
+    hrow.insertCell().textContent = 'Total';
+    const dedHdr = hrow.insertCell(); dedHdr.textContent = '>3 / day';
+    SEASON_MONTHS.forEach(m=> hrow.insertCell().textContent = MONTH_NAMES[m]);
+    const tbody = table.createTBody();
+
+    Object.keys(refereeData).sort().forEach(name => {
+      const data = refereeData[name];
+      const adjTotal = data.total - data.deductTotal;
+      const row = tbody.insertRow();
+      row.insertCell().textContent = name;
+      const tdTot = row.insertCell();
+      tdTot.textContent = adjTotal;
+      tdTot.classList.add('totals', adjTotal>=15?'green':'red');
+      const tdDed = row.insertCell();
+      tdDed.textContent = data.deductTotal;
+      if(data.deductTotal>0) {
+        tdDed.classList.add('deducted','clickable');
+        tdDed.addEventListener('click', ()=> openDeductModal(name));
+      }
+      SEASON_MONTHS.forEach(m => {
+        const info = data.byMonth[m];
+        const cell = row.insertCell();
+        cell.textContent = info.count;
+        if(info.deduct>0) cell.classList.add('yellow');
+        else if(info.count>0) cell.classList.add('clickable');
+        if(info.count>0) cell.addEventListener('click', ()=> openModal(name,m));
+      });
+    });
+    container.appendChild(table);
+  }
+
+  function openModal(name, month) {
+    const list = refereeData[name].byMonth[month].games.slice();
+    list.sort((a,b)=> new Date(a.date+'T'+a.time) - new Date(b.date+'T'+b.time));
+    document.getElementById('modalTitle').textContent = `${name} — ${MONTH_NAMES[month]} (${list.length} game${list.length>1?'s':''})`;
+    renderModalList(list);
+  }
+
+  function openDeductModal(name) {
+    // gather all deducted games across season
+    const allDed = [];
+    SEASON_MONTHS.forEach(m => {
+      const info = refereeData[name].byMonth[m];
+      if(info.deduct>0) {
+        // days with >3 games
+        const byDate = {};
+        info.games.forEach(g=> byDate[g.date] = (byDate[g.date]||[]).concat(g));
+        Object.entries(byDate).forEach(([date, games])=>{
+          if(games.length>3) allDed.push(...games);
+        });
+      }
+    });
+    allDed.sort((a,b)=> new Date(a.date+'T'+a.time) - new Date(b.date+'T'+b.time));
+    document.getElementById('modalTitle').textContent = `${name} — Deductions (${allDed.length} games)`;
+    renderModalList(allDed);
+  }
+
+  function renderModalList(list) {
+    const div = document.getElementById('modalList'); div.innerHTML = '';
+    const tbl = document.createElement('table');
+    const thead2 = tbl.createTHead();
+    const hr = thead2.insertRow();
+    ['Date','Match','Division'].forEach(h=> hr.insertCell().textContent = h);
+    const tb = tbl.createTBody();
+    list.forEach(g=>{
+      const r = tb.insertRow();
+      const dt = new Date(g.date+'T'+g.time).toLocaleString();
+      r.insertCell().textContent = dt;
+      r.insertCell().textContent = `${g.home} vs ${g.away}`;
+      r.insertCell().textContent = g.division;
+    });
+    div.appendChild(tbl);
+    document.getElementById('modalOverlay').style.display = 'flex';
+  }
+
+  function closeModal(){ document.getElementById('modalOverlay').style.display='none'; }
+
+  async function loadAndCache() {
+    document.getElementById('loadBtn').disabled=true;
+    document.getElementById('status').textContent='Fetching…';
+    try {
+      const all = await fetchAllGames();
+      const minimal = buildMinimalCache(all);
+      localStorage.setItem(CACHE_KEY, JSON.stringify(minimal));
+      const now = new Date().toISOString(); localStorage.setItem(TIME_KEY, now);
+      refereeData = minimal;
+      document.getElementById('lastUpdate').textContent = `Last refresh: ${new Date(now).toLocaleString()}`;
+      renderTable();
+      document.getElementById('status').textContent = `Done: ${all.length} games, ${Object.keys(refereeData).length} referees. (cached)`;
+    } catch(err) {
+      document.getElementById('status').textContent='Error: '+err.message;
+    } finally { document.getElementById('loadBtn').disabled=false; }
+  }
+
+  function tryLoadCache() {
+    const raw = localStorage.getItem(CACHE_KEY);
+    const ts  = localStorage.getItem(TIME_KEY);
+    if(raw) {
+      refereeData = JSON.parse(raw);
+      if(ts) document.getElementById('lastUpdate').textContent = `Last refresh: ${new Date(ts).toLocaleString()}`;
+      renderTable();
+      document.getElementById('status').textContent = `Loaded from cache: ${Object.keys(refereeData).length} referees.`;
+    }
+  }
+
+  document.getElementById('loadBtn').addEventListener('click', loadAndCache);
+  document.getElementById('modalClose').addEventListener('click', closeModal);
+  document.getElementById('modalOverlay').addEventListener('click', e=>{ if(e.target.id==='modalOverlay') closeModal(); });
+  tryLoadCache();
+</script>
+</body>
+</html>
