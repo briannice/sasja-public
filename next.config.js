@@ -30,6 +30,10 @@ const nextConfig = {
         destination: '/static/html/aanduidingen.html',
       },
       {
+        source: '/tools/referee_overview',
+        destination: '/static/html/referee_overview.html',
+      },
+      {
         source: '/nieuwsbrief',
         destination: '/static/html/nieuwsbrief.html',
       },
