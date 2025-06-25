@@ -19,7 +19,7 @@ export const getMonthFromDate = (date: string) => {
     'Mei',
     'Juni',
     'Juli',
-    'August',
+    'Augustus',
     'September',
     'Oktober',
     'November',
