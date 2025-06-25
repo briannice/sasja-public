@@ -70,9 +70,9 @@ class CompetitionService {
   public async getFutureGames(): Promise<GameDay[]> {
     const games = await Promise.all([
       HB_INTEGRATION.getFutureGames(),
-      FILEBASED_INTEGRATION.getFutureGames(),
-      HANDBALNL_INTEGRATION.getFutureGames(),
-      SHL_INTEGRATION.getFutureGames(),
+      // FILEBASED_INTEGRATION.getFutureGames(),
+      // HANDBALNL_INTEGRATION.getFutureGames(),
+      // SHL_INTEGRATION.getFutureGames(),
     ])
     const gamesByDate = games
       .flat()
