@@ -170,7 +170,7 @@ export class SuperHandballLeageCompetitionIntegration extends AbstractCompetitio
       const [, date, monthName] = dateString.split(' ')
       const month = months[monthName.toLowerCase()]
 
-      return `${month < '07' ? 2025 : 2024}-${month}-${date}`
+      return `${month < '07' ? 2026 : 2025}-${month}-${date}`
     }
     return ''
   }

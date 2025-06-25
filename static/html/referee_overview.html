@@ -61,7 +61,7 @@
 <script>
   const bearerToken = 'WP_Access eyJpdiI6Ikdoa0VQMkpMdkFQRUFpU0VkRXlTXC9BPT0iLCJ2YWx1ZSI6IktEMG9KRTMxRjMxMlJnKys2RSszV0FQbGxBU0pjZ2l4YnFlWGF4U00wQzRxbVFEcTJyTkVsaFwvcmxDZkVEYWZKIiwibWFjIjoiODg1YjgzMjY4ZmU2MDdhNGFlNmRmNGU4NWQxNTQwMDY2YmU2ZjU2MjY2YzRjZTA1MWRlNTU5NDIwZDQxYmNmMyJ9'
   const API_BASE      = 'https://admin.handballbelgium.be/lms_league_ws/public/api/v1/game/byMyLeague';
-  const API_PARAMS    = '?with_referees=true&season_id=4&without_in_preparation=true';
+  const API_PARAMS    = '?with_referees=true&season_id=5&without_in_preparation=true';
   const MONTH_NAMES   = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
   const SEASON_MONTHS = [7,8,9,10,11,0,1,2,3,4,5];
   const FETCH_MONTHS  = [7,8,9,10,11,0,1,2,3,4,5];
@@ -75,7 +75,7 @@
     const prog   = document.getElementById('progress');
     prog.max = FETCH_MONTHS.length; prog.value = 0; prog.style.display = 'inline';
     for(let i=0; i<FETCH_MONTHS.length; i++){
-      const m=FETCH_MONTHS[i], y=m>=7?2024:2025;
+      const m=FETCH_MONTHS[i], y=m>=7?2025:2026;
       const mm=String(m+1).padStart(2,'0');
       const start=`${y}-${mm}-01`;
       const endDay=(new Date(y,m+1,0)).getDate();
