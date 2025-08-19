@@ -13,6 +13,10 @@ import {HiClipboardDocumentList} from "react-icons/hi2";
 import { HiDocumentDownload, HiExternalLink } from 'react-icons/hi'
 import {FcGoogle} from "react-icons/fc";
 import {RiMicrosoftFill} from "react-icons/ri";
+import useAuthentication from '@/utils/auth'
+import { competitionService } from '@/services/competitions/competition'
+import * as XLSX from 'xlsx'
+import { FaCircleNotch } from 'react-icons/all'
 
 type Props = {
     teams: TeamModel[]
@@ -51,12 +55,56 @@ export default function CalendersPage({teams}: Props) {
         }, 1500);
         return () => clearTimeout(id)
     }
-    const clickExcel = (e: any, team: TeamModel, i: number) => {
+    const {isAuthenticated} = useAuthentication()
+
+    const clickExcel = async (e: any, team: TeamModel, i: number) => {
         e.preventDefault();
-        copylink("https://calendar.google.com/calendar/ical/" + team.calender + "/public/basic.ics")
-        const stateCopy = [...excelCopied]
-        stateCopy[i] = true
-        setExcelCopied(stateCopy)
+        try {
+          const stateCopy = [...excelCopied]
+          stateCopy[i] = true
+          setExcelCopied(stateCopy)
+          const sanitize = (s: string) => s.replace(/[^\w\-]+/g, '_')
+          const wb = XLSX.utils.book_new()
+          for (const competition of team.competitions) {
+            const name = competition.name
+            const downloadCalendar = await competitionService.getCompetitionCalendar(competition, isAuthenticated())
+            const rows = downloadCalendar.map((g) => ({
+              Date: g.date,
+              Time: g.time ?? '',
+              Number: g.game_number,
+              Code: g.match_code,
+              Pin: g.home_team_pin == '' ? g.away_team_pin : g.home_team_pin,
+              Home: g.home_name ?? g.home_short,
+              Away: g.away_name ?? g.away_short,
+              Venue: g.venue_name,
+              City: g.venue_city,
+              Score:
+                g.game_status_id === 2 ? `${g.home_score} - ${g.away_score}` : '',
+            }))
+
+            const ws = XLSX.utils.json_to_sheet(rows)
+            XLSX.utils.book_append_sheet(wb, ws, name)
+          }
+          const buffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' })
+          const blob = new Blob([buffer], {
+            type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+          })
+          const fileName = `${sanitize(team.name)}_kalender.xlsx`
+
+          const url = URL.createObjectURL(blob)
+          const link = document.createElement('a')
+          link.href = url
+          link.download = fileName
+          document.body.appendChild(link)
+          link.click()
+          link.remove()
+          URL.revokeObjectURL(url)
+        } finally {
+          const stateCopy = [...excelCopied]
+          stateCopy[i] = false
+          setExcelCopied(stateCopy)
+        }
+
         const id = setTimeout(() => {
           const stateCopy = [...excelCopiedRef.current]
           stateCopy[i] = false
@@ -102,9 +150,11 @@ export default function CalendersPage({teams}: Props) {
                                     <p>Team</p>
                                 </th>
                                 <th>
-                                    <p>Kalender</p>
+                                    <p>Kalenders</p>
                                 </th>
-
+                                <th>
+                                    <p>Bestanden</p>
+                                </th>
                             </tr>
                             </thead>
                             <tbody>
@@ -129,9 +179,14 @@ export default function CalendersPage({teams}: Props) {
                                                 color="#0072C6"/>{appleCopied[i] ? <GrFormCheckmark/> :
                                                 <HiClipboardDocumentList/>}
                                             </Link>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div className="flex">
                                             <Link className="flex m-2" href="#" onClick={(e) => clickExcel(e, team, i)}>
-                                              <AiFillFileExcel color="#00B050"/>{excelCopied[i] ? <GrFormCheckmark/> :
-                                              <HiDocumentDownload/>}
+                                                <AiFillFileExcel color="#00B050"/>{excelCopied[i] ?
+                                                <FaCircleNotch className="animate-spin text-green-500" />:
+                                                <HiDocumentDownload/>}
                                             </Link>
                                         </div>
                                     </td>
