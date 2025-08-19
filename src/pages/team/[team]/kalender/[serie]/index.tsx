@@ -64,7 +64,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   if (!competition) return { notFound: true }
 
-  const calendar = await competitionService.getCompetitionCalendar(competition)
+  const calendar = await competitionService.getCompetitionCalendar(competition, false)
 
   return {
     props: {
