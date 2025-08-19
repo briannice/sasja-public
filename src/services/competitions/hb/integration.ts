@@ -7,8 +7,9 @@ import { CompetitionIntegration } from '@/services/competitions/competition'
 
 export class HBCompetitionIntegration implements CompetitionIntegration, GamedetailIntegration {
 
-  public async getCompetitionCalendar(competition: TeamCompetition): Promise<GameModel[]> {
-    const { data, status } = await HandballBelgiumApi(
+  public async getCompetitionCalendar(competition: TeamCompetition, isAuthenticated: boolean): Promise<GameModel[]> {
+    const hbApi = isAuthenticated ? SecureHandballBelgiumAPI : HandballBelgiumApi
+    const { data, status } = await hbApi.get(
       `ng/game/byMyLeague?serie_id=${competition.serieId}&club_id=24&with_referees=true&without_in_preparation=true&sort=game_date_time`,
     )
 
@@ -144,6 +145,9 @@ export class HBCompetitionIntegration implements CompetitionIntegration, Gamedet
         firstname: r.firstname || '',
         surname: r.surname || '',
       })),
+      match_code: e.code || '',
+      home_team_pin: (e.home_team_pin == '-' ? '' : e.home_team_pin) || '',
+      away_team_pin: (e.away_team_pin == '-' ? '' : e.away_team_pin) || '',
     }))
   }
 }

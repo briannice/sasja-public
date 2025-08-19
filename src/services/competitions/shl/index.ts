@@ -1,8 +1,5 @@
 import axios from 'axios'
-import path from 'path'
-import fs from 'fs'
 
-export const RETRIEVE_LIVE_DATA = true
 
 export enum Page {
   RANKING="/general/api/sportsuite/pool-standing/37674",
@@ -19,16 +16,9 @@ class ShlService {
     }
   })
 
-  private readFromFile(tab: Page): any {
-    const file = tab === Page.RANKING ? "stand.json" : (tab === Page.FUTURE_GAMES ? "programma.json" : "uitslagen.json")
-    const filePath = path.join(process.cwd(), `static/shl/${file}`)
-    return fs.existsSync(filePath) ? JSON.parse(fs.readFileSync(filePath, 'utf8')) : []
-  }
-
   public async retrieveData(page: Page): Promise<any> {
-    const { data, status } = RETRIEVE_LIVE_DATA
-      ? await this.shlApi.get(page)
-      : { data: this.readFromFile(page), status: 200 }
+    const { data, status } = await this.shlApi.get(page)
+
       if (status === 200) {
         return data
       }
