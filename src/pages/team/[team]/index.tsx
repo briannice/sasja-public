@@ -81,7 +81,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     const ranking = competition.ranking
       ? await competitionService.getCompetitionRanking(competition)
       : []
-    const calendar = await competitionService.getCompetitionCalendar(competition)
+    const calendar = await competitionService.getCompetitionCalendar(competition, false)
 
     competitions.push({
       calendar: calendar,

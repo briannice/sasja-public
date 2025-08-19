@@ -7,10 +7,10 @@ import {TeamModel} from "@/types/models";
 import {collection, getDocs, orderBy, query} from "firebase/firestore";
 import {db} from "@/services/firebase";
 import {GetStaticProps} from "next";
-import {AiFillApple} from "react-icons/ai";
+import { AiFillApple, AiFillFileExcel } from 'react-icons/ai'
 import {GrFormCheckmark} from "react-icons/gr";
 import {HiClipboardDocumentList} from "react-icons/hi2";
-import {HiExternalLink} from "react-icons/hi";
+import { HiDocumentDownload, HiExternalLink } from 'react-icons/hi'
 import {FcGoogle} from "react-icons/fc";
 import {RiMicrosoftFill} from "react-icons/ri";
 
@@ -20,8 +20,10 @@ type Props = {
 export default function CalendersPage({teams}: Props) {
     const appleCopiedRef = useRef(teams.map(() => false));
     const googleCopiedRef = useRef(teams.map(() => false));
+    const excelCopiedRef = useRef(teams.map(() => false));
     const [appleCopied, setAppleCopied] = useState(teams.map(() => false));
     const [googleCopied, setGoogleCopied] = useState(teams.map(() => false));
+    const [excelCopied, setExcelCopied] = useState(teams.map(() => false));
 
     const clickGoogle = (e: any, team: TeamModel, i: number) => {
         e.preventDefault();
@@ -46,6 +48,19 @@ export default function CalendersPage({teams}: Props) {
             const stateCopy = [...appleCopiedRef.current]
             stateCopy[i] = false
             setAppleCopied(stateCopy)
+        }, 1500);
+        return () => clearTimeout(id)
+    }
+    const clickExcel = (e: any, team: TeamModel, i: number) => {
+        e.preventDefault();
+        copylink("https://calendar.google.com/calendar/ical/" + team.calender + "/public/basic.ics")
+        const stateCopy = [...excelCopied]
+        stateCopy[i] = true
+        setExcelCopied(stateCopy)
+        const id = setTimeout(() => {
+          const stateCopy = [...excelCopiedRef.current]
+          stateCopy[i] = false
+          setExcelCopied(stateCopy)
         }, 1500);
         return () => clearTimeout(id)
     }
@@ -113,6 +128,10 @@ export default function CalendersPage({teams}: Props) {
                                                 <AiFillApple color="#555555"/><RiMicrosoftFill
                                                 color="#0072C6"/>{appleCopied[i] ? <GrFormCheckmark/> :
                                                 <HiClipboardDocumentList/>}
+                                            </Link>
+                                            <Link className="flex m-2" href="#" onClick={(e) => clickExcel(e, team, i)}>
+                                              <AiFillFileExcel color="#00B050"/>{excelCopied[i] ? <GrFormCheckmark/> :
+                                              <HiDocumentDownload/>}
                                             </Link>
                                         </div>
                                     </td>
