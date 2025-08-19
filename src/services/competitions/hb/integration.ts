@@ -119,7 +119,7 @@ export class HBCompetitionIntegration implements CompetitionIntegration, Gamedet
   private toGameModelArray(data: any): GameModel[] {
     return data.elements.map((e: any) => ({
       id: e.id,
-      date: e.date,
+      date: e.date || null,
       time: e.time || null,
       venue_id: e.venue_id || null,
       home_score: e.home_score || 0,
