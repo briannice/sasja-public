@@ -2,14 +2,13 @@ import { AbstractCompetitionIntegration } from '@/services/competitions/abstract
 import { GameModel, RankModel, TeamCompetition } from '@/types/models'
 import { SHL_BASED_COMPETITIONS } from '@/services/competitions/competition'
 import { lookupTeam, Page, shlService, teamMapping } from '@/services/competitions/shl/index'
-import path from 'path'
 import { TeamService } from '@/services/teams'
 import { VenueService } from '@/services/venues'
 
 export class SuperHandballLeageCompetitionIntegration extends AbstractCompetitionIntegration {
 
-  private teamService = new TeamService(path.join(process.cwd(), 'static/shl/teams.yaml'))
-  private venueService = new VenueService(path.join(process.cwd(), 'static/shl/venues.yaml'))
+  private teamService = new TeamService()
+  private venueService = new VenueService()
 
   public async getCompetitionCalendarFull(competition: TeamCompetition): Promise<GameModel[]> {
     const games = await Promise.all([
