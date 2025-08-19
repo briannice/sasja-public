@@ -15,7 +15,7 @@ export const SHL_BASED_COMPETITIONS: TeamCompetition[] = [
 ]
 
 export interface CompetitionIntegration {
-  getCompetitionCalendar(competition: TeamCompetition): Promise<GameModel[]>
+  getCompetitionCalendar(competition: TeamCompetition, isAuthenticated: boolean): Promise<GameModel[]>
 
   getCompetitionCalendarFull(competition: TeamCompetition): Promise<GameModel[]>
 
@@ -35,8 +35,8 @@ function getCompetitionIntegration(competition: TeamCompetition): CompetitionInt
 }
 
 class CompetitionService {
-  public getCompetitionCalendar(competition: TeamCompetition): Promise<GameModel[]> {
-    return getCompetitionIntegration(competition).getCompetitionCalendar(competition)
+  public getCompetitionCalendar(competition: TeamCompetition, isAuthenticated: boolean): Promise<GameModel[]> {
+    return getCompetitionIntegration(competition).getCompetitionCalendar(competition, isAuthenticated)
   }
 
   public async getCompetitionCalendarFull(competition: TeamCompetition): Promise<GameDay[]> {
