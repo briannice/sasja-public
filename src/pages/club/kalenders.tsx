@@ -16,7 +16,7 @@ import {RiMicrosoftFill} from "react-icons/ri";
 import useAuthentication from '@/utils/auth'
 import { competitionService } from '@/services/competitions/competition'
 import * as XLSX from 'xlsx'
-import { FaCircleNotch } from 'react-icons/all'
+import { FaCircleNotch } from 'react-icons/fa'
 
 type Props = {
     teams: TeamModel[]
@@ -183,10 +183,20 @@ export default function CalendersPage({teams}: Props) {
                                     </td>
                                     <td>
                                         <div className="flex">
-                                            <Link className="flex m-2" href="#" onClick={(e) => clickExcel(e, team, i)}>
-                                                <AiFillFileExcel color="#00B050"/>{excelCopied[i] ?
+                                            <Link className="flex m-2" href="#" onClick={(e) => {
+                                              if (team.competitions?.length === 0) {
+                                                e.preventDefault(); // block click
+                                                return;
+                                              }
+                                              clickExcel(e, team, i);
+                                            }} title={team.competitions?.length === 0 ? "Geen wedstrijden gepland" : "Download kalender"}>
+                                                <AiFillFileExcel className={`mr-1 ${
+                                                  team.competitions?.length === 0 ? "text-[#999999]" : "text-[#00B050]"
+                                                }`}/>{excelCopied[i] ?
                                                 <FaCircleNotch className="animate-spin text-green-500" />:
-                                                <HiDocumentDownload/>}
+                                                <HiDocumentDownload className={`mr-1 ${
+                                                  team.competitions?.length === 0 ? "text-[#999999]" : "text-black]"
+                                                }`}/>}
                                             </Link>
                                         </div>
                                     </td>
