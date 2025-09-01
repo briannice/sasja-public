@@ -30,10 +30,27 @@ export default function Players({ players }: Props) {
   )
 }
 
+function jerseySortKey(val: string): [number, number] {
+  const num = parseInt(val, 10);
+  if (!isNaN(num)) {
+    return [0, num]; // group 0 = numbers
+  }
+  if (val.startsWith("T")) {
+    const tNum = parseInt(val.slice(1), 10);
+    return [1, tNum]; // group 1 = "T"-values
+  }
+  return [2, 0]; // fallback for unexpected values
+}
+
 export const getStaticProps: GetStaticProps = async () => {
   const players = await queryToModels<PlayerModel>(
-    query(collection(db, 'players'), where('public', '==', true), orderBy('backNumber', 'asc'))
+    query(collection(db, 'players'), where('public', '==', true))
   )
+  players.sort((a, b) => {
+    const [groupA, numA] = jerseySortKey(a.backNumber);
+    const [groupB, numB] = jerseySortKey(b.backNumber);
+    return groupA - groupB || numA - numB;
+  });
   return {
     props: {
       players,
