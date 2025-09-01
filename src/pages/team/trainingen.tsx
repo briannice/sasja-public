@@ -62,8 +62,8 @@ const trainings = [
       },
       {
         teams: ['JM12'],
-        start: '15u00',
-        end: '16u30',
+        start: '14u00',
+        end: '15u30',
         location: 'Sporthal Sorghvliedt',
       },
       {
