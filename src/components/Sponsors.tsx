@@ -26,12 +26,6 @@ export const mainSponsors: Sponsor[] = [
 
 export const secondarySponsors: Sponsor[] = [
   {
-    name: 'aertssen',
-    path: '/sponsors/aertssen2.png',
-    href: 'https://www.aertssen.be/',
-    aspect: 'aspect-[283/218]',
-  },
-  {
     name: 'umicore',
     path: '/sponsors/umicore.png',
     href: 'https://www.umicore.be/',
@@ -50,22 +44,10 @@ export const secondarySponsors: Sponsor[] = [
     aspect: 'aspect-[3000/1000]',
   },
   {
-    name: 'de waele',
-    path: '/sponsors/dewaele.svg',
-    href: 'https://www.dewaele.com/nl',
-    aspect: 'aspect-[1/1]',
-  },
-  {
     name: 'de lindekes',
     path: '/sponsors/lindekes.png',
     href: 'https://www.delindekes.be/',
     aspect: 'aspect-[183/79]',
-  },
-  {
-    name: 'ah antwerpen centraal',
-    path: '/sponsors/ah.png',
-    href: 'https://www.ah.be/winkel/3159',
-    aspect: 'aspect-[3/1]',
   },
   {
     name: 'schaessens sport',

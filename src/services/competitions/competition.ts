@@ -3,15 +3,15 @@ import { getDateRangeForGamesOverview, getWeekNumberForGamesOverview } from '@/u
 import { HBCompetitionIntegration } from '@/services/competitions/hb/integration'
 import { SuperHandballLeageCompetitionIntegration } from '@/services/competitions/shl/integration'
 
-const SHL = {
-  name: 'Super Handball League',
-  serieId: -1,
-  vhvId: 0,
-  ranking: true,
-} as TeamCompetition
+// const SHL = {
+//   name: 'Super Handball League',
+//   serieId: -1,
+//   vhvId: 0,
+//   ranking: true,
+// } as TeamCompetition
 
 export const SHL_BASED_COMPETITIONS: TeamCompetition[] = [
-  SHL,
+  // SHL,
 ]
 
 export interface CompetitionIntegration {
