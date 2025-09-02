@@ -33,7 +33,7 @@ const board = [
 
 const api = [
   {
-    name: 'Kenny Claes',
+    name: '',
     function: 'API',
     email: 'api@sasja-antwerpen.be',
     telephone: ''
@@ -114,12 +114,6 @@ const coaches = [
     email: 'bartvanransbeeck@telenet.be',
     telephone: ''
   },
-  {
-    name: 'Alex Jacobs',
-    function: 'T3',
-    email: 'alexjacobs266@gmail.com',
-    telephone: ''
-  },
 ]
 
 const youthReferees = [
@@ -137,12 +131,6 @@ const youthReferees = [
   },
 ]
 const youthCoaches = [
-  {
-    name: 'Carl Bakx',
-    function: '',
-    email: '',
-    telephone: ''
-  },
   {
     name: 'Bob Beuckels',
     function: '',
@@ -162,6 +150,12 @@ const youthCoaches = [
     telephone: ''
   },
   {
+    name: 'Alex Jacobs',
+    function: '',
+    email: '',
+    telephone: ''
+  },
+  {
     name: 'Michael Leeman',
     function: '',
     email: '',
@@ -174,19 +168,25 @@ const youthCoaches = [
     telephone: ''
   },
   {
-    name: 'Robbie Mestdagh',
-    function: '',
-    email: '',
-    telephone: ''
-  },
-  {
     name: 'Jos Riské',
     function: '',
     email: '',
     telephone: ''
   },
   {
+    name: 'Jörgen Sempels',
+    function: '',
+    email: '',
+    telephone: ''
+  },
+  {
     name: 'Inge Servaes',
+    function: '',
+    email: '',
+    telephone: ''
+  },
+  {
+    name: 'Bas Verhoeven',
     function: '',
     email: '',
     telephone: ''

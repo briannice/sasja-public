@@ -32,12 +32,6 @@ const trainings = [
     day: 'Dinsdag',
     data: [
       {
-        teams: ['JM16'],
-        start: '18u00',
-        end: '19u30',
-        location: 'Sporthal Notelaar',
-      },
-      {
         teams: ['J18'],
         start: '17u30',
         end: '19u00 of 19u30 (cardio/kracht)',
