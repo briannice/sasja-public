@@ -1,7 +1,7 @@
 import StaffOverview from '@/components/StaffOverview'
 import React from 'react'
 
-const topStaff = [
+const board = [
   {
     name: 'Michael Leeman',
     function: 'Voorzitter',
@@ -9,47 +9,62 @@ const topStaff = [
     telephone: ''
   },
   {
-    name: 'Iny Hofstede',
+    name: 'Kenny Claes',
     function: 'Secretaris',
-    email: 'iny.hofstede@sasja-antwerpen.be',
+    email: 'secretariaat@sasja-antwerpen.be',
     telephone: ''
   },
   {
-    name: 'Alex Jacobs',
+    name: 'Hocine Trari',
     function: 'Penningmeester',
-    email: 'alexjacobs266@gmail.com',
+    email: 'hocine.trari@sasja-antwerpen.be',
     telephone: ''
   },
-]
-
-const board = [
   {
     name: 'Lynn Gordijn',
     function: 'Bestuurslid',
-    email: '',
+    email: 'lynn.gordijn@sasja-antwerpen.be',
+    telephone: ''
+  },
+  {
+    name: 'Roger Riské',
+    function: 'Bestuurslid',
+    email: 'roger.riske@sasja-antwerpen.be',
+    telephone: ''
+  },
+  {
+    name: 'Inge Servaes',
+    function: 'Bestuurslid',
+    email: 'inge.servaes@sasja-antwerpen.be',
     telephone: ''
   },
 ]
 
 const api = [
   {
-    name: '',
+    name: 'Christel De Bie',
     function: 'API',
     email: 'api@sasja-antwerpen.be',
-    telephone: ''
+    telephone: '0476867373'
   }
 ]
 
 const youth = [
   {
-    name: 'Michael Leeman',
-    function: 'Jeugdvoorzitter',
+    name: 'Inge Servaes',
+    function: 'Kalenderverantwoordelijke',
     email: 'jeugd@sasja-antwerpen.be',
     telephone: ''
   },
   {
-    name: 'Inge Servaes',
-    function: 'Kalenderverantwoordelijke',
+    name: 'Lars Celis',
+    function: '',
+    email: 'jeugd@sasja-antwerpen.be',
+    telephone: ''
+  },
+  {
+    name: 'Jordy Dewit',
+    function: '',
     email: 'jeugd@sasja-antwerpen.be',
     telephone: ''
   },
@@ -235,7 +250,6 @@ export default function werking() {
   return (
     <main className="space-y-16">
       <h1 className="sr-only">Werking</h1>
-      <StaffOverview staff={topStaff} />
       <StaffOverview name="Clubbestuur" staff={board} />
       <StaffOverview name="Aanspreekpunt Integriteit" staff={api} />
       <StaffOverview name="Coördinators" staff={other} />
