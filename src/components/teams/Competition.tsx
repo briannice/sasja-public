@@ -19,7 +19,7 @@ type Props = {
 export default function Competition({ calendar, name, ranking, teamId }: Props) {
 
   return (
-    <Container className="grid grid-cols-1 gap-8 desktop:grid-cols-2">
+    <Container className="grid grid-cols-1 gap-8">
       <h2 className="title1 col-span-1 desktop:col-span-2">{name}</h2>
       <div className="space-y-8">
         <div className="overflow-auto">
@@ -39,7 +39,7 @@ export default function Competition({ calendar, name, ranking, teamId }: Props) 
             </thead>
             <tbody>
               {ranking.length > 0 ? ranking.map((rank) => (
-                <tr key={rank.id} className={clsx(rank.name === 'Sasja HC' && 'font-bold')}>
+                <tr key={rank.id} className={clsx(rank.name.toLowerCase().includes('sasja') && 'font-bold')}>
                   <td>
                     <p>{rank.position}</p>
                   </td>
@@ -158,19 +158,19 @@ function Game({ game }: { game: GameModel;}) {
                       game.home_score === game.away_score
                           ? 'bg-warning'
                           : game.home_score > game.away_score &&
-                          game.home_name.includes('Sasja HC')
+                          game.home_name.toLowerCase().includes('sasja')
                               ? 'bg-success'
                               : game.home_score < game.away_score &&
-                              game.away_name.includes('Sasja HC')
+                              game.away_name.toLowerCase().includes('sasja')
                                   ? 'bg-success'
                                   : 'bg-error'
                   )}
               >
                 {game.home_score === game.away_score
                     ? 'D'
-                    : game.home_score > game.away_score && game.home_name.includes('Sasja HC')
+                    : game.home_score > game.away_score && game.home_name.toLowerCase().includes('sasja')
                         ? 'W'
-                        : game.home_score < game.away_score && game.away_name.includes('Sasja HC')
+                        : game.home_score < game.away_score && game.away_name.toLowerCase().includes('sasja')
                             ? 'W'
                             : 'L'}
               </p>

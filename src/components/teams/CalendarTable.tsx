@@ -107,18 +107,18 @@ function Game({ game }: { game: GameModel;}) {
                       'flex h-6 w-6 items-center justify-center rounded-full text-sm font-bold text-white',
                       game.home_score === game.away_score
                           ? 'bg-warning'
-                          : game.home_score > game.away_score && game.home_name === 'Sasja HC'
+                          : game.home_score > game.away_score && game.home_name.toLowerCase().includes('sasja')
                               ? 'bg-success'
-                              : game.home_score < game.away_score && game.away_name === 'Sasja HC'
+                              : game.home_score < game.away_score && game.away_name.toLowerCase().includes('sasja')
                                   ? 'bg-success'
                                   : 'bg-error'
                   )}
               >
                 {game.home_score === game.away_score
                     ? 'D'
-                    : game.home_score > game.away_score && game.home_name === 'Sasja HC'
+                    : game.home_score > game.away_score && game.home_name.toLowerCase().includes('sasja')
                         ? 'W'
-                        : game.home_score < game.away_score && game.away_name === 'Sasja HC'
+                        : game.home_score < game.away_score && game.away_name.toLowerCase().includes('sasja')
                             ? 'W'
                             : 'L'}
               </p>
