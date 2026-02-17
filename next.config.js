@@ -1,10 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: [
-      'firebasestorage.googleapis.com',
-      'admin.handballbelgium.be',
-      'avzlamsrtp.cloudimg.io',
+    remotePatterns: [
+      { protocol: 'https', hostname: 'firebasestorage.googleapis.com' },
+      { protocol: 'https', hostname: 'admin.handballbelgium.be' },
+      { protocol: 'https', hostname: 'avzlamsrtp.cloudimg.io' },
     ],
   },
   async redirects() {
@@ -40,7 +40,6 @@ const nextConfig = {
     ]
   },
   reactStrictMode: true,
-  swcMinify: true,
   // enable this when using HandballNL caching
   // experimental: {
   //   workerThreads: false,

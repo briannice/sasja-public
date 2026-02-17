@@ -66,7 +66,7 @@ export default function Competition({ calendar, name, ranking, teamId }: Props) 
         <div className="flex justify-center">
           { ranking.length > 0 && (
           <Link
-            href={`/team/${teamId}/klassement/${name.toLocaleLowerCase().replaceAll(/\ /g, '-')}`}
+            href={`/team/${teamId}/klassement/${name.toLocaleLowerCase().replaceAll(/ /g, '-')}`}
             className="btn btn-primary btn-text-icon"
           >
             <span>Volledig klassement</span>
@@ -101,14 +101,14 @@ export default function Competition({ calendar, name, ranking, teamId }: Props) 
         </div>
         <div className="flex justify-center space-x-2">
           <Link
-            href={`/team/${teamId}/kalender/${name.toLocaleLowerCase().replaceAll(/\ /g, '-')}`}
+            href={`/team/${teamId}/kalender/${name.toLocaleLowerCase().replaceAll(/ /g, '-')}`}
             className="btn btn-primary btn-text-icon"
           >
             <span>Wedstrijden SASJA</span>
             <RiArrowRightSLine />
           </Link>
           <Link
-              href={`/team/${teamId}/kalender/${name.toLocaleLowerCase().replaceAll(/\ /g, '-')}/full`}
+              href={`/team/${teamId}/kalender/${name.toLocaleLowerCase().replaceAll(/ /g, '-')}/full`}
               className="btn btn-primary btn-text-icon"
           >
             <span>Alle wedstrijden</span>
@@ -176,9 +176,11 @@ function Game({ game }: { game: GameModel;}) {
               </p>
           )}
         </td>
-        <Popup open={showInfo} onClose={setShowInfo}>
-          <GameDetail game={game}/>
-        </Popup>
+        {showInfo && (
+          <Popup open={showInfo} onClose={setShowInfo}>
+            <GameDetail game={game}/>
+          </Popup>
+        )}
       </tr>
   )
 }

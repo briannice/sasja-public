@@ -6,7 +6,7 @@ import ClubLogo from '@/components/teams/ClubLogo'
 import { GameModel, GameWeek, TeamModel, TimeLine } from '@/types/models'
 import { formatDate, getMonthFromDate, getWeekDayFromDate } from '@/utils/date'
 import Image from 'next/image'
-import React, { Fragment, useState } from 'react'
+import React, { useState } from 'react'
 import { RiArrowRightSLine } from 'react-icons/ri'
 import Popup from '@/components/Popup'
 import GameDetail from '@/components/teams/GameDetail'
@@ -77,8 +77,8 @@ export default function Hero({ timeLine, teams, gameWeek }: Props) {
         <Image
           src="/handball-field.jpg"
           alt="Handball field."
-          layout="fill"
-          objectFit="cover"
+          fill
+          style={{ objectFit: 'cover' }}
           unoptimized
         />
         <div className="relative h-full bg-black bg-opacity-50 p-8">

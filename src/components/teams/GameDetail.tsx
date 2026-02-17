@@ -20,16 +20,17 @@ export default function GameDetail({ game }: Props) {
     const [gameDetail, setGameDetail] = useState(game)
     const [width, setWidth] = useState<number>(0);
     const {isAuthenticated} = useAuthentication()
+    const authenticated = isAuthenticated()
     const [loading, isLoading] = useState(true);
     const [mapCopied, setMapCopied] = useState(false);
 
     useEffect(() => {
         const getAndSetGame = async () => {
-            setGameDetail(await gameDetailService.getGameDetail(game, isAuthenticated()))
+            setGameDetail(await gameDetailService.getGameDetail(game, authenticated))
             isLoading(false)
         }
         getAndSetGame();
-    },[game, isAuthenticated])
+    },[game, authenticated])
 
     useEffect(() => {
         function handleResize() {
@@ -43,7 +44,7 @@ export default function GameDetail({ game }: Props) {
         return () => {
             window.removeEventListener('resize', handleResize)
         };
-    });
+    }, []);
 
     const createDate = (date: string) => {
         const weekday = getWeekDayFromDate(date)

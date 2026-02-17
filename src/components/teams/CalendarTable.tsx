@@ -132,9 +132,11 @@ function Game({ game }: { game: GameModel;}) {
             )}
           </p>
         </td>
-        <Popup open={showInfo} onClose={setShowInfo}>
-          <GameDetail game={game}/>
-        </Popup>
+        {showInfo && (
+          <Popup open={showInfo} onClose={setShowInfo}>
+            <GameDetail game={game}/>
+          </Popup>
+        )}
       </tr>
   )
 }

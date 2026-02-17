@@ -27,7 +27,7 @@ export default function EventCard({ event }: Props) {
       <section className="flex h-full flex-col">
         <figure className="relative h-full">
           {image && (
-            <Image src={image} alt="Nieuws banner." layout="fill" objectFit="cover" unoptimized />
+            <Image src={image} alt="Nieuws banner." fill style={{ objectFit: 'cover' }} unoptimized />
           )}
         </figure>
         <div className="absolute inset-0 bg-black bg-opacity-40" />

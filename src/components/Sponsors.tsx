@@ -91,8 +91,8 @@ export default function Sponsors() {
               <Image
                 src={sponsor.path}
                 alt="Sponsor image"
-                layout="fill"
-                objectFit="cover"
+                fill
+                style={{ objectFit: 'cover' }}
                 unoptimized
               />
             </figure>
@@ -112,8 +112,8 @@ export default function Sponsors() {
               <Image
                 src={sponsor.path}
                 alt="Sponsor image"
-                layout="fill"
-                objectFit="cover"
+                fill
+                style={{ objectFit: 'cover' }}
                 unoptimized
               />
             </figure>

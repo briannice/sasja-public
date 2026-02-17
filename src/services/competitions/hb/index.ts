@@ -20,30 +20,29 @@ export const HandballBelgiumApi = axios.create({
 
 let loginPromise: Promise<void>|null = null;
 let secretToken = apiToken
-let mustLogin = true
+let loggedIn = false
 
 export const login = async () => {
+  if (loggedIn) return
   if (loginPromise) return loginPromise
 
   loginPromise = (async () => {
-    if (mustLogin) {
-      try {
-        const response = await axios.post(LOGIN_URL,
-          JSON.stringify({ login: username, password: password }), // Assign 'username' to 'login'
-          {
-            headers: { 'Content-Type': 'application/json' }, // Ensure JSON format
-          }
-        );
+    try {
+      const response = await axios.post(LOGIN_URL,
+        { login: username, password: password },
+        { headers: { 'Content-Type': 'application/json' } }
+      );
 
-        secretToken = `Bearer ${response.data?.token.token}`;
-      } catch (error: any) {
-        if (error.response?.status === 401) {
-          console.error('Invalid credentials -- fallback to public information.');
-        } else {
-          console.error(error)
-        }
+      secretToken = `Bearer ${response.data?.token.token}`;
+      loggedIn = true
+    } catch (error: any) {
+      if (error.response?.status === 401) {
+        console.error('Invalid credentials -- fallback to public information.');
+      } else {
+        console.error('HB login failed:', error.message || error)
       }
-      mustLogin = false
+      // Reset so next request can retry
+      loginPromise = null
     }
   })()
   return loginPromise
@@ -57,10 +56,7 @@ export const SecureHandballBelgiumAPI = axios.create({
 SecureHandballBelgiumAPI.interceptors.request.use(
   async (config) => {
     await login()
-    if (!config.headers) {
-      config.headers = {};
-    }
-    config.headers.Authorization = secretToken;
+    config.headers.set('Authorization', secretToken);
     return config;
   },
   (error) => Promise.reject(error)
