@@ -1,10 +1,10 @@
 import ClubLogo from '@/components/teams/ClubLogo'
 import { db } from '@/services/firebase'
-import {docRefToModel, queryToModels} from '@/services/firebase/firestore'
+import {docRefToModel} from '@/services/firebase/firestore'
 import { competitionService } from '@/services/competitions/competition'
 import {GameDay, GameModel, TeamModel} from '@/types/models'
 import { formatDate, getMonthFromDate, getWeekDayFromDate } from '@/utils/date'
-import {collection, doc, query} from 'firebase/firestore'
+import {doc} from 'firebase/firestore'
 import {GetStaticPaths, GetStaticProps} from 'next'
 import Head from 'next/head'
 import React, {useState} from 'react'
@@ -48,22 +48,8 @@ export default function FullCalendarPage({ name, gameDays }: Props) {
 }
 
 export const getStaticPaths: GetStaticPaths<{ slug: string }> = async () => {
-    const teams = await queryToModels<TeamModel>(query(collection(db, 'teams')))
-    const paths: any = []
-    teams.forEach((team) => {
-        const id = team.id
-        team.competitions.forEach((competition) => {
-            const path = {
-                params: {
-                    team: id,
-                    serie: competition.name.toLocaleLowerCase().replaceAll(/\ /g, '-'),
-                },
-            }
-            paths.push(path)
-        })
-    })
     return {
-        paths: paths,
+        paths: [],
         fallback: 'blocking',
     }
 }
@@ -76,7 +62,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
     const serieName = params.serie as string
     const competition = team.competitions.find(
-        (c) => c.name.toLocaleLowerCase().replaceAll(/\ /g, '-') === serieName
+        (c) => c.name.toLocaleLowerCase().replaceAll(/ /g, '-') === serieName
     )
 
     if (!competition) return { notFound: true }
