@@ -4,6 +4,7 @@ import { docRefToModel } from '@/services/firebase/firestore'
 import { downloadImage } from '@/services/firebase/storage'
 import { MatchReportModel } from '@/types/models'
 import { formatDate } from '@/utils/date'
+import { sanitizeHTML } from '@/utils/sanitize'
 import clsx from 'clsx'
 import { doc } from 'firebase/firestore'
 import { GetStaticPaths, GetStaticProps } from 'next'
@@ -128,6 +129,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const image = await downloadImage(`/matchreport/${matchReport.id}`, 'lg')
   const teamImage = await downloadImage(`/teams/${matchReport.team.id}`, 'lg')
+
+  matchReport.content = sanitizeHTML(matchReport.content)
 
   return {
     props: {

@@ -55,10 +55,6 @@ export default function MatchReportOverview({ initialMatchReports, teamId = '' }
     }
   }, [breakpoint, router.asPath])
 
-  useEffect(() => {
-    console.log('Router')
-  }, [router])
-
   if (!breakpoint || initialMatchReports.length === 0) return <></>
 
   const loadMoreHandler: MouseEventHandler<HTMLButtonElement> = async (e) => {

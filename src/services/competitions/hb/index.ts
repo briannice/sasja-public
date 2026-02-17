@@ -3,9 +3,9 @@ import axios from 'axios'
 const BASE_URL = 'https://admin.handballbelgium.be/lms_league_ws/public/api/v3/'
 const LOGIN_URL =  `${BASE_URL}ng/login`;
 
-const apiToken = process.env.NEXT_PUBLIC_HANDBALL_BELGIUM_API_TOKEN
-const username = process.env.NEXT_PUBLIC_HANDBALL_BELGIUM_USERNAME
-const password = process.env.NEXT_PUBLIC_HANDBALL_BELGIUM_PASSWORD
+const apiToken = process.env.HANDBALL_BELGIUM_API_TOKEN
+const username = process.env.HANDBALL_BELGIUM_USERNAME
+const password = process.env.HANDBALL_BELGIUM_PASSWORD
 
 
 if (!apiToken) {

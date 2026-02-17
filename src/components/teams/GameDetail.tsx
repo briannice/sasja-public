@@ -5,7 +5,6 @@ import ClubLogo from "@/components/teams/ClubLogo";
 import {GiWhistle} from "react-icons/gi";
 import {FaMapMarkerAlt, FaWaze} from "react-icons/fa";
 import { AiFillLock, AiFillUnlock, AiOutlineCar, AiOutlineFieldNumber, AiOutlineHome } from 'react-icons/ai'
-import { gameDetailService } from '@/services/competitions/gamedetail'
 import useAuthentication from "@/utils/auth";
 import Link from "@/components/Link";
 import {FaMapMarkedAlt} from "react-icons/fa";
@@ -26,7 +25,14 @@ export default function GameDetail({ game }: Props) {
 
     useEffect(() => {
         const getAndSetGame = async () => {
-            setGameDetail(await gameDetailService.getGameDetail(game, authenticated))
+            const res = await fetch('/api/game-detail', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(game),
+            })
+            if (res.ok) {
+                setGameDetail(await res.json())
+            }
             isLoading(false)
         }
         getAndSetGame();

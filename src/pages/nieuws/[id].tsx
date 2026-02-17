@@ -3,6 +3,7 @@ import { docRefToModel } from '@/services/firebase/firestore'
 import { downloadDefaultEventImage, downloadImage } from '@/services/firebase/storage'
 import { NewsModel } from '@/types/models'
 import { formatDate } from '@/utils/date'
+import { sanitizeHTML } from '@/utils/sanitize'
 import { doc } from 'firebase/firestore'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
@@ -74,6 +75,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const image = await downloadImage(`/news/${news.id}`, 'lg')
   const defaultImage = await downloadDefaultEventImage()
+
+  news.content = sanitizeHTML(news.content)
 
   return {
     props: {
