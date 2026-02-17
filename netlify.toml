@@ -1,0 +1,19 @@
+[[redirects]]
+  from = "/tools/wedstrijdblad"
+  to = "/static/html/wedstrijdblad.html"
+  status = 200
+
+[[redirects]]
+  from = "/tools/aanduidingen"
+  to = "/static/html/aanduidingen.html"
+  status = 200
+
+[[redirects]]
+  from = "/tools/referee_overview"
+  to = "/static/html/referee_overview.html"
+  status = 200
+
+[[redirects]]
+  from = "/nieuwsbrief"
+  to = "/static/html/nieuwsbrief.html"
+  status = 200
