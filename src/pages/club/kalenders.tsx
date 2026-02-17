@@ -13,7 +13,7 @@ import {HiClipboardDocumentList} from "react-icons/hi2";
 import { HiDocumentDownload, HiExternalLink } from 'react-icons/hi'
 import {FcGoogle} from "react-icons/fc";
 import {RiMicrosoftFill} from "react-icons/ri";
-import * as XLSX from 'xlsx'
+import ExcelJS from 'exceljs'
 import { FaCircleNotch } from 'react-icons/fa'
 
 type Props = {
@@ -60,7 +60,7 @@ export default function CalendersPage({teams}: Props) {
           stateCopy[i] = true
           setExcelCopied(stateCopy)
           const sanitize = (s: string) => s.replace(/[^\w\-]+/g, '_')
-          const wb = XLSX.utils.book_new()
+          const wb = new ExcelJS.Workbook()
           for (const competition of team.competitions) {
             const name = competition.name
             const calendarRes = await fetch('/api/calendar', {
@@ -83,10 +83,11 @@ export default function CalendersPage({teams}: Props) {
                 g.game_status_id === 2 ? `${g.home_score} - ${g.away_score}` : '',
             }))
 
-            const ws = XLSX.utils.json_to_sheet(rows)
-            XLSX.utils.book_append_sheet(wb, ws, name)
+            const ws = wb.addWorksheet(name)
+            ws.columns = Object.keys(rows[0] ?? {}).map((k) => ({ header: k, key: k }))
+            ws.addRows(rows)
           }
-          const buffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' })
+          const buffer = await wb.xlsx.writeBuffer()
           const blob = new Blob([buffer], {
             type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
           })
