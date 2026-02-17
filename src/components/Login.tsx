@@ -70,7 +70,7 @@ export default function Login({ className }: Props) {
                           id="password"
                           name="password"
                           value={password}
-                          className="m-2"
+                          className="m-2 rounded border border-primary px-3 py-1"
                           onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
