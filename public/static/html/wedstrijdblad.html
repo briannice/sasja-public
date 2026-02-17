@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Digital Wedstrijdblad</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.css">
+    <script>
+        let homeTeam = '';
+        let awayTeam = '';
+
+        function buildReport(reportJson) {
+            if (!reportJson.teamHome) {
+                alert("The selected file is not a valid Local Report from NuScore.")
+                return
+            }
+            $("#matchdata").show()
+            homeTeam = reportJson.teamHome.name
+            $("#hometeam").text(homeTeam)
+            awayTeam = reportJson.teamGuest.name
+            $("#awayteam").text(awayTeam)
+            $("#score").text(reportJson.pointsHome + '-' + reportJson.pointsGuest + ' (' + reportJson.pointsHomeHalftime + '-' + reportJson.pointsGuestHalftime + ')')
+            $("#league").text(reportJson.league)
+            $("#refereeA").text(getPlayerName(reportJson.federationOfficials.refereeA))
+            $("#refereeB").text(getPlayerName(reportJson.federationOfficials.refereeB))
+            $("#refereeObserver").text(getPlayerName(reportJson.federationOfficials.refereeObserver))
+            $("#timekeeper").text(getPlayerName(reportJson.federationOfficials.timekeeper))
+            $("#secretary").text(getPlayerName(reportJson.federationOfficials.secretary))
+            $("#supervisor").text(getPlayerName(reportJson.federationOfficials.supervisor))
+            var date = new Date(Date.parse(reportJson.startTime))
+            $("#date").text(date.toLocaleDateString() + ' ' + date.toLocaleTimeString())
+            $("#lineupHome").empty().append(createLineup(reportJson.teamHome.players.concat(reportJson.teamHome.goalkeepers), reportJson.events))
+            $("#officialsHome").empty().append(createLineup(reportJson.teamHome.officials, reportJson.events))
+            $("#lineupAway").empty().append(createLineup(reportJson.teamGuest.players.concat(reportJson.teamGuest.goalkeepers), reportJson.events))
+            $("#officialsAway").empty().append(createLineup(reportJson.teamGuest.officials, reportJson.events))
+            $("#protocol").empty().append(createProtocol(reportJson.events))
+        }
+
+        function createLineup(players, events) {
+            players.sort(function (p1, p2) {
+                return p1.nr - p2.nr
+            })
+            let lineup = ''
+            players.forEach(player => {
+                lineup += '<tr>' +
+                    '<td>' + player.nr + '</td>' +
+                    '<td>' + player.firstname + ' ' + player.lastname + (isGoalKeeper(player) ? ' (GK)' : '') + '</td>' +
+                    '<td>' + getWarning(player.id, events) + '</td>' +
+                    '<td>' + getPenalties(player.id, events) + '</td>' +
+                    '<td>' + getDQ(player.id, events) + '</td>' +
+                    '<td>' + getDQR(player.id, events) + '</td>' +
+                    '<td>' + getGoals(player.id, events) + '</td>' +
+                    '</tr>';
+            })
+            return lineup;
+        }
+
+        function isGoalKeeper(player) {
+            return player.type == 'goalkeeper'
+        }
+
+        function isGoal(event) {
+            return event.eventType == 'goal' || event.eventType == 'sevenMeterGoal'
+        }
+
+        function isWarning(event) {
+            return event.eventType == 'playerWarning'
+        }
+
+        function isPenalty(event) {
+            return event.eventType == 'playerPenalty'
+        }
+
+        function isDQ(event) {
+            return event.eventType == 'disqualificationNoReport'
+        }
+
+        function isDQR(event) {
+            return event.eventType == 'disqualificationReport'
+        }
+
+        function getWarning(playerId, events) {
+            return getPlayerEvents(events, playerId).filter(isWarning).map(e => secondsToDisplayTime(e.second));
+        }
+
+        function getPenalties(playerId, events) {
+            return getPlayerEvents(events, playerId).filter(isPenalty).map(e => secondsToDisplayTime(e.second));
+        }
+
+        function getDQ(playerId, events) {
+            return getPlayerEvents(events, playerId).filter(isDQ).map(e => secondsToDisplayTime(e.second));
+        }
+
+        function getDQR(playerId, events) {
+            return getPlayerEvents(events, playerId).filter(isDQR).map(e => secondsToDisplayTime(e.second));
+        }
+
+        function getGoals(playerId, events) {
+            let goals = getPlayerEvents(events, playerId).filter(isGoal).length;
+            return goals != 0 ? goals : ''
+        }
+
+        function getPlayerEvents(events, playerId) {
+            return events.filter(e => {
+                return e.player && e.player.id == playerId;
+            });
+        }
+
+        function createProtocol(events) {
+            events.sort(function (e1, e2) {
+                return e1.second - e2.second
+            })
+            const ignoredEvents = ['gameTimeStart', 'gameStart', 'gamePeriodStart', 'gameTimeStop', 'gamePeriodStop', 'gameEnd', 'sevenMeterNoGoal']
+            let filteredEvents = events.filter(e => {
+                return !ignoredEvents.includes(e.eventType)
+            });
+            let protocol = ''
+            filteredEvents.forEach(e => {
+                protocol += handleEvent(e);
+            })
+            return protocol;
+        }
+
+        function handleEvent(event) {
+            switch (event.eventType) {
+                case 'goal':
+                case 'sevenMeterGoal':
+                case 'playerWarning':
+                case 'playerPenalty':
+                case 'disqualificationNoReport':
+                case 'disqualificationReport':
+                case 'interruptionByGuest':
+                case 'interruptionByHome':
+                    return '<tr><td>' + secondsToDisplayTime(event.second) + '</td><td>' + getIcon(event) + '</td><td>' + getPlayerName(event.player) + '</td></tr>'
+                default:
+                    return '<tr><td>' + secondsToDisplayTime(event.second) + '</td><td></td><td>' + event.eventType + '</td></tr>'
+            }
+        }
+
+        function getIcon(event) {
+            switch (event.eventType) {
+                case 'goal':
+                    return '<i class="fa-regular fa-futbol"></i> ' + event.pointsHome + '-' + event.pointsGuest
+                case 'sevenMeterGoal':
+                    return '<i class="fa-regular fa-futbol"></i> ' + event.pointsHome + '-' + event.pointsGuest + ' (P)'
+                case 'playerWarning':
+                    return '<i class="fa-solid fa-diamond" style="color: yellow"></i> ' + (event.teamHome ? homeTeam : awayTeam)
+                case 'playerPenalty':
+                    return '<i class="fa-solid fa-diamond" style="color: black"></i> ' + (event.teamHome ? homeTeam : awayTeam)
+                case 'disqualificationNoReport':
+                    return '<i class="fa-solid fa-diamond" style="color: red"></i> ' + (event.teamHome ? homeTeam : awayTeam)
+                case 'disqualificationReport':
+                    return '<i class="fa-solid fa-diamond" style="color: blue"></i> ' + (event.teamHome ? homeTeam : awayTeam)
+                case 'interruptionByGuest':
+                case 'interruptionByHome':
+                    return '<i class="fa-regular fa-clock"></i> ' + (event.teamHome ? homeTeam : awayTeam)
+                default:
+                    return ''
+            }
+        }
+
+        function getPlayerName(player) {
+            if (player) {
+                return player.firstname + ' ' + player.lastname + ' (' + player.nr + ')'
+            }
+            return ''
+        }
+
+        function secondsToDisplayTime(seconds) {
+            return Math.floor(seconds / 60) + ':' + (seconds % 60).toString().padStart(2, '0');
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="mb-3">
+            <label for="myfile" class="form-label">Select exported local report</label>
+            <input class="form-control" type="file" accept=".json" id="myfile">
+        </div>
+        <div id="matchdata">
+            <h2>Game Summary</h2>
+            <div>
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th id="hometeam" class="h3"></th>
+                            <th id="score" class="h3"></th>
+                            <th id="awayteam" class="h3"></th>
+                        </tr>
+                        <tr>
+                            <th>Date:</th>
+                            <td id="date" colspan="2"></td>
+                        </tr>
+                        <tr>
+                            <th>Division:</th>
+                            <td id="league" colspan="2"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <h4>Officials</h4>
+            <div>
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th>Referee A:</th>
+                            <td id="refereeA"></td>
+                            <th>Timekeeper:</th>
+                            <td id="timekeeper"></td>
+                        </tr>
+                        <tr>
+                            <th>Referee B:</th>
+                            <td id="refereeB"></td>
+                            <th>Secretary:</th>
+                            <td id="secretary"></td>
+                        </tr>
+                        <tr>
+                            <th>Referee Observer:</th>
+                            <td id="refereeObserver"></td>
+                            <th>Supervisor:</th>
+                            <td id="supervisor"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <h2>Lineups</h2>
+            <div class="row">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th class="h4" colspan="2">Home</th>
+                        </tr>
+                        <tr>
+                            <th>#</i></th>
+                            <th>Name</i></th>
+                            <th><i class="fa-solid fa-diamond" style="color: yellow"></i></th>
+                            <th><i class="fa-solid fa-diamond" style="color: black"></i></th>
+                            <th><i class="fa-solid fa-diamond" style="color: red"></i></th>
+                            <th><i class="fa-solid fa-diamond" style="color: blue"></i></th>
+                            <th><i class="fa-regular fa-futbol"></i></th>
+                        </tr>
+                    </thead>
+                    <tbody id="lineupHome">
+                    </tbody>
+                </table>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th class="h5" colspan="2">Officials</th>
+                        </tr>
+                        <tr>
+                            <th>#</i></th>
+                            <th>Name</i></th>
+                            <th><i class="fa-solid fa-diamond" style="color: yellow"></i></th>
+                            <th><i class="fa-solid fa-diamond" style="color: black"></i></th>
+                            <th><i class="fa-solid fa-diamond" style="color: red"></i></th>
+                            <th><i class="fa-solid fa-diamond" style="color: blue"></i></th>
+                        </tr>
+                    </thead>
+                    <tbody id="officialsHome">
+                    </tbody>
+                </table>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th class="h4" colspan="2">Away</th>
+                        </tr>
+                        <tr>
+                            <th>#</i></th>
+                            <th>Name</i></th>
+                            <th><i class="fa-solid fa-diamond" style="color: yellow"></i></th>
+                            <th><i class="fa-solid fa-diamond" style="color: black"></i></th>
+                            <th><i class="fa-solid fa-diamond" style="color: red"></i></th>
+                            <th><i class="fa-solid fa-diamond" style="color: blue"></i></th>
+                            <th><i class="fa-regular fa-futbol"></i></th>
+                        </tr>
+                    </thead>
+                    <tbody id="lineupAway">
+                    </tbody>
+                </table>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th class="h5" colspan="2">Officials</th>
+                        </tr>
+                        <tr>
+                            <th>#</i></th>
+                            <th>Name</i></th>
+                            <th><i class="fa-solid fa-diamond" style="color: yellow"></i></th>
+                            <th><i class="fa-solid fa-diamond" style="color: black"></i></th>
+                            <th><i class="fa-solid fa-diamond" style="color: red"></i></th>
+                            <th><i class="fa-solid fa-diamond" style="color: blue"></i></th>
+                        </tr>
+                    </thead>
+                    <tbody id="officialsAway">
+                    </tbody>
+                </table>
+            </div>
+            <h2>Match Protocol</h2>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <tbody id="protocol">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script>
+        $("#matchdata").hide()
+        $("#myfile").on("change", function (eventObject) {
+            if (!window.FileReader) return;
+            for (var i = 0; i < eventObject.target.files.length; ++i) {
+                (function (file) {
+                    // Give user some interface feedback before reading.
+                    var div = $("<div/>", { "id": file.name }).appendTo("#loadme");
+                    $("<li/>").append($("<a/>", { href: "#" + file.name }).text(file.name)).appendTo("#toc");
+                    $("<h2/>").text(file.name).appendTo(div);
+                    var loader = new FileReader();
+                    loader.onload = function (loadEvent) {
+                        if (loadEvent.target.readyState != 2)
+                            return;
+                        if (loadEvent.target.error) {
+                            alert("Error while reading file " + file.name + ": " + loadEvent.target.error);
+                            return;
+                        }
+                        try {
+                            buildReport(JSON.parse(loadEvent.target.result));
+                        } catch (e) {
+                            alert("The provided file is not a valid json file.")
+                        }
+                    };
+                    loader.readAsText(file);
+                })(eventObject.target.files[i]);
+            }
+        });
+    </script>
+</body>
+
+</html>
