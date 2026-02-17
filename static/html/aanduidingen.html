@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 
 <head>
   <meta charset="utf-8">
@@ -12,53 +12,527 @@
           crossorigin="anonymous"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@500;700&family=Lato:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
   <style>
-      .entity-tag {
-          display: inline-flex;
-          align-items: center;
-          background-color: #e9ecef;
-          border: 1px solid #ced4da;
-          border-radius: 20px;
-          padding: 5px 10px;
-          margin: 3px;
-      }
-      .entity-tag .close-btn {
-          color: #888;
-          font-size: 0.9rem;
-          margin-left: 8px;
-          cursor: pointer;
-      }
-      .autocomplete-items {
-          border: 1px solid #d4d4d4;
-          max-height: 200px;
-          overflow-y: auto;
-          position: absolute;
-          z-index: 1000;
-          background-color: #fff;
-          width: 100%;
-          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
-      }
+    :root {
+      --primary: #EB2C2C;
+      --primary-dark: #CC1313;
+      --black: #111827;
+      --dark: #374151;
+      --gray: #6b7280;
+      --light: #f3f4f6;
+      --white: #ffffff;
+    }
 
-      .autocomplete-item {
-          padding: 10px;
-          cursor: pointer;
-      }
+    body {
+      background-color: var(--light);
+      font-family: 'Lato', sans-serif;
+      color: var(--black);
+      margin: 0;
+      padding: 0;
+    }
 
-      .autocomplete-item:hover {
-          background-color: #e9ecef;
-      }
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Kanit', sans-serif;
+    }
 
-      .autocomplete-container {
-          position: relative;
-      }
+    .site-header {
+      background: var(--white);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      height: 5rem;
+      margin-bottom: 2rem;
+    }
 
+    @media (min-width: 1024px) {
+      .site-header { height: 6rem; }
+    }
 
+    .site-header .container {
+      display: flex;
+      align-items: center;
+      height: 100%;
+    }
+
+    .site-logo {
+      display: block;
+      height: 75%;
+      aspect-ratio: 1;
+    }
+
+    .site-logo img {
+      height: 100%;
+      width: 100%;
+      object-fit: contain;
+    }
+
+    .site-header .page-title {
+      flex: 1;
+      font-size: 1rem;
+    }
+
+    @media (min-width: 640px) {
+      .site-header .page-title { font-size: 1.25rem; }
+    }
+
+    @media (min-width: 1024px) {
+      .site-header .page-title { font-size: 1.5rem; }
+    }
+
+    .page-title {
+      text-align: center;
+      font-family: 'Kanit', sans-serif;
+      font-weight: 700;
+      text-decoration: underline;
+      text-decoration-color: var(--primary);
+      text-decoration-thickness: 2px;
+      text-underline-offset: 8px;
+      margin: 0;
+    }
+
+    .card-panel {
+      background: var(--white);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-body {
+      padding: 2rem;
+    }
+
+    .card-panel label {
+      font-family: 'Kanit', sans-serif;
+      font-weight: 500;
+      font-size: 0.875rem;
+      color: var(--dark);
+      margin-bottom: 0.4rem;
+      display: block;
+    }
+
+    .entity-tag {
+      display: inline-flex;
+      align-items: center;
+      background-color: var(--primary);
+      color: var(--white);
+      border-radius: 2px;
+      padding: 2px 10px;
+      margin: 0 3px;
+      font-family: 'Kanit', sans-serif;
+      font-size: 0.8rem;
+      line-height: 1.4;
+    }
+
+    .entity-tag .close-btn {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 1rem;
+      margin-left: 8px;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    .entity-tag .close-btn:hover {
+      color: var(--white);
+    }
+
+    .autocomplete-items {
+      border: 1px solid #d1d5db;
+      border-top: none;
+      max-height: 200px;
+      overflow-y: auto;
+      position: absolute;
+      z-index: 1000;
+      background-color: var(--white);
+      width: 100%;
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .autocomplete-item {
+      padding: 10px 14px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    .autocomplete-item:hover {
+      background-color: var(--light);
+    }
+
+    .btn-primary-sasja {
+      background-color: var(--primary);
+      border-color: var(--primary);
+      color: var(--white);
+      font-family: 'Kanit', sans-serif;
+      font-weight: 500;
+      padding: 0.5rem 1.5rem;
+      border-radius: 2px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    }
+
+    .btn-primary-sasja:hover:not(:disabled) {
+      background-color: var(--primary-dark);
+      border-color: var(--primary-dark);
+      color: var(--white);
+    }
+
+    .btn-primary-sasja:disabled {
+      background-color: var(--primary);
+      border-color: var(--primary);
+      color: var(--white);
+      opacity: 0.45;
+    }
+
+    /* Table */
+    .results-panel {
+      background: var(--white);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      overflow-x: auto;
+    }
+
+    .results-panel table {
+      width: 100%;
+      table-layout: auto;
+      white-space: nowrap;
+      margin: 0;
+      font-size: 0.875rem;
+    }
+
+    .results-panel thead th {
+      background-color: var(--primary);
+      color: var(--white);
+      font-family: 'Kanit', sans-serif;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      text-align: left;
+      border: none;
+    }
+
+    .results-panel tbody tr {
+      border-bottom: 1px solid var(--light);
+      cursor: pointer;
+      transition: box-shadow 0.15s;
+    }
+
+    .results-panel tbody tr:hover {
+      box-shadow: inset 0 0 0 999px rgba(235, 44, 44, 0.04);
+    }
+
+    .results-panel tbody td {
+      background: var(--white);
+      padding: 0.5rem 1rem;
+      vertical-align: middle;
+    }
+
+    .col-home-name {
+      text-align: right;
+    }
+
+    .col-away-name {
+      text-align: left;
+    }
+
+    .col-logo, .col-vs {
+      text-align: center;
+      width: 24px;
+      padding-left: 4px !important;
+      padding-right: 4px !important;
+    }
+
+    .col-vs {
+      color: var(--gray);
+      font-family: 'Kanit', sans-serif;
+      font-weight: 700;
+      width: 16px;
+    }
+
+    .team-logo {
+      width: 24px;
+      height: 24px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .col-detail-icon {
+      color: #d1d5db;
+      text-align: center;
+      width: 32px;
+      padding-left: 4px !important;
+      padding-right: 8px !important;
+      font-size: 1rem;
+    }
+
+    .results-panel tbody tr:hover .col-detail-icon {
+      color: var(--primary);
+    }
+
+    .serie-tag {
+      display: inline-block;
+      border: 2px solid var(--primary);
+      border-radius: 2px;
+      padding: 1px 8px;
+      font-family: 'Kanit', sans-serif;
+      font-size: 0.7rem;
+      color: var(--primary);
+      font-weight: 500;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--gray);
+    }
+
+    .empty-state p {
+      font-family: 'Kanit', sans-serif;
+    }
+
+    #autocompleteSpinner {
+      width: 1.2rem;
+      height: 1.2rem;
+      border-width: 2px;
+      color: var(--primary);
+    }
+
+    #entityContainer,
+    .form-select,
+    .btn-primary-sasja {
+      height: 38px;
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 0.2rem rgba(235, 44, 44, 0.15);
+    }
+
+    /* Detail Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.25);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-panel {
+      background: var(--white);
+      border-radius: 8px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+      padding: 2rem;
+      max-width: 520px;
+      width: 90%;
+      position: relative;
+      animation: modalIn 0.15s ease-out;
+    }
+
+    @keyframes modalIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      font-size: 1.4rem;
+      color: var(--gray);
+      cursor: pointer;
+      line-height: 1;
+      padding: 0;
+    }
+
+    .modal-close:hover {
+      color: var(--black);
+    }
+
+    .modal-match-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 1rem 0 1.25rem;
+      border-bottom: 1px solid var(--light);
+      margin-bottom: 1.25rem;
+    }
+
+    .modal-team {
+      text-align: center;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .modal-team img {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+      margin-bottom: 0.4rem;
+    }
+
+    .modal-team-name {
+      font-family: 'Kanit', sans-serif;
+      font-weight: 500;
+      font-size: 0.9rem;
+      word-wrap: break-word;
+      white-space: normal;
+    }
+
+    .modal-vs {
+      font-family: 'Kanit', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--gray);
+      flex-shrink: 0;
+    }
+
+    .modal-details {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.5rem 1rem;
+      font-size: 0.9rem;
+    }
+
+    .modal-details dt {
+      font-family: 'Kanit', sans-serif;
+      font-weight: 500;
+      color: var(--gray);
+      white-space: nowrap;
+    }
+
+    .modal-details dd {
+      margin: 0;
+      color: var(--black);
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-family: 'Kanit', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--primary);
+      border: 1.5px solid var(--primary);
+      border-radius: 2px;
+      padding: 3px 10px;
+      text-decoration: none;
+      transition: background-color 0.15s, color 0.15s;
+    }
+
+    .nav-btn:hover {
+      background-color: var(--primary);
+      color: var(--white);
+    }
+
+    /* Mobile card layout */
+    .mobile-cards {
+      display: none;
+    }
+
+    .match-card {
+      background: var(--white);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      padding: 1rem;
+      margin-bottom: 0.5rem;
+      cursor: pointer;
+      transition: box-shadow 0.15s;
+    }
+
+    .match-card:hover {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    }
+
+    .match-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+      font-size: 0.8rem;
+      color: var(--gray);
+    }
+
+    .match-card-top .serie-tag {
+      font-size: 0.65rem;
+    }
+
+    .match-card-teams {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .match-card-team {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .match-card-team.home {
+      justify-content: flex-end;
+      text-align: right;
+    }
+
+    .match-card-team.away {
+      justify-content: flex-start;
+      text-align: left;
+    }
+
+    .match-card-team .name {
+      font-family: 'Kanit', sans-serif;
+      font-weight: 500;
+      font-size: 0.9rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .match-card-team .team-logo {
+      width: 28px;
+      height: 28px;
+    }
+
+    .match-card-vs {
+      font-family: 'Kanit', sans-serif;
+      font-weight: 700;
+      color: var(--gray);
+      flex-shrink: 0;
+    }
+
+    .match-card-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 0.6rem;
+      font-size: 0.8rem;
+      color: var(--gray);
+    }
+
+    @media (max-width: 768px) {
+      .card-body { padding: 1.25rem; }
+      .results-panel { display: none; }
+      .mobile-cards { display: block; }
+    }
   </style>
+
   <script>
+    const LOGO_BASE_URL = 'https://admin.handballbelgium.be/lms_league_ws/public/img/'
     const bearerToken = 'WP_Access eyJpdiI6Ikdoa0VQMkpMdkFQRUFpU0VkRXlTXC9BPT0iLCJ2YWx1ZSI6IktEMG9KRTMxRjMxMlJnKys2RSszV0FQbGxBU0pjZ2l4YnFlWGF4U00wQzRxbVFEcTJyTkVsaFwvcmxDZkVEYWZKIiwibWFjIjoiODg1YjgzMjY4ZmU2MDdhNGFlNmRmNGU4NWQxNTQwMDY2YmU2ZjU2MjY2YzRjZTA1MWRlNTU5NDIwZDQxYmNmMyJ9'
 
     async function fetchRefereeAutoComplete(input) {
-
       try {
         const response = await fetch(`https://admin.handballbelgium.be/lms_league_ws/public/api/v3/ng/referee?filter=${input}&role_type=2&selects=reduced`, {
           method: 'GET',
@@ -67,7 +541,6 @@
             'Content-Type': 'application/json',
           },
         })
-
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`)
         }
@@ -134,80 +607,122 @@
     async function fetchGames(selectedReferee, selectedMonth) {
       apiGames = selectedMonth !== 'future' ? await fetchGamesPerMonth(selectedReferee, selectedMonth) : await fetchFutureGames(selectedReferee)
       games = apiGames.map(game => ({
-        //     "home_club_logo_img_url": "uploads\/club101\/entente-centre.jpg",
-        //     "away_club_logo_img_url": "uploads\/club123\/waterloo-ash.jpg",
         date: game.date,
         time: game.time,
         serie_name: game.serie_short_name,
         reference: game.reference,
         home_team: game.home_team_short_name,
+        home_logo: game.home_club_logo_img_url ? LOGO_BASE_URL + game.home_club_logo_img_url : '',
         away_team: game.away_team_short_name,
-        venue_name: game.venue_name + (game.venue_city ? `, ${game.venue_city} ` : ''),
+        away_logo: game.away_club_logo_img_url ? LOGO_BASE_URL + game.away_club_logo_img_url : '',
+        venue_name: game.venue_name + (game.venue_city ? `, ${game.venue_city}` : ''),
         referees: game.referees.slice(0, 2).filter(ref => ref).map(ref => `${ref.firstname} ${ref.surname}`).join(', '),
+        collega: game.referees.slice(0, 2).filter(ref => ref && ref.member_id !== selectedReferee.id).map(ref => `${ref.firstname} ${ref.surname}`).join(', '),
         observer: game.referees.length > 2 ? [game.referees[2]].filter(ref => ref).map(ref => `${ref.firstname} ${ref.surname}`).join(', ') : ""
       }))
       return games
     }
   </script>
+</head>
 
 <body>
-<div class="container "><h1>Aanduidingen Scheidsrechters '25-'26</h1></div>
-<div class="container mt-5">
-  <div class="mb-3 position-relative">
-    <div id="entityContainer" class="form-control p-2 d-flex flex-wrap">
-      <input type="text" id="autocompleteInput" class="border-0" placeholder="Vul een naam in..." autocomplete="off" style="flex: 1; min-width: 150px;">
-      <div class="spinner-border float-end rounded-circle" id="autocompleteSpinner" role="status"></div>
-    </div>
-    <div id="autocompleteList" class="autocomplete-items"></div>
-  </div>
-  <div class="mb-3">
-    <label for="monthDropdown" class="form-label">Enkel toekomstige wedstrijden of per maand opzoeken:</label>
-    <select id="monthDropdown" class="form-control">
-      <option value="future" selected>Enkel toekomstige wedstrijden</option>
-      <option value="08">Augustus</option>
-      <option value="09">September</option>
-      <option value="10">Oktober</option>
-      <option value="11">November</option>
-      <option value="12">December</option>
-      <option value="01">Januari</option>
-      <option value="02">Februari</option>
-      <option value="03">Maart</option>
-      <option value="04">April</option>
-      <option value="05">Mei</option>
-      <option value="06">Juni</option>
-      <option value="07">Juli</option>
-    </select>
-  </div>
-  <button id="submitButton" class="btn btn-primary" disabled>
-    <span class="spinner-border spinner-border-sm rounded-circle" id="loadingSpinner" role="status"
-          aria-hidden="true"></span>
-    Zoeken
-  </button>
 
-  <div class="mt-5">
-    <table class="table table-striped" id="resultTable" style="display:none;">
-      <thead >
-      <tr id="tableHeader"></tr>
-      </thead>
-      <tbody id="tableBody"></tbody>
-    </table>
+<div class="site-header">
+  <div class="container">
+    <a href="/" class="site-logo">
+      <img src="/logo.png" alt="Sasja HC">
+    </a>
+    <h1 class="page-title">Aanduidingen Scheidsrechters '25–'26</h1>
+  </div>
+</div>
+
+<div class="container" style="max-width: 960px;">
+  <div class="card-panel mb-4">
+    <div class="card-body">
+      <div class="row g-3 align-items-end">
+        <div class="col-12 col-md-5">
+          <label for="autocompleteInput">Scheidsrechter</label>
+          <div class="position-relative">
+            <div id="entityContainer" class="form-control px-2 d-flex flex-wrap align-items-center">
+              <input type="text" id="autocompleteInput" class="border-0" placeholder="Zoek op naam..." autocomplete="off" style="flex: 1; min-width: 120px; outline: none;">
+              <div class="spinner-border float-end rounded-circle" id="autocompleteSpinner" role="status"></div>
+            </div>
+            <div id="autocompleteList" class="autocomplete-items"></div>
+          </div>
+        </div>
+        <div class="col-12 col-md-5">
+          <label for="monthDropdown">Periode</label>
+          <select id="monthDropdown" class="form-select">
+            <option value="future" selected>Enkel toekomstige wedstrijden</option>
+            <option value="08">Augustus</option>
+            <option value="09">September</option>
+            <option value="10">Oktober</option>
+            <option value="11">November</option>
+            <option value="12">December</option>
+            <option value="01">Januari</option>
+            <option value="02">Februari</option>
+            <option value="03">Maart</option>
+            <option value="04">April</option>
+            <option value="05">Mei</option>
+            <option value="06">Juni</option>
+            <option value="07">Juli</option>
+          </select>
+        </div>
+        <div class="col-12 col-md-2">
+          <button id="submitButton" class="btn btn-primary-sasja w-100" disabled>
+            <span class="spinner-border spinner-border-sm rounded-circle me-1" id="loadingSpinner" role="status" aria-hidden="true"></span>
+            Zoeken
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="resultsContainer" style="display:none;">
+    <div class="results-panel">
+      <table>
+        <thead>
+          <tr id="tableHeader"></tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+    <div class="mobile-cards" id="mobileCards"></div>
+  </div>
+
+  <div id="emptyState" style="display:none;">
+    <div class="card-panel">
+      <div class="empty-state">
+        <p>Geen wedstrijden gevonden voor deze selectie.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Detail Modal -->
+<div class="modal-overlay" id="detailModal">
+  <div class="modal-panel">
+    <button class="modal-close" id="modalClose">&times;</button>
+    <div class="modal-match-header" id="modalMatchHeader"></div>
+    <dl class="modal-details" id="modalDetails"></dl>
   </div>
 </div>
 
 <script>
   const $inputField = $('#autocompleteInput')
-  const $entityContainer = $('#entityContainer');
+  const $entityContainer = $('#entityContainer')
   const $autocompleteList = $('#autocompleteList')
   const $autocompleteSpinner = $('#autocompleteSpinner')
   const $submitButton = $('#submitButton')
   const $monthDropdown = $('#monthDropdown')
-  const $resultTable = $('#resultTable')
+  const $resultsContainer = $('#resultsContainer')
+  const $emptyState = $('#emptyState')
   const $loadingSpinner = $('#loadingSpinner')
-  const MIN_CHARACTERS = 3 // Minimum characters required to trigger API call
-  const DEBOUNCE_DELAY = 300 // Debounce delay in milliseconds
+  const $detailModal = $('#detailModal')
+  const MIN_CHARACTERS = 3
+  const DEBOUNCE_DELAY = 300
   let selectedReferee = null
 
-  // Debounce function to limit API calls
   function debounce(func, delay) {
     let timeout
     return function(...args) {
@@ -218,12 +733,10 @@
 
   function showSuggestions(suggestions) {
     $autocompleteList.empty()
-
     if (!suggestions || suggestions.length === 0) {
       $autocompleteList.hide()
       return
     }
-
     suggestions.forEach(function(item) {
       const $listItem = $('<div>', {
         class: 'autocomplete-item',
@@ -235,7 +748,6 @@
       })
       $autocompleteList.append($listItem)
     })
-
     $autocompleteList.show()
   }
 
@@ -243,36 +755,30 @@
     $inputField.val('').prop('disabled', true).prop('placeholder', '')
     selectedReferee = referee
     toggleSubmitbutton()
-    const $tag = $('<span class="entity-tag">').text(referee.name);
+    const $tag = $('<span class="entity-tag">').text(referee.name)
     const $closeBtn = $('<span class="close-btn">&times;</span>').on('click', function () {
-      removeEntity();
-    });
-
-    $tag.append($closeBtn);
-    $inputField.before($tag);
+      removeEntity()
+    })
+    $tag.append($closeBtn)
+    $inputField.before($tag)
   }
 
   function removeEntity() {
-    selectedReferee = null;
+    selectedReferee = null
     toggleSubmitbutton()
-    $entityContainer.find('.entity-tag').remove();
-    $inputField.prop('disabled', false).prop('placeholder', 'Vul een naam in...'); // Re-enable the input
-    $inputField.focus(); // Focus back on input
+    $entityContainer.find('.entity-tag').remove()
+    $inputField.prop('disabled', false).prop('placeholder', 'Zoek op naam...')
+    $inputField.focus()
   }
 
   function toggleSubmitbutton() {
-    if (selectedReferee) {
-      $submitButton.prop('disabled', false)
-    } else {
-      $submitButton.prop('disabled', true)
-    }
+    $submitButton.prop('disabled', !selectedReferee)
   }
 
   const handleInput = function() {
     selectedReferee = null
     toggleSubmitbutton()
     const query = $inputField.val().trim()
-
     if (query.length < MIN_CHARACTERS) {
       $autocompleteList.empty().hide()
       return
@@ -281,66 +787,175 @@
     fetchRefereeAutoComplete(query).then(
       results => showSuggestions(results),
     ).then(() => $autocompleteSpinner.hide())
-
   }
 
-  // Attach input event listener to the input field
   $inputField.on('input', debounce(handleInput, DEBOUNCE_DELAY))
 
   $inputField.on('focus', function() {
-    if (!selectedReferee) {
-      handleInput()
-    }
+    if (!selectedReferee) handleInput()
   })
-
 
   $(document).on('click', function(e) {
     if (!$(e.target).closest('#autocompleteInput').length) {
       $autocompleteList.empty().hide()
     }
   })
-  // Dictionary to map original header keys to display-friendly names
-  const headerMappings = {
-    date: 'Datum',
-    time: 'Time',
-    serie_name: 'Reeks',
-    home_team: 'Thuisploeg',
-    away_team: 'Uitploeg',
-    venue_name: 'Locatie',
-    referees: 'Scheidsrechters',
-    observer: 'Waarnemer',
-    reference: 'Wedstrijdnummer'
+
+  const DUTCH_MONTHS = ['januari', 'februari', 'maart', 'april', 'mei', 'juni',
+    'juli', 'augustus', 'september', 'oktober', 'november', 'december']
+
+  function formatDateNl(dateStr) {
+    const parts = (dateStr || '').split('-')
+    if (parts.length !== 3) return escapeHtml(dateStr || '')
+    const day = parseInt(parts[2], 10)
+    const month = DUTCH_MONTHS[parseInt(parts[1], 10) - 1] || ''
+    return `${day} ${month} ${parts[0]}`
   }
+
+  function escapeHtml(text) {
+    const div = document.createElement('div')
+    div.textContent = text
+    return div.innerHTML
+  }
+
+  function buildLogo(logoUrl, size) {
+    size = size || 24
+    if (logoUrl) {
+      return `<img src="${escapeHtml(logoUrl)}" class="team-logo" style="width:${size}px;height:${size}px" alt="" onerror="this.style.display='none'">`
+    }
+    return ''
+  }
+
+  function buildMatchCells(item) {
+    return `<td class="col-home-name">${escapeHtml(item.home_team || '')}</td>
+      <td class="col-logo">${buildLogo(item.home_logo)}</td>
+      <td class="col-vs">–</td>
+      <td class="col-logo">${buildLogo(item.away_logo)}</td>
+      <td class="col-away-name">${escapeHtml(item.away_team || '')}</td>`
+  }
+
+  function openModal(item) {
+    const $header = $('#modalMatchHeader')
+    const $details = $('#modalDetails')
+
+    $header.html(`
+      <div class="modal-team">
+        ${item.home_logo ? `<img src="${escapeHtml(item.home_logo)}" alt="" onerror="this.style.display='none'">` : ''}
+        <div class="modal-team-name">${escapeHtml(item.home_team || '')}</div>
+      </div>
+      <div class="modal-vs">vs</div>
+      <div class="modal-team">
+        ${item.away_logo ? `<img src="${escapeHtml(item.away_logo)}" alt="" onerror="this.style.display='none'">` : ''}
+        <div class="modal-team-name">${escapeHtml(item.away_team || '')}</div>
+      </div>
+    `)
+
+    let detailsHtml = `
+      <dt>Datum</dt><dd>${formatDateNl(item.date)}</dd>
+      <dt>Uur</dt><dd>${escapeHtml((item.time || '').substring(0, 5))}</dd>
+      <dt>Reeks</dt><dd>${escapeHtml(item.serie_name)}</dd>
+      <dt>Wedstrijdnr</dt><dd>${escapeHtml(item.reference)}</dd>
+      <dt>Locatie</dt>
+      <dd>
+        ${escapeHtml(item.venue_name)}
+        <div class="nav-buttons">
+          <a href="https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(item.venue_name)}" target="_blank" rel="noopener" class="nav-btn" title="Route via Google Maps">
+            <i class="fa-solid fa-diamond-turn-right"></i> Google Maps
+          </a>
+          <a href="https://waze.com/ul?q=${encodeURIComponent(item.venue_name)}" target="_blank" rel="noopener" class="nav-btn" title="Route via Waze">
+            <i class="fa-solid fa-diamond-turn-right"></i> Waze
+          </a>
+        </div>
+      </dd>
+    `
+    if (item.referees) {
+      detailsHtml += `<dt>Scheidsrechters</dt><dd>${escapeHtml(item.referees)}</dd>`
+    }
+    detailsHtml += `<dt>Waarnemer</dt><dd>${item.observer ? escapeHtml(item.observer) : '–'}</dd>`
+    $details.html(detailsHtml)
+
+    $detailModal.addClass('active')
+  }
+
+  function closeModal() {
+    $detailModal.removeClass('active')
+  }
+
+  $('#modalClose').on('click', closeModal)
+
+  $detailModal.on('click', function(e) {
+    if (e.target === this) closeModal()
+  })
+
+  $(document).on('keydown', function(e) {
+    if (e.key === 'Escape') closeModal()
+  })
 
   function displayTable(data) {
     const $tableHeader = $('#tableHeader')
     const $tableBody = $('#tableBody')
+    const $mobileCards = $('#mobileCards')
 
     $tableHeader.empty()
     $tableBody.empty()
-
+    $mobileCards.empty()
+    $resultsContainer.hide()
+    $emptyState.hide()
     if (!data || data.length === 0) {
-      $tableHeader.append(`<th>Geen wedstrijden gevonden</th>`)
-      $resultTable.show()
+      $emptyState.show()
       return
     }
 
-    const headers = Object.keys(data[0])
-    const displayHeaders = headers.map(header => headerMappings[header] || header)
-    displayHeaders.forEach(key => {
-      $tableHeader.append(`<th>${key}</th>`)
-    })
+    // Desktop table
+    $tableHeader.html(`
+      <th>Datum</th>
+      <th>Uur</th>
+      <th class="col-home-name" colspan="2">Thuis</th>
+      <th class="col-vs"></th>
+      <th class="col-away-name" colspan="2">Uit</th>
+      <th>Reeks</th>
+      <th>Collega</th>
+      <th></th>
+    `)
 
-    // Populate table rows
     data.forEach(item => {
       const $row = $('<tr>')
-      headers.forEach(key => {
-        $row.append(`<td>${item[key]}</td>`)
-      })
+      $row.append(`<td>${escapeHtml(item.date)}</td>`)
+      $row.append(`<td>${escapeHtml((item.time || '').substring(0, 5))}</td>`)
+      $row.append(buildMatchCells(item))
+      $row.append(`<td><span class="serie-tag">${escapeHtml(item.serie_name)}</span></td>`)
+      $row.append(`<td>${escapeHtml(item.collega)}</td>`)
+      $row.append(`<td class="col-detail-icon"><i class="fa-solid fa-circle-info"></i></td>`)
+      $row.on('click', function() { openModal(item) })
       $tableBody.append($row)
+
+      // Mobile card
+      const time = (item.time || '').substring(0, 5)
+      const $card = $(`
+        <div class="match-card">
+          <div class="match-card-top">
+            <span>${formatDateNl(item.date)}, ${escapeHtml(time)}</span>
+            <span class="serie-tag">${escapeHtml(item.serie_name)}</span>
+          </div>
+          <div class="match-card-teams">
+            <div class="match-card-team home">
+              <span class="name">${escapeHtml(item.home_team || '')}</span>
+              ${buildLogo(item.home_logo, 28)}
+            </div>
+            <span class="match-card-vs">–</span>
+            <div class="match-card-team away">
+              ${buildLogo(item.away_logo, 28)}
+              <span class="name">${escapeHtml(item.away_team || '')}</span>
+            </div>
+          </div>
+          ${item.collega ? `<div class="match-card-bottom"><span>Collega: ${escapeHtml(item.collega)}</span><i class="fa-solid fa-circle-info" style="color:#d1d5db"></i></div>` : `<div class="match-card-bottom"><span></span><i class="fa-solid fa-circle-info" style="color:#d1d5db"></i></div>`}
+        </div>
+      `)
+      $card.on('click', function() { openModal(item) })
+      $mobileCards.append($card)
     })
 
-    $resultTable.show()
+    $resultsContainer.show()
   }
 
   $monthDropdown.on('change', function() {
@@ -349,20 +964,16 @@
 
   $submitButton.on('click', function() {
     const button = $(this)
-    const spinner = button.find('.spinner-border')
-    const buttonText = button.find('.button-text')
     button.prop('disabled', true)
-    buttonText.text('Zoeken...')
-    spinner.show()
+    $loadingSpinner.show()
 
     const selectedMonth = $monthDropdown.val()
     fetchGames(selectedReferee, selectedMonth).then(
       details => displayTable(details),
     ).finally(() => {
-        buttonText.text('Zoeken')
-        spinner.hide()
-      },
-    )
+      $loadingSpinner.hide()
+      toggleSubmitbutton()
+    })
   })
 
   $(document).ready(function() {
