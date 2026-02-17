@@ -31,8 +31,8 @@ export default function index() {
           <figure>
             <Image
               src="/recreanten/team.png"
-              layout="fill"
-              objectFit="contain"
+              fill
+              style={{ objectFit: 'contain' }}
               alt="best team in the world"
               unoptimized
             />

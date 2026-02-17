@@ -20,10 +20,8 @@ const HeadlessLink = forwardRef<HTMLAnchorElement, Props & HTMLProps<HTMLAnchorE
     }
 
     return (
-      <NextLink href={href}>
-        <a className={clsx(className)} ref={ref} {...props}>
-          {children}
-        </a>
+      <NextLink href={href} className={clsx(className)} ref={ref} {...props}>
+        {children}
       </NextLink>
     )
   }

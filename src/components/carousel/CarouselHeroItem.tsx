@@ -28,7 +28,7 @@ export default function CarouselHeroItem({
   return (
     <CarouselItem show={show} className={className}>
       {image && (
-        <Image src={image} alt="Carousel image." layout="fill" objectFit="cover" unoptimized />
+        <Image src={image} alt="Carousel image." fill style={{ objectFit: 'cover' }} unoptimized />
       )}
       <section className="absolute inset-0 flex items-end space-x-16 overflow-hidden bg-black bg-opacity-50 p-8">
         <button onClick={() => goPreviousItem()}>

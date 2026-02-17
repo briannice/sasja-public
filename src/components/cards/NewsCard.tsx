@@ -17,7 +17,7 @@ export default function NewsCard({ news }: Props) {
       <section className="flex h-full flex-col">
         <figure className="relative aspect-video">
           {image && (
-            <Image src={image} alt="Nieuws banner." layout="fill" objectFit="cover" unoptimized />
+            <Image src={image} alt="Nieuws banner." fill style={{ objectFit: 'cover' }} unoptimized />
           )}
         </figure>
         <h3 className="m-4 flex-1 border-b border-primary pb-4 text-2xl">{news.title}</h3>

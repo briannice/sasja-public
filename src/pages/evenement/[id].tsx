@@ -59,7 +59,7 @@ export default function EventDetailPage({ event, image, defaultImage }: Props) {
         </ul>
         {image && (
           <figure>
-            <Image src={image} alt="News image." layout="fill" objectFit="cover" unoptimized />
+            <Image src={image} alt="News image." fill style={{ objectFit: 'cover' }} unoptimized />
           </figure>
         )}
         <div className="cms-content" dangerouslySetInnerHTML={{ __html: event.content }} />

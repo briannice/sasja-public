@@ -17,8 +17,8 @@ export default function Link({ children, href, blank = false, ...props }: Props)
   }
 
   return (
-    <NextLink href={href}>
-      <a {...props}>{children}</a>
+    <NextLink href={href} {...props}>
+      {children}
     </NextLink>
   )
 }

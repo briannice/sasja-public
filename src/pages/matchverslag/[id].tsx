@@ -64,7 +64,7 @@ export default function MatchReportDetailPage({ matchReport, image, teamImage }:
         </ul>
         {image && (
           <figure>
-            <Image src={image} alt="News image." layout="fill" objectFit="cover" unoptimized />
+            <Image src={image} alt="News image." fill style={{ objectFit: 'cover' }} unoptimized />
           </figure>
         )}
         <div

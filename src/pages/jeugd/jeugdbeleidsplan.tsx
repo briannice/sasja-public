@@ -63,8 +63,8 @@ export default function Youthplan() {
             <Image
               src="/jeugd/mazlow.jpg"
               alt="mazlow"
-              layout="fill"
-              objectFit="contain"
+              fill
+              style={{ objectFit: 'contain' }}
               unoptimized
             />
           </figure>
@@ -106,8 +106,8 @@ export default function Youthplan() {
             <Image
               src="/jeugd/piramide.jpg"
               alt="mazlow"
-              layout="fill"
-              objectFit="contain"
+              fill
+              style={{ objectFit: 'contain' }}
               unoptimized
             />
           </figure>
@@ -347,8 +347,8 @@ export default function Youthplan() {
             <Image
               src="/jeugd/club.jpg"
               alt="mazlow"
-              layout="fill"
-              objectFit="contain"
+              fill
+              style={{ objectFit: 'contain' }}
               unoptimized
             />
           </figure>

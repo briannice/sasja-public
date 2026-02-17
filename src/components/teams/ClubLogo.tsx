@@ -18,13 +18,13 @@ export default function ClubLogo({ size, path = '', sasja = false }: Props) {
   return (
     <figure className="relative aspect-square" style={{ width: size }}>
       {sasja ? (
-        <Image src="/logo.png" alt="Sajsa logo" layout="fill" objectFit="contain" unoptimized />
+        <Image src="/logo.png" alt="Sajsa logo" fill style={{ objectFit: 'contain' }} unoptimized />
       ) : url ? (
         <Image
           src={url}
           alt=""
-          layout="fill"
-          objectFit="contain"
+          fill
+          style={{ objectFit: 'contain' }}
           unoptimized
           onError={() => setUrl(null)}
         />

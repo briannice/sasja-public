@@ -3,7 +3,7 @@ import FacebookIcon from '@/components/icons/FacebookIcon'
 import InstagramIcon from '@/components/icons/InstagramIcon'
 import Link from '@/components/Link'
 import { headerLinks } from '@/data/links'
-import { Menu, Transition } from '@headlessui/react'
+import { Menu, MenuButton, MenuItems, MenuItem, Transition } from '@headlessui/react'
 import clsx from 'clsx'
 import Image from 'next/image'
 import React, { Fragment, useState } from 'react'
@@ -21,8 +21,8 @@ export default function Header() {
           <Image
             src="/logo.png"
             alt="Logo Sasja HC"
-            layout="fill"
-            objectFit="contain"
+            fill
+            style={{ objectFit: 'contain' }}
             unoptimized
           />
         </Link>
@@ -43,7 +43,7 @@ export default function Header() {
                   <Menu>
                     {({ open }) => (
                       <>
-                        <Menu.Button className="flex h-full items-center space-x-3 px-8">
+                        <MenuButton className="flex h-full items-center space-x-3 px-8">
                           <span className="font-kanit text-dark">{link.name}</span>
                           <RiArrowDownSLine
                             className={clsx(
@@ -51,25 +51,25 @@ export default function Header() {
                               open ? 'rotate-180' : 'group-hover:rotate-180'
                             )}
                           />
-                        </Menu.Button>
-                        <Menu.Items className="absolute right-8 z-50 -mt-2 flex flex-col rounded-lg border border-light bg-white shadow-lg">
+                        </MenuButton>
+                        <MenuItems className="absolute right-8 z-50 -mt-2 flex flex-col rounded-lg border border-light bg-white shadow-lg focus:outline-none">
                           {link.sublinks.map((sublink) => (
-                            <Menu.Item key={sublink.name}>
-                              {({ active }) => (
+                            <MenuItem key={sublink.name}>
+                              {({ focus }) => (
                                 <HeadlessLink
                                   href={sublink.href}
                                   blank={sublink.blank}
                                   className={clsx(
                                     'whitespace-nowrap py-2 px-8 text-right font-kanit text-dark',
-                                    active && 'bg-light'
+                                    focus && 'bg-light'
                                   )}
                                 >
                                   {sublink.name}
                                 </HeadlessLink>
                               )}
-                            </Menu.Item>
+                            </MenuItem>
                           ))}
-                        </Menu.Items>
+                        </MenuItems>
                       </>
                     )}
                   </Menu>
@@ -97,9 +97,9 @@ export default function Header() {
           <Menu as="div" className="order-1">
             {({ open }) => (
               <>
-                <Menu.Button className="ml-auto">
+                <MenuButton className="ml-auto">
                   {open ? <RiCloseLine className="h-8 w-8" /> : <RiMenuLine className="h-8 w-8" />}
-                </Menu.Button>
+                </MenuButton>
                 <Transition
                   as={Fragment}
                   enter="transition ease-out duration-100"
@@ -109,15 +109,15 @@ export default function Header() {
                   leaveFrom="translate-x-0"
                   leaveTo="translate-x-full"
                 >
-                  <Menu.Items
+                  <MenuItems
                     as="div"
-                    className="container fixed top-20 bottom-0 right-0 z-50 overflow-y-scroll bg-white px-8 shadow tablet:w-80"
+                    className="container fixed top-20 bottom-0 right-0 z-50 overflow-y-scroll bg-white px-8 shadow tablet:w-80 focus:outline-none"
                   >
                     <ul className="divide-y divide-light py-8">
                       {headerLinks.map((link, i) => (
                         <li key={link.name}>
                           {link.href ? (
-                            <Menu.Item>
+                            <MenuItem>
                               <HeadlessLink
                                 href={link.href}
                                 blank={link.blank}
@@ -125,7 +125,7 @@ export default function Header() {
                               >
                                 {link.name}
                               </HeadlessLink>
-                            </Menu.Item>
+                            </MenuItem>
                           ) : (
                             link.sublinks && (
                               <>
@@ -158,7 +158,7 @@ export default function Header() {
                                   <ul className="mb-3 flex flex-col border-l border-primary pl-3">
                                     {link.sublinks.map((sublink) => (
                                       <li key={sublink.name}>
-                                        <Menu.Item>
+                                        <MenuItem>
                                           <HeadlessLink
                                             href={sublink.href}
                                             blank={sublink.blank}
@@ -166,7 +166,7 @@ export default function Header() {
                                           >
                                             {sublink.name}
                                           </HeadlessLink>
-                                        </Menu.Item>
+                                        </MenuItem>
                                       </li>
                                     ))}
                                   </ul>
@@ -188,7 +188,7 @@ export default function Header() {
                         </a>
                       </li>
                     </ul>
-                  </Menu.Items>
+                  </MenuItems>
                 </Transition>
               </>
             )}

@@ -17,7 +17,7 @@ export default function PlayerCard({ player }: Props) {
           <Image
             src={image}
             alt="Player Image"
-            layout="fill"
+            fill
             className="player-image"
             unoptimized
           />
