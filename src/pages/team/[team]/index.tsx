@@ -98,15 +98,12 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     )
   )
 
-  const key = team.id
-
   // Props and ISR
   return {
     props: {
       competitions,
       team,
       initialMatchReports,
-      key,
     },
     revalidate: 5 * 60,
   }
