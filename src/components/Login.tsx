@@ -16,15 +16,22 @@ export default function Login({ className }: Props) {
     const {setAuthenticated, isAuthenticated} = useAuthentication()
 
     const login = async (password: string) => {
-        if (password === "Sasja1958") {
+        const res = await fetch('/api/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ password }),
+        })
+        if (res.ok) {
             setAuthenticated(true)
             setShowLogin(false)
         } else {
-            throw {"message": "Ongeldig wachtwoord"}
+            const data = await res.json()
+            throw { message: data.message || 'Ongeldig wachtwoord' }
         }
     }
 
     const logout = async () => {
+        await fetch('/api/logout', { method: 'POST' })
         setAuthenticated(false)
         setShowLogout(true)
     }

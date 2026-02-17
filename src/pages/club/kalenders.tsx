@@ -3,7 +3,7 @@ import Link from '@/components/Link'
 import Head from 'next/head'
 import React, {useEffect, useRef, useState} from 'react'
 import {collectionToModels} from "@/services/firebase/firestore";
-import {TeamModel} from "@/types/models";
+import {GameModel, TeamModel} from "@/types/models";
 import {collection, getDocs, orderBy, query} from "firebase/firestore";
 import {db} from "@/services/firebase";
 import {GetStaticProps} from "next";
@@ -13,8 +13,6 @@ import {HiClipboardDocumentList} from "react-icons/hi2";
 import { HiDocumentDownload, HiExternalLink } from 'react-icons/hi'
 import {FcGoogle} from "react-icons/fc";
 import {RiMicrosoftFill} from "react-icons/ri";
-import useAuthentication from '@/utils/auth'
-import { competitionService } from '@/services/competitions/competition'
 import * as XLSX from 'xlsx'
 import { FaCircleNotch } from 'react-icons/fa'
 
@@ -55,8 +53,6 @@ export default function CalendersPage({teams}: Props) {
         }, 1500);
         return () => clearTimeout(id)
     }
-    const {isAuthenticated} = useAuthentication()
-
     const clickExcel = async (e: any, team: TeamModel, i: number) => {
         e.preventDefault();
         try {
@@ -67,7 +63,12 @@ export default function CalendersPage({teams}: Props) {
           const wb = XLSX.utils.book_new()
           for (const competition of team.competitions) {
             const name = competition.name
-            const downloadCalendar = await competitionService.getCompetitionCalendar(competition, isAuthenticated())
+            const calendarRes = await fetch('/api/calendar', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(competition),
+            })
+            const downloadCalendar: GameModel[] = await calendarRes.json()
             const rows = downloadCalendar.map((g) => ({
               Date: g.date,
               Time: g.time ?? '',

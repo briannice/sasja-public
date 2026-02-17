@@ -3,16 +3,7 @@ import { getDateRangeForGamesOverview, getWeekNumberForGamesOverview } from '@/u
 import { HBCompetitionIntegration } from '@/services/competitions/hb/integration'
 import { SuperHandballLeageCompetitionIntegration } from '@/services/competitions/shl/integration'
 
-// const SHL = {
-//   name: 'Super Handball League',
-//   serieId: -1,
-//   vhvId: 0,
-//   ranking: true,
-// } as TeamCompetition
-
-export const SHL_BASED_COMPETITIONS: TeamCompetition[] = [
-  // SHL,
-]
+export const SHL_BASED_COMPETITIONS: TeamCompetition[] = []
 
 export interface CompetitionIntegration {
   getCompetitionCalendar(competition: TeamCompetition, isAuthenticated: boolean): Promise<GameModel[]>
@@ -58,9 +49,6 @@ class CompetitionService {
   public async getFutureGames(): Promise<GameDay[]> {
     const games = await Promise.all([
       HB_INTEGRATION.getFutureGames(),
-      // FILEBASED_INTEGRATION.getFutureGames(),
-      // HANDBALNL_INTEGRATION.getFutureGames(),
-      // SHL_INTEGRATION.getFutureGames(),
     ])
     const gamesByDate = games
       .flat()

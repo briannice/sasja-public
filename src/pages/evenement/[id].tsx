@@ -3,6 +3,7 @@ import { docRefToModel } from '@/services/firebase/firestore'
 import { downloadDefaultEventImage, downloadImage } from '@/services/firebase/storage'
 import { EventModel } from '@/types/models'
 import { formatDate, getMonthFromDate, getWeekDayFromDate } from '@/utils/date'
+import { sanitizeHTML } from '@/utils/sanitize'
 import { doc } from 'firebase/firestore'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
@@ -85,6 +86,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const image = await downloadImage(`/events/${event.id}`, 'lg')
   const defaultImage = await downloadDefaultEventImage()
+
+  event.content = sanitizeHTML(event.content)
 
   return {
     props: {

@@ -169,7 +169,21 @@ export class SuperHandballLeageCompetitionIntegration extends AbstractCompetitio
       const [, date, monthName] = dateString.split(' ')
       const month = months[monthName.toLowerCase()]
 
-      return `${month < '07' ? 2026 : 2025}-${month}-${date}`
+      const now = new Date()
+      const currentMonth = now.getMonth() + 1 // 1-12
+      const currentYear = now.getFullYear()
+      const parsedMonth = parseInt(month, 10)
+
+      let year: number
+      if (currentMonth >= 7) {
+        // We are in the first half of the season (Jul-Dec)
+        year = parsedMonth >= 7 ? currentYear : currentYear + 1
+      } else {
+        // We are in the second half of the season (Jan-Jun)
+        year = parsedMonth >= 7 ? currentYear - 1 : currentYear
+      }
+
+      return `${year}-${month}-${date}`
     }
     return ''
   }
