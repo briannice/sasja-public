@@ -2,9 +2,9 @@ import MatchReportOverview from '@/components/MatchReportOverview'
 import Competition from '@/components/teams/Competition'
 import useImage from '@/hooks/useImage'
 import { db } from '@/services/firebase'
-import { collectionToModels, docRefToModel, queryToModels } from '@/services/firebase/firestore'
+import { docRefToModel, queryToModels } from '@/services/firebase/firestore'
 import { GameModel, MatchReportModel, RankModel, TeamModel } from '@/types/models'
-import { collection, doc, getDocs, limit, orderBy, query, where } from 'firebase/firestore'
+import { collection, doc, limit, orderBy, query, where } from 'firebase/firestore'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
@@ -58,11 +58,8 @@ export default function TeamPage({ competitions, team, initialMatchReports }: Pr
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const teams = collectionToModels<TeamModel>(await getDocs(query(collection(db, 'teams'))))
-  const paths = teams.map((team) => ({ params: { team: team.id } }))
-
   return {
-    paths: paths,
+    paths: [],
     fallback: 'blocking',
   }
 }
