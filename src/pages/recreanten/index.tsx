@@ -28,11 +28,12 @@ export default function index() {
       <main>
         <h1 className="title1 mt-8">Recreanten</h1>
         <div className="cms-content">
-          <figure>
+          <figure style={{ overflow: 'hidden', maxHeight: '400px' }}>
             <Image
-              src="/recreanten/team.png"
-              fill
-              style={{ objectFit: 'contain' }}
+              src="/recreanten/team.jpeg"
+              width={800}
+              height={600}
+              style={{ width: '100%', height: 'auto', marginTop: '-20%' }}
               alt="best team in the world"
               unoptimized
             />
