@@ -6,6 +6,7 @@ on:
 
 jobs:
   deploy:
+    if: false # Temporarily disabled - migrating to Vercel
     runs-on: ubuntu-latest
     env:
       NEXT_PUBLIC_FIREBASE_API_KEY: ${{ secrets.NEXT_PUBLIC_FIREBASE_API_KEY }}
